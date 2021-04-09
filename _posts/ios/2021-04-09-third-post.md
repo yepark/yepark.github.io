@@ -1,6 +1,6 @@
 ---
 layout: posts
-title: "XCode Bitcode 지원 "
+title: "[XCode] Bitcode 지원 "
 date: 2021-04-09 14:26:00
 comments: true
 categories:
