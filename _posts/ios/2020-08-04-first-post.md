@@ -11,7 +11,7 @@ toc: true
 toc_sticky: true
 ---
 
-> 프레임워크를 정상적으로 추가 하였으나 'file not found'가 발생하는 경우
+###### 프레임워크를 정상적으로 추가 하였으나 'file not found'가 발생하는 경우
 
 1. 추가할 프레임워크가 static또는 dynamic인지 확인한다.(file명령어를 통하여 확인 가능)
 ```
