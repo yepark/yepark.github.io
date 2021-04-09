@@ -1,7 +1,7 @@
 ---
 permalink: /about/
 layout: default
-title: "About"]
+title: "About"
 toc: true
 toc_sticky: true
 ---
