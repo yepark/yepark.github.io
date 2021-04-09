@@ -1,5 +1,5 @@
 ---
-permalink: /posts/3
+permalink: /posts/2
 title: "XCode Bitcode 지원 "
 date: 2021-04-09 14:26:00
 comments: true
