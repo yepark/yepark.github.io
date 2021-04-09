@@ -1,6 +1,6 @@
 ---
 layout: posts
-title: "[Swift] MVVM패턴"
+title: "[TIL] MVVM패턴"
 date: 2021-04-09
 comments: true
 categories:
@@ -10,8 +10,6 @@ tags: [iOS, XCode, Swift]
 toc: true
 toc_sticky: true
 ---
-# TIL
-
 ## MVVM 정리
 - Model-View-ViewModel 구조  
   Model : 데이터 혹은 서비스  
