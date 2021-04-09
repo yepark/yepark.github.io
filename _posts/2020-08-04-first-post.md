@@ -1,5 +1,5 @@
 ---
-permalink: /posts/
+permalink: /posts/1
 title: "[XCode]iOS 프로젝트 프레임워크 추가시 file not found 오류"
 date: 2020-08-04
 comments : true
