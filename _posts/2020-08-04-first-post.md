@@ -16,6 +16,10 @@ toc_sticky: true
 ```
 $ file 파일명
 ```
+![Kayak][logo]
+
+[logo]: https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/screen_shot_20200805_3.png "To go kayaking."
+
 <img src="https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/screen_shot_20200805_3.png" width="auto" />
 
 프레임워크가 dynamic인 경우 General탭의 Frameworks, Libraries, and Embedded Content에 포함되어야 한다.(Build Phases에는 Embed Frameworks에만 포함)
