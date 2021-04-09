@@ -1,5 +1,6 @@
 ---
 layout: posts
+permalink: /posts/
 title: "[Jenkins]Fortify 연동 "
 date: 2020-08-04 20:36:00
 comments: true
