@@ -28,10 +28,10 @@ toc_sticky: true
   $ otool -arch armv64 -l framework/framework  | grep __LLVM
   ```
   * 위 명령어를 통하여 bitcode를 확인한 경우에도 archive에 실패하는 경우가 있는데, 보통 static 라이브러리인 경우 해당 현상이 잦은듯 하다.
-  빌드 실패시 아래 내용을 확인해 볼것.
-  - Xcode의 Skip Install옵션 YES 확인
-  - XCode 프로젝트에서 other c flags, other c++ flags에 -fembed-bitcode값을 추가
-  - user defined에 BITCODE_GENERATION_MODE키 추가와 함께 bitcode를 추가한다.
+  빌드 실패시 XCode의 아래 프로젝트 설정 내용을 확인해 볼것.
+  - Skip Install옵션 YES 확인
+  - Other C Flags / Other C++ Flags에 -fembed-bitcode추가
+  - User-Defined에 BITCODE_GENERATION_MODE플래그 및 bitcode추가
 
 ## 참고 사이트
 
