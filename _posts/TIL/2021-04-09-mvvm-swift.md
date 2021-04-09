@@ -10,7 +10,7 @@ tags: [iOS, XCode, Swift]
 toc: true
 toc_sticky: true
 ---
-# TIL - Today I Learned
+# TIL
 
 ## MVVM 정리
 - Model-View-ViewModel 구조
