@@ -15,8 +15,8 @@ toc_sticky: true
 - 컴파일 된 프로그램의 중간 표현(Intermediate Representation)
 - iOS 앱의 경우 bitcode가 기본값이지만 활성화 여부 선택 가능(watchOS 및 tvOS 앱의 경우 bitcode가 필요)
 - bitcode를 사용할려면 앱과 프레임 워크에 모두 bitcode가 포함되어야함
-- 예전에는 유니버셜빌드로 아키텍쳐를 전부 포함하여 앱스토어에 업로드하였지만, bitcode가 생김으로써 이런 불편함이 사라짐.
-bitcode로 빌드시 앱스토어에서 업로드후 필요한 아키텍쳐를 재컴파일하여 사용자가 다운로드 할 수 있게 된듯하다.
+- 예전에는 유니버셜빌드로 아키텍쳐를 전부 포함하여 앱스토어에 업로드하였지만, bitcode가 생김으로써 이런 불편함이 사라짐.  
+bitcode로 빌드시 앱스토어에서 업로드후 필요한 아키텍쳐를 재컴파일하여 사용자가 다운로드 할 수 있게 된듯하다.  
 이전처럼 x64로 플랫폼이 변할때 재빌드해서 앱스토어에 업로드하지 않아도 됨.
 
 ## Bitcode 설정 및 지원 여부 확인
@@ -27,7 +27,7 @@ bitcode로 빌드시 앱스토어에서 업로드후 필요한 아키텍쳐를 �
   $ otool -arch armv7 -l framework/framework  | grep __LLVM
   $ otool -arch armv64 -l framework/framework  | grep __LLVM
   ```
-- 위 명령어를 통하여 bitcode를 확인한 경우에도 archive에 실패하는 경우가 있는데, 보통 static 라이브러리인 경우 해당 현상이 잦은듯 하다.
+- 위 명령어를 통하여 bitcode를 확인한 경우에도 archive에 실패하는 경우가 있는데, 보통 static 라이브러리인 경우 해당 현상이 잦은듯 하다.  
 빌드 실패시 XCode의 아래 프로젝트 설정 내용을 확인해 볼것.
   1. Skip Install옵션 YES 확인
   2. Other C Flags / Other C++ Flags에 -fembed-bitcode추가
