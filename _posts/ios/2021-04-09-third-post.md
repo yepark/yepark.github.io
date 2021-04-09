@@ -9,9 +9,7 @@ categories:
 toc: true
 toc_sticky: true
 ---
-
 ## Bitcode
-
 - 컴파일 된 프로그램의 중간 표현(Intermediate Representation)
 - iOS 앱의 경우 bitcode가 기본값이지만 활성화 여부 선택 가능(watchOS 및 tvOS 앱의 경우 bitcode가 필요)
 - bitcode를 사용할려면 앱과 프레임 워크에 모두 bitcode가 포함되어야함
@@ -20,7 +18,6 @@ bitcode로 빌드시 앱스토어에서 업로드후 필요한 아키텍쳐를 �
 이전처럼 x64로 플랫폼이 변할때 재빌드해서 앱스토어에 업로드하지 않아도 됨.
 
 ## Bitcode 설정 및 지원 여부 확인
-
 - XCode의 프로젝트 설정에서 Enable Bitcode를 enable한다.
 - 아래 명령어를 통하여 bitcode로 빌드가 되었는지 확인이 가능하다.
   ```
@@ -34,7 +31,6 @@ bitcode로 빌드시 앱스토어에서 업로드후 필요한 아키텍쳐를 �
   3. User-Defined에 BITCODE_GENERATION_MODE플래그 및 bitcode추가
 
 ## 참고 사이트
-
 - [배포 옵션-Xcode 도움말](https://help.apple.com/xcode/mac/11.0/index.html?localePath=en.lproj#/devde46df08a)
 - [IR(Intermediate Representation)](https://www.lazenca.net/pages/viewpage.action?pageId=6324673)
 - [Stackoverflow](https://stackoverflow.com/questions/61824439/bitcode-bundle-could-not-be-generated-because)
