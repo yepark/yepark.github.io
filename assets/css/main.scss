@@ -2,7 +2,133 @@
 # Only the main Sass file needs front matter (the dashes are enough)
 ---
 
+$background-color: #252a34 !default;
+$text-color: #eaeaea !default;
+$primary-color: #00adb5 !default;
+$link-color: mix($primary-color, $text-color, 80%) !default;
+$link-color-hover: mix(#fff, $link-color, 25%) !default;
+$link-color-visited: mix(#000, $link-color, 25%) !default;
+
+
 @charset "utf-8";
 
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
 @import "minimal-mistakes"; // main partials
+
+
+html {
+    font-size: 14px; // change to whatever
+  
+    @include breakpoint($medium) {
+      font-size: 14px; // change to whatever
+    }
+  
+    @include breakpoint($large) {
+      font-size: 16px; // change to whatever
+    }
+  
+    @include breakpoint($x-large) {
+      font-size: 18px; // change to whatever
+    }
+  }
+  
+  
+  .page__content {
+    text-align: justify;
+  }
+  
+  .icon-black {
+    color: black !important;
+  }
+  
+  .feature__wrapper {
+      clear: both;
+      margin-bottom: 2em;
+      border-bottom: 0px solid #51555d;
+  }
+  
+  .social-icons .fas, .social-icons .fab, .social-icons .far, .social-icons .fal {
+      color: #eaeaea;
+  }
+  
+  
+  .feature__item {
+    a {
+        color: #fff;
+        text-decoration: none;
+    }
+  }
+  
+  figure {
+      display: -webkit-box;
+      display: flex;
+      -webkit-box-pack: justify;
+      justify-content: space-between;
+      -webkit-box-align: start;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      margin: 1em 0;
+  }
+  
+  figure img, figure iframe, figure .fluid-width-video-wrapper {
+      margin-bottom: 0em;
+      border-radius: 5px;
+  }
+  
+  .sidebar p, .sidebar li {
+      font-family: -apple-system,BlinkMacSystemFont,"Roboto","Segoe UI","Helvetica Neue","Lucida Grande",Arial,sans-serif;
+      font-size: .85em;
+      line-height: 1.3;
+      padding-bottom: 7px;
+  }
+  
+  .author__avatar img {
+      max-width: 200px;
+      border-radius: 50%;
+        display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .author__bio {
+    margin: 0;
+    font-size: 0.9em;
+    font-style: italic;
+  
+    @include breakpoint($large) {
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
+  }
+  
+  .author__content {
+      display: block;
+      width: 100%;
+      padding-left: 0;
+      padding-right: 0;
+      text-align: center;
+  }
+  
+  .author__urls {
+      display: center;
+      position: relative;
+      margin: 0;
+      padding: 0;
+      padding-left: 65px;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+  }
+  
+  .nav__sub-title {
+      display: block;
+      margin: 0.5rem 0;
+      padding: 0.25rem 0;
+      font-family: -apple-system,BlinkMacSystemFont,"Roboto","Segoe UI","Helvetica Neue","Lucida Grande",Arial,sans-serif;
+      font-size: .80em;
+      font-weight: bold;
+      text-transform: uppercase;
+      border-bottom: 0px solid #51555d;
+  
+  }
+  
