@@ -18,7 +18,7 @@ $ file 파일명
 ```
 ![Kayak][logo]
 
-[logo]: https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/screen_shot_20200805_3.png "To go kayaking."
+[logo]: https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/screen_shot_20200805_2.png "To go kayaking."
 
 <img src="https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/screen_shot_20200805_3.png" width="auto" />
 
