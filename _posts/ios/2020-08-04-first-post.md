@@ -1,6 +1,6 @@
 ---
 layout: single
-title: "[XCode] 프로젝트에 Dynamic프레임워크 추가 하기 "
+title: "[XCode] 프로젝트에 프레임워크 추가 하기 "
 date: 2020-08-04 12:00:00
 comments: true
 categories:
