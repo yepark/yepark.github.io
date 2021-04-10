@@ -21,13 +21,15 @@ Jenkins는 네이티브 시스템 패키지, Docker를 통해 설치하거나 JR
 - Jenkins-Fortify 플러그인 사용을 통한 회사 업무 적용(더 편해지고자..)
 
 ## Jenkins 설치
-- Jenkins를 다운로드 한다. [젠킨스 다운](https://www.jenkins.io/download/)  
+- Jenkins를 다운로드후 설치한다. [젠킨스 다운](https://get.jenkins.io/osx-stable/)  
 or
 ```
 //Homebrew를 통한 설치
 brew install jenkins-lts
 ```
-
+## Jenkins 설정
+- 테스트
+- 테스트2
 ## Jenkins-Fortify 연동
 - https://plugins.jenkins.io/fortify/ 에서 플러그인을 다운받아 설치한다.
 - https://www.microfocus.com/documentation/fortify-jenkins-plugin/ 설치 문서 참고
