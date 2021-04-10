@@ -1,5 +1,5 @@
 ---
-layout: posts
+layout: single
 title: "[TIL] MVVM패턴"
 date: 2021-04-09
 comments: true
