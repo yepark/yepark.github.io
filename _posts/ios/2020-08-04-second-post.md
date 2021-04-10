@@ -8,7 +8,7 @@ categories:
 # 목차
 toc: true
 toc_sticky: true
-tags: [iOS, XCode, Jenkins, fortify]
+tags: [iOS, XCode, Jenkins, Fortify]
 ---
 ## Jenkins
 > Jenkins는 소프트웨어 빌드, 테스트, 제공 또는 배포와 관련된 모든 종류의 작업을 자동화하는 데 사용할 수있는 독립형 오픈 소스 자동화 서버입니다.
