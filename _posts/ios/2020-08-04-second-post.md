@@ -15,10 +15,10 @@ tags: [iOS, XCode, Jenkins]
 Jenkins는 네이티브 시스템 패키지, Docker를 통해 설치하거나 JRE (Java Runtime Environment)가 설치된 모든 컴퓨터에서 독립형으로 실행할 수도 있습니다. - jenkis.io
 
 ## Jenkins 사용 목적
-- 배포 자동화를 통한..편해지기 위해..-_-;
+- 배포 자동화를 통한..편해지기 위한 목적..-_-;
 - 유닛테스트 자동화를 통한 소스 안정화
 - XCode Server가 더 편해 보이지만.. 회사에서 젠킨스를 사용함으로 공부 차원에서 사용
-- Jenkins-Fortify 연동을 통하여 더 편해지고자..
+- Jenkins-Fortify 플러그인 사용을 통한 회사 업무 적용(더 편해지고자..)
 
 ## Jenkins 설치
 - 작성 예정
