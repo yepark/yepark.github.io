@@ -33,9 +33,12 @@ brew services start jenkins-lts // Jenkins실핼
 백그라운드로 실행 jenkins-lts // 백그라운드로 실행
 ```  
 
-## Jenkins 기본 설정
-- 테스트
+- http://localhost:8080에 접속한다.
+![Embedded](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins1.png) 
+
 - 테스트2
+
+## Jenkins 기본 설정
 
 ## Jenkins-Fortify 연동
 - https://plugins.jenkins.io/fortify/ 에서 플러그인을 다운받아 설치한다.
