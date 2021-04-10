@@ -26,7 +26,7 @@ toc_sticky: true
 
 1. 추가할 프레임워크가 static으로 빌드되어 있는지 또는 dynamic으로 빌드되어 있는지 확인한다. 터미널에서 file명령어를 통하여 확인 가능하다.
 ```
-$ file TestDummy.framework
+$ file TestDummy.framework/TestDummy
 TestDummy: Mach-O 64-bit dynamically linked shared library arm64	// 동적으로 빌드된 파일
 ```
 
