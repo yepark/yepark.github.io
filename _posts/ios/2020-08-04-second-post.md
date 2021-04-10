@@ -18,6 +18,9 @@ Jenkins는 네이티브 시스템 패키지, Docker를 통해 설치하거나 JR
 - 유닛테스트 자동화를 통한 소스 안정화
 - 사설 XCode Server가 더 편해 보이지만.. 회사에서 젠킨스를 사용함으로 공부 차원에서..
 
+## Jenkins 설치
+- 작성 예정
+
 ## Jenkins-Fortify 연동
 - https://plugins.jenkins.io/fortify/ 에서 플러그인을 다운받아 설치한다.
 - https://www.microfocus.com/documentation/fortify-jenkins-plugin/ 설치 문서 참고
