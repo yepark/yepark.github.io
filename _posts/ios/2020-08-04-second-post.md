@@ -29,3 +29,4 @@ Jenkins는 네이티브 시스템 패키지, Docker를 통해 설치하거나 JR
 
 ## 참고 사이트
 - [jenkins.io](https://www.jenkins.io/)
+- [fortify](https://www.microfocus.com/documentation/fortify-jenkins-plugin/)
