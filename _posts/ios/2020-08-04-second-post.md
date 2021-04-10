@@ -30,6 +30,8 @@ brew install jenkins-lts
 - Jenkins를 실행한다.
 ```
 brew services start jenkins-lts // 백그라운드 실행
+brew services stop jenkins-lts // 중단
+
 jenkins-lts // Jenkins 실행
 ```  
 
