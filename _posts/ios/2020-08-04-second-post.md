@@ -20,15 +20,20 @@ Jenkins는 네이티브 시스템 패키지, Docker를 통해 설치하거나 JR
 - XCode Server가 더 편해 보이지만.. 회사에서 젠킨스를 사용함으로 공부 차원에서 사용
 - Jenkins-Fortify 플러그인 사용을 통한 회사 업무 적용(더 편해지고자..)
 
-## Jenkins 설치
+## Jenkins 설치 및 실행
 - Jenkins를 다운로드후 설치한다. [젠킨스 다운](https://get.jenkins.io/osx-stable/)  
-or
+or  
+Homebrew가 설치되어 있는 경우
 ```
 //Homebrew를 통한 설치
 brew install jenkins-lts
 ```  
+```
+brew services start jenkins-lts // Jenkins실핼
+백그라운드로 실행 jenkins-lts // 백그라운드로 실행
+```  
 
-## Jenkins 설정
+## Jenkins 기본 설정
 - 테스트
 - 테스트2
 
