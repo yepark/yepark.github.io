@@ -28,15 +28,27 @@ Homebrew가 설치되어 있는 경우
 //Homebrew를 통한 설치
 brew install jenkins-lts
 ```  
+- Jenkins를 실행한다.
 ```
 brew services start jenkins-lts // Jenkins실핼
 백그라운드로 실행 jenkins-lts // 백그라운드로 실행
 ```  
+- http://localhost:8080에 접속한다. 붉은색 텍스트 경로로 이동하여 패스워드를 복사하고, 텍스트 필드에 입력한다.
+![Jenkins](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins1.png)  
 
-- http://localhost:8080에 접속한다.
-![Embedded](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins1.png) 
+![Jenkins](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins2.png)  
 
-- 테스트2
+- 모듈 설치를 기다린다.
+![Jenkins](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins3.png)  
+
+- 계정 정보를 입력한다.
+![Jenkins](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins4.png)  
+
+- 계정 정보를 입력한다.
+![Jenkins](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins5.png)  
+
+- 설치 완료가 완료되면 나타나는 화면.
+![Jenkins](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins6.png)  
 
 ## Jenkins 기본 설정
 
