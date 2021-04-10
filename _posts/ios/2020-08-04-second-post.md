@@ -26,7 +26,8 @@ or
 ```
 //Homebrew를 통한 설치
 brew install jenkins-lts
-```
+```  
+
 ## Jenkins 설정
 - 테스트
 - 테스트2
