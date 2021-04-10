@@ -37,21 +37,11 @@ brew services start jenkins-lts // Jenkins실핼
 - http://localhost:8080에 접속한다. 붉은색 텍스트 경로로 이동하여 패스워드를 복사하고, 텍스트 필드에 입력한다.
 ![Jenkins](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins1.png)  
 
-![Jenkins](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins2.png)  
-
-- 모듈 설치를 기다린다.
-![Jenkins](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins3.png)  
-
-- 계정 정보를 입력한다.
-![Jenkins](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins4.png)  
-
-- 계정 정보를 입력한다.
-![Jenkins](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins5.png)  
-
-- 설치 완료가 완료되면 나타나는 화면.
+- 이후 진행은 일반적인 설치 작업으로 계정 설정후, 설치가 완료되면 아래와 같은 화면이 나타난다.
 ![Jenkins](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins6.png)  
 
 ## Jenkins 기본 설정
+- 기본 설정
 
 ## Jenkins-Fortify 연동
 - https://plugins.jenkins.io/fortify/ 에서 플러그인을 다운받아 설치한다.
