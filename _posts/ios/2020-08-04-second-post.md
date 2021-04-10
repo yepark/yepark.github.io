@@ -30,8 +30,8 @@ brew install jenkins-lts
 ```  
 - Jenkins를 실행한다.
 ```
-brew services start jenkins-lts // Jenkins실핼
-백그라운드로 실행 jenkins-lts // 백그라운드로 실행
+brew services start jenkins-lts // 백그라운드 실행
+jenkins-lts // Jenkins실핼
 ```  
 
 - http://localhost:8080에 접속한다. 붉은색 텍스트 경로로 이동하여 패스워드를 복사하고, 텍스트 필드에 입력한다.
@@ -40,13 +40,13 @@ brew services start jenkins-lts // Jenkins실핼
 - 이후 진행은 일반적인 설치 작업으로 계정 설정후, 설치가 완료되면 아래와 같은 화면이 나타난다.
 ![Jenkins](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins6.png)  
 
-## Jenkins 기본 설정
-- 기본 설정
-
 ## Jenkins-Fortify 연동
-- https://plugins.jenkins.io/fortify/ 에서 플러그인을 다운받아 설치한다.
-- https://www.microfocus.com/documentation/fortify-jenkins-plugin/ 설치 문서 참고
-- 설치후 Fortify Assessment 설정을 정상적으로 하였으나 session id오류가 나는 경우 ios build 폴더를 삭제후에 빌드하도록 한다.
+- Jenkins pluginManager에서 fortify를 검색후 설치한다.
+![Jenkins](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins_fortify.png)  
+
+- Docker를 이용하영 경우[Docker](https://plugins.jenkins.io/fortify/)
+- microfocus에 fortify-jenkins-plugin에 대한 문서가 있으니 참고 하도록 하자..[참고](https://www.microfocus.com/documentation/fortify-jenkins-plugin/)
+- Jenkins plugin 설치후 Fortify Assessment 설정을 정상적으로 하였으나 session id오류가 나는 경우 ios build 폴더를 삭제후에 빌드하도록 한다.
 
 ## 참고 사이트
 - [jenkins.io](https://www.jenkins.io/)
