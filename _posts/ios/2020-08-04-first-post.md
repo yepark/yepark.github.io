@@ -15,19 +15,19 @@ toc_sticky: true
 $ file TestDummy.framework/TestDummy
 TestDummy: Mach-O 64-bit dynamically linked shared library arm64 // 동적으로 빌드된 파일
 ```  
-
+#
 
 
 
 2. 프레임워크가 dynamic으로 빌드 된 경우 XCode프로젝트에서 General탭에 Frameworks, Libraries, and Embedded Content에 포함되어야 한다.  
 ![Embedded](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/screen_shot_20200805_2.png)  
-
+#
 
 
 
 3. Build Phases 탭에서는 Embed Frameworks에만 포함 시킨다.
 ![Embedded](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/screen_shot_20200805_4.png)  
-
+#
 
 
 
