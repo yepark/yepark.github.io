@@ -30,9 +30,8 @@ brew install jenkins-lts
 - Jenkins를 실행한다.
 ```
 brew services start jenkins-lts // 백그라운드 실행
-brew services stop jenkins-lts // 중단
-
-jenkins-lts // Jenkins 실행
+brew services stop jenkins-lts // 백그라운드 중단
+jenkins-lts // Jenkins 콘솔 실행
 ```  
 
 - http://localhost:8080에 접속한다. 붉은색 텍스트 경로로 이동하여 패스워드를 복사하고, 텍스트 필드에 입력한다.
