@@ -9,8 +9,7 @@ categories:
 toc: true
 toc_sticky: true
 ---
-***
-# Jenkins-Fortify 연동
+## Jenkins-Fortify 연동
   * https://plugins.jenkins.io/fortify/ 에서 플러그인을 다운받아 설치한다.
   * https://www.microfocus.com/documentation/fortify-jenkins-plugin/ 설치 문서 참고
   * 설치후 Fortify Assessment 설정을 정상적으로 하였으나 session id오류가 나는 경우

@@ -9,7 +9,6 @@ categories:
 toc: true
 toc_sticky: true
 ---
-***
 ## Bitcode
 - 컴파일 된 프로그램의 중간 표현(Intermediate Representation)
 - iOS 앱의 경우 bitcode가 기본값이지만 활성화 여부 선택 가능(watchOS 및 tvOS 앱의 경우 bitcode가 필요)
