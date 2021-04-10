@@ -10,7 +10,7 @@ tags: [iOS, XCode, Framework]
 toc: true
 toc_sticky: true
 ---
-## XCode프로젝트에 프레임워크를 추가할때 확인 사항
+## 프로젝트에 프레임워크를 추가할때 확인 사항
 
 1. 추가할 프레임워크가 static으로 빌드되어 있는지 또는 dynamic으로 빌드되어 있는지 확인한다. 터미널에서 file명령어를 통하여 확인 가능하다.  
 ```
