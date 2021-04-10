@@ -22,7 +22,6 @@ Jenkins는 네이티브 시스템 패키지, Docker를 통해 설치하거나 JR
 
 ## Jenkins 설치 및 실행
 - Jenkins를 다운로드후 설치한다. [젠킨스 다운](https://get.jenkins.io/osx-stable/)  
-or  
 Homebrew가 설치되어 있는 경우
 ```
 //Homebrew를 통한 설치
@@ -31,7 +30,7 @@ brew install jenkins-lts
 - Jenkins를 실행한다.
 ```
 brew services start jenkins-lts // 백그라운드 실행
-jenkins-lts // Jenkins실핼
+jenkins-lts // Jenkins 실행
 ```  
 
 - http://localhost:8080에 접속한다. 붉은색 텍스트 경로로 이동하여 패스워드를 복사하고, 텍스트 필드에 입력한다.
@@ -44,8 +43,8 @@ jenkins-lts // Jenkins실핼
 - Jenkins pluginManager에서 fortify를 검색후 설치한다.
 ![Jenkins](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins_fortify.png)  
 
-- Docker를 이용하는 경우[Docker](https://plugins.jenkins.io/fortify/)
-- microfocus에 fortify-jenkins-plugin에 대한 문서가 있으니 참고 하도록 하자..[참고](https://www.microfocus.com/documentation/fortify-jenkins-plugin/)
+- Docker를 이용하는 경우 - [Docker](https://plugins.jenkins.io/fortify/)
+- microfocus에 fortify-jenkins-plugin에 대한 문서가 있으니 참고 하도록 하자 - [참고](https://www.microfocus.com/documentation/fortify-jenkins-plugin/)
 - Jenkins plugin 설치후 Fortify Assessment 설정을 정상적으로 하였으나 session id오류가 나는 경우 ios build 폴더를 삭제후에 빌드하도록 한다.
 
 ## 참고 사이트
