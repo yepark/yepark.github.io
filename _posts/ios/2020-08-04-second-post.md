@@ -27,7 +27,7 @@ Homebrew가 설치되어 있는 경우
 //Homebrew를 통한 설치
 brew install jenkins-lts
 ```  
-- Jenkins를 실행한다.
+- Jenkins를 실행한다.  
 ```
 brew services start jenkins-lts // 백그라운드 실행
 brew services stop jenkins-lts // 백그라운드 중단
