@@ -9,6 +9,7 @@ categories:
 toc: true
 toc_sticky: true
 ---
+***
 # Jenkins-Fortify 연동
   * https://plugins.jenkins.io/fortify/ 에서 플러그인을 다운받아 설치한다.
   * https://www.microfocus.com/documentation/fortify-jenkins-plugin/ 설치 문서 참고
