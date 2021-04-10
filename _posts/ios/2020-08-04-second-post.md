@@ -33,6 +33,7 @@ brew install jenkins-lts
 brew services start jenkins-lts // Jenkins실핼
 백그라운드로 실행 jenkins-lts // 백그라운드로 실행
 ```  
+
 - http://localhost:8080에 접속한다. 붉은색 텍스트 경로로 이동하여 패스워드를 복사하고, 텍스트 필드에 입력한다.
 ![Jenkins](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins1.png)  
 
