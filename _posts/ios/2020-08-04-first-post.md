@@ -1,28 +1,15 @@
-
 ---
-
 layout: single
-
 title: "[XCode] 프로젝트에 Dynamic프레임워크 추가 방법"
-
 date: 2020-08-04
-
 comments: true
-
 categories:
-
-- ios
-
+  - ios
 tags: [iOS, XCode, Framework]
-
 # 목차
-
 toc: true
-
 toc_sticky: true
-
 ---
-
 
 1. 추가할 프레임워크가 static으로 빌드되어 있는지 또는 dynamic으로 빌드되어 있는지 확인한다. 터미널에서 file명령어를 통하여 확인 가능하다.
 ```
