@@ -43,10 +43,13 @@ jenkins-lts // Jenkins 실행
 - Jenkins pluginManager에서 fortify를 검색후 설치한다.
 ![Jenkins](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins_fortify.png)  
 
-- Docker를 이용하는 경우 - [Docker](https://plugins.jenkins.io/fortify/)
+- [Docker](https://plugins.jenkins.io/fortify/)를 이용 하는 경우
 - microfocus에 fortify-jenkins-plugin에 대한 문서가 있으니 [참고](https://www.microfocus.com/documentation/fortify-jenkins-plugin/) 한다.
-- Jenkins plugin 설치후 Fortify Assessment 설정을 정상적으로 하였으나 session id오류가 나는 경우 ios build 폴더를 삭제후에 빌드하도록 한다.
+- Jenkins 프로젝트 구성에서 빌드후 조치탭으로 이동후 Fortify Assessment 선택한다.
+- SCA와 룰팩 설정을 끝마친다.(추가 예정)
+- Jenkins plugin 설치후 Fortify Assessment 설정을 정상적으로 하였으나 (<mark  style='background-color: #fff5b1'> session id오류가 나는 경우 ios build 폴더를 삭제후에 빌드하도록 한다. </mark>)
 
 ## 참고 사이트
 - [jenkins.io](https://www.jenkins.io/)
 - [fortify](https://www.microfocus.com/documentation/fortify-jenkins-plugin/)
+- [fortify-docker](https://plugins.jenkins.io/fortify/)
