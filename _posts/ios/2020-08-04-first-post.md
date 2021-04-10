@@ -1,7 +1,7 @@
 ---
 layout: single
-title: "[XCode] 프로젝트에 Dynamic프레임워크 추가 방법"
-date: 2020-08-04
+title: "[XCode] 프로젝트에 Dynamic프레임워크 추가 방법 "
+date: 2020-08-04 12:00:00
 comments: true
 categories:
   - ios
@@ -24,13 +24,13 @@ TestDummy: Mach-O 64-bit dynamically linked shared library arm64	// 동적으로
 [logo2]: https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/screen_shot_20200805_2.png  "check embed1"
 
 
-3. Build Phases 탭에서는 Embed Frameworks에만 포함 시킨다.
+Build Phases 탭에서는 Embed Frameworks에만 포함 시킨다.
 ![Framework3][logo3]
 
-[logo3]: https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/screen_shot_20200805_4.png  "check embed2"
+[logo3]: https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/screen_shot_20200805_4.png  "check embed2"  
 
 
-4. 프레임워크를 정상적으로 추가 하였으나 'file not found' 오류가 발생하는 경우, 프로젝트 Build Setting에 Search Framework를 확인해 본다.(<mark  style='background-color: #fff5b1'> 프로젝트 하위 경로가 아닌 곳에 프레임워크가 있는 경우 Search Framework에 포함 안 되는 경우가 있다. </mark>)
+3. 프레임워크를 정상적으로 추가 하였으나 'file not found' 오류가 발생하는 경우, 프로젝트 Build Setting에 Search Framework를 확인해 본다.(<mark  style='background-color: #fff5b1'> 프로젝트 하위 경로가 아닌 곳에 프레임워크가 있는 경우 Search Framework에 포함 안 되는 경우가 있다. </mark>)
 ![Framework4][logo4]
 
 [logo4]: https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/screen_shot_20200805_1.png  "check path"
