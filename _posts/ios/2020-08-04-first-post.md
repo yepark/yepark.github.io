@@ -16,11 +16,11 @@ $ file TestDummy.framework/TestDummy
 TestDummy: Mach-O 64-bit dynamically linked shared library arm64 // 동적으로 빌드된 파일
 ```  
 <br/>
-2. 프레임워크가 dynamic으로 빌드 된 경우 XCode프로젝트에서 General탭에 Frameworks, Libraries, and Embedded Content에 포함되어야 한다.  
+2. 프레임워크가 dynamic으로 빌드 된 경우 XCode프로젝트의 General탭 Frameworks, Libraries, and Embedded Content에 포함되어야 한다.  
 ![Embedded](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/screen_shot_20200805_2.png)  
 <br/>
-3. Build Phases 탭에서는 Embed Frameworks에만 포함 시킨다.
+3. Build Phases 탭에서는 Embed Frameworks만 포함 시킨다.
 ![Embedded](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/screen_shot_20200805_4.png)  
 <br/>
-4. 프레임워크를 정상적으로 추가 하였으나 'file not found' 오류가 발생하는 경우, 프로젝트 Build Setting에 Search Framework를 확인해 본다.(<mark  style='background-color: #fff5b1'> 프로젝트 하위 경로가 아닌 곳에 프레임워크가 있는 경우 Search Framework에 포함 안 되는 경우가 있다. </mark>)  
+4. 프레임워크를 정상적으로 추가 하였으나 'file not found' 오류가 발생하는 경우, 프로젝트 Build Settings탭에 Search Framework를 확인해 본다.(<mark  style='background-color: #fff5b1'> 프로젝트 하위 경로가 아닌 곳에 프레임워크가 있는 경우 Search Framework에 포함 안 되는 경우가 있다. </mark>)  
 ![Embedded](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/screen_shot_20200805_1.png)

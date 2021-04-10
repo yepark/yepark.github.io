@@ -29,7 +29,7 @@ bitcode로 빌드시 앱스토어에서 업로드후 필요한 아키텍쳐를 �
   1. Skip Install옵션 YES 확인
   2. Other C Flags / Other C++ Flags에 -fembed-bitcode추가
   3. User-Defined에 BITCODE_GENERATION_MODE플래그 및 bitcode추가
-
+  
 ## 참고 사이트
 - [배포 옵션-Xcode 도움말](https://help.apple.com/xcode/mac/11.0/index.html?localePath=en.lproj#/devde46df08a)
 - [IR(Intermediate Representation)](https://www.lazenca.net/pages/viewpage.action?pageId=6324673)
