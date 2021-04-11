@@ -32,11 +32,11 @@ segname __LLVM  // bitcode 설정 확인
 - 위 명령어를 통하여 bitcode를 확인한 경우에도 archive에 실패하는 경우가 있는데, 보통 static 라이브러리인 경우 해당 현상이 잦은듯 하다.  
 빌드 실패시 XCode의 아래 프로젝트 설정 내용을 확인해 볼것.
   1. Skip Install옵션 YES 확인
-  ![Embedded](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/bitcode1.png)  
-  2. Other C Flags / Other C++ Flags에 -fembed-bitcode추가
-  ![Embedded](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/bitcode2.png)  
-  3. User-Defined에 BITCODE_GENERATION_MODE플래그 및 bitcode추가
   ![Embedded](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/bitcode3.png)  
+  2. Other C Flags / Other C++ Flags에 -fembed-bitcode추가
+  ![Embedded](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/bitcode1.png)  
+  3. User-Defined에 BITCODE_GENERATION_MODE플래그 및 bitcode추가
+  ![Embedded](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/bitcode2.png)  
 
 ## 참고 사이트
 - [배포 옵션-Xcode 도움말](https://help.apple.com/xcode/mac/11.0/index.html?localePath=en.lproj#/devde46df08a)
