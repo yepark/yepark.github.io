@@ -36,7 +36,7 @@ rangeOfThreeItems.firstValue = 6
   rangeOfFourItems.firstValue = 6
   // 에러, firstValue는 변수이지만 변경 불가능 
   ```  
-  이 동작은 구조체가 값 타입이기 때문입니다. 값 타입은 인스턴스가 상수로 표시되면 모든 프로퍼티도 마찬가지 변경 불가능 합니다.
+  이 동작은 구조체가 값 타입이기 때문입니다. 값 타입은 인스턴스가 상수로 표시되면 모든 프로퍼티도 마찬가지 변경 불가능 합니다.(클래스는 레퍼런스 타입이라서 상수로 인스턴스를 생성하더라도 인스턴스의 변수 프로퍼티는 변경 할수 있습니다.)
 
   2. 지연 저장 프로퍼티(Lazy Stored Properties)
   3. 저장 프로퍼티 와 인스턴스 변수(Stored Properties and Instance Variables)
