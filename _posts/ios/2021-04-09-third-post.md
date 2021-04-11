@@ -13,7 +13,7 @@ toc_sticky: true
 - 컴파일 된 프로그램의 중간 표현(Intermediate Representation)
 - iOS앱의 경우 bitcode가 기본값이지만, 활성화 여부는 선택이 가능하다.(watchOS 및 tvOS 앱의 경우 bitcode가 필수)
 - bitcode를 활성화하려면 앱과 프레임 워크에 모두 bitcode가 포함되어야 한다.
-- 예전에는 유니버셜빌드 아키텍쳐를 앱스토어에 업로드하였지만, 현재는 bitcode로 빌드후 앱스토어에서 필요한 아키텍쳐를 사용자가 다운로드 할수 있게 되었다.
+- 이전에는 유니버셜빌드 아키텍쳐를 앱스토어에 업로드하였지만, 현재는 bitcode로 빌드후 앱스토어에서 필요한 아키텍쳐를 사용자가 다운로드 할수 있게 되었다.
 
 ## Bitcode 설정
 - XCode 프로젝트 Build Settings - Build Options의 Enable Bitcode를 활성화 한다.
