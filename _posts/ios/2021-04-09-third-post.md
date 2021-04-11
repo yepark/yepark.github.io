@@ -29,8 +29,8 @@ $ otool -arch armv64 -l framework/framework  | grep __LLVM
 segname __LLVM  // bitcode 설정 확인
  segname __LLVM
 ```
-- 위 명령어를 통하여 bitcode를 확인한 경우에도 archive에 실패하는 경우가 있는데, 보통 static 라이브러리인 경우 해당 현상이 잦은듯 하다.  
-빌드 실패시 XCode의 아래 프로젝트 설정 내용을 확인해 볼것.
+- 위 명령어를 통하여 bitcode를 확인이 되어도 archive에 실패하는 경우가 있는데, 보통 static 라이브러리인 경우 해당 현상이 잦은듯 하다.  
+빌드 실패시 XCode에 아래 프로젝트 설정을 추가해 본다.
   1. Skip Install옵션 YES 확인
   ![Embedded](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/bitcode3.png)  
   2. Other C Flags / Other C++ Flags에 -fembed-bitcode추가
