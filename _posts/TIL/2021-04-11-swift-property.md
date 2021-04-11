@@ -38,15 +38,16 @@ rangeOfThreeItems.firstValue = 6
   ```  
   이 동작은 구조체가 값 타입이기 때문입니다. 값 타입은 인스턴스가 상수로 표시되면 모든 프로퍼티도 마찬가지 변경 불가능 합니다.(클래스는 레퍼런스 타입이라서 상수로 인스턴스를 생성하더라도 인스턴스의 변수 프로퍼티는 변경 할수 있습니다.)
 
-  2. 지연 저장 프로퍼티(Lazy Stored Properties)
-  3. 저장 프로퍼티 와 인스턴스 변수(Stored Properties and Instance Variables)
+  2. 지연 저장 프로퍼티(Lazy Stored Properties)  
+  지연 저장 프로퍼티는 처음 사용될 때까지 초기 값이 계산되지 않는 속성입니다. lazy 키워드를 선언부에 작성하여 지연 저장 프로퍼티를 나타냅니다.
+  3. 저장 프로퍼티 와 인스턴스 변수(Stored Properties and Instance Variables)  
 
 
-- 연산 프로퍼티(Computed Properties)
-- 프로퍼티 옵저버(Property Observers)
-- 프로퍼티 랩퍼(Property Wrappers)
-- 전역 변수 와 지역 변수(Global and Local Variables)
-- 타입 프로퍼티(Type Properties)
+- 연산 프로퍼티(Computed Properties)  
+- 프로퍼티 옵저버(Property Observers)  
+- 프로퍼티 랩퍼(Property Wrappers)  
+- 전역 변수 와 지역 변수(Global and Local Variables)  
+- 타입 프로퍼티(Type Properties)  
 
 
 ## 참고 사이트
