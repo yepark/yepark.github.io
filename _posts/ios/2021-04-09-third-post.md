@@ -1,6 +1,6 @@
 ---
 layout: single
-title: "[XCode] Bitcode 지원 "
+title: "[XCode] Bitcode 설정 "
 date: 2021-04-09 14:26:00
 comments: true
 categories:
@@ -16,6 +16,10 @@ toc_sticky: true
 - 예전에는 유니버셜빌드로 아키텍쳐를 전부 포함하여 앱스토어에 업로드하였지만, bitcode가 생김으로써 이런 불편함이 사라짐.  
 bitcode로 빌드시 앱스토어에서 업로드후 필요한 아키텍쳐를 재컴파일하여 사용자가 다운로드 할 수 있게 된듯하다.  
 이전처럼 x64로 플랫폼이 변할때 재빌드해서 앱스토어에 업로드하지 않아도 됨.
+
+## Bitcode 설정
+- XCode 프로젝트 Build Settings - Build Options의 Enable Bitcode를 활성화 한다.
+![Embedded](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/bitcode.png) 
 
 ## Bitcode 설정 및 지원 여부 확인
 - XCode의 프로젝트 설정에서 Enable Bitcode를 enable한다.
