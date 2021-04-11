@@ -27,7 +27,7 @@ rangeOfThreeItems.firstValue = 6
 // 6,7,8로 변경됨
 ```  
 
-1. 상수 구조체 인스턴스의 저장 프로퍼티(Stored Properties of Constant Structure Instances)
+1. 상수 구조체 인스턴스의 저장 프로퍼티(Stored Properties of Constant Structure Instances)  
 구조체의 인스턴스를 상수로 할당하면 변수 프로퍼티로 선언 된 경우에도 인스턴스의 프로퍼티를 수정할 수 없습니다.  
 ```swift
 let rangeOfFourItems = FixedLengthRange(firstValue: 0, length: 4)
