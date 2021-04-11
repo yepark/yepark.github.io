@@ -17,7 +17,7 @@ Swift 프로퍼티에 대해 공부한 내용을 정리해 본다.
 - 저장 프로퍼티(Stored Properties)
 저장 프로퍼티는 특정 클래스 또는 구조체 인스턴스의 일부로 저장된 상수 또는 변수다.
 저장 프로퍼티는 변수 저장 프로퍼티(var 키워드로 된것) 또는 상수 저장 프로퍼티(let 키워드로 된것)일수 있습니다.
-```
+```swift
 struct FixedLengthRange {
     var firstValue: Int
     let length: Int
@@ -30,7 +30,7 @@ rangeOfThreeItems.firstValue = 6
 
   1. 상수 구조체 인스턴스의 저장 프로퍼티(Stored Properties of Constant Structure Instances)
   구조체의 인스턴스를 상수로 할당하면 변수 프로퍼티로 선언 된 경우에도 인스턴스의 프로퍼티를 수정할 수 없습니다.  
-  ```
+  ```swift
   let rangeOfFourItems = FixedLengthRange(firstValue: 0, length: 4)
   // 0,1,2,3
   rangeOfFourItems.firstValue = 6
