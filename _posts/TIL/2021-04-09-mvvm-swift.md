@@ -16,3 +16,7 @@ toc_sticky: true
   View : 일반 UI화면 (데이터 바인딩된 화면)  
   ViewModel : View에 맞게끔 가공된 Model 데이터  
   Model -> View -> ViewModel (View는 Model에 대해 모르고, ViewModel은 View에 대해서 모른다)
+
+## 참고 사이트
+- [clean-architecture-and-mvvm-on-ios](https://tech.olx.com/clean-architecture-and-mvvm-on-ios-c9d167d9f5b3)
+  
