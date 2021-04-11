@@ -1,6 +1,6 @@
 ---
 layout: single
-title: "[TIL] Swift 프로러피"
+title: "[TIL] Swift 프로퍼티"
 date: 2021-04-11
 comments: true
 categories:
