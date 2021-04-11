@@ -40,6 +40,8 @@ rangeOfThreeItems.firstValue = 6
 
   2. 지연 저장 프로퍼티(Lazy Stored Properties)  
   지연 저장 프로퍼티는 처음 사용될 때까지 초기 값이 계산되지 않는 속성입니다. lazy 키워드를 선언부에 작성하여 지연 저장 프로퍼티를 나타냅니다.
+  인스턴스 초기화가 완료 될 때까지 초기 값이 정해지지 않기 떄문에 지연 저장 프로퍼티는 항상 변수로 선언해야만 한다. 상수 프로퍼티는 초기화가 완료되기 전에 항상 값을 가져야하므로 lazy로 선언 할 수 없습니다.
+  
   3. 저장 프로퍼티 와 인스턴스 변수(Stored Properties and Instance Variables)  
 
 
