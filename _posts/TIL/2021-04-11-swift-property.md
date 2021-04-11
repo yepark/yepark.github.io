@@ -39,7 +39,26 @@ rangeOfFourItems.firstValue = 6
 
 2. 지연 저장 프로퍼티(Lazy Stored Properties)  
 지연 저장 프로퍼티는 처음 사용될 때까지 초기 값이 계산되지 않는 속성입니다. lazy 키워드를 선언부에 작성하여 지연 저장 프로퍼티를 나타냅니다.
+
 인스턴스 초기화가 완료 될 때까지 초기 값이 정해지지 않기 떄문에 지연 저장 프로퍼티는 항상 변수로 선언해야만 한다. 상수 프로퍼티는 초기화가 완료되기 전에 항상 값을 가져야하므로 lazy로 선언 할 수 없습니다.
+
+지연 프로퍼티는 외부 요인에 의존적인 프로퍼티값을 초기화할때 유용하다. 
+지연 속성은 속성의 초기값이 복잡하거나 계산 비용이 많이 드는 설정이 필요할때 또는 필요할 때 까지 수행하면 안되는 경우에도 유용합니다.
+```swift
+class DataImporter {
+    var filename = "data.txt"
+}
+
+class DataManager {
+    lazy var importer = DataImporter()
+    var data = [String]()
+}
+
+let manager = DataManager()
+manager.data.append("Some data")
+manager.data.append("Some more data")
+// DataImporter 인스턴스는 아직 생성 안됨
+```  
 
 3. 저장 프로퍼티 와 인스턴스 변수(Stored Properties and Instance Variables)  
 
