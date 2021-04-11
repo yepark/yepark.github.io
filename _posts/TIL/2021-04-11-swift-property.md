@@ -28,21 +28,21 @@ rangeOfThreeItems.firstValue = 6
 // 6,7,8로 변경됨
 ```  
 
-  1. 상수 구조체 인스턴스의 저장 프로퍼티(Stored Properties of Constant Structure Instances)
-  구조체의 인스턴스를 상수로 할당하면 변수 프로퍼티로 선언 된 경우에도 인스턴스의 프로퍼티를 수정할 수 없습니다.  
-  ```swift
-  let rangeOfFourItems = FixedLengthRange(firstValue: 0, length: 4)
-  // 0,1,2,3
-  rangeOfFourItems.firstValue = 6
-  // 에러, firstValue는 변수이지만 변경 불가능 
-  ```  
-  이 동작은 구조체가 값 타입이기 때문입니다. 값 타입은 인스턴스가 상수로 표시되면 모든 프로퍼티도 마찬가지 변경 불가능 합니다.(클래스는 레퍼런스 타입이라서 상수로 인스턴스를 생성하더라도 인스턴스의 변수 프로퍼티는 변경 할수 있습니다.)
+1. 상수 구조체 인스턴스의 저장 프로퍼티(Stored Properties of Constant Structure Instances)
+구조체의 인스턴스를 상수로 할당하면 변수 프로퍼티로 선언 된 경우에도 인스턴스의 프로퍼티를 수정할 수 없습니다.  
+```swift
+let rangeOfFourItems = FixedLengthRange(firstValue: 0, length: 4)
+// 0,1,2,3
+rangeOfFourItems.firstValue = 6
+// 에러, firstValue는 변수이지만 변경 불가능 
+```  
+이 동작은 구조체가 값 타입이기 때문입니다. 값 타입은 인스턴스가 상수로 표시되면 모든 프로퍼티도 마찬가지 변경 불가능 합니다.(클래스는 레퍼런스 타입이라서 상수로 인스턴스를 생성하더라도 인스턴스의 변수 프로퍼티는 변경 할수 있습니다.)
 
-  2. 지연 저장 프로퍼티(Lazy Stored Properties)  
-  지연 저장 프로퍼티는 처음 사용될 때까지 초기 값이 계산되지 않는 속성입니다. lazy 키워드를 선언부에 작성하여 지연 저장 프로퍼티를 나타냅니다.
-  인스턴스 초기화가 완료 될 때까지 초기 값이 정해지지 않기 떄문에 지연 저장 프로퍼티는 항상 변수로 선언해야만 한다. 상수 프로퍼티는 초기화가 완료되기 전에 항상 값을 가져야하므로 lazy로 선언 할 수 없습니다.
-  
-  3. 저장 프로퍼티 와 인스턴스 변수(Stored Properties and Instance Variables)  
+2. 지연 저장 프로퍼티(Lazy Stored Properties)  
+지연 저장 프로퍼티는 처음 사용될 때까지 초기 값이 계산되지 않는 속성입니다. lazy 키워드를 선언부에 작성하여 지연 저장 프로퍼티를 나타냅니다.
+인스턴스 초기화가 완료 될 때까지 초기 값이 정해지지 않기 떄문에 지연 저장 프로퍼티는 항상 변수로 선언해야만 한다. 상수 프로퍼티는 초기화가 완료되기 전에 항상 값을 가져야하므로 lazy로 선언 할 수 없습니다.
+
+3. 저장 프로퍼티 와 인스턴스 변수(Stored Properties and Instance Variables)  
 
 
 - 연산 프로퍼티(Computed Properties)  
