@@ -96,7 +96,7 @@ analytics:
 author:
   name             : "yep"
   avatar           : "/assets/images/dance-5439742_640.png" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "코딩 공간"
+  bio              : "iOS 코딩 공간"
   location         : "Seoul"
   email            : aegir82@naver.com
   links:
@@ -130,7 +130,7 @@ footer:
       # url:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      # url:
+       url: "https://github.com/yepark/yepark.github.io"
     - label: "GitLab"
       icon: "fab fa-fw fa-gitlab"
       # url:
@@ -272,7 +272,7 @@ defaults:
   # _posts
   - scope:
       path: ""
-      type: posts
+      type: tags
     values:
       layout: single
       author_profile: true
