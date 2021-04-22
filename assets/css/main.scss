@@ -3,8 +3,8 @@
 ---
 
 
-$primary-color: #6f777d !default;
-$link-color: mix($primary-color, #eaeaea, 80%) !default;
+$primary-color: mix($primary-color, #eaeaea, 80%) !default;
+$link-color: #6f777d !default;
 $link-color-hover: mix(#fff, $link-color, 25%) !default;
 $link-color-visited: mix(#000, $link-color, 25%) !default;
 
