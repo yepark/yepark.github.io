@@ -20,7 +20,7 @@ title                    : "옙개발"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "yep"
-description              : "iOS developer"
+description              : "iOS development"
 url                      : "https://yepark.github.io" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : "yepark/yepark.github.io" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
@@ -96,7 +96,7 @@ analytics:
 author:
   name             : "yep"
   avatar           : "/assets/images/dance-5439742_640.png" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "iOS dev"
+  bio              : "iOS developer"
   location         : "Seoul"
   email            : aegir82@naver.com
   links:
