@@ -1,6 +1,6 @@
 ---
 permalink: /about/
-title: "시작"
+title: "about"
 layout: single
 toc: false
 ---
