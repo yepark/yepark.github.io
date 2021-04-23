@@ -32,22 +32,30 @@ brew services start jenkins-lts // 백그라운드 실행
 brew services stop jenkins-lts // 백그라운드 실행 중단
 jenkins-lts // Jenkins 콘솔 실행
 ```  
-- 브라우저를 통해 http://localhost:8080에 접속한다. 붉은색 텍스트 경로로 이동하여 초기어드민 패스워드 파일안의 내용를 복사하고, 텍스트 필드에 입력한다.
+- 브라우저를 통해 http://localhost:8080에 접속한다. 아래 붉은색 텍스트 경로로 이동하여 초기 어드민 패스워드 파일 안의 내용를 복사하고, 텍스트 필드에 입력한다.
 ![Jenkins](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins1.png)  
 
-- 이후 진행은 일반적인 설치 작업이다. 계정 설정후, 설치가 완료되면 아래와 같은 화면이 나타난다.
+- 이후 진행은 일반적인 설치 작업이다. 플러그인은 구미에 맞게 선택한 후, 계정 설정을 마무리하면 아래와 같은 화면이 나타난다.
 ![Jenkins](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins6.png)  
 
-## Jenkins-Fortify 연동
+- Credentials 설정 부분에서 키젠 및 계정정보를 설정한다.(생략)
+
+## XCode 빌드 설정(추가 예정)
+- Jenkins pluginManager에서 Xcode integration 검색후 설치한다.
+- 새로운 Item 추가
+- Build Step 추가
+
+## Jenkins-Fortify 연동(추가 예정)
 - Jenkins pluginManager에서 fortify를 검색후 설치한다.
 ![Jenkins](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins_fortify.png)  
 
-- [Docker](https://plugins.jenkins.io/fortify/)를 이용 하는 경우
-- microfocus에 fortify-jenkins-plugin에 대한 문서가 있으니 [참고](https://www.microfocus.com/documentation/fortify-jenkins-plugin/) 한다.
+- Docker를 이용 하는 경우 - https://plugins.jenkins.io/fortify/
+- microfocus에 fortify-jenkins-plugin에 대한 문서가 있으니 참고 하도록 한다. (https://www.microfocus.com/documentation/fortify-jenkins-plugin/)
 - Jenkins 프로젝트 구성에서 빌드후 조치탭으로 이동후 Fortify Assessment 선택한다.
 ![Jenkins](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins_fortify2.png)  
-- SCA와 룰팩 설정을 끝마친다.(추가 예정)
-- Jenkins plugin 설치후 Fortify Assessment 설정을 정상적으로 하였으나 <mark  style='background-color: #fff5b1'>session id오류가 나는 경우 ios build 폴더를 삭제후에 빌드하도록 한다.</mark>
+- SCA와 룰팩 설정을 끝마친다.  
+
+- Jenkins plugin 설치후 빌드 설정 및 Fortify Assessment 설정을 정상적으로 하였으나 **session id오류**가 나는 경우 ios build 폴더를 삭제후에 빌드 하도록 한다.
 
 ## 참고 사이트
 - [jenkins.io](https://www.jenkins.io/)
