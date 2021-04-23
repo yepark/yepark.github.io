@@ -68,12 +68,12 @@
     font-size: $type-size-3;
 
     @include breakpoint($large) {
-      font-size: $type-size-2;
+        font-size: 16px; // change to whatever
+    }
+    @include breakpoint($x-large) {
+        font-size: 18px; // change to whatever
     }
 
-    @include breakpoint($x-large) {
-      font-size: $type-size-1;
-    }
   }
 
   &.is--visible {
