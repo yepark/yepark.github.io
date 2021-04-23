@@ -21,7 +21,7 @@ Jenkins는 네이티브 시스템 패키지, Docker를 통해 설치하거나 JR
 - Jenkins-Fortify 플러그인을 사용할 수 있어 Fortify를 업무에 적용중인 회사는 한번에 처리 가능
 
 ## Jenkins 설치 및 실행
-- Jenkins를 다운로드후 설치한다. https://get.jenkins.io/osx-stable/  
+- Jenkins를 다운로드후 설치한다. <https://get.jenkins.io/osx-stable/>  
 ```
 // Homebrew가 설치되어 있는 경우 Homebrew를 통한 설치
 brew install jenkins-lts
@@ -49,8 +49,8 @@ jenkins-lts // Jenkins 콘솔 실행
 - Jenkins pluginManager에서 fortify를 검색후 설치한다.
 ![Jenkins](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins_fortify.png)  
 
-- Docker를 이용 하는 경우 - https://plugins.jenkins.io/fortify/
-- microfocus에 fortify-jenkins-plugin에 대한 문서가 있으니 참고 하도록 한다. (https://www.microfocus.com/documentation/fortify-jenkins-plugin/)
+- Docker를 이용 하는 경우 - <https://plugins.jenkins.io/fortify/>
+- microfocus에 fortify-jenkins-plugin에 대한 문서가 있으니 참고 하도록 한다. (<https://www.microfocus.com/documentation/fortify-jenkins-plugin/>)
 - Jenkins 프로젝트 구성에서 빌드후 조치탭으로 이동후 Fortify Assessment 선택한다.
 ![Jenkins](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins_fortify2.png)  
 - SCA와 룰팩 설정을 끝마친다.  
