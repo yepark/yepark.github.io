@@ -1,6 +1,6 @@
 ---
 layout: single
-title: "[PKI] PKCS#10 정리"
+title: "[PKI] PKCS#10 subject"
 date: 2021-04-10
 comments: true
 categories:
