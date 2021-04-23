@@ -15,10 +15,10 @@ tags: [iOS, XCode, Jenkins, Fortify]
 Jenkins는 네이티브 시스템 패키지, Docker를 통해 설치하거나 JRE (Java Runtime Environment)가 설치된 모든 컴퓨터에서 독립형으로 실행할 수도 있습니다. - jenkis.io
 
 ## Jenkins 사용할려는 목적
-- 배포 자동화를 통한 빌드의 안정화 **(편해지기 위한 목적..-_-;)**
+- 배포 자동화를 통한 빌드의 안정화 ~~(편해지기 위한 목적..-_-;)~~
 - 유닛테스트 자동화를 통한 오류 대응
 - 본인은 회사에서 젠킨스를 사용함으로.. 공부 차원에서 사용(배포서버를 처음 구축 한다면 XCode Server가 더 좋아 보임)
-- Jenkins-Fortify 플러그인을 사용할 수 있어 Fortify를 업무에 적용중인 회사는 한번에 처리 가능 
+- Jenkins-Fortify 플러그인을 사용할 수 있어 Fortify를 업무에 적용중인 회사는 한번에 처리 가능
 
 ## Jenkins 설치 및 실행
 - Jenkins를 다운로드후 설치한다. [젠킨스 다운](https://get.jenkins.io/osx-stable/)  
