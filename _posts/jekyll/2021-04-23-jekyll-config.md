@@ -2,7 +2,8 @@
 
 1. 현재 jekyll minimal-mistakes 테마를 fork해서 사용중
 2. 폰트 크기가 조정이 안되는 문제가 있음 https://github.com/mmistakes/minimal-mistakes/discussions/1219
-3. disqus 설정시 웹페이지에 오류가 나는 경우
+3. disqus 설정 방법 site.comments.disqus.shortname 이거 해줘야함
+4. disqus 설정시 웹페이지에 오류가 나는 경우
 ```html
 {% if site.comments.disqus.shortname %}
 <div id="disqus_thread"></div> // 이부분 추가
