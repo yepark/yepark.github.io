@@ -49,7 +49,7 @@ jenkins-lts // Jenkins 콘솔 실행
 - Jenkins pluginManager에서 fortify를 검색후 설치한다.
 ![Jenkins](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins_fortify.png)  
 
-- Docker를 이용 하는 경우 - <https://plugins.jenkins.io/fortify/>
+- Docker를 이용하는 경우 - <https://plugins.jenkins.io/fortify/>
 - microfocus에 fortify-jenkins-plugin에 대한 문서가 있으니 참고 하도록 한다. (<https://www.microfocus.com/documentation/fortify-jenkins-plugin/>)
 - Jenkins 프로젝트 구성에서 빌드후 조치탭으로 이동후 Fortify Assessment 선택한다.
 ![Jenkins](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins_fortify2.png)  
