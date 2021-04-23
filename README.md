@@ -1,2 +1,2 @@
 # yepark.github.io
-개발공간
+iOS 스터디/개발 공간
