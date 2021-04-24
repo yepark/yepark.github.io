@@ -12,7 +12,7 @@ toc_sticky: false
 ---
 ## PKCS#10
 - 인증서 요청 표준(Certification Request Standard)
-- RFC2986 문서의 Certification request syntax에서 CertificationRequestInfo 대한 ASN.1
+- 아래는 RFC2986 문서의 Certification request syntax에서 CertificationRequestInfo 대한 ASN.1
 ```
 Certification request information shall have ASN.1 type
    CertificationRequestInfo:
