@@ -43,7 +43,7 @@ Certification request information shall have ASN.1 type
 ```
 
 - 여기에서 subject에 대해 rfc 문서에 subject is the distinguished name of the certificate subject(the entity whose public key is to be certified) 라고함.  
-- 전자서명인증관리체계 DN 규격에 따라 공인인증서의 경우 subject에 아래와 같은 형태로 들어가야함.
+- 전자서명인증관리체계 DN 규격에 따라 인증서의 subject에 아래와 같은 형태로 들어가야함.
 ![Framework1][dn]
 
 [dn]: https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/dn.png "DN 규격"
