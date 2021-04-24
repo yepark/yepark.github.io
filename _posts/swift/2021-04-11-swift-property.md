@@ -1,10 +1,10 @@
 ---
 layout: single
-title: "[TIL] Swift 프로퍼티"
+title: "[Swift] Swift 프로퍼티"
 date: 2021-04-11
 comments: true
 categories:
-  - TIL
+  - Swift
 tags: [Swift]
 # 목차
 toc: true
