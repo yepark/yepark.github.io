@@ -29,4 +29,6 @@
 4. disqus광고 때문에 utterances로 갈아탐
 _config.yml에 repository 설정 안해줘서 웹 에러남
 
+- mmistakes 셋팅 도움
+https://mmistakes.github.io/minimal-mistakes/post%20formats/post-image-standard/
 일단 여기까지
