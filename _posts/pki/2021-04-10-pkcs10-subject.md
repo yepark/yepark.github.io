@@ -7,11 +7,13 @@ categories:
   - pki
 tags: [CR, PKCS#10]
 # 목차
-toc: true
-toc_sticky: true
+toc: false
+toc_sticky: false
 ---
 ## PKCS#10
-- 인증서를 발급 받기 전에 RA에 인증서 서명 요청 메세지(Certificate Signing Request)를 먼저 생성해야함.  PKCS#10은 인증서 요청에 대한 표준임.
+- 인증서 요청 표준(Certification Request Standard)
+- 인증서를 발급 받기 전에 RA에 인증서 서명 요청 메세지(Certificate Signing Request)를 먼저 생성해야함.
+- PKCS#10은 인증서 요청에 대한 표준임.
 - RFC2986 문서의 Certification request syntax에서 CertificationRequestInfo 대한 ASN.1
 
 ```
