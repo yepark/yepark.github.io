@@ -46,7 +46,7 @@ jenkins-lts // Jenkins 콘솔 실행
 - Credentials 설정 부분에서 키젠 및 계정정보를 설정한다.(생략)
 
 ## XCode 빌드 설정
-- Jenkins pluginManager에서 Xcode integration 검색후 설치한다.
+- Jenkins pluginManager에서 Xcode integration 검색후 설치한다.(재시작 필요)
 ![]()
 - 대쉬 보드에서 새로운 Item 추가 및 이름을 설정한다.
 - 프로젝트 성격을 선택한다.(FreeStyle project선택)
@@ -58,7 +58,7 @@ jenkins-lts // Jenkins 콘솔 실행
 - 환경 설정후 프로젝트 Item의 Build Now를 클릭하면 빌드후 성공시 대쉬보드에 프로젝트에 대한 상태가 변경된다.
 
 ## Jenkins-Fortify 연동
-- Jenkins pluginManager에서 fortify를 검색후 설치한다.
+- Jenkins pluginManager에서 fortify를 검색후 설치한다.(재시작 필요)
 ![Jenkins](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins_fortify.png)
 {: .full}
 
