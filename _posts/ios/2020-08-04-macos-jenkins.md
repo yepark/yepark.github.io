@@ -67,9 +67,7 @@ jenkins-lts // Jenkins 콘솔 실행
 - Jenkins 프로젝트 구성에서 빌드후 조치탭으로 이동후 Fortify Assessment 선택한다.
 ![Jenkins](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins_fortify2.png)
 {: .full}
-
-- SCA와 룰팩 설정을 끝마친다.  
-
+- 어플리케이션 타입은 Other로 선택후 SCA와 룰팩 설정을 끝마친다.  
 - Jenkins plugin 설치후 빌드 설정 및 Fortify Assessment 설정을 정상적으로 하였으나 **session id오류**가 나는 경우 ios build 폴더를 삭제후에 빌드 하도록 한다.
 
 ## 참고 사이트
