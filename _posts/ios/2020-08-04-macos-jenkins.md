@@ -21,10 +21,13 @@ Jenkins는 네이티브 시스템 패키지, Docker를 통해 설치하거나 JR
 - Jenkins-Fortify 플러그인을 사용할 수 있어 Fortify를 업무에 적용중인 회사는 한번에 처리 가능
 
 ## Jenkins 설치 및 실행
-- Jenkins를 다운로드후 설치한다. <https://get.jenkins.io/osx-stable/>  
+- Jenkins를 다운로드후 설치한다. <https://get.jenkins.io/osx-stable/> (현재 macOS용 네이티브 인스톨러는 deprecate되었다.) 
 ```
 // Homebrew가 설치되어 있는 경우 Homebrew를 통한 설치
 brew install jenkins-lts
+
+// 삭제(~/.jenkins 파일도 삭제해야 한다)
+brew uninstall jenkins-lts
 ```  
 - Jenkins를 실행한다.  
 ```
