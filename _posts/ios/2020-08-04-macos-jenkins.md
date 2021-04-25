@@ -23,18 +23,17 @@ Jenkins는 네이티브 시스템 패키지, Docker를 통해 설치하거나 JR
 ## Jenkins 설치 및 실행
 - Jenkins를 다운로드후 설치한다. <https://get.jenkins.io/osx-stable/> (현재 macOS용 네이티브 인스톨러는 deprecate되었다.) 
 ```
-// Homebrew가 설치되어 있는 경우 Homebrew를 통한 설치
-brew install jenkins-lts
-
-// 삭제(~/.jenkins 파일도 삭제해야 한다)
-brew uninstall jenkins-lts
+brew install jenkins-lts  // Homebrew가 설치되어 있는 경우 Homebrew를 통한 설치
+brew uninstall jenkins-lts  // 삭제(~/.jenkins 파일도 삭제해야 한다)
 ```  
+
 - Jenkins를 실행한다.  
 ```
 brew services start jenkins-lts // 백그라운드 실행
 brew services stop jenkins-lts // 백그라운드 실행 중단
 jenkins-lts // Jenkins 콘솔 실행
 ```  
+
 - 브라우저를 통해 http://localhost:8080에 접속한다. 아래 붉은색 텍스트 경로로 이동하여 초기 어드민 패스워드 파일 안의 내용를 복사하고, 텍스트 필드에 입력한다.
 ![Jenkins](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins1.png)
 {: .full}
