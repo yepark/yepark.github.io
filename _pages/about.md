@@ -2,7 +2,6 @@
 permalink: /about/
 title: "about"
 layout: single
-date: 2021-04-25 12:00:00
 toc: false
 ---
 
