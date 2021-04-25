@@ -7,7 +7,7 @@ categories:
   - ios
 # 목차
 toc: true
-toc_sticky: true
+toc_sticky: false
 tags: [iOS, XCode, Jenkins, Fortify]
 ---
 ## Jenkins
