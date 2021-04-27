@@ -1,6 +1,6 @@
 ---
 layout: single
-title: "[Swift] 내가 생각하는 자바스크립트와 스위프트 클로저의 차이)"
+title: "[Swift] 내가 생각하는 자바스크립트와 스위프트 클로저의 차이"
 date: 2021-04-20
 comments: true
 categories:
