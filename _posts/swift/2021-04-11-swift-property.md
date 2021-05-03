@@ -20,7 +20,7 @@ Swift 프로퍼티 정리
 - 지연 저장 프로퍼티(lazy)는 var키워드만 사용
 - 지연 저장 프로퍼티는 다중 스레드에서 사용시 여러번 초기화 될수 있다.
 ## 연산 프로퍼티(Computed Properties)
-- 
+- 값을 저장하는 프로퍼티가 아님
 ## 프로퍼티 옵저버(Property Observers)  
 ## 프로퍼티 랩퍼(Property Wrappers)  
 ## 전역변수와 지역변수(Global and Local Variables)  
