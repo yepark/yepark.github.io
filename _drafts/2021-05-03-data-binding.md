@@ -1,4 +1,4 @@
-## 스위프트 데이타 바인딩(USING BOX)
+## 스위프트 데이타 바인딩(Use Boxing)
 데이타 바인딩은 아래 방법으로 할수 있음
 1. kvo
 2. delegate
