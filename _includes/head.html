@@ -3,7 +3,8 @@
 {% include seo.html %}
 
 {% unless site.atom_feed.hide %}
-  <link href="{% if site.atom_feed.path %}{{ site.atom_feed.path }}{% else %}{{ '/feed.xml' | relative_url }}{% endif %}" type="application/atom+xml" rel="alternate" title="{{ site.title }} Feed">
+  <link rel="alternate" type="application/rss+xml" href="{{ site.url }}/feed.xml">
+  <!-- <link href="{% if site.atom_feed.path %}{{ site.atom_feed.path }}{% else %}{{ '/feed.xml' | relative_url }}{% endif %}" type="application/atom+xml" rel="alternate" title="{{ site.title }} Feed"> -->
 {% endunless %}
 
 <!-- https://t.co/dKP3o1e -->
