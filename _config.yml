@@ -50,7 +50,7 @@ reCaptcha:
   siteKey                :
   secret                 :
 atom_feed:
-  path                   : feed.xml # blank (default) uses feed.xml
+  path                   : # blank (default) uses feed.xml
   hide                   : false # true, false (default)
 search                   : true # true, false (default)
 search_full_content      : false # true, false (default)
