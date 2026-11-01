@@ -95,7 +95,7 @@ analytics:
 # Site Author
 author:
   name             : "yep"
-  avatar           : "/assets/images/dance-5439742_640.png" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  avatar           : "/assets/images/avatar-yep.png" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "iOS developer"
   location         : "Seoul"
   email            : aegir82@naver.com
