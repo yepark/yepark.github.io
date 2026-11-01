@@ -1,84 +1,126 @@
 ---
 layout: single
-title: "[Jenkins] MacOS Jenkins설치 및 Fortify 연동 "
+title: "[Jenkins] macOS에 Jenkins 설치하고 Xcode·Fortify 연동하기"
 date: 2020-08-04 20:36:00
+last_modified_at: 2026-11-01
 comments: true
 categories:
   - ios
-# 목차
+tags: [iOS, Xcode, Jenkins, Fortify, CI]
 toc: true
-toc_sticky: false
-tags: [iOS, XCode, Jenkins, Fortify]
+toc_sticky: true
+toc_label: "목차"
 ---
-## Jenkins
-> Jenkins는 소프트웨어 빌드, 테스트, 제공 또는 배포와 관련된 모든 종류의 작업을 자동화하는 데 사용할 수있는 독립형 오픈 소스 자동화 서버입니다.
-Jenkins는 네이티브 시스템 패키지, Docker를 통해 설치하거나 JRE (Java Runtime Environment)가 설치된 모든 컴퓨터에서 독립형으로 실행할 수도 있습니다. - jenkis.io
 
-## Jenkins 사용할려는 목적
-- 배포 자동화를 통한 빌드의 안정화 ~~(편해지기 위한 목적..-_-;)~~
-- 유닛테스트 자동화를 통한 오류 대응
-- 본인은 회사에서 젠킨스를 사용함으로.. 공부 차원에서 사용(배포서버를 처음 구축 한다면 XCode Server가 더 좋아 보임)
-- Jenkins-Fortify 플러그인을 사용할 수 있어 Fortify를 업무에 적용중인 회사는 한번에 처리 가능
+> 이 글의 화면 캡처는 2020년 Jenkins UI를 기준으로 한다. 메뉴 이름과 플러그인 화면은 현재 버전에서 달라질 수 있으므로, 설치 전 공식 문서의 지원 버전을 함께 확인한다.
 
-## Jenkins 설치 및 실행
-- Jenkins를 다운로드후 설치한다. <https://get.jenkins.io/osx-stable/> (현재 macOS용 네이티브 인스톨러는 deprecate되었다.) 
+Jenkins는 빌드, 테스트, 분석, 배포 작업을 자동화하는 오픈 소스 자동화 서버다. 이 글에서는 macOS에 Jenkins LTS를 설치하고, Xcode 프로젝트와 Fortify 정적 분석을 연결할 때 필요한 흐름을 정리한다.
+
+## 설치 전 확인
+
+Jenkins를 실행하려면 지원되는 Java 런타임이 필요하다. 지원 버전은 Jenkins 릴리스에 따라 달라지므로 [Java 지원 정책](https://www.jenkins.io/doc/book/platform-information/support-policy-java/)을 먼저 확인한다. 2026년 11월 기준 최신 Jenkins 계열은 Java 21 또는 Java 25를 사용한다.
+
+```bash
+java -version
 ```
-brew install jenkins-lts  // Homebrew가 설치되어 있는 경우 Homebrew를 통한 설치
-brew uninstall jenkins-lts  // 삭제(~/.jenkins 파일도 삭제해야 한다)
-```  
 
-- Jenkins를 실행한다.  
+Jenkins용 Java와 앱을 빌드할 때 사용하는 JDK는 서로 다를 수 있다. 다만 컨트롤러와 에이전트는 Jenkins가 요구하는 최소 Java 버전을 충족해야 한다.
+
+## Homebrew로 Jenkins LTS 설치
+
+```bash
+brew install jenkins-lts
+brew services start jenkins-lts
 ```
-brew services start jenkins-lts // 백그라운드 실행
-brew services stop jenkins-lts // 백그라운드 실행 중단
-jenkins-lts // Jenkins 콘솔 실행
-```  
 
-- 브라우저를 통해 http://localhost:8080에 접속한다. 아래 붉은색 텍스트 경로로 이동하여 초기 어드민 패스워드 파일 안의 내용를 복사하고, 텍스트 필드에 입력한다.
-![Jenkins](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins1.png)
-{: .full}
+서비스 상태와 설치 정보를 확인하려면 다음 명령을 사용한다.
 
-- 이후 진행은 일반적인 설치 작업이다. 플러그인은 구미에 맞게 선택한 후, 계정 설정을 마무리하면 아래와 같은 화면이 나타난다.
-![Jenkins](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins6.png)
-{: .full}
+```bash
+brew services list
+brew info jenkins-lts
+```
 
-- Credentials 설정 부분에서 키젠 및 계정정보를 설정한다.(생략)
+업데이트와 중지는 다음과 같다.
 
-## XCode 빌드 설정
-- Jenkins pluginManager에서 Xcode integration 검색후 설치한다.(재시작 필요)
-![Jenkins](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins8.png)
-{: .full}
-- 대쉬 보드에서 새로운 Item 추가 및 이름을 설정한다.
-- 프로젝트 성격을 선택한다.(FreeStyle project선택)
-- 추가된 프로젝트 Item 선택후 구성으로 들어간다.
-- github을 사용하는 경우, 레포지토리 정보를 입력한다. 
-![Jenkins](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins9.png)
-{: .full}
-- 그외 나머지 설정은 필요한 부분에 대해 개별적으로 선택하고 Build로 넘어간다.
-- Add Build Step 추가 XCode선택후(Xcode integration이 설치되어 있어야 나온다)
-![Jenkins](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins10.png) 
-{: .full}
-- 애플 계정 및 프로젝트 타겟을 설정한다. 나머지 셋팅은 자신의 프로젝트 환경에 따라 설정한다.
-![Jenkins](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins7.png)
-{: .full}
-- 환경 설정후 프로젝트 Item의 Build Now를 클릭하면 빌드후 성공시 대쉬보드에 프로젝트에 대한 상태가 변경된다.
+```bash
+brew upgrade jenkins-lts
+brew services restart jenkins-lts
+brew services stop jenkins-lts
+```
 
-## Jenkins-Fortify 연동
-- Jenkins pluginManager에서 fortify를 검색후 설치한다.(재시작 필요)
-![Jenkins](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins_fortify.png)
+설치가 끝나면 브라우저에서 <http://localhost:8080>에 접속한다. 첫 실행 시 콘솔 로그에 표시된 초기 관리자 암호를 입력하고, 추천 플러그인 설치와 관리자 계정 생성을 마친다.
+
+![Unlock Jenkins 화면](/assets/images/jenkins1.png)
 {: .full}
 
-- Docker를 이용하는 경우 - <https://plugins.jenkins.io/fortify/>
-- microfocus에 fortify-jenkins-plugin에 대한 문서가 있으니 참고 하도록 한다. (<https://www.microfocus.com/documentation/fortify-jenkins-plugin/>)
-- Jenkins 프로젝트 구성에서 빌드후 조치탭으로 이동후 Fortify Assessment 선택한다.
-![Jenkins](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins_fortify2.png)
+![Jenkins 대시보드](/assets/images/jenkins6.png)
 {: .full}
-![Jenkins](https://raw.githubusercontent.com/yepark/yepark.github.io/master/assets/images/jenkins11.png) 
-{: .full}
-- 어플리케이션 타입은 Other로 선택후 SCA와 룰팩 설정을 끝마친다. 
-- Jenkins plugin 설치후 빌드 설정 및 Fortify Assessment 설정을 정상적으로 하였으나 **session id오류**가 나는 경우 ios build 폴더를 삭제후에 빌드 하도록 한다.
 
-## 참고 사이트
-- [jenkins.io](https://www.jenkins.io/)
-- [fortify](https://www.microfocus.com/documentation/fortify-jenkins-plugin/)
-- [fortify-docker](https://plugins.jenkins.io/fortify/)
+## Xcode 빌드 구성
+
+Xcode 프로젝트는 전용 플러그인보다 `xcodebuild` 명령을 빌드 단계에서 직접 실행하는 편이 동작을 이해하고 재현하기 쉽다.
+
+```bash
+set -o pipefail
+
+xcodebuild \
+  -workspace MyApp.xcworkspace \
+  -scheme MyApp \
+  -destination 'platform=iOS Simulator,name=iPhone 16' \
+  clean test
+```
+
+프로젝트만 사용하는 경우 `-workspace` 대신 `-project MyApp.xcodeproj`를 지정한다. 실제 장비용 Archive에는 별도의 서명 인증서, 프로비저닝 프로파일, 키체인 접근 설정이 필요하다. 인증 정보는 스크립트에 직접 기록하지 말고 Jenkins Credentials로 관리한다.
+
+기존 **Xcode integration** 플러그인을 사용하는 작업은 다음 흐름으로 구성할 수 있다.
+
+1. **Manage Jenkins > Plugins**에서 Xcode 관련 플러그인을 설치한다.
+2. 새 Job을 만들고 소스 저장소를 연결한다.
+3. 빌드 단계에서 Workspace/Project, Scheme, Configuration을 지정한다.
+4. 빌드 에이전트에 Xcode와 필요한 Simulator 런타임이 설치되어 있는지 확인한다.
+
+![저장소 설정](/assets/images/jenkins9.png)
+{: .full}
+
+![Xcode 빌드 단계](/assets/images/jenkins10.png)
+{: .full}
+
+![Xcode 타깃 설정](/assets/images/jenkins7.png)
+{: .full}
+
+## Fortify 연동
+
+Fortify Jenkins Plugin은 Static Code Analyzer(SCA) 분석, ScanCentral SAST 연동, Software Security Center(SSC) 업로드, 빌드 실패 기준 설정을 지원한다.
+
+1. **Manage Jenkins > Plugins**에서 `Fortify`를 설치한다.
+2. Jenkins Credentials에 Fortify 인증 정보를 등록한다.
+3. Job 또는 Pipeline에 분석 단계를 추가한다.
+4. 분석 결과 업로드와 실패 기준을 프로젝트 정책에 맞게 설정한다.
+
+![Fortify 플러그인](/assets/images/jenkins_fortify.png)
+{: .full}
+
+![Fortify Assessment 설정](/assets/images/jenkins_fortify2.png)
+{: .full}
+
+![Fortify 분석 설정](/assets/images/jenkins11.png)
+{: .full}
+
+플러그인과 Fortify SCA/SSC의 지원 조합은 버전마다 다르다. 과거 설정을 그대로 복사하기보다 현재 플러그인 문서의 호환 버전과 Pipeline 예제를 기준으로 구성한다.
+
+## 운영 체크리스트
+
+- Jenkins와 플러그인을 업데이트하기 전에 `JENKINS_HOME`을 백업한다.
+- 컨트롤러에서 직접 빌드하지 않고 별도 에이전트를 사용한다.
+- Xcode 버전과 Simulator 런타임을 빌드 로그에 남긴다.
+- 인증서, 토큰, 암호는 Credentials로 관리한다.
+- 실패한 빌드의 Derived Data와 로그를 보존해 재현 가능하게 만든다.
+- Fortify 규칙 팩과 SCA 버전을 고정하고 변경 이력을 관리한다.
+
+## 참고 자료
+
+- [Jenkins: Installing Jenkins on macOS](https://www.jenkins.io/doc/book/installing/macos/)
+- [Jenkins: macOS Installer for Jenkins LTS](https://www.jenkins.io/download/lts/macos/)
+- [Jenkins: Java Support Policy](https://www.jenkins.io/doc/book/platform-information/support-policy-java/)
+- [Jenkins Fortify Plugin](https://plugins.jenkins.io/fortify/)
+- [OpenText Fortify Jenkins Plugin Documentation](https://www.microfocus.com/documentation/fortify-jenkins-plugin/)

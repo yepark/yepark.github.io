@@ -1,64 +1,130 @@
 ---
 layout: single
-title: "[Swift] 내가 생각하는 자바스크립트와 스위프트 클로저의 차이"
+title: "[Swift] 자바스크립트와 스위프트 클로저 차이"
 date: 2021-04-20
+last_modified_at: 2026-11-01
 comments: true
 categories:
   - Swift
-tags: [Swift]
-# 목차
+tags: [Swift, JavaScript, Closure]
 toc: true
 toc_sticky: true
+toc_label: "목차"
 ---
 
-## 클로저 ##
-내가 클로저를 처음 접한게 자바스크립트 였었는데, 자바스크립트의 경우 클로저를 표현할때 캡쳐 여부를 중요하게 생각 했고 나도 캡쳐 여부에 따라서 클로저를 판단했다.
-그리고 Objective-C로 개발을 하면서 블록함수를 사용하고 블록함수 표현 전에 __block 변수를 사용하여 클로저처럼 사용하고 있다고 생각했다.
-하지만 스위프트를 공부하면서.. 왜 스위프트는 익명함수까지 클로저라고 표현하는걸까? 라는 의구심이 들었다. 그래서 내가 이해한 스위프트의 클로저를 적어 보겠다.
-밑에서 부터는 본인의 생각이 많이 들어가 있음..
+Swift와 JavaScript는 모두 함수를 값처럼 전달할 수 있고, 함수가 선언된 주변 스코프의 값을 캡처할 수 있다. 두 언어에서 클로저의 핵심 개념은 같지만, 문서에서 사용하는 용어와 메모리 관리 방식에는 차이가 있다.
 
-# 일반적인 클로저의 경우 
-내가 클로저에 대해 검색하다 찾은 이분 [블로그](https://hyunseob.github.io/2016/09/17/lambda-anonymous-function-closure/)의 내용을 보면
-> 람다 표현식에서 사용하는 변수들이 모두 묶인 변수일 때 닫힌 람다식이라고 부른다. 그리고 람다 표현식에서 사용하는 변수들 중 하나라도 자유 변수가 있을 때 열린 람다식이라고 부른다.
-> ...클로저는 바로 열린 람다식을 닫힌 람다식으로 만드는 것이다.  
+## 클로저란 무엇인가
 
+클로저는 **함수와 그 함수가 선언될 당시의 렉시컬 환경을 함께 보존한 것**이다. 바깥 함수의 실행이 끝난 뒤에도 안쪽 함수가 외부 변수를 사용할 수 있는 이유가 바로 이 환경을 캡처하기 때문이다.
 
-이라고 설명하고 있다. 한마디로 클로저는 열린 람다를 닫힌 람다로.. 결국 캡쳐 기능을 지원해야 한다고 볼수 있다.
+```javascript
+function makeCounter() {
+  let count = 0;
 
-# 자바스크립트와 스위프트 클로저의 차이
-- 자바스크립트
-1. 내가 이해한 자바스크립트는 익명함수와 클로저를 분리해서 표현한다.
-2. 자바스크립트의 경우 변수 선언이 자유롭다. 
-3. private변수라는 개념이 없고(class자체가 없다), 변수 선언은 모두 전역 변수이다.(심지어 타입 선언 없이 변수에 값을 대입하면 전역 변수다.)
-4. 이 때문에 함수 객체를 클래스처럼 표현하기 위해 private변수를 클로저를 통해서 사용한다.  
+  return function () {
+    count += 1;
+    return count;
+  };
+}
 
-자바스크립트는 일반 함수에서 이미 전역변수를 사용하고 있고(사실 클로저일듯), 익명 함수를 사용하더라고 변수 자체가 이미 전역 변수이기 때문에 익명함수에 클로저를 사용해도 캡쳐라고 느껴지지 않는것 같다.
+const counter = makeCounter();
+counter(); // 1
+counter(); // 2
+```
 
-하지만 스위프트에서는 익명함수와 클로저를 모두 클로저라고 표현한다.
-스위프트의 클로저에 대해 [외국사이트](https://www.hackingwithswift.com/example-code/language/what-is-a-closure)에서 이런 표현을 보게 되었다.
-> 스위프트 클로저는 **익명 함수** 이고, **변수로 저장** 되고, **나중에 호출** 이 가능하고, **프로그램의 상태 기억** 를 기억
+반환된 함수는 `makeCounter()` 실행이 끝난 뒤에도 `count`에 접근한다. 함수와 `count`가 포함된 렉시컬 환경이 함께 유지되기 때문이다.
 
-역시 자바스크립트의 익명함수랑은 차이가 없는데...-_-;; 라고 생각 되지만..
-프로그램의 상태 기억 부분(캡쳐)에서 스위프트는 캡쳐기능이 지원만 한다면(현재 변수에 대한 캡쳐가 없더라도) 클로저라고 생각하는것 같다.
-그러나 자바스크립트는 어차피 전역 변수라서 익명함수를 사용하는 부분을 캡쳐한다고 말하기 보다는.. 실제 캡쳐 현상이 일어나는 시점을 클로저라고 말하는것 같다.
+## Swift에서 말하는 클로저
 
-너무 두서없이 적었는데..-_-;;; 혼자 자바스크립트와 스위프트의 개념에 대해 정리하다보니 차이가 생기는 부분을 어떻게든 정리하고 싶었네요..  
-결론을 얘기 하자면...  
+Swift 문서는 다음 세 가지를 모두 클로저의 형태로 설명한다.
 
-<table>
-  <tr>
-    <td>스위프트</td>
-    <td>자바스크립트</td>
-  </tr>
-  <tr>
-    <td>- 클로저 기능이 있으면 무조건 클로저</td>
-    <td>- 클로저를 사용하는 시점을 클로저라고 표현</td>
-  </tr>
-</table>
+- 전역 함수: 이름이 있고 값을 캡처하지 않는 클로저
+- 중첩 함수: 이름이 있고 주변 값을 캡처할 수 있는 클로저
+- 클로저 표현식: 이름이 없고 주변 값을 캡처할 수 있는 클로저
 
-더 확실한 구별법(?)이 있으면 알려주세요..
+```swift
+func makeCounter() -> () -> Int {
+    var count = 0
 
+    return {
+        count += 1
+        return count
+    }
+}
 
-## 참고
-<https://hyunseob.github.io/2016/09/17/lambda-anonymous-function-closure/>
-<https://www.hackingwithswift.com/example-code/language/what-is-a-closure>
+let counter = makeCounter()
+counter() // 1
+counter() // 2
+```
+
+Swift에서는 `{ ... }` 형태의 익명 함수 문법을 “클로저 표현식”이라고 부른다. 현재 캡처하는 값이 없더라도 이 문법으로 만든 값은 클로저다.
+
+## JavaScript에서 말하는 클로저
+
+JavaScript 함수는 생성될 때 자신의 렉시컬 환경과 연결된다. 따라서 기술적으로는 함수가 만들어질 때마다 클로저가 형성된다. 실무 문서에서는 특히 내부 함수가 외부 스코프의 변수를 계속 사용하는 상황을 설명할 때 “클로저”라는 표현을 강조하는 경우가 많다.
+
+JavaScript의 변수가 모두 전역인 것은 아니다. `let`과 `const`는 블록 스코프를, `var`는 함수 스코프를 가진다. 현대 JavaScript에는 `class` 문법과 `#privateField` 형태의 private element도 있다. 클로저는 private 상태를 구현하는 유일한 방법이 아니라, 렉시컬 스코프를 활용하는 여러 도구 중 하나다.
+
+```javascript
+class Counter {
+  #count = 0;
+
+  increment() {
+    this.#count += 1;
+    return this.#count;
+  }
+}
+```
+
+## 두 언어의 차이
+
+| 구분 | Swift | JavaScript |
+| --- | --- | --- |
+| 용어 | 전역 함수, 중첩 함수, 클로저 표현식을 클로저의 형태로 설명 | 함수와 렉시컬 환경의 결합을 클로저로 설명 |
+| 캡처 | 주변의 상수와 변수를 캡처하며 캡처 목록으로 동작을 조정 | 함수 생성 시 렉시컬 환경에 연결 |
+| 메모리 | ARC를 사용하므로 `self`의 강한 캡처가 참조 순환을 만들 수 있음 | 가비지 컬렉션이 도달 가능한 렉시컬 환경을 유지 |
+| 명시적 제어 | `[weak self]`, `[unowned self]`, `[value]` 같은 캡처 목록 제공 | Swift와 같은 캡처 목록 문법은 없음 |
+
+## Swift 캡처 목록
+
+Swift의 클로저는 기본적으로 클래스 인스턴스를 강하게 캡처한다. 인스턴스가 클로저도 강하게 보유하면 참조 순환이 생길 수 있다.
+
+```swift
+final class Loader {
+    var onFinish: (() -> Void)?
+
+    func start() {
+        onFinish = { [weak self] in
+            self?.handleFinish()
+        }
+    }
+
+    private func handleFinish() {
+        print("완료")
+    }
+}
+```
+
+값을 클로저 생성 시점에 복사해 고정하고 싶다면 캡처 목록에 값을 명시할 수 있다.
+
+```swift
+var value = 0
+let printCapturedValue = { [value] in
+    print(value)
+}
+
+value = 10
+printCapturedValue() // 0
+```
+
+## 정리
+
+Swift와 JavaScript의 클로저는 서로 다른 개념이 아니다. 둘 다 렉시컬 스코프의 값을 함수와 함께 유지한다. 차이는 Swift가 여러 함수 형태를 클로저라는 큰 범주로 명시하고 캡처 목록과 ARC 규칙을 제공하는 반면, JavaScript는 모든 함수가 렉시컬 환경과 연결되고 가비지 컬렉션으로 수명을 관리한다는 점이다.
+
+## 참고 자료
+
+- [The Swift Programming Language: Closures](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/closures/)
+- [MDN: Closures](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Closures)
+- [MDN: Classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes)
+- [MDN: Private elements](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_elements)
