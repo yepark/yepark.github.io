@@ -67,6 +67,35 @@ comments:
 
 Jekyll 포스트는 `_posts` 아래에 `YYYY-MM-DD-title.md` 형식으로 저장하고 YAML front matter로 시작해야 한다. `_drafts`의 글은 기본 빌드에 포함되지 않으며, 완성 후 날짜가 포함된 파일명으로 `_posts`에 옮겨야 공개된다.
 
+```yaml
+---
+layout: single
+title: "[Swift] 글 제목"
+date: 2026-11-01
+categories:
+  - Swift
+tags: [Swift, iOS]
+toc: true
+---
+```
+
+`categories`는 현재 블로그의 URL에 포함되므로 기존 글에서 값을 바꾸면 주소도 달라질 수 있다. 이미 검색 엔진에 노출된 글이라면 permalink를 유지하거나 이전 주소에서 새 주소로 리디렉션해야 한다. `tags`는 글을 묶는 메타데이터지만 기본 설정에서는 URL을 결정하지 않는다.
+
+## 안전한 발행 절차
+
+수정한 글이 많을수록 로컬 확인과 공개 배포를 분리하는 편이 안전하다.
+
+```bash
+bundle exec jekyll build
+git diff --check
+git status --short
+git add _posts assets _config.yml
+git commit -m "Update blog content"
+git push origin master
+```
+
+빌드 성공만으로 배포가 끝난 것은 아니다. GitHub Actions에서 artifact 업로드와 Pages deploy까지 성공했는지 확인하고, 공개 URL의 응답과 제목도 확인한다. `_config.yml`이나 레이아웃을 바꾼 경우에는 대표 글 하나뿐 아니라 홈, 카테고리, 모바일 화면까지 확인한다.
+
 ## 참고
 
 - [GitHub Docs: Jekyll 사이트를 로컬에서 테스트하기](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/testing-your-github-pages-site-locally-with-jekyll)

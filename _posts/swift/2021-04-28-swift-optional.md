@@ -59,6 +59,45 @@ func greet(name: String?) {
 
 이 문법은 `guard let name = name else { return }`을 짧게 쓴 것이다. 바인딩 이후의 `name`은 `String?`이 아니라 `String`이다.
 
+## 여러 Optional을 함께 검사하기
+
+쉼표로 여러 바인딩과 Boolean 조건을 연결할 수 있다. 앞 조건부터 평가하며 하나라도 실패하면 본문을 실행하지 않는다.
+
+```swift
+func makeURL(host: String?, port: Int?) -> URL? {
+    guard
+        let host,
+        let port,
+        (1...65_535).contains(port)
+    else {
+        return nil
+    }
+
+    return URL(string: "https://\(host):\(port)")
+}
+```
+
+조건이 지나치게 많아지면 어떤 값이 실패했는지 알기 어려워진다. 서로 다른 오류를 사용자에게 알려야 한다면 여러 `guard`로 나누거나 검증 결과를 별도 타입으로 표현한다.
+
+## `map`과 `flatMap`
+
+Optional의 값이 있을 때만 변환하려면 `map`을 사용할 수 있다.
+
+```swift
+let text: String? = "42"
+let decorated = text.map { "입력값: \($0)" }
+// Optional("입력값: 42")
+```
+
+변환 함수 자체가 Optional을 반환한다면 `flatMap`이 Optional의 중첩을 막아 준다.
+
+```swift
+let number = text.flatMap(Int.init)
+// Int? — Optional(Optional(42))가 아니다
+```
+
+다만 단순한 조건 분기에 함수형 연산을 억지로 사용하면 오히려 읽기 어려워질 수 있다. 변환은 `map`과 `flatMap`, 제어 흐름은 `if let`과 `guard let`이라는 기준으로 시작하면 선택하기 쉽다.
+
 ## 그 밖의 선택지
 
 - 기본값이 자연스러우면 nil 병합 연산자 `??`를 사용한다.

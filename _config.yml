@@ -16,11 +16,11 @@ minimal_mistakes_skin    : "contrast" # "air", "aqua", "contrast", "dark", "dirt
 
 # Site Settings
 locale                   : "ko-KR"
-title                    : "yep iOS"
+title                    : "yep.log"
 title_separator          : "-"
-subtitle                 : # site tagline that appears below site title in masthead
+subtitle                 : "iOS Engineering Notes"
 name                     : "yep"
-description              : "iOS development"
+description              : "Swift, iOS, PKI를 깊이 있게 기록하는 개발 블로그"
 url                      : "https://yepark.github.io" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : "yepark/yepark.github.io" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
@@ -28,7 +28,7 @@ teaser                   : # path of fallback teaser image, e.g. "/assets/images
 logo                     : "/assets/images/avatar-yep.png" # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
 masthead_title           : # overrides the website title displayed in the masthead, use " " for no title
 # breadcrumbs            : false # true, false (default)
-words_per_minute         : 200
+words_per_minute         : 180
 comments:
   provider               : "utterances" # false (default), "disqus", "discourse", "facebook", "staticman", "staticman_v2", "utterances", "custom"
   disqus:
@@ -96,7 +96,7 @@ analytics:
 author:
   name             : "yep"
   avatar           : "/assets/images/avatar-yep.png" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "iOS developer"
+  bio              : "Swift와 iOS, 보안 기술을 기록합니다."
   location         : "Seoul"
   email            : aegir82@naver.com
   links:
@@ -276,7 +276,7 @@ defaults:
     values:
       layout: single
       author_profile: true
-      read_time: false
+      read_time: true
       comments: true
       share: false
       toc_ads: true

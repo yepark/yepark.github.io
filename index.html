@@ -1,4 +1,52 @@
 ---
 layout: home
-author_profile: true
+author_profile: false
+entries_layout: grid
 ---
+
+<section class="home-hero" aria-labelledby="home-hero-title">
+  <div class="home-hero__content">
+    <p class="home-hero__eyebrow">ENGINEERING NOTES · SINCE 2020</p>
+    <h1 id="home-hero-title">배운 것을 설명할 수 있을 때까지 기록합니다.</h1>
+    <p class="home-hero__description">
+      Swift와 iOS의 언어·프레임워크부터 PKI와 암호 기술까지,
+      구현 과정에서 마주친 개념을 정확하고 실용적인 글로 정리합니다.
+    </p>
+    <div class="home-hero__actions">
+      <a class="button button--primary" href="/categories/">주제별로 보기</a>
+      <a class="button button--ghost" href="/about/">블로그 소개</a>
+    </div>
+  </div>
+  <div class="home-hero__stats" aria-label="블로그 통계">
+    <div><strong>{{ site.posts | size }}</strong><span>Articles</span></div>
+    <div><strong>{{ site.categories | size }}</strong><span>Topics</span></div>
+    <div><strong>{{ site.tags | size }}</strong><span>Tags</span></div>
+  </div>
+</section>
+
+<section class="topic-section" aria-labelledby="topic-heading">
+  <div class="section-heading">
+    <p class="section-heading__eyebrow">EXPLORE</p>
+    <h2 id="topic-heading">관심 있는 주제부터 살펴보세요</h2>
+  </div>
+  <div class="topic-grid">
+    <a class="topic-card topic-card--swift" href="/categories/#swift">
+      <span class="topic-card__index">01</span>
+      <h3>Swift</h3>
+      <p>클로저, 프로퍼티, Optional과 데이터 흐름을 언어의 동작 원리부터 이해합니다.</p>
+      <span class="topic-card__meta">{{ site.categories.Swift | size }}개의 글 →</span>
+    </a>
+    <a class="topic-card topic-card--ios" href="/categories/#ios">
+      <span class="topic-card__index">02</span>
+      <h3>iOS</h3>
+      <p>UIKit, 테스트, Core Data, 빌드와 아키텍처를 실제 개발 관점에서 다룹니다.</p>
+      <span class="topic-card__meta">{{ site.categories.ios | size }}개의 글 →</span>
+    </a>
+    <a class="topic-card topic-card--pki" href="/categories/#pki">
+      <span class="topic-card__index">03</span>
+      <h3>PKI & Security</h3>
+      <p>RSA, 인증서, 블록 암호와 패딩을 표준 문서에 근거해 차근차근 정리합니다.</p>
+      <span class="topic-card__meta">{{ site.categories.pki | size }}개의 글 →</span>
+    </a>
+  </div>
+</section>

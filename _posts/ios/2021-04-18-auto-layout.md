@@ -51,6 +51,37 @@ label.firstBaselineAnchor.constraint(
 
 Baseline 제약은 뷰가 고유 콘텐츠 높이로 표시될 때 올바르게 동작한다. 텍스트 뷰를 세로로 강제 확장하거나 압축하면 기준선이 기대와 다르게 보일 수 있다.
 
+## 우선순위는 어떻게 계산될까
+
+Auto Layout은 우선순위가 1000인 필수 제약을 먼저 만족시키고, 그다음 낮은 우선순위 제약을 가능한 범위에서 만족시킨다. 우선순위 751과 750은 단순히 1만큼 다른 숫자가 아니라, 충돌 시 어느 제약을 먼저 포기할지 결정하는 순서다.
+
+예를 들어 제목과 가격 레이블이 한 줄에 있을 때 가격을 반드시 보존하고 제목은 말줄임할 수 있다면 가격의 Compression Resistance를 더 높게 둔다.
+
+```swift
+priceLabel.setContentCompressionResistancePriority(
+    .required,
+    for: .horizontal
+)
+titleLabel.setContentCompressionResistancePriority(
+    .defaultHigh,
+    for: .horizontal
+)
+titleLabel.numberOfLines = 1
+titleLabel.lineBreakMode = .byTruncatingTail
+```
+
+## 레이아웃 문제를 찾는 순서
+
+콘솔에 `Unable to simultaneously satisfy constraints`가 나타나면 로그에 표시된 제약을 무작정 삭제하지 말고 다음 순서로 본다.
+
+1. 필수 제약끼리 같은 축에서 서로 모순되는지 확인한다.
+2. `translatesAutoresizingMaskIntoConstraints`가 의도치 않게 `true`인지 확인한다.
+3. 고유 콘텐츠 크기가 있는 뷰의 CHCR 우선순위를 비교한다.
+4. 다국어의 긴 문자열과 Dynamic Type의 가장 큰 글자 크기로 시험한다.
+5. `UIView.alertForUnsatisfiableConstraints`에 symbolic breakpoint를 걸어 충돌 시점의 호출 스택을 확인한다.
+
+제약이 모호한지 확인할 때는 `hasAmbiguousLayout`과 디버거의 `exerciseAmbiguityInLayout()`도 활용할 수 있다. 후자는 가능한 레이아웃 사이를 바꿔 보여 주므로 빠진 제약을 시각적으로 찾는 데 도움이 된다.
+
 ## Interface Builder에서 코드로 연결하기
 
 스토리보드의 제약을 코드에서 변경하려면 해당 제약을 `IBOutlet`으로 연결할 수 있다. 다만 런타임에 단순히 상수만 바꿀 목적이라면 새 제약을 계속 추가하기보다 기존 제약의 `constant`를 변경한다.

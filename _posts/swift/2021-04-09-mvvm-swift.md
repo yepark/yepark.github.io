@@ -49,6 +49,52 @@ final class ProfileViewModel {
 
 MVVM 자체는 바인딩 기술을 정하지 않는다. UIKit에서는 클로저, delegate, KVO, Combine 등을 선택할 수 있고, SwiftUI에서는 Observation이나 상태 프로퍼티를 사용할 수 있다. 즉 MVVM과 데이터 바인딩은 같은 개념이 아니다. MVVM은 책임을 나누는 구조이고, 바인딩은 상태 변화를 전달하는 구현 방법이다.
 
+## 화면 상태를 하나의 타입으로 모델링하기
+
+`isLoading`, `errorMessage`, `items`를 서로 독립된 프로퍼티로 두면 모순된 상태가 만들어질 수 있다. 예를 들어 로딩 중인데 오류 메시지와 목록이 동시에 표시될 수 있다. 가능한 화면 상태를 `enum`으로 제한하면 View가 처리해야 할 경우가 명확해진다.
+
+```swift
+enum ProfileState {
+    case idle
+    case loading
+    case loaded(name: String)
+    case failed(message: String)
+}
+
+@MainActor
+final class ProfileViewModel {
+    private(set) var state: ProfileState = .idle
+
+    func load() async {
+        state = .loading
+
+        do {
+            let user = try await fetchUser()
+            state = .loaded(name: user.name)
+        } catch {
+            state = .failed(message: "프로필을 불러오지 못했습니다.")
+        }
+    }
+}
+```
+
+View는 상태에 따라 로딩 표시, 콘텐츠, 오류 화면 중 하나를 렌더링한다. `@MainActor`는 UI가 관찰하는 상태 변경이 메인 액터에서 일어나도록 경계를 명시한다.
+
+## ViewModel 테스트하기
+
+ViewModel의 장점은 화면 없이 입력과 출력을 검증할 수 있다는 점이다. 네트워크 서비스를 프로토콜로 추상화하고 테스트용 구현을 주입하면 성공과 실패를 빠르게 재현할 수 있다.
+
+```swift
+func testPremiumUserHasStarPrefix() {
+    let user = User(name: "yep", isPremium: true)
+    let viewModel = ProfileViewModel(user: user)
+
+    XCTAssertEqual(viewModel.displayName, "⭐️ yep")
+}
+```
+
+테스트가 어렵다면 ViewModel이 현재 시간, 전역 싱글턴, 네트워크 같은 외부 환경에 직접 의존하고 있지 않은지 먼저 확인한다.
+
 ## 주의할 점
 
 화면의 모든 코드를 ViewModel로 옮기면 오히려 거대한 ViewModel이 생긴다. 다음 기준이 실용적이다.

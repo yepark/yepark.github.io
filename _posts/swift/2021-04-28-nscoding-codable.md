@@ -69,6 +69,39 @@ let decoded = try JSONDecoder().decode(Person.self, from: data)
 
 `NSCoding` 결과를 JSON으로 바꾸는 것은 프로토콜의 목적이 아니다. JSON이 필요하면 각 필드를 JSON 모델로 명시적으로 매핑하거나 Swift 모델에 `Codable`을 적용해야 한다. 반대로 오래 보관할 데이터는 어느 방식을 사용하든 스키마 변경과 마이그레이션 전략이 필요하다.
 
+## 안전한 아카이브 복원
+
+`NSSecureCoding`을 채택해도 디코딩할 때 허용 클래스를 지정하지 않으면 장점을 살릴 수 없다. Objective-C에서는 `decodeObjectOfClass:forKey:`, 컬렉션은 `decodeObjectOfClasses:forKey:`처럼 복원 가능한 타입을 제한한다.
+
+Swift에서 아카이브를 해제할 때도 최상위 타입을 명시한다.
+
+```swift
+let person = try NSKeyedUnarchiver.unarchivedObject(
+    ofClass: Person.self,
+    from: archivedData
+)
+```
+
+외부에서 받은 아카이브는 신뢰하지 않는다. 디코딩 실패를 정상적인 오류 경로로 처리하고, 예상하지 못한 클래스나 지나치게 큰 데이터가 들어왔을 때 작업을 중단해야 한다.
+
+## 모델이 바뀌면 어떻게 할까
+
+저장된 데이터는 앱 업데이트 후에도 남는다. 프로퍼티를 추가할 때는 키가 없을 수 있음을 고려하고, 이름을 변경할 때는 이전 키를 함께 읽는 마이그레이션 기간을 둔다. `Codable`에서도 같은 문제가 생긴다.
+
+```swift
+struct Person: Codable {
+    let name: String
+    let nickname: String?
+
+    private enum CodingKeys: String, CodingKey {
+        case name
+        case nickname
+    }
+}
+```
+
+서버 JSON처럼 독립적으로 진화하는 형식이라면 `CodingKeys`, 사용자 정의 `init(from:)`, 버전 필드를 사용해 호환 범위를 명시한다. 장기 보관 데이터에는 “현재 모델이 자동으로 합성되니 계속 읽힐 것”이라고 가정하지 않는 것이 중요하다.
+
 ## 참고
 
 - [Apple NSCoding](https://developer.apple.com/documentation/foundation/nscoding)

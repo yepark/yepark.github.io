@@ -61,6 +61,39 @@ View Controller는 “상세 화면을 보여 달라”는 사용자 의도만 �
 - 화면 전환 규칙을 한곳에서 읽고 테스트할 수 있다.
 - 같은 화면을 여러 흐름에서 재사용하기 쉬워진다.
 
+## 자식 Coordinator의 수명 관리
+
+로그인이나 결제처럼 여러 화면으로 이어지는 흐름은 별도 Coordinator로 분리할 수 있다. 부모는 자식을 강하게 보관하고, 자식 흐름이 끝났다는 알림을 받으면 배열에서 제거한다.
+
+```swift
+final class AppCoordinator: Coordinator {
+    var childCoordinators: [Coordinator] = []
+
+    func showLogin() {
+        let child = LoginCoordinator(
+            navigationController: navigationController
+        )
+
+        child.onFinish = { [weak self, weak child] in
+            guard let self, let child else { return }
+            self.childCoordinators.removeAll { $0 === child }
+            self.showHome()
+        }
+
+        childCoordinators.append(child)
+        child.start()
+    }
+}
+```
+
+자식을 배열에 넣지 않으면 `start()` 직후 해제될 수 있고, 끝난 자식을 제거하지 않으면 화면이 닫혀도 메모리에 남는다. 화면을 뒤로 스와이프해 종료하는 경우까지 포함해 완료 시점을 설계해야 한다.
+
+## 데이터 전달 방식
+
+Coordinator가 모든 화면 데이터까지 직접 가공하면 또 다른 거대한 객체가 된다. Coordinator는 화면 생성과 흐름 선택을 담당하고, 화면에 표시할 데이터와 비즈니스 로직은 ViewModel이나 Use Case에 맡긴다.
+
+이전 화면으로 결과를 돌려줄 때는 delegate, 완료 클로저, async 함수 중 프로젝트의 흐름에 맞는 방식을 사용한다. 어떤 방식을 택하든 구체적인 View Controller 타입을 서로 직접 참조하지 않게 만드는 것이 핵심이다.
+
 ## 주의할 점
 
 자식 Coordinator를 배열에 보관하는 구조에서는 흐름이 끝날 때 반드시 제거해야 한다. 그렇지 않으면 부모와 자식, 클로저 사이에 순환 참조가 생길 수 있다. View Controller가 Coordinator를 강하게 소유하게 만들기보다 약한 delegate나 `[weak self]` 클로저를 사용하는 편이 안전하다.
