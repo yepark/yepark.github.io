@@ -1,8 +1,0 @@
-# main links
-main:
-   - title: "글 모아보기"
-     url: /categories/
-   - title: "태그"
-     url: /tags/
-   - title: "소개"
-     url: /about/

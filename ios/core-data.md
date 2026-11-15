@@ -1,0 +1,196 @@
+---
+title: "Objective-C로 Core Data 시작하기"
+parent: "iOS"
+nav_order: 4
+permalink: /ios/core-data/
+first_written: 2021-04-23
+last_modified_date: 2026-11-15
+tags: [iOS, Objective-C, Core-Data]
+---
+
+# Objective-C로 Core Data 시작하기
+{: .no_toc }
+
+<details open markdown="block">
+  <summary>목차</summary>
+  {: .text-delta }
+1. TOC
+{:toc}
+</details>
+
+Core Data는 앱의 모델 객체와 객체 그래프를 관리하는 프레임워크다. 변경 추적, 관계 관리, 검증, Undo/Redo, faulting, 영속성 같은 기능을 제공한다.
+
+Core Data를 단순히 SQLite용 ORM으로 이해하면 중요한 특성을 놓치기 쉽다. SQLite는 사용할 수 있는 저장소 중 하나일 뿐이며, 메모리 저장소처럼 데이터베이스가 아닌 구성도 지원한다.
+
+## Core Data 스택
+
+Core Data의 핵심 구성 요소는 다음과 같다.
+
+- `NSManagedObjectModel`: 엔티티, 속성, 관계를 정의한 모델
+- `NSManagedObjectContext`: 객체를 생성하고 변경 사항을 추적하는 작업 공간
+- `NSPersistentStoreCoordinator`: 컨텍스트와 영구 저장소를 연결하는 조정자
+- `NSPersistentContainer`: 위 구성 요소의 생성과 연결을 간소화하는 컨테이너
+
+데이터 모델 파일 이름이 `DataModel.xcdatamodeld`라면 다음과 같이 컨테이너를 구성할 수 있다.
+
+```objc
+@interface CoreDataStack : NSObject
+
+@property (nonatomic, strong, readonly) NSPersistentContainer *persistentContainer;
+
++ (instancetype)sharedStack;
+- (void)saveContext;
+
+@end
+
+@implementation CoreDataStack
+
+@synthesize persistentContainer = _persistentContainer;
+
++ (instancetype)sharedStack {
+    static CoreDataStack *stack;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        stack = [CoreDataStack new];
+    });
+    return stack;
+}
+
+- (NSPersistentContainer *)persistentContainer {
+    if (_persistentContainer == nil) {
+        _persistentContainer =
+            [[NSPersistentContainer alloc] initWithName:@"DataModel"];
+
+        [_persistentContainer loadPersistentStoresWithCompletionHandler:
+            ^(NSPersistentStoreDescription *description, NSError *error) {
+                if (error != nil) {
+                    NSLog(@"Core Data 저장소 로드 실패: %@", error);
+                }
+            }];
+    }
+
+    return _persistentContainer;
+}
+
+- (void)saveContext {
+    NSManagedObjectContext *context = self.persistentContainer.viewContext;
+    if (![context hasChanges]) {
+        return;
+    }
+
+    NSError *error = nil;
+    if (![context save:&error]) {
+        NSLog(@"Core Data 저장 실패: %@", error);
+    }
+}
+
+@end
+```
+
+`@synthesize` 줄을 빼면 안 된다. `readonly` 프로퍼티의 getter를 직접 만들면 컴파일러가 `_persistentContainer` 변수를 자동으로 만들어 주지 않는다. 이 줄이 없으면 `use of undeclared identifier '_persistentContainer'` 오류가 난다. (Xcode의 clang으로 직접 컴파일해서 확인했다.)
+
+샘플 코드에서는 오류를 로그로 남겼지만, 실제 앱에서는 복구 가능 여부와 사용자 데이터 보호 정책에 맞게 오류를 전달하고 처리해야 한다. 배포 앱에서 무조건 `abort()`를 호출하는 방식은 피한다.
+
+## 모델과 `NSManagedObject` 생성
+
+`.xcdatamodeld` 편집기에서 엔티티, 속성, 관계를 정의한다. Codegen 설정을 사용하거나 **Editor > Create NSManagedObject Subclass**로 클래스를 생성할 수 있다.
+
+`Employee` 엔티티에 대응하는 `EmployeeMO` 클래스가 있다고 가정하면 객체 생성과 저장은 다음과 같다.
+
+```objc
+NSManagedObjectContext *context =
+    [CoreDataStack sharedStack].persistentContainer.viewContext;
+
+EmployeeMO *employee =
+    [NSEntityDescription insertNewObjectForEntityForName:@"Employee"
+                                  inManagedObjectContext:context];
+
+employee.name = @"yep";
+
+NSError *error = nil;
+if (![context save:&error]) {
+    NSLog(@"Employee 저장 실패: %@", error);
+}
+```
+
+## 데이터 조회
+
+`NSFetchRequest`로 엔티티를 조회하고, 필요하면 predicate와 sort descriptor를 추가한다.
+
+```objc
+NSFetchRequest<EmployeeMO *> *request =
+    [EmployeeMO fetchRequest];
+
+request.predicate =
+    [NSPredicate predicateWithFormat:@"name == %@", @"yep"];
+request.sortDescriptors = @[
+    [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]
+];
+
+NSError *error = nil;
+NSArray<EmployeeMO *> *employees =
+    [context executeFetchRequest:request error:&error];
+
+if (employees == nil) {
+    NSLog(@"Employee 조회 실패: %@", error);
+}
+```
+
+조회 결과가 없는 경우에는 빈 배열이 반환된다. `nil`은 요청 자체가 실패했다는 뜻이다.
+
+## 삭제
+
+객체를 컨텍스트에서 삭제한 뒤 저장해야 영구 저장소에 반영된다.
+
+```objc
+[context deleteObject:employee];
+
+NSError *error = nil;
+if (![context save:&error]) {
+    NSLog(@"Employee 삭제 실패: %@", error);
+}
+```
+
+## 백그라운드 작업
+
+`viewContext`는 일반적으로 메인 큐에서 UI와 함께 사용한다. 많은 데이터를 가져오거나 수정하는 작업은 별도 컨텍스트에서 수행한다.
+
+```objc
+NSPersistentContainer *container =
+    [CoreDataStack sharedStack].persistentContainer;
+
+[container performBackgroundTask:^(NSManagedObjectContext *context) {
+    // 이 블록 안에서 생성·조회·수정하고 context를 저장한다.
+}];
+```
+
+`NSManagedObject` 인스턴스를 서로 다른 큐의 컨텍스트 사이에서 직접 전달하지 않는다. 대신 `NSManagedObjectID`를 전달한 뒤 대상 컨텍스트에서 다시 객체를 가져온다.
+
+## 테스트용 메모리 저장소
+
+단위 테스트에서는 디스크 대신 메모리 저장소를 사용하면 테스트를 빠르고 독립적으로 실행할 수 있다. 저장소를 로드하기 전에 description을 설정해야 한다.
+
+```objc
+NSPersistentContainer *container =
+    [[NSPersistentContainer alloc] initWithName:@"DataModel"];
+
+NSPersistentStoreDescription *description =
+    [NSPersistentStoreDescription new];
+description.type = NSInMemoryStoreType;
+container.persistentStoreDescriptions = @[description];
+
+[container loadPersistentStoresWithCompletionHandler:
+    ^(NSPersistentStoreDescription *storeDescription, NSError *error) {
+        NSAssert(error == nil, @"메모리 저장소 로드 실패: %@", error);
+    }];
+```
+
+## 정리
+
+Core Data를 사용할 때는 저장소보다 **컨텍스트와 객체 그래프**를 먼저 이해하는 것이 중요하다. 작은 앱에서는 `NSPersistentContainer`와 `viewContext`만으로 시작하고, 작업량과 동시성 요구가 커질 때 백그라운드 컨텍스트와 병합 정책을 추가하는 방식이 관리하기 쉽다.
+
+## 참고 자료
+
+- [Apple: Setting up a Core Data stack](https://developer.apple.com/documentation/coredata/setting-up-a-core-data-stack)
+- [Apple: Core Data Programming Guide](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CoreData/)
+- [Apple: NSPersistentContainer](https://developer.apple.com/documentation/coredata/nspersistentcontainer)

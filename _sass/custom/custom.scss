@@ -1,0 +1,76 @@
+// 한글 본문을 읽기 편하게
+.main-content {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  letter-spacing: -0.005em;
+
+  p, li { font-size: 1.0625rem; }
+
+  h1 { font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+  h2 {
+    font-weight: 700;
+    margin-top: 3rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid $border-color;
+  }
+  h3 { font-weight: 650; margin-top: 2rem; }
+
+  strong { color: $body-heading-color; }
+
+  blockquote {
+    margin-left: 0;
+    padding: 0.25rem 1rem;
+    border-left: 3px solid $border-color;
+    color: $grey-dk-100;
+  }
+
+  img {
+    border: 1px solid $border-color;
+    border-radius: 6px;
+  }
+
+  table { font-size: 0.95rem; }
+
+  code { font-size: 0.875em; }
+  div.highlighter-rouge, figure.highlight {
+    border-radius: 8px;
+  }
+
+  details {
+    margin: 1rem 0 2rem;
+    padding: 0.75rem 1rem;
+    background: $sidebar-color;
+    border-radius: 8px;
+    summary { cursor: pointer; font-weight: 600; }
+    ol { margin-bottom: 0; }
+  }
+}
+
+// 사이드바 제목
+.site-title { font-weight: 700; letter-spacing: -0.01em; }
+
+// 홈 화면
+.home-intro {
+  padding: 1rem 0 0.5rem;
+  .home-intro__lead { font-size: 1.25rem !important; color: $grey-dk-100; }
+}
+.topic-list {
+  list-style: none;
+  padding-left: 0 !important;
+  li::before { content: none !important; }
+  li {
+    padding: 1rem 1.25rem;
+    margin-bottom: 0.75rem;
+    border: 1px solid $border-color;
+    border-radius: 10px;
+    background: #fff;
+  }
+  a { font-weight: 700; font-size: 1.1rem; }
+  span { display: block; color: $grey-dk-000; font-size: 0.95rem; }
+}
+.recent-list {
+  padding-left: 0 !important;
+  list-style: none;
+  li::before { content: none !important; }
+  .date { color: $grey-dk-000; font-family: $mono-font-family; font-size: 0.85rem; margin-right: 0.75rem; }
+}
