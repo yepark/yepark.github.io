@@ -5,7 +5,7 @@ grand_parent: AI
 nav_order: 2
 permalink: /ai/mlx/array/
 first_written: 2026-11-15
-last_modified_date: 2026-11-15
+last_modified_date: 2026-11-16
 tags: [MLX, Python, Array]
 ---
 
@@ -383,6 +383,8 @@ array([99, 2, 3], dtype=int32) array([99, 2, 3], dtype=int32)
 ## 다음 편
 
 1편에서 `a + b`를 하면 바로 결과가 나오는 것처럼 보였다. 그런데 사실 MLX는 그 순간 **계산을 하지 않는다.** 다음 편에서는 MLX가 계산을 미뤘다가 필요할 때 한 번에 하는 **게으른 계산**을 다룬다.
+
+→ [3. 게으른 계산: MLX는 왜 계산을 미룰까](/ai/mlx/lazy-evaluation/)
 
 ## 참고
 
