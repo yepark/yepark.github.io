@@ -40,10 +40,12 @@ yepark.github.io/
 ├── _config.yml          사이트 전체 설정
 ├── index.md             홈 화면
 ├── about.md             소개
-├── mlx/                 MLX 주제
-│   ├── index.md         주제 첫 페이지 (메뉴의 "MLX")
-│   └── 01-what-is-mlx.md
-├── swift/  ios/  pki/  blog/   다른 주제들 (구조는 같다)
+├── ai/                  AI 주제 (메뉴의 "AI")
+│   ├── index.md         주제 첫 페이지
+│   └── mlx/             AI 안의 MLX 연재
+│       ├── index.md     연재 첫 페이지 (메뉴의 "MLX")
+│       └── 01-what-is-mlx.md
+├── swift/  ios/  pki/  blog/   다른 주제들
 ├── _includes/head_custom.html  <head>에 넣을 것 (폰트, 사이트 인증)
 ├── _sass/custom/        글꼴, 줄 간격 같은 스타일
 ├── _sass/color_schemes/notes.scss  색상
@@ -60,8 +62,9 @@ yepark.github.io/
 ---
 title: "2. 배열: MLX에서 숫자를 담는 그릇"
 parent: MLX
+grand_parent: AI
 nav_order: 2
-permalink: /mlx/array/
+permalink: /ai/mlx/array/
 first_written: 2026-11-16
 last_modified_date: 2026-11-16
 tags: [MLX, Python]
@@ -72,6 +75,7 @@ tags: [MLX, Python]
 
 - `title`: 글 제목. 왼쪽 메뉴에도 이 이름으로 나온다.
 - `parent`: 어느 주제 아래에 넣을지. 주제 `index.md`의 `title`과 **글자가 똑같아야** 한다.
+- `grand_parent`: 주제 안의 연재(예: AI 안의 MLX)에 넣을 때만 쓴다. 바깥 주제 이름을 적는다.
 - `nav_order`: 메뉴에서 몇 번째에 놓을지. 작은 숫자가 위로 간다.
 - `permalink`: 글 주소. 한 번 정하면 바꾸지 않는다. 바꾸면 예전 링크가 깨진다.
 - `first_written`: 처음 쓴 날.

@@ -1,8 +1,11 @@
 ---
 title: "1. MLX가 뭐고, 내 Mac에서 처음 돌려 보기"
 parent: MLX
+grand_parent: AI
 nav_order: 1
-permalink: /mlx/what-is-mlx/
+permalink: /ai/mlx/what-is-mlx/
+redirect_from:
+  - /mlx/what-is-mlx/
 first_written: 2026-11-15
 last_modified_date: 2026-11-15
 tags: [MLX, Python, Apple-Silicon]

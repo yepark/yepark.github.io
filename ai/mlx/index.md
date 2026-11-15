@@ -1,8 +1,11 @@
 ---
 title: MLX
-nav_order: 2
+parent: AI
+nav_order: 1
 has_children: true
-permalink: /mlx/
+permalink: /ai/mlx/
+redirect_from:
+  - /mlx/
 last_modified_date: 2026-11-15
 ---
 

@@ -74,3 +74,86 @@
   li::before { content: none !important; }
   .date { color: $grey-dk-000; font-family: $mono-font-family; font-size: 0.85rem; margin-right: 0.75rem; }
 }
+
+// ---------- 색: 가독성과 대비 기준 (WCAG AA 4.5:1 이상) ----------
+// 본문 #2a2c30 14.0:1 / h1 #0f172a 17.9:1 / h2 #1e3a8a 10.4:1 / h3 #334155 10.4:1
+// 보조 글씨 #5b6068 6.3:1 / 포인트 #3451b2 7.1:1
+$text: #2a2c30;
+$h1: #0f172a;
+$h2: #1e3a8a;
+$h3: #334155;
+$muted: #5b6068;
+$accent: #3451b2;
+$green: #2f6b4f;
+$orange: #a3401c;
+$box: #f7f8f9;
+
+.main-content {
+  color: $text;
+  h1 { color: $h1; }
+  h2 { color: $h2; }
+  h3, h4 { color: $h3; }
+  strong { color: $h1; }
+}
+
+// 사이드바: 글자는 본문색, 지금 보는 글만 포인트 색
+.site-title { color: $h1 !important; }
+.nav-list .nav-list-item .nav-list-link {
+  color: $text;
+  &:hover { background-image: none; background-color: #f0f1f3; }
+  &.active { color: $accent; font-weight: 600; background-image: none; }
+}
+.nav-list .nav-list-item .nav-list-expander { color: $muted; }
+.aux-nav .aux-nav-list-item a { color: $muted; }
+.site-footer, .site-footer a { color: $muted !important; }
+
+// 본문 링크: 포인트 색 + 옅은 밑줄
+.main-content a:not(.btn) {
+  color: $accent;
+  text-decoration: underline;
+  text-decoration-color: rgba(52, 81, 178, 0.35);
+  text-underline-offset: 3px;
+  background-image: none;
+  &:hover { text-decoration-color: $accent; }
+}
+.main-content .anchor-heading { text-decoration: none !important; }
+.main-content details a:not(.btn) { text-decoration: none; color: $text; &:hover { color: $accent; } }
+.breadcrumb-nav-list-item, .breadcrumb-nav-list-item a { color: $muted !important; }
+
+// 강조 상자: 같은 회색 바탕, 왼쪽 선과 제목 색으로만 구분
+.main-content {
+  .note, .tip, .warning, .question {
+    background: $box !important;
+    color: $text;
+    border-left: 3px solid $accent;
+    border-radius: 0 6px 6px 0;
+    box-shadow: none !important;
+    &::before { color: $accent !important; }
+  }
+  .tip { border-left-color: $green; &::before { color: $green !important; } }
+  .warning { border-left-color: $orange; &::before { color: $orange !important; } }
+  .question { border-left-color: $muted; &::before { color: $muted !important; } }
+
+  blockquote { border-left-color: $accent; color: $text; background: none; }
+  table th { background: #fafafa; color: $h3; }
+  ol > li::before, ul > li::before { color: $muted; }
+}
+
+// 코드: 주석 글씨를 진하게 (기본 회색은 대비가 낮다)
+.highlight .c, .highlight .c1, .highlight .cm, .highlight .cs, .highlight .cp { color: #5f6b76 !important; }
+.main-content :not(pre) > code { color: #9a2a52; background: #f3f4f6; border: none; }
+
+// 홈
+.home-intro .home-intro__lead { color: $muted !important; }
+.topic-list li {
+  background: #ffffff;
+  transition: border-color 0.15s;
+  &:hover { border-color: $accent; }
+  a { color: $h2 !important; text-decoration: none !important; }
+  span { color: $muted !important; }
+}
+.recent-list {
+  .date { color: $muted !important; }
+  a { color: $text !important; text-decoration: none !important; }
+  a:hover { color: $accent !important; }
+}

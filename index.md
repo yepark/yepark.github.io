@@ -14,14 +14,14 @@ redirect_from:
 # 나중의 나를 위한 노트
 {: .fs-9 }
 
-공부한 것을 **내가 다시 읽어도 바로 이해되게** 쉬운 말로 적어 둡니다.
+iOS 개발자 yep의 공부 노트
 {: .home-intro__lead }
 </div>
 
 ## 주제
 
 <ul class="topic-list">
-  <li><a href="{{ '/mlx/' | relative_url }}">MLX</a><span>Apple 실리콘 Mac에서 머신러닝을 돌리는 방법, 가장 기초부터</span></li>
+  <li><a href="{{ '/ai/' | relative_url }}">AI</a><span>MLX로 Mac에서 머신러닝 돌리기, 기초부터</span></li>
   <li><a href="{{ '/swift/' | relative_url }}">Swift</a><span>옵셔널, 프로퍼티, 클로저처럼 매일 만나는 것들</span></li>
   <li><a href="{{ '/ios/' | relative_url }}">iOS</a><span>화면 배치, 데이터 저장, 테스트, 빌드</span></li>
   <li><a href="{{ '/pki/' | relative_url }}">PKI & 암호</a><span>인증서, RSA, 블록 암호</span></li>
