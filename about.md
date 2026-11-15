@@ -6,7 +6,7 @@ permalink: /about/
 
 # 소개
 
-iOS 개발자 yep의 공부 노트.
+iOS 개발자 yep의 개발 기록.
 
 AI, Swift, iOS, PKI & 암호를 다룬다.
 

@@ -11,11 +11,8 @@ redirect_from:
 ---
 
 <div class="home-intro" markdown="1">
-# 나중의 나를 위한 노트
+# 나를 위한 개발 기록
 {: .fs-9 }
-
-iOS 개발자 yep의 공부 노트
-{: .home-intro__lead }
 </div>
 
 ## 주제
