@@ -1,8 +1,10 @@
 ---
 title: "SSL 인증서 체인과 SSL 피닝"
-parent: "iOS"
-nav_order: 10
-permalink: /ios/ssl-pinning/
+parent: "PKI & 암호"
+nav_order: 6
+permalink: /pki/ssl-pinning/
+redirect_from:
+  - /ios/ssl-pinning/
 first_written: 2026-11-15
 last_modified_date: 2026-11-15
 tags: [iOS, Swift, SSL, TLS, Pinning, URLSession]
