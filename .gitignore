@@ -31,3 +31,6 @@ _site
 # Local build
 vendor
 _site
+
+# Claude 작업 규칙 (로컬 전용)
+CLAUDE.md
