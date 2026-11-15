@@ -18,12 +18,6 @@ tags: [MLX, Python, Apple-Silicon]
 {:toc}
 </details>
 
-## 오늘 배울 것
-
-1. MLX가 무엇인지 한 문장으로 말할 수 있다.
-2. 내 Mac에 MLX를 설치한다.
-3. MLX로 첫 계산을 해 본다.
-
 ## MLX를 한 문장으로
 
 > **MLX는 Apple 실리콘 Mac에서 숫자 계산을 빠르게 해 주는 Python 도구다.**
