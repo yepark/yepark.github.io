@@ -1,4 +1,4 @@
-# yep.log 작업 규칙
+# 옙개발 작업 규칙
 
 이 저장소는 Just the Docs 테마를 쓰는 개인 공부 노트 사이트(https://yepark.github.io)다. 주인은 Claude에게 글쓰기와 사이트 관리를 맡겼다.
 

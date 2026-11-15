@@ -1,4 +1,4 @@
-# yep.log
+# 옙개발
 
 나중의 나를 위한 노트. https://yepark.github.io
 

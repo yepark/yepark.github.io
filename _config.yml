@@ -1,4 +1,4 @@
-title: yep.log
+title: 옙개발
 description: 나중의 나를 위한 노트. Swift, iOS, PKI·암호를 쉽게 풀어 적어 둡니다.
 url: "https://yepark.github.io"
 baseurl: ""
@@ -40,7 +40,7 @@ aux_links_new_tab: true
 last_edit_timestamp: true
 last_edit_time_format: "%Y-%m-%d"
 
-footer_content: "나중의 나를 위한 노트 · yep"
+footer_content: "옙개발 · 나중의 나를 위한 노트"
 
 # 글 안에서 쓰는 강조 상자
 callouts_level: quiet
