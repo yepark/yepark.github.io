@@ -1,7 +1,7 @@
 ---
 title: "자바스크립트와 스위프트 클로저 차이"
 parent: "Swift"
-nav_order: 3
+nav_order: 4
 permalink: /swift/swift-closure/
 first_written: 2021-04-20
 last_modified_date: 2026-11-01

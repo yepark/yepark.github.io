@@ -1,7 +1,7 @@
 ---
 title: "프로퍼티 한 번에 정리하기"
 parent: "Swift"
-nav_order: 2
+nav_order: 3
 permalink: /swift/swift-property/
 first_written: 2021-04-11
 last_modified_date: 2026-11-01

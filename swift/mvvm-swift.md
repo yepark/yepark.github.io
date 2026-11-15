@@ -1,7 +1,7 @@
 ---
 title: "MVVM의 역할과 데이터 흐름"
 parent: "Swift"
-nav_order: 4
+nav_order: 5
 permalink: /swift/mvvm-swift/
 first_written: 2021-04-09
 last_modified_date: 2026-11-15

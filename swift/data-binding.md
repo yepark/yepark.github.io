@@ -1,7 +1,7 @@
 ---
 title: "클로저 기반 데이터 바인딩과 Box"
 parent: "Swift"
-nav_order: 5
+nav_order: 6
 permalink: /swift/data-binding/
 first_written: 2021-05-03
 last_modified_date: 2026-11-01
