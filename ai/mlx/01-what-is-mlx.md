@@ -189,6 +189,8 @@ Device(gpu, 0)
 
 다음 편에서는 오늘 잠깐 본 **배열**을 제대로 다룬다. 배열의 모양(`shape`)과 숫자 종류(`dtype`), 원하는 부분만 꺼내는 방법을 배운다.
 
+→ [2. 배열: MLX에서 숫자를 담는 그릇]({{ '/ai/mlx/array/' | relative_url }})
+
 ## 참고
 
 - [MLX 공식 문서](https://ml-explore.github.io/mlx/build/html/index.html)
