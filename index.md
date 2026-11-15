@@ -26,7 +26,7 @@ redirect_from:
 
 ## 최근에 고친 글
 
-{% assign notes = site.html_pages | where_exp: "p", "p.parent" | sort: "last_modified_date" | reverse %}
+{% assign notes = site.html_pages | where_exp: "p", "p.parent" | where_exp: "p", "p.has_children != true" | sort: "last_modified_date" | reverse %}
 <ul class="recent-list">
 {% for p in notes limit: 8 %}
   <li><span class="date">{{ p.last_modified_date | date: "%Y-%m-%d" }}</span><a href="{{ p.url | relative_url }}">{{ p.title }}</a></li>

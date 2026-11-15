@@ -42,7 +42,10 @@ tags: [iOS, Swift, SSL, TLS, Pinning, URLSession]
 인증서도 똑같이 사슬처럼 이어진다. 실제로 github.com이 보내 주는 인증서를 확인해 보자.
 
 ```bash
-echo | openssl s_client -connect github.com:443 -servername github.com -showcerts 2>/dev/null \
+echo | openssl s_client \
+    -connect github.com:443 \
+    -servername github.com \
+    -showcerts 2>/dev/null \
   | grep -E "^ *[0-9] s:|^ *i:"
 ```
 
@@ -146,10 +149,14 @@ Apple은 2021년 1월 개발자 뉴스(Identity Pinning)에서 이렇게 말한�
 
 ```bash
 # 서버 인증서들을 파일로 받기
-echo | openssl s_client -connect github.com:443 -servername github.com -showcerts 2>/dev/null > chain.txt
+echo | openssl s_client \
+    -connect github.com:443 \
+    -servername github.com \
+    -showcerts 2>/dev/null > chain.txt
 
 # 인증서 하나(cert.pem)의 핀 값 구하기 (Apple 문서에 나온 명령)
-cat cert.pem | openssl x509 -inform pem -noout -outform pem -pubkey \
+cat cert.pem \
+  | openssl x509 -inform pem -noout -outform pem -pubkey \
   | openssl pkey -pubin -inform pem -outform der \
   | openssl dgst -sha256 -binary \
   | openssl enc -base64
