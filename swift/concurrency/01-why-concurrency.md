@@ -23,6 +23,9 @@ tags: [Swift, Concurrency, Async-Await]
 
 Swift Concurrency는 이 문제를 언어 차원에서 다룬다. 핵심 도구는 `async`/`await`, Task, actor다.
 
+{: .note }
+GCD의 `sync`/`async`, Serial/Concurrent Queue가 아직 헷갈린다면 [입문 편: GCD 기초]({{ '/swift/concurrency/gcd-queue-basics/' | relative_url }})부터 읽는 것을 권한다.
+
 ## 동기 코드가 화면을 멈추는 이유
 
 동기 함수는 결과가 나올 때까지 호출한 쪽을 붙잡는다.
