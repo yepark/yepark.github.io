@@ -1,27 +1,32 @@
 ---
-title: "macOS에 Jenkins 설치하고 Xcode·Fortify 연동하기"
+title: "Jenkins 기반 iOS 빌드 자동화"
 parent: "iOS"
 nav_order: 9
 permalink: /ios/macos-jenkins/
+last_modified_at: 2026-11-17
+seo:
+  type: BlogPosting
+date: 2020-08-04
+description: "macOS Jenkins의 실행 계정, Xcode 빌드, 코드 서명과 Fortify 정적 분석 연동을 설명합니다."
 first_written: 2020-08-04
 last_modified_date: 2026-11-17
 tags: [iOS, Xcode, Jenkins, Fortify, CI]
 ---
 
-# macOS에 Jenkins 설치하고 Xcode·Fortify 연동하기
+# Jenkins 기반 iOS 빌드 자동화
 {: .no_toc }
 
 {% include article-toc.md %}
+
+> 이 글의 화면 캡처는 2020년 Jenkins UI를 기준으로 한다. 메뉴 이름과 플러그인 화면은 현재 버전에서 달라질 수 있으므로, 설치 전 공식 문서의 지원 버전을 함께 확인한다.
+
+Jenkins는 빌드, 테스트, 분석, 배포 작업을 자동화하는 오픈 소스 자동화 서버다. 이 글에서는 macOS에 Jenkins LTS를 설치하고, Xcode 프로젝트와 Fortify 정적 분석을 연결할 때 필요한 흐름을 정리한다.
 
 ## 자동 빌드의 흐름부터 보기
 
 Jenkins는 코드를 가져와 명령을 실행하고 결과를 기록하는 서버다. Xcode의 빌드 도구를 대체하는 것이 아니라, 개발자가 실행하던 빌드·테스트 명령을 일정한 조건에서 반복한다.
 
 먼저 같은 Mac의 터미널에서 `xcodebuild`가 성공하는지 확인한다. 그다음 Jenkins 실행 계정의 Xcode 경로, Keychain, 인증서, 파일 접근 권한을 맞춘다. 수동 빌드가 실패하는 상태에서 Jenkins 설정만 바꾸면 원인을 분리하기 어렵다.
-
-> 이 글의 화면 캡처는 2020년 Jenkins UI를 기준으로 한다. 메뉴 이름과 플러그인 화면은 현재 버전에서 달라질 수 있으므로, 설치 전 공식 문서의 지원 버전을 함께 확인한다.
-
-Jenkins는 빌드, 테스트, 분석, 배포 작업을 자동화하는 오픈 소스 자동화 서버다. 이 글에서는 macOS에 Jenkins LTS를 설치하고, Xcode 프로젝트와 Fortify 정적 분석을 연결할 때 필요한 흐름을 정리한다.
 
 ## 설치 전 확인
 

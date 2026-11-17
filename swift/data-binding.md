@@ -3,6 +3,11 @@ title: "클로저 기반 데이터 바인딩과 Box"
 parent: "Swift"
 nav_order: 6
 permalink: /swift/data-binding/
+last_modified_at: 2026-11-17
+seo:
+  type: BlogPosting
+date: 2021-05-03
+description: "클로저 기반 Box의 상태 전달, 구독 해제, 참조 수명과 UI 실행 문맥을 구현 예제로 분석합니다."
 first_written: 2021-05-03
 last_modified_date: 2026-11-17
 tags: [Swift, Data-Binding, MVVM, Observation]
@@ -13,13 +18,13 @@ tags: [Swift, Data-Binding, MVVM, Observation]
 
 {% include article-toc.md %}
 
+데이터 바인딩은 상태가 바뀌었을 때 그 변화를 UI 같은 소비자에게 전달하는 연결 방식이다. UIKit에서는 delegate, KVO, NotificationCenter, Combine, 클로저 등 여러 선택지가 있다. 작은 MVVM 예제에서는 `Box`라는 단순한 래퍼로 동작 원리를 이해할 수 있다.
+
 ## 값과 화면을 연결하는 이유
 
 서버에서 사용자 이름을 받아도 화면의 레이블이 저절로 바뀌지는 않는다. 값이 바뀌었다는 사실을 화면에 알리고, 화면이 새 값을 표시하는 연결이 필요하다.
 
 아래 `Box`는 값을 담는 상자이며 `listener`는 변경을 전달받는 함수다. `bind`는 함수를 등록하고, `value` 변경은 등록한 함수를 호출한다. 처음에는 ‘등록 → 값 변경 → 호출 → 화면 반영’ 순서만 따라가면 된다.
-
-데이터 바인딩은 상태가 바뀌었을 때 그 변화를 UI 같은 소비자에게 전달하는 연결 방식이다. UIKit에서는 delegate, KVO, NotificationCenter, Combine, 클로저 등 여러 선택지가 있다. 작은 MVVM 예제에서는 `Box`라는 단순한 래퍼로 동작 원리를 이해할 수 있다.
 
 ## 기본 Box 구현
 

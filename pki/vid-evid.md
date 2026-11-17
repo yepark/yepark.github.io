@@ -3,6 +3,11 @@ title: "VID와 EVID의 역할"
 parent: "PKI & 암호"
 nav_order: 5
 permalink: /pki/vid-evid/
+last_modified_at: 2026-11-17
+seo:
+  type: BlogPosting
+date: 2021-04-25
+description: "국내 인증체계의 VID·EVID 생성과 본인 확인 흐름, 난수 보호 및 인증서 검증 경계를 설명합니다."
 first_written: 2021-04-25
 last_modified_date: 2026-11-17
 tags: [PKI, Certificate, VID, EVID]
@@ -13,13 +18,13 @@ tags: [PKI, Certificate, VID, EVID]
 
 {% include article-toc.md %}
 
+VID(Virtual ID)는 국내 전자서명인증체계에서 인증서 소유자의 식별번호를 인증서에 그대로 넣지 않고 본인 확인에 사용할 수 있도록 만든 가상식별번호다. EVID(Encrypted VID)는 인증서 발급 과정에서 VID 관련 정보를 인증기관에 안전하게 전달하기 위한 암호화된 값이다.
+
 ## 이 글이 다루는 본인 확인 범위
 
 VID는 국내 인증체계의 특정 프로파일에서 사용하는 식별 정보다. 인증서가 있는 모든 서비스가 VID를 요구하는 것은 아니다. 먼저 연동할 인증기관과 업무 규격에서 해당 정보를 사용하는지 확인한다.
 
 해시는 입력을 고정 길이 값으로 바꾸는 연산이고, 암호화는 키로 데이터를 보호해 나중에 복원하는 연산이다. VID와 EVID를 읽을 때는 어떤 값이 인증서에 공개되고 어떤 값이 비밀로 보관되는지 각각 표시해 보자.
-
-VID(Virtual ID)는 국내 전자서명인증체계에서 인증서 소유자의 식별번호를 인증서에 그대로 넣지 않고 본인 확인에 사용할 수 있도록 만든 가상식별번호다. EVID(Encrypted VID)는 인증서 발급 과정에서 VID 관련 정보를 인증기관에 안전하게 전달하기 위한 암호화된 값이다.
 
 ## VID 생성 개념
 

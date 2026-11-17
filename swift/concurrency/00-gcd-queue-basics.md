@@ -1,25 +1,23 @@
 ---
-title: "0. GCD 기초: sync/async와 Serial/Concurrent Queue"
+title: "GCD와 DispatchQueue"
 description: "Swift GCD의 sync와 async, Serial Queue와 Concurrent Queue 차이를 실행 순서와 데드락 예제로 자세히 설명합니다."
 parent: Concurrency
 grand_parent: Swift
 nav_order: 0
 permalink: /swift/concurrency/gcd-queue-basics/
+last_modified_at: 2026-11-17
+seo:
+  type: BlogPosting
+date: 2026-11-16
 first_written: 2026-11-16
 last_modified_date: 2026-11-17
 tags: [Swift, Concurrency, GCD, DispatchQueue]
 ---
 
-# GCD 기초: sync/async와 Serial/Concurrent Queue
+# GCD와 DispatchQueue
 {: .no_toc }
 
 {% include article-toc.md %}
-
-## 예제를 실행하기 전에
-
-`print`는 콘솔에 글자를 출력하는 함수다. 이 글에서는 출력 순서를 보고 어떤 작업이 먼저 끝났는지 관찰한다. `Thread.sleep`은 스레드를 실제로 붙잡는 학습용 지연이며, 앱의 비동기 대기를 구현하는 방법으로 복사하지 않는다.
-
-명령행 프로그램은 비동기 작업이 끝나기 전에 종료될 수 있다. Playground는 실행을 유지하도록 설정하거나 앱의 버튼 동작에서 시험한다. 코드 조각마다 새 큐를 만들고 독립적으로 실행하면 앞 예제의 작업과 출력이 섞이는 일을 줄일 수 있다.
 
 Swift 동시성을 공부할 때 가장 먼저 헷갈리는 조합이 있다.
 
@@ -32,6 +30,12 @@ Swift 동시성을 공부할 때 가장 먼저 헷갈리는 조합이 있다.
 > `serial`과 `concurrent`는 **큐가 여러 작업을 어떤 방식으로 실행하는가**를 말한다.
 
 이 두 문장만 정확히 이해하면 GCD(Grand Central Dispatch)의 큰 뼈대가 잡힌다.
+
+## 예제를 실행하기 전에
+
+`print`는 콘솔에 글자를 출력하는 함수다. 이 글에서는 출력 순서를 보고 어떤 작업이 먼저 끝났는지 관찰한다. `Thread.sleep`은 스레드를 실제로 붙잡는 학습용 지연이며, 앱의 비동기 대기를 구현하는 방법으로 복사하지 않는다.
+
+명령행 프로그램은 비동기 작업이 끝나기 전에 종료될 수 있다. Playground는 실행을 유지하도록 설정하거나 앱의 버튼 동작에서 시험한다. 코드 조각마다 새 큐를 만들고 독립적으로 실행하면 앞 예제의 작업과 출력이 섞이는 일을 줄일 수 있다.
 
 ## 먼저 작업, 큐, 스레드를 구분하자
 
@@ -468,7 +472,7 @@ func loadImage() async throws -> Image {
 
 이제 “기다리는 동안 앱을 멈추지 않는 것”과 “여러 작업을 함께 관리하는 것”이 서로 다른 문제라는 기반이 생겼다. 다음 편에서는 콜백과 GCD 중심 코드가 Swift의 `async`/`await`, Task, actor로 어떻게 바뀌었는지 살펴본다.
 
-→ [1. 왜 Swift Concurrency인가: 콜백에서 async/await로]({{ '/swift/concurrency/why-concurrency/' | relative_url }})
+→ [Swift Concurrency 실행 모델]({{ '/swift/concurrency/why-concurrency/' | relative_url }})
 
 ## 참고
 

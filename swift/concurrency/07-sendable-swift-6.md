@@ -1,28 +1,33 @@
 ---
-title: "7. Sendable과 Swift 6의 엄격한 동시성 검사"
+title: "Sendable과 Swift 6 동시성 검사"
 parent: Concurrency
 grand_parent: Swift
 nav_order: 7
 permalink: /swift/concurrency/sendable-swift-6/
+last_modified_at: 2026-11-17
+seo:
+  type: BlogPosting
+date: 2026-11-16
+description: "Sendable과 @Sendable 캡처 검사, Swift 6 언어 모드와 동시성 마이그레이션 경계를 설명합니다."
 first_written: 2026-11-16
 last_modified_date: 2026-11-17
 tags: [Swift, Concurrency, Sendable, Swift-6]
 ---
 
-# Sendable과 Swift 6의 엄격한 동시성 검사
+# Sendable과 Swift 6 동시성 검사
 {: .no_toc }
 
 {% include article-toc.md %}
+
+actor가 자기 상태를 안전하게 보호해도, actor나 Task 사이로 안전하지 않은 참조를 넘기면 다시 데이터 경쟁이 생길 수 있다. `Sendable`은 값이 하나의 동시성 격리 영역에서 다른 영역으로 안전하게 전달될 수 있음을 나타내는 프로토콜이다.
+
+Swift 6 언어 모드는 이 경계를 엄격하게 검사해, 잠재적인 데이터 경쟁을 컴파일 오류로 다룬다.
 
 ## 안전하게 넘긴다는 말의 의미
 
 값을 다른 작업에 넘겼는데 원래 작업도 같은 내부 데이터를 바꿀 수 있다면 동시 접근 문제가 생길 수 있다. `Sendable`은 이런 경계를 넘어 전달해도 안전하도록 설계된 타입이라는 약속이다.
 
 구조체라고 내부가 자동으로 전부 안전한 것은 아니다. 구조체가 변경 가능한 클래스 참조를 보관하면 그 참조도 함께 검토해야 한다. 컴파일 오류를 만나면 먼저 어떤 값이 어느 격리 영역에서 어디로 넘어가는지 찾아보자.
-
-actor가 자기 상태를 안전하게 보호해도, actor나 Task 사이로 안전하지 않은 참조를 넘기면 다시 데이터 경쟁이 생길 수 있다. `Sendable`은 값이 하나의 동시성 격리 영역에서 다른 영역으로 안전하게 전달될 수 있음을 나타내는 프로토콜이다.
-
-Swift 6 언어 모드는 이 경계를 엄격하게 검사해, 잠재적인 데이터 경쟁을 컴파일 오류로 다룬다.
 
 ## 값 타입과 Sendable
 

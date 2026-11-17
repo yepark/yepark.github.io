@@ -3,6 +3,11 @@ title: "자바스크립트와 스위프트 클로저 차이"
 parent: "Swift"
 nav_order: 4
 permalink: /swift/swift-closure/
+last_modified_at: 2026-11-17
+seo:
+  type: BlogPosting
+date: 2021-04-20
+description: "JavaScript와 Swift 클로저의 렉시컬 환경, 값 캡처, ARC와 가비지 컬렉션의 차이를 비교합니다."
 first_written: 2021-04-20
 last_modified_date: 2026-11-17
 tags: [Swift, JavaScript, Closure]
@@ -13,13 +18,13 @@ tags: [Swift, JavaScript, Closure]
 
 {% include article-toc.md %}
 
+Swift와 JavaScript는 모두 함수를 값처럼 전달할 수 있고, 함수가 선언된 주변 스코프의 값을 캡처할 수 있다. 두 언어에서 클로저의 핵심 개념은 같지만, 문서에서 사용하는 용어와 메모리 관리 방식에는 차이가 있다.
+
 ## 함수를 값으로 넘긴다는 뜻
 
 버튼을 눌렀을 때 실행할 코드를 미리 만들어 버튼에 맡길 수 있다. 숫자나 문자열을 변수에 담듯, 나중에 실행할 함수도 변수에 담거나 다른 함수의 인자로 전달한다.
 
 캡처는 그 함수가 바깥에서 사용하던 값과의 연결을 유지하는 것이다. 카운터 예제에서는 바깥 함수가 끝난 뒤에도 `count`를 읽고 바꿀 수 있는지 보자. Swift와 JavaScript의 차이는 이 연결의 기본 개념보다 값의 수명과 참조를 관리하는 방식에서 드러난다.
-
-Swift와 JavaScript는 모두 함수를 값처럼 전달할 수 있고, 함수가 선언된 주변 스코프의 값을 캡처할 수 있다. 두 언어에서 클로저의 핵심 개념은 같지만, 문서에서 사용하는 용어와 메모리 관리 방식에는 차이가 있다.
 
 ## 클로저란 무엇인가
 

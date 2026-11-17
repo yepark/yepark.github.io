@@ -4,6 +4,10 @@ description: "모델과 API 키 없이 시작하는 LangGraph 실습으로 State
 parent: AI
 nav_order: 8
 permalink: /ai/using-ai/langgraph/
+date: 2026-11-17
+last_modified_at: 2026-11-17
+seo:
+  type: BlogPosting
 last_modified_date: 2026-11-17
 ---
 
@@ -182,4 +186,4 @@ print(snapshot.values)
 
 - [LangGraph: Graph API overview](https://docs.langchain.com/oss/python/langgraph/graph-api)
 - [LangGraph: Persistence](https://docs.langchain.com/oss/python/langgraph/persistence)
-- [개념부터 읽기: 그래프 엔지니어링]({{ '/ai/using-ai/graph-engineering/' | relative_url }})
+- [그래프 엔지니어링]({{ '/ai/using-ai/graph-engineering/' | relative_url }})

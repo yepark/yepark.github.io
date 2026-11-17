@@ -4,6 +4,10 @@ description: "LangChain 설치, 메시지, 모델 응답, 도구 등록과 에�
 parent: AI
 nav_order: 7
 permalink: /ai/using-ai/langchain/
+date: 2026-11-17
+last_modified_at: 2026-11-17
+seo:
+  type: BlogPosting
 last_modified_date: 2026-11-17
 ---
 
@@ -169,7 +173,7 @@ for message in result["messages"]:
 
 다음 편에서는 유료 모델 호출 없이도 실행 가능한 작은 LangGraph를 만들며 그 차이를 배운다.
 
-→ [LangGraph 입문]({{ '/ai/using-ai/langgraph/' | relative_url }})
+→ [LangGraph]({{ '/ai/using-ai/langgraph/' | relative_url }})
 
 ## 참고
 

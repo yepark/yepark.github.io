@@ -1,26 +1,31 @@
 ---
-title: "6. @MainActor: UI 상태를 안전하게 관리하기"
+title: "MainActor와 UI 상태 관리"
 parent: Concurrency
 grand_parent: Swift
 nav_order: 6
 permalink: /swift/concurrency/main-actor/
+last_modified_at: 2026-11-17
+seo:
+  type: BlogPosting
+date: 2026-11-16
+description: "MainActor 격리와 UI 상태 소유권, Task의 문맥 상속과 무거운 연산 분리 원칙을 설명합니다."
 first_written: 2026-11-16
 last_modified_date: 2026-11-17
 tags: [Swift, Concurrency, MainActor, UI]
 ---
 
-# @MainActor: UI 상태를 안전하게 관리하기
+# MainActor와 UI 상태 관리
 {: .no_toc }
 
 {% include article-toc.md %}
+
+UIKit과 AppKit을 비롯한 UI 프레임워크는 화면 상태를 메인 실행 문맥에서 다루도록 요구한다. `MainActor`는 이 규칙을 Swift의 격리 모델로 표현한 전역 actor다. UI를 담당하는 타입에 `@MainActor`를 붙이면 컴파일러가 잘못된 접근을 찾아준다.
 
 ## UI 상태가 의미하는 것
 
 목록 데이터, 로딩 표시, 오류 문구처럼 화면이 읽는 값이 UI 상태다. 이 값들이 여러 실행 흐름에서 무질서하게 바뀌면 이전 결과가 최신 화면을 덮거나 표시가 어긋날 수 있다.
 
 `@MainActor`는 이런 상태의 소유 경계를 선언한다. 하지만 함수에 붙였다고 무거운 계산이 가벼워지는 것은 아니다. 예제에서는 ‘어디서 상태를 바꾸는가’와 ‘어디서 오래 계산하는가’를 각각 확인하자.
-
-UIKit과 AppKit을 비롯한 UI 프레임워크는 화면 상태를 메인 실행 문맥에서 다루도록 요구한다. `MainActor`는 이 규칙을 Swift의 격리 모델로 표현한 전역 actor다. UI를 담당하는 타입에 `@MainActor`를 붙이면 컴파일러가 잘못된 접근을 찾아준다.
 
 ## 화면 상태를 타입 단위로 격리하기
 
@@ -149,7 +154,7 @@ detached task는 MainActor 문맥을 이어받지 않는다. UI 상태를 변경
 
 마지막 편에서는 actor 사이를 오가는 값이 안전한지 표현하는 `Sendable`과 Swift 6의 엄격한 동시성 검사를 정리한다.
 
-→ [7. Sendable과 Swift 6의 엄격한 동시성 검사]({{ '/swift/concurrency/sendable-swift-6/' | relative_url }})
+→ [Sendable과 Swift 6 동시성 검사]({{ '/swift/concurrency/sendable-swift-6/' | relative_url }})
 
 ## 참고
 

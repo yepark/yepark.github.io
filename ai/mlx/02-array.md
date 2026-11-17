@@ -1,395 +1,198 @@
 ---
-title: "2. 배열: MLX에서 숫자를 담는 그릇"
+title: "MLX 배열과 수치 연산"
+description: "MLX 배열의 shape, dtype, stride, broadcasting, reduction과 행렬곱을 수식·실행 결과·실패 사례로 분석합니다."
 parent: MLX
 grand_parent: iOS
 nav_order: 2
 permalink: /ai/mlx/array/
+last_modified_at: 2026-11-17
+seo:
+  type: BlogPosting
+date: 2026-11-15
+redirect_from:
+  - /mlx/array/
 first_written: 2026-11-15
 last_modified_date: 2026-11-17
 tags: [MLX, Python, Array]
 ---
 
-# 배열: MLX에서 숫자를 담는 그릇
+# MLX 배열과 수치 연산
 {: .no_toc }
 
 {% include article-toc.md %}
 
-## 리스트와 배열을 비교하며 읽기
+배열 코드를 읽을 때 숫자만 보면 연산의 의미를 놓치기 쉽다. 입력의 shape, 각 축의 의미, dtype과 출력 shape를 함께 추적해야 한다. 특히 broadcasting이나 reduction이 끼어들면 코드가 실행돼도 의도와 다른 결과를 만들 수 있다.
 
-Python 리스트는 일반 값을 순서대로 담는 자료구조다. MLX 배열은 수치 연산을 위해 원소의 자료형과 모양을 함께 관리한다. 같은 `+` 기호라도 리스트는 이어 붙이고 배열은 대응하는 원소를 더한다.
+이 글은 2차원 예제로 시작해 모델 입력에 자주 쓰는 배치 연산까지 확장한다. 예제는 MLX 0.32.4에서 확인했으며 Python의 리스트와 함수 문법을 알고 있다고 가정한다.
 
-첫 예제에서는 값만 보지 말고 `shape`와 `dtype`도 함께 출력해 보자. 축 번호는 0부터 시작한다. 2차원에서는 행·열로 설명하지만 차원이 늘어나면 각 축의 의미를 데이터 설계에 맞춰 따로 정해야 한다.
-
-MLX로 하는 계산은 **배열(array)**에 숫자를 담아서 한다. 1편에서 `mx.array([1, 2, 3])`으로 만든 것이 바로 배열이다. 그래서 MLX를 쓰려면 배열부터 편하게 다룰 수 있어야 한다.
-
-배열은 **같은 종류의 숫자를 줄과 칸에 맞춰 담은 그릇**이다. 엑셀 표를 떠올리면 된다.
-
-이 글의 결과는 모두 M4 Mac, MLX 0.32.4에서 실행한 것이다.
-
-## 배열의 두 가지 정보: 모양과 종류
-
-배열을 만들면 MLX는 두 가지를 기억한다.
+## shape와 축의 의미
 
 ```python
 import mlx.core as mx
 
-a = mx.array([1, 2, 3])
-b = mx.array([1.5, 2.5, 3.5])
-
-print(a.shape, a.dtype)
-print(b.shape, b.dtype)
+x = mx.array([[1, 2, 3], [4, 5, 6]], dtype=mx.float32)
+print(x.shape)
+print(x.ndim)
+print(x.size)
+print(x.dtype)
 ```
 
 ```text
-(3,) mlx.core.int32
-(3,) mlx.core.float32
+(2, 3)
+2
+6
+mlx.core.float32
 ```
 
-- **`shape`(모양)**: 숫자가 어떻게 놓여 있는지. `(3,)`은 "한 줄에 3개"라는 뜻이다.
-- **`dtype`(종류)**: 어떤 숫자가 들어 있는지. `int32`는 정수, `float32`는 소수점이 있는 숫자다.
+shape는 축마다 원소가 몇 개 있는지 나타내는 튜플이다. 위 배열은 축이 2개이고, 각 길이는 2와 3이다. 축 번호는 0부터 시작한다.
 
-표 모양(2차원)으로 만들면 이렇다.
+2차원 예제에서는 행·열로 읽어도 되지만 고차원에서는 데이터의 의미를 따로 정의해야 한다. `(N, D)`를 샘플 N개와 특성 D개로 정했다면, 같은 shape의 다른 데이터에도 이 의미가 유지돼야 한다.
+
+## dtype와 메모리 크기
+
+dtype은 원소를 어떤 방식으로 표현할지 결정한다. `float32`는 원소당 4바이트, `float16`은 2바이트다. 크기가 같은 배열이라도 dtype에 따라 논리적 데이터 크기가 달라진다.
+
+```text
+논리적 데이터 크기 = 원소 수 × 원소당 바이트 수
+1024 × 1024 × 4 = 4,194,304 bytes = 4 MiB
+```
+
+이 값은 배열의 논리적 원소 크기다. 실행 중 임시 버퍼, allocator 캐시, 그래프 메타데이터와 프로세스 전체 메모리까지 뜻하지 않는다.
+
+정수 연산은 범위를 넘으면 문제가 생길 수 있고, 부동소수점은 모든 실수를 정확히 표현하지 못한다. 메모리를 줄이려고 dtype만 낮추기 전에 필요한 표현 범위와 오차를 확인한다. 특히 CPU에서 지원되는 dtype이 Apple GPU에서도 동일하게 지원된다고 가정하지 않는다.
+
+## 배열 생성과 인덱싱
 
 ```python
-m = mx.array([[1, 2, 3],
-              [4, 5, 6]])
+zeros = mx.zeros((2, 3), dtype=mx.float32)
+sequence = mx.arange(6).reshape(2, 3)
 
-print(m.shape, m.ndim, m.size)
+print(sequence[0].tolist())
+print(sequence[:, 1].tolist())
+print(sequence[1, 2].item())
 ```
 
 ```text
-(2, 3) 2 6
+[0, 1, 2]
+[1, 4]
+5
 ```
 
-- `shape`가 `(2, 3)`이면 **2줄 3칸**이다. 순서는 항상 (줄, 칸)이다.
-- `ndim`은 **몇 차원인지**다. 한 줄이면 1, 표면 2.
-- `size`는 **숫자가 모두 몇 개인지**다. 2 × 3 = 6.
+`sequence[0]`은 첫 행, `[:, 1]`은 모든 행의 두 번째 열, `[1, 2]`는 두 번째 행의 세 번째 원소다. `:`는 해당 축의 범위를 선택하는 슬라이스 표기다.
 
-{: .tip }
-`shape`를 읽는 법: 괄호 안 숫자 개수가 차원 수이고, 각 숫자가 그 방향의 길이다. `(2, 3)`은 "2줄짜리, 한 줄에 3칸".
+`item()`은 원소 하나를 Python 스칼라로 꺼낸다. 원소가 여러 개인 배열에는 적용할 수 없다. 반복문마다 호출하면 장치 계산 완료를 자주 기다리게 될 수 있어 성능 경계로도 봐야 한다.
 
-### NumPy와 다른 점: 소수는 float32
-
-NumPy를 써 봤다면 하나 주의할 점이 있다.
+## reshape와 transpose
 
 ```python
-import numpy as np
-print(np.array([1.5]).dtype)
+x = mx.arange(6).reshape(2, 3)
+reshaped = x.reshape(3, 2)
+transposed = x.T
+
+print(reshaped.tolist())
+print(transposed.tolist())
 ```
 
 ```text
-float64
+[[0, 1], [2, 3], [4, 5]]
+[[0, 3], [1, 4], [2, 5]]
 ```
 
-NumPy는 소수를 기본으로 `float64`에 담는다. **MLX는 `float32`에 담는다.** 위에서 `b`의 `dtype`이 `float32`였던 것을 확인할 수 있다.
+두 결과의 shape는 모두 `(3, 2)`지만 값의 배치는 다르다. reshape는 논리적 원소 순서를 유지하며 축 길이를 바꾸고, transpose는 축의 순서를 바꾼다. 따라서 모델의 샘플 축과 특성 축을 바꾸려는 작업에 reshape를 대신 사용하면 의미가 달라질 수 있다.
 
-## 배열 만드는 방법
+reshape는 전체 원소 수가 맞아야 한다. `(2, 3)`의 여섯 원소를 `(4, 2)`의 여덟 칸으로 바꾸는 요청은 성립하지 않는다. `-1`은 나머지 축 길이와 총 원소 수로 한 축을 추론하라는 표시다.
 
-매번 숫자를 손으로 적을 필요는 없다. 자주 쓰는 방법들이다.
+## stride와 데이터 배치
 
-```python
-print(mx.zeros((2, 3)))
-print(mx.ones((2, 2), dtype=mx.int32))
-print(mx.full((2, 2), 7))
-```
+stride는 각 축에서 한 칸 움직일 때 실제 데이터 위치가 얼마나 바뀌는지 표현한다. 행 우선으로 연속한 2×3 배열이라면 원소 단위 stride는 보통 `(3, 1)`로 이해할 수 있다.
 
-```text
-array([[0, 0, 0],
-       [0, 0, 0]], dtype=float32)
-array([[1, 1],
-       [1, 1]], dtype=int32)
-array([[7, 7],
-       [7, 7]], dtype=int32)
-```
+전치한 배열은 논리적 축과 접근 순서가 달라진다. 이처럼 shape와 메모리의 연속성은 별개의 속성이다. 모든 reshape나 transpose가 언제나 복사 없이 끝난다는 보장은 없으며, 후속 연산이 요구하는 배치에 따라 추가 처리가 필요할 수 있다.
 
-- `mx.zeros(모양)`: 0으로 채운 배열. 따로 말하지 않으면 `float32`다.
-- `mx.ones(모양, dtype=...)`: 1로 채운 배열. `dtype`으로 종류를 정할 수 있다.
-- `mx.full(모양, 값)`: 원하는 값으로 채운 배열.
+이 차이는 소스의 일반 stride 커널과 연속 메모리 최적화 경로를 읽을 때 중요하다.
 
-연속된 숫자는 `mx.arange`로 만든다. Python의 `range`와 같은 방식이다.
+## broadcasting의 정확한 규칙
 
-```python
-print(mx.arange(5))
-print(mx.arange(0, 1, 0.25))
-```
+broadcasting은 shape가 다른 입력의 원소를 일정한 규칙으로 대응시킨다. 오른쪽 축부터 비교하며 두 길이가 같거나 한쪽이 1이면 호환된다. 부족한 앞쪽 축은 길이 1처럼 취급한다.
 
-```text
-array([0, 1, 2, 3, 4], dtype=int32)
-array([0, 0.25, 0.5, 0.75], dtype=float32)
-```
-
-`mx.arange(시작, 끝, 간격)`이고, **끝 값은 들어가지 않는다.** 그래서 `0, 0.25, 0.5, 0.75`까지만 나오고 1은 없다.
-
-무작위 숫자로 채운 배열도 만들 수 있다.
-
-```python
-mx.random.seed(0)
-r = mx.random.normal((2, 3))
-print(r.shape, r.dtype)
-```
-
-```text
-(2, 3) mlx.core.float32
-```
-
-`mx.random.seed(0)`은 **무작위 결과를 매번 같게 만드는 스위치**다. 같은 seed를 쓰면 다시 실행해도 같은 숫자가 나온다.
-
-## 종류 바꾸기
-
-`astype`으로 배열의 종류를 바꾼다.
-
-```python
-x = mx.array([1, 2, 3])
-y = x.astype(mx.float32)
-print(y, y.dtype)
-```
-
-```text
-array([1, 2, 3], dtype=float32) mlx.core.float32
-```
-
-나눗셈은 결과 종류가 바뀌니 주의한다.
-
-```python
-print(mx.array([1, 2, 3]) / 2)
-print(mx.array([1, 2, 3]) // 2)
-```
-
-```text
-array([0.5, 1, 1.5], dtype=float32)
-array([0, 1, 1], dtype=int32)
-```
-
-- `/`는 정수 배열이어도 **소수(`float32`) 결과**를 낸다.
-- `//`는 **몫만 남긴 정수** 결과를 낸다.
-
-### float64는 GPU에서 안 된다
-
-```python
-f = mx.array([1.0], dtype=mx.float64)
-print(f + 1)
-```
-
-```text
-ValueError: float64 is not supported on the GPU
-```
-
-MLX의 기본 장치는 GPU인데, **GPU에서는 `float64`를 쓸 수 없다.** CPU에서 계산하라고 지정하면 된다.
-
-```python
-f = mx.array([1.0], dtype=mx.float64)
-print(mx.add(f, 1, stream=mx.cpu))
-```
-
-```text
-array([2], dtype=float64)
-```
-
-{: .note }
-이 시리즈의 예제는 `float32`로 계산한다. `stream=mx.cpu`는 해당 연산의 실행 장치로 CPU를 지정한다. 모든 배열의 실행 장치가 영구적으로 바뀌는 설정으로 해석하지 않는다.
-
-## 원하는 부분만 꺼내기
-
-Python 리스트처럼 `[]`로 꺼낸다. 2차원 배열은 `[줄, 칸]` 순서다.
-
-```python
-m = mx.array([[1, 2, 3],
-              [4, 5, 6]])
-
-print(m[0])      # 0번 줄
-print(m[1, 2])   # 1번 줄, 2번 칸
-print(m[:, 1])   # 모든 줄의 1번 칸
-print(m[0, 1:])  # 0번 줄, 1번 칸부터 끝까지
-print(m[-1])     # 마지막 줄
-```
-
-```text
-array([1, 2, 3], dtype=int32)
-array(6, dtype=int32)
-array([2, 5], dtype=int32)
-array([2, 3], dtype=int32)
-array([4, 5, 6], dtype=int32)
-```
-
-헷갈리는 것은 `:` 하나다. **`:`는 "그 방향 전부"**라는 뜻이다. `m[:, 1]`은 "줄은 전부, 칸은 1번"이니 세로 한 줄을 꺼낸다.
-
-| 코드 | 읽는 법 | 결과 |
+| 입력 shape | 비교 | 결과 |
 | --- | --- | --- |
-| `m[0]` | 0번 줄 | `[1, 2, 3]` |
-| `m[1, 2]` | 1번 줄 2번 칸 | `6` |
-| `m[:, 1]` | 모든 줄의 1번 칸 | `[2, 5]` |
-| `m[0, 1:]` | 0번 줄의 1번 칸부터 | `[2, 3]` |
-
-## 모양 바꾸기
-
-숫자는 그대로 두고 **줄과 칸만 다시 나누는 것**이 `reshape`다.
+| `(2, 3)`와 `(3,)` | `(2, 3)`와 `(1, 3)` | `(2, 3)` |
+| `(2, 1)`과 `(1, 3)` | 두 축 모두 확장 가능 | `(2, 3)` |
+| `(2, 3)`와 `(2,)` | 마지막 축 3과 2 충돌 | 오류 |
 
 ```python
-v = mx.arange(6)
-
-print(v.reshape(2, 3))
-print(v.reshape(3, -1))
+x = mx.array([[1, 2, 3], [4, 5, 6]], dtype=mx.float32)
+offset = mx.array([10, 20, 30], dtype=mx.float32)
+print((x + offset).tolist())
 ```
 
-```text
-array([[0, 1, 2],
-       [3, 4, 5]], dtype=int32)
-array([[0, 1],
-       [2, 3],
-       [4, 5]], dtype=int32)
-```
+결과는 `[[11, 22, 33], [14, 25, 36]]`이다. 같은 세 원소가 두 행에 대응하지만 큰 입력 배열을 실제로 복사했다는 뜻은 아니다. backend가 shape와 stride를 활용해 접근할 수 있다.
 
-`-1`은 **"나머지는 알아서 계산해 줘"**다. 숫자가 6개이고 3줄이니 칸은 2로 정해진다.
+### 실행되지만 잘못된 broadcasting
 
-줄과 칸을 서로 바꾸는 것은 `.T`(transpose)다.
+shape `(N, 1)`인 예측과 `(N,)`인 정답을 빼면 기대한 `(N,)` 대신 `(N, N)`이 생길 수 있다. N이 2라면 `(2, 1)`과 `(1, 2)`가 대응하기 때문이다.
 
 ```python
-print(m.T)
-print(m.T.shape)
+prediction = mx.array([[1.0], [2.0]])
+target = mx.array([1.0, 2.0])
+assert (prediction - target).shape == (2, 2)
+assert (prediction.squeeze(-1) - target).shape == (2,)
 ```
 
-```text
-array([[1, 4],
-       [2, 5],
-       [3, 6]], dtype=int32)
-(3, 2)
-```
+학습 코드에서 손실이 예상과 다르면 dtype보다 먼저 이 입력 shape를 검사할 가치가 있다.
 
-{: .tip }
-`.T`는 표를 대각선으로 뒤집는 것이다. 2줄 3칸이 3줄 2칸이 된다.
+## reduction과 keepdims
 
-## 모양이 달라도 계산되는 경우: 브로드캐스팅
-
-모양이 다른 배열끼리 더하면 어떻게 될까?
+reduction은 여러 원소를 합·평균·최댓값 등으로 모으는 연산이다. `axis`는 연산으로 줄일 축을 지정한다.
 
 ```python
-print(m + 10)
-print(m + mx.array([100, 200, 300]))
+x = mx.array([[1, 2, 3], [4, 5, 6]], dtype=mx.float32)
+print(mx.sum(x, axis=0).tolist())
+print(mx.sum(x, axis=1).tolist())
+print(mx.mean(x, axis=1, keepdims=True).shape)
 ```
 
-```text
-array([[11, 12, 13],
-       [14, 15, 16]], dtype=int32)
-array([[101, 202, 303],
-       [104, 205, 306]], dtype=int32)
-```
-
-- `m + 10`: 숫자 하나가 **모든 칸에** 더해졌다.
-- `m + [100, 200, 300]`: 한 줄짜리가 **각 줄마다** 더해졌다.
-
-작은 쪽을 큰 쪽 모양에 맞게 **복사해서 늘린 것처럼** 계산해 준다. 이것을 **브로드캐스팅**이라고 한다. 방송(broadcast)처럼 하나를 여러 곳에 퍼뜨린다는 뜻이다.
-
-하지만 아무 모양이나 되는 것은 아니다.
+결과는 `[5, 7, 9]`, `[6, 15]`, `(2, 1)`이다. `keepdims=True`는 줄인 축을 길이 1로 남긴다. 이후 원래 배열과 broadcasting으로 연산할 때 의미를 유지하기 좋다.
 
 ```python
-print(m + mx.array([1, 2]))
+row_mean = mx.mean(x, axis=1, keepdims=True)
+centered = x - row_mean
+print(centered.tolist())
 ```
+
+결과는 `[[-1, 0, 1], [-1, 0, 1]]`이다. 각 행의 평균 2와 5를 해당 행의 모든 원소에서 뺐다.
+
+## 행렬곱과 모델의 shape 계약
+
+샘플 N개, 특성 D개인 입력 `X`와 출력 특성 H개를 만드는 가중치 `W`를 생각하자.
 
 ```text
-ValueError: [broadcast_shapes] Shapes (2,3) and (2) cannot be broadcast.
+X: (N, D)
+W: (D, H)
+b: (H,)
+Y = X @ W + b: (N, H)
 ```
 
-맞추는 규칙은 **오른쪽 끝 숫자부터 비교**하는 것이다. 두 숫자가 같거나, 한쪽이 1이면 늘릴 수 있다.
-
-| 왼쪽 | 오른쪽 | 끝 숫자 비교 | 결과 |
-| --- | --- | --- | --- |
-| `(2, 3)` | `(3,)` | 3 = 3 | 된다 |
-| `(2, 3)` | `(2,)` | 3 ≠ 2 | 안 된다 |
-| `(2, 3)` | `(2, 1)` | 3과 1 → 1을 늘림, 2 = 2 | 된다 |
-
-마지막 경우를 실행해 보면 세로 한 줄 `[[10], [20]]`이 각 칸으로 퍼진다.
+행렬곱에서는 안쪽 차원 D가 맞아야 한다. bias b는 각 샘플의 H개 출력에 broadcasting된다. 이것이 기본적인 선형 계층의 구조다.
 
 ```python
-print(m + mx.array([[10], [20]]))
+x = mx.array([[1, 2, 3], [4, 5, 6]], dtype=mx.float32)
+print((x @ x.T).tolist())
 ```
 
-```text
-array([[11, 12, 13],
-       [24, 25, 26]], dtype=int32)
-```
+출력은 `[[14, 32], [32, 77]]`이다. 첫 원소 14는 `1² + 2² + 3²`, 비대각 원소 32는 `1×4 + 2×5 + 3×6`이다. shape만 아니라 계산 의미까지 확인한다.
 
-## 모아서 계산하기
+## 수치 결과 검증
 
-합계, 최댓값, 평균처럼 여러 숫자를 하나로 모으는 계산이다.
+부동소수점 결과 비교에는 보통 절대·상대 오차 기준을 함께 사용한다. 개념적으로 `|actual - reference| ≤ atol + rtol × |reference|` 같은 기준이다. 값이 0 근처인 경우 절대 오차가 중요해진다.
 
-```python
-print(m.sum(), m.sum(axis=0), m.sum(axis=1))
-print(m.max(), m.astype(mx.float32).mean())
-```
+`float32`와 `float16`, 서로 다른 장치의 결과가 바이트 단위로 같아야 한다고 요구하면 정상적인 작은 차이도 실패로 볼 수 있다. 반대로 큰 허용 오차는 실제 오류를 숨긴다. 데이터의 단위와 허용 가능한 오차를 먼저 정한다.
 
-```text
-array(21, dtype=int32) array([5, 7, 9], dtype=int32) array([6, 15], dtype=int32)
-array(6, dtype=int32) array(3.5, dtype=float32)
-```
+[재현 스크립트]({{ '/assets/examples/mlx/reproduce.py' | relative_url }})는 broadcasting, 축 합계, 평균 제거, 행렬곱과 자동 미분의 작은 정답 사례를 assertion으로 검사한다. 여기서 확인한 결과는 큰 모델 전체의 수치 안정성을 대신하지 않는다.
 
-`axis`가 처음엔 헷갈린다. **`axis`는 "없앨 방향"**이라고 기억하면 쉽다.
+## 참고와 후속 글
 
-- `axis` 없음: 전부 더한다. `1+2+3+4+5+6 = 21`
-- `axis=0`: **줄 방향을 없앤다.** 위아래로 더해서 `[1+4, 2+5, 3+6] = [5, 7, 9]`
-- `axis=1`: **칸 방향을 없앤다.** 옆으로 더해서 `[1+2+3, 4+5+6] = [6, 15]`
-
-## Python 값이나 NumPy로 꺼내기
-
-계산이 끝나면 결과를 보통의 Python 값으로 꺼내야 할 때가 있다.
-
-```python
-print(m.tolist(), type(m.tolist()))
-
-s = m.sum()
-print(s.item(), type(s.item()))
-
-print(np.array(m), np.array(m).dtype)
-```
-
-```text
-[[1, 2, 3], [4, 5, 6]] <class 'list'>
-21 <class 'int'>
-[[1 2 3]
- [4 5 6]] int32
-```
-
-- `.tolist()`: Python 리스트로
-- `.item()`: 숫자 **하나**짜리 배열을 Python 숫자로
-- `np.array(...)`: NumPy 배열로
-
-## 같은 배열을 가리킨다
-
-```python
-c = mx.array([1, 2, 3])
-d = c
-d[0] = 99
-print(c, d)
-```
-
-```text
-array([99, 2, 3], dtype=int32) array([99, 2, 3], dtype=int32)
-```
-
-`d = c`는 배열을 **복사하지 않는다.** `c`와 `d`는 **같은 배열에 붙은 이름표 두 개**다. 그래서 `d`를 바꾸면 `c`도 바뀐다. Python 리스트와 같은 동작이다.
-
-{: .warning }
-원본을 지키고 싶다면 `d = c`처럼 이름만 하나 더 붙이지 말고, 계산 결과로 새 배열을 만들어 쓴다.
-
-## 정리
-
-- 배열은 **같은 종류의 숫자를 줄과 칸에 맞춰 담은 그릇**이다.
-- `shape`는 모양(줄, 칸), `dtype`은 숫자 종류다.
-- MLX는 소수를 기본으로 **`float32`**에 담는다. NumPy는 `float64`다.
-- **GPU에서는 `float64`를 쓸 수 없다.** 필요하면 `stream=mx.cpu`로 계산한다.
-- `[줄, 칸]`으로 꺼내고, `:`는 "그 방향 전부"다.
-- `reshape`로 모양을 바꾸고, `-1`은 "알아서 계산"이다.
-- 모양이 달라도 **오른쪽 끝부터 같거나 1이면** 브로드캐스팅으로 계산된다.
-- `axis`는 **없앨 방향**이다.
-
-## 다음 편
-
-1편에서 `a + b`를 하면 바로 결과가 나오는 것처럼 보였다. 그런데 사실 MLX는 그 순간 **계산을 하지 않는다.** 다음 편에서는 MLX가 계산을 미뤘다가 필요할 때 한 번에 하는 **게으른 계산**을 다룬다.
-
-→ [3. 게으른 계산: MLX는 왜 계산을 미룰까](/ai/mlx/lazy-evaluation/)
-
-## 참고
-
-- [MLX: Quick Start Guide](https://ml-explore.github.io/mlx/build/html/usage/quick_start.html)
-- [MLX: Array](https://ml-explore.github.io/mlx/build/html/python/array.html)
-- [MLX: Data Types](https://ml-explore.github.io/mlx/build/html/python/data_types.html)
-- [MLX: Indexing Arrays](https://ml-explore.github.io/mlx/build/html/usage/indexing.html)
+- [MLX 지연 평가와 성능 측정]({{ '/ai/mlx/lazy-evaluation/' | relative_url }})
+- [MLX Array API](https://ml-explore.github.io/mlx/build/html/python/array.html)
+- [MLX Indexing Arrays](https://ml-explore.github.io/mlx/build/html/usage/indexing.html)
+- [MLX Numerical Precision](https://ml-explore.github.io/mlx/build/html/usage/numerical_precision.html)

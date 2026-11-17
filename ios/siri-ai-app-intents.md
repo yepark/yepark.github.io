@@ -1,26 +1,30 @@
 ---
-title: "Siri AI와 App Intents: 앱의 기능을 Siri에 연결하기"
+title: "Siri AI와 App Intents"
 description: "Apple Intelligence와 Siri AI의 App Intent, App Entity, 검색, 스키마와 화면 문맥을 초보자용 Swift 예제로 설명합니다."
 parent: iOS
 nav_order: 21
 permalink: /ios/siri-ai-app-intents/
+date: 2026-11-17
+last_modified_at: 2026-11-17
+seo:
+  type: BlogPosting
 last_modified_date: 2026-11-17
 ---
 
-# Siri AI와 App Intents: 앱의 기능을 Siri에 연결하기
+# Siri AI와 App Intents
 {: .no_toc }
 
 {% include article-toc.md %}
+
+사용자가 Siri에게 ‘내 메모 앱에서 미완료 메모 개수 알려 줘’라고 말했다고 하자. 시스템이 요청을 이해하더라도 앱이 데이터를 읽는 기능을 공개하지 않았다면 원하는 결과를 얻기 어렵다. App Intents는 앱의 행동과 데이터를 시스템이 사용할 수 있는 형태로 설명하는 프레임워크다.
+
+이 글의 기본 코드는 iOS 16부터 제공되는 App Intents의 개념을 사용한다. Apple의 최신 문서에 포함된 Siri AI Developer Preview와 추가 시스템 연동 기능은 별도의 배포 상태·SDK·지원 조건을 확인해야 한다. 기본 Intent 구현만으로 모든 자연어 요청이 모든 OS에서 실행되는 것은 아니다.
 
 ## 앱 버튼과 Intent를 같은 행동으로 보기
 
 앱의 ‘메모 추가’ 버튼과 Siri의 ‘메모 추가해 줘’는 들어오는 경로가 다를 뿐 같은 저장 규칙을 사용해야 한다. Intent는 시스템 요청을 앱의 기존 기능에 연결하는 진입점이다.
 
 처음에는 입력과 데이터 저장이 없는 안내 Intent를 실행해 보자. 그다음 문자열 입력, 저장 서비스, Entity 검색을 차례로 추가하면 어느 단계에서 연결이 끊겼는지 찾기 쉽다.
-
-사용자가 Siri에게 ‘내 메모 앱에서 미완료 메모 개수 알려 줘’라고 말했다고 하자. 시스템이 요청을 이해하더라도 앱이 데이터를 읽는 기능을 공개하지 않았다면 원하는 결과를 얻기 어렵다. App Intents는 앱의 행동과 데이터를 시스템이 사용할 수 있는 형태로 설명하는 프레임워크다.
-
-이 글의 기본 코드는 iOS 16부터 제공되는 App Intents의 개념을 사용한다. Apple의 최신 문서에 포함된 Siri AI Developer Preview와 추가 시스템 연동 기능은 별도의 배포 상태·SDK·지원 조건을 확인해야 한다. 기본 Intent 구현만으로 모든 자연어 요청이 모든 OS에서 실행되는 것은 아니다.
 
 ## Foundation Models와 역할 구분하기
 
@@ -148,8 +152,8 @@ Apple의 안내는 행동과 데이터 공개를 바탕으로 다음 요소를 �
 
 ## 이어서 읽기
 
-- [Foundation Models로 앱 안에서 AI 응답 생성하기]({{ '/ios/foundation-models/' | relative_url }})
-- [Core Data의 객체와 context 이해하기]({{ '/ios/core-data-swift/' | relative_url }})
+- [Foundation Models]({{ '/ios/foundation-models/' | relative_url }})
+- [Core Data 아키텍처와 Swift 구현]({{ '/ios/core-data-swift/' | relative_url }})
 
 ## 참고
 

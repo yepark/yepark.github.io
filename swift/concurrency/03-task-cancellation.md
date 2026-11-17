@@ -1,26 +1,31 @@
 ---
-title: "3. Task: 비동기 작업 시작하고 취소하기"
+title: "Task 수명과 취소"
 parent: Concurrency
 grand_parent: Swift
 nav_order: 3
 permalink: /swift/concurrency/task-cancellation/
+last_modified_at: 2026-11-17
+seo:
+  type: BlogPosting
+date: 2026-11-16
+description: "Task 생성과 수명, 구조화된 동시성, 협력적 취소와 검색 작업의 최신 결과 보장 방법을 설명합니다."
 first_written: 2026-11-16
 last_modified_date: 2026-11-17
 tags: [Swift, Concurrency, Task, Cancellation]
 ---
 
-# Task: 비동기 작업 시작하고 취소하기
+# Task 수명과 취소
 {: .no_toc }
 
 {% include article-toc.md %}
+
+Task는 Swift 비동기 코드의 실행 단위다. 모든 async 함수는 Task 안에서 실행되며, 동기 코드에서 비동기 작업을 시작해야 할 때 `Task { }`를 만들 수 있다.
 
 ## 작업을 시작한 뒤의 수명 생각하기
 
 검색창에서 ‘스’를 입력한 뒤 곧바로 ‘스위프트’로 고쳤다고 하자. 첫 검색 결과는 더 이상 필요하지 않을 수 있다. 어떤 작업을 취소할지 알려면 시작할 때 반환된 Task 참조를 보관해야 한다.
 
 `cancel()`은 강제 종료 버튼이 아니라 취소 상태를 알리는 요청이다. 실행 중인 함수가 그 상태를 확인하거나 취소를 지원하는 API에서 오류를 받아야 흐름을 멈출 수 있다. 아래 코드는 시작·참조 보관·취소 요청·취소 확인 순서로 읽자.
-
-Task는 Swift 비동기 코드의 실행 단위다. 모든 async 함수는 Task 안에서 실행되며, 동기 코드에서 비동기 작업을 시작해야 할 때 `Task { }`를 만들 수 있다.
 
 ## Task 만들기
 
@@ -113,26 +118,51 @@ func makeThumbnails(_ images: [Image]) async throws -> [Thumbnail] {
 사용자가 새 글자를 입력할 때 이전 검색을 취소하는 패턴이다.
 
 ```swift
+import Foundation
+
 @MainActor
 final class SearchModel {
     private var searchTask: Task<Void, Never>?
+    private var latestRequestID = UUID()
+    private let requestSearch: @Sendable (String) async throws -> [String]
     private(set) var results: [String] = []
+
+    init(requestSearch: @escaping @Sendable (String) async throws -> [String]) {
+        self.requestSearch = requestSearch
+    }
 
     func search(text: String) {
         searchTask?.cancel()
+        let requestID = UUID()
+        latestRequestID = requestID
 
-        searchTask = Task {
+        searchTask = Task { [weak self, requestSearch] in
             do {
                 try await Task.sleep(for: .milliseconds(300))
                 let newResults = try await requestSearch(text)
                 try Task.checkCancellation()
-                results = newResults
+                guard let self, self.latestRequestID == requestID else {
+                    return
+                }
+                self.results = newResults
             } catch is CancellationError {
                 // 새 검색이 시작된 정상적인 흐름
             } catch {
-                results = []
+                // 취소가 다른 오류 타입으로 전달되거나 오래된 요청이 실패해도
+                // 최신 검색의 결과를 지우지 않는다.
+                guard !Task.isCancelled,
+                      let self, self.latestRequestID == requestID else {
+                    return
+                }
+                self.results = []
             }
         }
+    }
+
+    func cancelSearch() {
+        latestRequestID = UUID()
+        searchTask?.cancel()
+        searchTask = nil
     }
 
     deinit {
@@ -142,6 +172,23 @@ final class SearchModel {
 ```
 
 새 입력이 오면 이전 Task를 취소한다. 300ms 안에 새 입력이 들어오면 `Task.sleep`이 `CancellationError`를 던져 네트워크 요청까지 가지 않는다. 요청 API가 취소를 지원하면 실행 중인 네트워크 작업에도 취소가 전달될 수 있다.
+
+`requestSearch`는 생성할 때 전달하는 검색 함수다. 예를 들어 `SearchModel(requestSearch: service.search)`처럼 실제 서비스와 연결한다. 이렇게 분리하면 화면 상태 관리와 서버 통신을 따로 시험할 수 있다.
+
+### 취소와 최신 결과 보장은 다른 문제다
+
+두 요청의 완료 순서는 시작 순서와 다를 수 있다.
+
+| 순서 | 사건 | 지켜야 할 동작 |
+| --- | --- | --- |
+| 1 | “스” 검색 A 시작 | A의 식별자를 보관 |
+| 2 | “스위프트” 검색 B 시작 | A 취소 요청, 최신 식별자를 B로 교체 |
+| 3 | B 성공 | 화면에 B 결과 표시 |
+| 4 | A가 뒤늦게 성공하거나 실패 | B 결과를 덮거나 지우지 않음 |
+
+`cancel()`은 A가 즉시 멈췄다고 보장하지 않는다. 그래서 성공 경로에는 취소 검사와 식별자 확인을, 실패 경로에도 최신 요청 확인을 둔다. 네트워크 라이브러리는 취소를 `CancellationError`가 아닌 `URLError.cancelled` 같은 자체 오류로 알릴 수 있다. `catch is CancellationError`만 처리하고 나머지 오류에서 무조건 결과를 지우면 이전 요청의 실패가 최신 화면을 비울 수 있다.
+
+`[weak self]`는 검색을 기다리는 동안 모델을 불필요하게 계속 살려 두지 않기 위해 사용했다. 화면 소유자는 종료 시점에 `cancelSearch()`도 호출한다. 모델이 화면 밖에서 계속 보관될 수 있으므로 `deinit`만을 화면 이탈의 신호로 삼지 않는다.
 
 ## Task.detached는 언제 쓰나
 
@@ -176,7 +223,7 @@ detached Task는 생성한 곳의 actor 격리와 task-local 문맥을 이어받
 
 다음 편에서는 서로 독립적인 여러 작업을 실제로 함께 시작하는 `async let`과 TaskGroup을 비교한다.
 
-→ [4. 여러 작업 한꺼번에: async let과 TaskGroup]({{ '/swift/concurrency/parallel-work/' | relative_url }})
+→ [구조화된 동시성과 TaskGroup]({{ '/swift/concurrency/parallel-work/' | relative_url }})
 
 ## 참고
 

@@ -1,25 +1,30 @@
 ---
-title: "Auto Layout 우선순위와 Baseline 이해하기"
+title: "Auto Layout의 제약과 우선순위"
 parent: "iOS"
 nav_order: 1
 permalink: /ios/auto-layout/
+last_modified_at: 2026-11-17
+seo:
+  type: BlogPosting
+date: 2021-04-18
+description: "Auto Layout의 고유 콘텐츠 크기, Hugging·Compression Resistance, baseline과 제약 충돌 진단을 설명합니다."
 first_written: 2021-04-18
 last_modified_date: 2026-11-17
 tags: [iOS, UIKit, Auto-Layout, Xcode]
 ---
 
-# Auto Layout 우선순위와 Baseline 이해하기
+# Auto Layout의 제약과 우선순위
 {: .no_toc }
 
 {% include article-toc.md %}
+
+Auto Layout을 사용할 때 제약 조건만큼 중요한 것이 우선순위다. 특히 텍스트를 표시하는 뷰는 고유 콘텐츠 크기(intrinsic content size), Content Hugging, Compression Resistance를 함께 이해해야 예상하지 못한 늘어남과 잘림을 막을 수 있다.
 
 ## 제약 조건을 문장으로 읽기
 
 ‘레이블의 왼쪽은 화면에서 16만큼 떨어진다’, ‘버튼 높이는 44다’처럼 위치와 크기의 관계를 정하는 것이 제약 조건이다. Auto Layout은 이 관계들을 동시에 만족하는 화면 배치를 구한다.
 
 기기 너비가 줄거나 글자가 커지면 모든 희망 크기를 지킬 수 없을 수 있다. 우선순위는 그때 어느 관계를 먼저 지킬지 정한다. 본문의 레이블과 입력창 예제는 넓은 화면과 좁은 화면에서 각각 어느 뷰가 변해야 하는지 생각하며 읽자.
-
-Auto Layout을 사용할 때 제약 조건만큼 중요한 것이 우선순위다. 특히 텍스트를 표시하는 뷰는 고유 콘텐츠 크기(intrinsic content size), Content Hugging, Compression Resistance를 함께 이해해야 예상하지 못한 늘어남과 잘림을 막을 수 있다.
 
 ## 고유 콘텐츠 크기
 

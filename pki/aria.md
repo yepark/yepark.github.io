@@ -1,25 +1,30 @@
 ---
-title: "ARIA 블록 암호 이해하기"
+title: "ARIA 알고리즘과 운용 모드"
 parent: "PKI & 암호"
 nav_order: 2
 permalink: /pki/aria/
+last_modified_at: 2026-11-17
+seo:
+  type: BlogPosting
+date: 2021-04-29
+description: "ARIA의 블록·키 크기, 운용 모드, IV·nonce 규칙과 암호 라이브러리 검증 조건을 설명합니다."
 first_written: 2021-04-29
 last_modified_date: 2026-11-17
 tags: [Cryptography, ARIA, Block-Cipher]
 ---
 
-# ARIA 블록 암호 이해하기
+# ARIA 알고리즘과 운용 모드
 {: .no_toc }
 
 {% include article-toc.md %}
+
+ARIA는 국내에서 개발되어 국가표준으로 제정된 범용 블록 암호다. RFC 5794에 알고리즘이 공개되어 있으며, 128비트 블록과 128·192·256비트 키를 사용한다.
 
 ## 암호 알고리즘과 사용 구성을 나누기
 
 ARIA는 정해진 크기의 데이터 블록을 키로 변환하는 알고리즘이다. 실제 파일을 보호하려면 여러 블록을 연결하는 모드, 처음 시작할 때 쓰는 IV 또는 nonce, 변조를 확인하는 방법도 함께 필요하다.
 
 키가 비밀번호 문자열과 같은 것은 아니다. 사람이 입력한 비밀번호를 사용할 때는 KDF로 키를 파생한다. IV나 nonce는 대개 비밀일 필요가 없지만, 선택한 모드의 생성·재사용 규칙을 정확히 지켜야 한다.
-
-ARIA는 국내에서 개발되어 국가표준으로 제정된 범용 블록 암호다. RFC 5794에 알고리즘이 공개되어 있으며, 128비트 블록과 128·192·256비트 키를 사용한다.
 
 ## 블록과 키 크기
 

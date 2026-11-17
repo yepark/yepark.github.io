@@ -1,26 +1,30 @@
 ---
-title: "Foundation Models: iOS 앱에 온디바이스 AI 넣기"
+title: "Foundation Models"
 description: "Apple Foundation Models의 모델 가용성, LanguageModelSession, 구조화 생성과 스트리밍을 Swift 입문 예제로 설명합니다."
 parent: iOS
 nav_order: 20
 permalink: /ios/foundation-models/
+date: 2026-11-17
+last_modified_at: 2026-11-17
+seo:
+  type: BlogPosting
 last_modified_date: 2026-11-17
 ---
 
-# Foundation Models: iOS 앱에 온디바이스 AI 넣기
+# Foundation Models
 {: .no_toc }
 
 {% include article-toc.md %}
+
+메모 앱에 ‘세 문장으로 요약하기’ 버튼을 만든다고 생각해 보자. 사용자가 쓴 글을 읽고 짧은 설명을 만드는 부분에 언어 모델을 사용할 수 있다. Apple의 Foundation Models 프레임워크는 Apple Intelligence의 온디바이스 모델을 Swift 코드에서 호출하는 통로다.
+
+이 글은 iOS 26에서 도입된 기본 텍스트 생성 API를 기준으로 설명한다. 새 SDK에는 추가 기능이 있을 수 있으므로, 사용하는 Xcode의 심벌 가용성도 함께 확인한다.
 
 ## 예제의 준비 범위
 
 Swift의 함수와 `Task`, `try await` 문법을 먼저 알고 있으면 모델 호출 부분을 읽기 쉽다. Foundation Models는 시스템 SDK이므로 앱 타깃에서 `import FoundationModels`로 사용한다.
 
 AI가 반환하는 요약은 매번 문장이 달라질 수 있다. 예제를 확인할 때는 특정 문장과 완전히 일치하는지보다, 원문 사실을 보존하는지와 요청한 구조를 지키는지를 먼저 살펴보자.
-
-메모 앱에 ‘세 문장으로 요약하기’ 버튼을 만든다고 생각해 보자. 사용자가 쓴 글을 읽고 짧은 설명을 만드는 부분에 언어 모델을 사용할 수 있다. Apple의 Foundation Models 프레임워크는 Apple Intelligence의 온디바이스 모델을 Swift 코드에서 호출하는 통로다.
-
-이 글은 iOS 26에서 도입된 기본 텍스트 생성 API를 기준으로 설명한다. 새 SDK에는 추가 기능이 있을 수 있으므로, 사용하는 Xcode의 심벌 가용성도 함께 확인한다.
 
 ## Foundation과 Foundation Models 구분하기
 
@@ -184,7 +188,7 @@ Tool은 입력을 검증하고 앱의 데이터 계층을 통해 작업한 뒤 �
 ## 이어서 읽기
 
 - [Siri AI와 App Intents]({{ '/ios/siri-ai-app-intents/' | relative_url }})
-- [Swift Core Data 사용법]({{ '/ios/core-data-swift/' | relative_url }})
+- [Core Data 아키텍처와 Swift 구현]({{ '/ios/core-data-swift/' | relative_url }})
 
 ## 참고
 

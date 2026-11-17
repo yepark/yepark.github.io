@@ -1,26 +1,31 @@
 ---
-title: "4. 여러 작업 한꺼번에: async let과 TaskGroup"
+title: "구조화된 동시성과 TaskGroup"
 parent: Concurrency
 grand_parent: Swift
 nav_order: 4
 permalink: /swift/concurrency/parallel-work/
+last_modified_at: 2026-11-17
+seo:
+  type: BlogPosting
+date: 2026-11-16
+description: "async let과 TaskGroup의 자식 작업 수명, 오류 전파, 결과 순서와 동시 실행 제한을 분석합니다."
 first_written: 2026-11-16
 last_modified_date: 2026-11-17
 tags: [Swift, Concurrency, Async-Let, TaskGroup]
 ---
 
-# 여러 작업 한꺼번에: async let과 TaskGroup
+# 구조화된 동시성과 TaskGroup
 {: .no_toc }
 
 {% include article-toc.md %}
+
+`await`를 순서대로 쓰면 각 작업도 순서대로 실행된다. 서로 의존하지 않는 작업은 함께 시작해 전체 대기 시간을 줄일 수 있다. 작업 수가 코드에 고정돼 있으면 `async let`, 실행 중 결정되면 TaskGroup이 잘 맞는다.
 
 ## 의존하는 작업과 독립적인 작업
 
 사용자 ID를 먼저 알아야 게시글을 조회할 수 있다면 두 작업은 순서가 필요하다. 반대로 날씨와 공지사항처럼 서로의 결과를 사용하지 않는 요청은 함께 시작할 수 있다.
 
 동시 실행의 목적은 기다리는 시간을 겹치는 것이다. 실제 CPU 계산이 같은 순간에 진행되는지는 실행 환경과 격리 조건에 따라 달라진다. 예제의 시간은 이해를 위한 가정이며 실제 서버와 기기에서는 측정이 필요하다.
-
-`await`를 순서대로 쓰면 각 작업도 순서대로 실행된다. 서로 의존하지 않는 작업은 함께 시작해 전체 대기 시간을 줄일 수 있다. 작업 수가 코드에 고정돼 있으면 `async let`, 실행 중 결정되면 TaskGroup이 잘 맞는다.
 
 ## 순차 실행과 동시 실행
 
@@ -186,7 +191,7 @@ func processLimited(
 
 여러 Task가 같은 변경 가능한 값을 건드리면 데이터 경쟁이 생길 수 있다. 다음 편에서는 actor가 이 상태를 어떻게 격리하는지 살펴본다.
 
-→ [5. actor: 여러 곳에서 같은 데이터를 건드릴 때]({{ '/swift/concurrency/actor/' | relative_url }})
+→ [Actor 격리와 재진입]({{ '/swift/concurrency/actor/' | relative_url }})
 
 ## 참고
 

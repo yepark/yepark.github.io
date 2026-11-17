@@ -11,4 +11,4 @@ permalink: /pki/
 
 ## 시리즈
 
-- [PKCS #1부터 #12까지]({{ '/pki/pkcs/' | relative_url }}): 키, 서명, 암호문, 인증서 요청, 보안 토큰 규격
+- [PKCS 표준]({{ '/pki/pkcs/' | relative_url }}): 키, 서명, 암호문, 인증서 요청, 보안 토큰 규격

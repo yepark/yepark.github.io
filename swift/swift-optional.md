@@ -3,6 +3,11 @@ title: "Optional과 if let·guard let"
 parent: "Swift"
 nav_order: 2
 permalink: /swift/swift-optional/
+last_modified_at: 2026-11-17
+seo:
+  type: BlogPosting
+date: 2021-04-28
+description: "Optional의 타입 의미와 if let, guard let, map·flatMap을 값의 수명 범위와 실패 경로 중심으로 설명합니다."
 first_written: 2021-04-28
 last_modified_date: 2026-11-17
 tags: [Swift, Optional, Optional-Binding]
@@ -13,13 +18,13 @@ tags: [Swift, Optional, Optional-Binding]
 
 {% include article-toc.md %}
 
+Swift의 Optional은 값이 있거나 없을 수 있음을 타입으로 표현한다. `String?`은 `String`과 다른 타입이며, 값을 사용하려면 안전하게 꺼내는 과정이 필요하다.
+
 ## 값이 없는 경우부터 생각하기
 
 서버가 닉네임을 보내지 않았다고 생각해 보자. 빈 문자열은 ‘문자열은 있지만 길이가 0’인 값이고, `nil`은 ‘값 자체가 없음’이다. `String?`은 이 두 상황을 구분해 표현한다.
 
 언래핑은 Optional 상자 안의 값을 꺼내는 과정이다. 먼저 값이 있는지 검사하고, 있다면 일반 `String`으로 사용할 새 이름을 만든다. 아래 예제에서는 조건이 성공한 뒤 그 이름을 어느 범위까지 사용할 수 있는지 비교하면 된다.
-
-Swift의 Optional은 값이 있거나 없을 수 있음을 타입으로 표현한다. `String?`은 `String`과 다른 타입이며, 값을 사용하려면 안전하게 꺼내는 과정이 필요하다.
 
 ## `if let`: 특정 분기 안에서 사용할 때
 

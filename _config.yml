@@ -3,7 +3,15 @@ description: 옙개발. 나를 위한 개발 기록 (AI, Swift, iOS, PKI·암호
 url: "https://yepark.github.io"
 baseurl: ""
 lang: ko-KR
+locale: ko_KR
 timezone: Asia/Seoul
+author:
+  name: yep
+  url: "https://yepark.github.io/about/"
+social:
+  name: 옙개발
+  links:
+    - "https://github.com/yepark"
 
 remote_theme: just-the-docs/just-the-docs@v0.10.1
 
@@ -40,22 +48,22 @@ aux_links_new_tab: true
 last_edit_timestamp: true
 last_edit_time_format: "%Y-%m-%d"
 
-footer_content: "옙개발 · 나를 위한 개발 기록 · <a href=\"/privacy/\">개인정보처리방침</a>"
+footer_content: "<a href=\"/about/\">yep · 옙개발</a> · 개발 기록 · <a href=\"/privacy/\">개인정보처리방침</a>"
 
 # 글 안에서 쓰는 강조 상자
 callouts_level: quiet
 callouts:
   note:
-    title: 정리
+    title: 참고
     color: blue
   tip:
-    title: 쉽게 말하면
+    title: 보충 설명
     color: green
   warning:
     title: 주의
     color: red
   question:
-    title: 잠깐, 생각해 보기
+    title: 검토할 질문
     color: purple
 
 # 그림 대신 쓰는 다이어그램

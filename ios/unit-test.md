@@ -3,6 +3,11 @@ title: "비동기 단위 테스트와 UI 테스트"
 parent: "iOS"
 nav_order: 6
 permalink: /ios/unit-test/
+last_modified_at: 2026-11-17
+seo:
+  type: BlogPosting
+date: 2021-04-17
+description: "XCTest expectation, 비동기 완료 조건, UI 접근성 식별자와 안정적인 테스트 설계를 설명합니다."
 first_written: 2021-04-17
 last_modified_date: 2026-11-17
 tags: [iOS, Xcode, XCTest, UI-Test]
@@ -13,13 +18,13 @@ tags: [iOS, Xcode, XCTest, UI-Test]
 
 {% include article-toc.md %}
 
+XCTest에서 비동기 동작을 검증하려면 테스트가 끝나야 하는 조건을 명확히 표현해야 한다. 단순히 일정 시간 `sleep`하는 방식은 느리고 불안정하므로, `XCTestExpectation`이나 조건 기반 expectation을 사용한다.
+
 ## 테스트가 확인하는 것
 
 테스트는 특정 입력을 실행하고 실제 결과가 기대와 같은지 자동 비교하는 코드다. 단위 테스트는 작은 로직을, UI 테스트는 앱을 열고 버튼을 누르는 사용자 흐름을 확인한다.
 
 비동기 테스트에서는 결과가 나오기 전에 테스트 함수가 끝날 수 있다. expectation은 ‘이 일이 일어나야 완료’라는 조건을 테스트 도구에 등록하는 방식이다. 예제의 `testObject`는 테스트할 객체로 교체해야 하며, assertion은 기대 조건을 검사한다.
-
-XCTest에서 비동기 동작을 검증하려면 테스트가 끝나야 하는 조건을 명확히 표현해야 한다. 단순히 일정 시간 `sleep`하는 방식은 느리고 불안정하므로, `XCTestExpectation`이나 조건 기반 expectation을 사용한다.
 
 ## 콜백이 있는 비동기 코드
 

@@ -5,6 +5,10 @@ parent: PKCS 표준
 grand_parent: "PKI & 암호"
 nav_order: 3
 permalink: /pki/pkcs/pkcs3/
+date: 2026-11-17
+last_modified_at: 2026-11-17
+seo:
+  type: BlogPosting
 last_modified_date: 2026-11-17
 tags: [PKI, PKCS3, Diffie-Hellman]
 ---
@@ -14,13 +18,13 @@ tags: [PKI, PKCS3, Diffie-Hellman]
 
 {% include article-toc.md %}
 
+PKCS #3는 유한체 Diffie-Hellman 키 합의의 초기 규격이다. 두 당사자가 공개 통신망에서 값을 교환해 같은 공유 비밀을 계산하는 방법을 다룬다.
+
 ## 비밀 키를 그대로 보내지 않는 방법
 
 두 사람이 통신을 암호화하려면 같은 대칭 키가 필요할 수 있다. 그 키를 평문으로 보내지 않고 각자의 비밀값과 상대의 공개값으로 같은 공유 비밀을 계산하는 것이 키 합의다.
 
 아래의 `mod`는 나눗셈의 나머지 연산이다. 수식의 문자를 외우기보다 어떤 값이 공개되고 어떤 값은 끝까지 비밀인지 구분해 보자. 상대의 신원을 확인하는 절차가 없으면 키 합의만 성공해도 안전한 상대와 통신했다고 보장할 수 없다.
-
-PKCS #3는 유한체 Diffie-Hellman 키 합의의 초기 규격이다. 두 당사자가 공개 통신망에서 값을 교환해 같은 공유 비밀을 계산하는 방법을 다룬다.
 
 ## 암호화가 아니라 키 합의다
 
@@ -68,6 +72,29 @@ PKCS #3 자체는 역사적 규격이다. 새 프로토콜에서는 직접 `p`�
 - 공유 비밀을 승인된 KDF에 넣는다.
 - 키 합의와 상대 인증을 별개로 확인한다.
 - 프로토콜 라이브러리의 고수준 API를 사용한다.
+
+## 같은 값을 얻는 계산을 직접 확인하기
+
+다음 코드는 키 합의의 수학적 관계만 확인한다. 작은 상수와 Python 정수 연산을 사용하므로 보안 구현으로 사용할 수 없다.
+
+```python
+p, g = 23, 5
+alice_secret, bob_secret = 6, 15
+alice_public = pow(g, alice_secret, p)
+bob_public = pow(g, bob_secret, p)
+alice_shared = pow(bob_public, alice_secret, p)
+bob_shared = pow(alice_public, bob_secret, p)
+assert (alice_public, bob_public) == (8, 19)
+assert alice_shared == bob_shared == 2
+```
+
+`pow(g, a, p)`는 `g**a`를 p로 나눈 나머지다. 공개값 8과 19를 교환했을 뿐 비밀 지수 6과 15는 보내지 않았다. 이 예제에서는 도청자도 작은 후보를 전부 시험할 수 있다. 실제 보안은 같은 식이라는 사실만 아니라 그룹 크기와 구조, 비밀값 생성, 검증과 인증까지 충족해야 성립한다.
+
+## RFC 2631은 PKCS #3의 다른 이름이 아니다
+
+[RFC 2631 §2.1](https://www.rfc-editor.org/rfc/rfc2631.html#section-2.1)은 공유 비밀 계산과 키 재료 파생, 공개 키 검증을 구분한다. 기존 PKCS #3와 연관된 DH 계열이라는 이유로 파라미터 문법이나 KDF를 그대로 교환 가능하다고 가정하면 안 된다.
+
+연동 문서에서 DH를 만나면 그룹 식별, 공개 키 표현, 상대 인증, 공유 비밀을 키로 바꾸는 규칙을 각각 찾는다. 수학적으로 같은 공유 비밀을 얻었어도 KDF의 문맥 입력이나 출력 길이가 다르면 최종 암호 키는 맞지 않는다.
 
 ## 관련 RFC
 

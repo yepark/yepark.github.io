@@ -4,6 +4,10 @@ description: "AI 프롬프트와 에이전트의 정확성·안전성·비용을
 parent: AI
 nav_order: 6
 permalink: /ai/using-ai/evaluation/
+last_modified_at: 2026-11-17
+seo:
+  type: BlogPosting
+date: 2026-11-16
 first_written: 2026-11-16
 last_modified_date: 2026-11-17
 tags: [AI, Evaluation, Evals, Agent]
@@ -14,15 +18,15 @@ tags: [AI, Evaluation, Evals, Agent]
 
 {% include article-toc.md %}
 
+프롬프트를 고친 뒤 결과 하나가 좋아졌다고 해서 시스템 전체가 좋아진 것은 아니다. 다른 질문에서는 정확도가 떨어졌을 수 있고, 품질은 같지만 비용과 시간이 두 배가 됐을 수도 있다.
+
+**평가(Evaluation, Eval)**는 AI 시스템의 결과를 미리 정한 사례와 기준으로 측정하는 과정이다. 평가는 마지막 시험이 아니라 프롬프트, 컨텍스트, 루프, 그래프, 하네스를 개선하는 출발점이다.
+
 ## 비교할 입력을 먼저 고정하기
 
 프롬프트를 고친 뒤 전혀 다른 질문으로 시험하면 좋아진 원인을 알기 어렵다. 같은 질문 몇 개를 저장하고 변경 전후에 똑같이 입력해 보자.
 
 정답 문장이 하나가 아닌 작업은 필수 내용과 금지 행동으로 평가한다. 예를 들어 요약에서는 ‘원문 사실을 바꾸지 않음’, ‘세 문장 이내’, ‘주요 결론 포함’을 각각 확인할 수 있다. 점수는 이 기준을 비교하기 위한 도구다.
-
-프롬프트를 고친 뒤 결과 하나가 좋아졌다고 해서 시스템 전체가 좋아진 것은 아니다. 다른 질문에서는 정확도가 떨어졌을 수 있고, 품질은 같지만 비용과 시간이 두 배가 됐을 수도 있다.
-
-**평가(Evaluation, Eval)**는 AI 시스템의 결과를 미리 정한 사례와 기준으로 측정하는 과정이다. 평가는 마지막 시험이 아니라 프롬프트, 컨텍스트, 루프, 그래프, 하네스를 개선하는 출발점이다.
 
 ## 왜 AI 평가는 일반 테스트보다 어려울까
 
@@ -348,7 +352,7 @@ assert "api_key" not in result["answer"]
 
 ← [AI 주제별 포스트 목록으로 돌아가기]({{ '/ai/using-ai/' | relative_url }})
 
-→ [LangChain 입문: 모델 호출부터 도구를 쓰는 에이전트까지]({{ '/ai/using-ai/langchain/' | relative_url }})
+→ [LangChain]({{ '/ai/using-ai/langchain/' | relative_url }})
 
 ## 참고
 

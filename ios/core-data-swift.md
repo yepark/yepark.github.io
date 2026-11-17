@@ -1,24 +1,22 @@
 ---
-title: "Swift Core Data 사용법과 핵심 클래스"
+title: "Core Data 아키텍처와 Swift 구현"
 description: "Swift Core Data의 핵심 클래스와 CRUD, 관계, 백그라운드 컨텍스트, batch 작업, migration을 자세히 설명합니다."
 parent: "iOS"
 nav_order: 5
 permalink: /ios/core-data-swift/
+last_modified_at: 2026-11-17
+seo:
+  type: BlogPosting
+date: 2026-11-16
 first_written: 2026-11-16
 last_modified_date: 2026-11-17
 tags: [iOS, Swift, Core-Data]
 ---
 
-# Swift Core Data 사용법과 핵심 클래스
+# Core Data 아키텍처와 Swift 구현
 {: .no_toc }
 
 {% include article-toc.md %}
-
-## 처음에는 저장과 다시 읽기부터
-
-먼저 할 일 하나를 저장하고 앱을 다시 열어 조회하는 흐름만 완성해 보자. 관계, batch 처리, CloudKit 같은 기능은 이 기본 흐름이 동작한 뒤에 추가해도 된다.
-
-본문의 CRUD 예제는 데이터 모델 편집기에서 `TaskItem`을 만들고 저장소 로드가 끝났다고 가정한다. 이후 `Project` 관계 예제를 따라 할 때는 해당 엔티티와 inverse 관계도 모델에 추가해야 한다. 각 코드 조각이 요구하는 준비 상태를 확인하고 진행하자.
 
 Core Data는 앱의 객체와 객체 사이 관계를 관리하고, 변경 내용을 추적해 저장소에 보관하는 Apple 프레임워크다. SQLite를 사용할 수 있지만 **SQLite를 Swift 객체로 바꿔 주는 단순 ORM**으로만 이해하면 중요한 기능을 놓친다.
 
@@ -33,6 +31,12 @@ Core Data가 제공하는 대표 기능은 다음과 같다.
 - 백그라운드 컨텍스트
 - 데이터 모델 버전과 마이그레이션
 - CloudKit 연동을 위한 컨테이너
+
+## 처음에는 저장과 다시 읽기부터
+
+먼저 할 일 하나를 저장하고 앱을 다시 열어 조회하는 흐름만 완성해 보자. 관계, batch 처리, CloudKit 같은 기능은 이 기본 흐름이 동작한 뒤에 추가해도 된다.
+
+본문의 CRUD 예제는 데이터 모델 편집기에서 `TaskItem`을 만들고 저장소 로드가 끝났다고 가정한다. 이후 `Project` 관계 예제를 따라 할 때는 해당 엔티티와 inverse 관계도 모델에 추가해야 한다. 각 코드 조각이 요구하는 준비 상태를 확인하고 진행하자.
 
 ## 가장 먼저 이해할 그림
 
@@ -476,7 +480,7 @@ batch request는 context를 우회하므로 변경 병합이나 history 처리�
 - 객체를 다른 큐로 직접 넘기지 말고 `NSManagedObjectID`를 사용한다.
 - batch 작업, history, migration은 기본 CRUD를 이해한 뒤 추가한다.
 
-Objective-C 예제가 필요하면 [Objective-C로 Core Data 시작하기]({{ '/ios/core-data/' | relative_url }})도 함께 볼 수 있다.
+Objective-C 예제가 필요하면 [Core Data의 Objective-C 구현]({{ '/ios/core-data/' | relative_url }})도 함께 볼 수 있다.
 
 ## 참고
 

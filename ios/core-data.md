@@ -1,30 +1,35 @@
 ---
-title: "Objective-C로 Core Data 시작하기"
+title: "Core Data의 Objective-C 구현"
 parent: "iOS"
 nav_order: 4
 permalink: /ios/core-data/
+last_modified_at: 2026-11-17
+seo:
+  type: BlogPosting
+date: 2021-04-23
+description: "Objective-C의 NSPersistentContainer, context, fetch request와 저장·삭제·백그라운드 작업을 설명합니다."
 first_written: 2021-04-23
 last_modified_date: 2026-11-17
 tags: [iOS, Objective-C, Core-Data]
 ---
 
-# Objective-C로 Core Data 시작하기
+# Core Data의 Objective-C 구현
 {: .no_toc }
 
 {% include article-toc.md %}
-
-## Objective-C 예제를 읽는 순서
-
-이 글은 `Employee`라는 데이터 설계와 그에 대응하는 `EmployeeMO` 클래스가 준비돼 있다고 가정한다. `.xcdatamodeld`의 엔티티 이름과 코드의 문자열이 일치해야 저장할 객체를 만들 수 있다.
-
-객체를 만든 직후에는 컨텍스트라는 작업 공간 안에만 변경이 기록된다. `save:`가 성공해야 저장소에 반영된다. 조회·수정·삭제 코드도 같은 컨텍스트의 큐에서 실행해야 하며, 앱 초기화 때 저장소 로드가 완료됐는지 먼저 확인한다.
 
 Core Data는 앱의 모델 객체와 객체 그래프를 관리하는 프레임워크다. 변경 추적, 관계 관리, 검증, Undo/Redo, faulting, 영속성 같은 기능을 제공한다.
 
 Core Data를 단순히 SQLite용 ORM으로 이해하면 중요한 특성을 놓치기 쉽다. SQLite는 사용할 수 있는 저장소 중 하나일 뿐이며, 메모리 저장소처럼 데이터베이스가 아닌 구성도 지원한다.
 
 {: .note }
-Swift 예제와 핵심 클래스, 관계·백그라운드 작업·마이그레이션까지 처음부터 보려면 [Swift Core Data 사용법과 핵심 클래스]({{ '/ios/core-data-swift/' | relative_url }})를 먼저 읽어도 좋다.
+Swift 예제와 핵심 클래스, 관계·백그라운드 작업·마이그레이션까지 처음부터 보려면 [Core Data 아키텍처와 Swift 구현]({{ '/ios/core-data-swift/' | relative_url }})를 먼저 읽어도 좋다.
+
+## Objective-C 예제를 읽는 순서
+
+이 글은 `Employee`라는 데이터 설계와 그에 대응하는 `EmployeeMO` 클래스가 준비돼 있다고 가정한다. `.xcdatamodeld`의 엔티티 이름과 코드의 문자열이 일치해야 저장할 객체를 만들 수 있다.
+
+객체를 만든 직후에는 컨텍스트라는 작업 공간 안에만 변경이 기록된다. `save:`가 성공해야 저장소에 반영된다. 조회·수정·삭제 코드도 같은 컨텍스트의 큐에서 실행해야 하며, 앱 초기화 때 저장소 로드가 완료됐는지 먼저 확인한다.
 
 ## Core Data 스택
 

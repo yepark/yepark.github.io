@@ -1,25 +1,30 @@
 ---
-title: "Objective-C의 KVC와 KVO 이해하기"
+title: "KVC와 KVO"
 parent: "iOS"
 nav_order: 2
 permalink: /ios/kvc-kvo/
+last_modified_at: 2026-11-17
+seo:
+  type: BlogPosting
+date: 2021-04-10
+description: "Objective-C KVC의 문자열 키 접근과 KVO의 변경 관찰, 등록·해제 및 객체 수명 조건을 설명합니다."
 first_written: 2021-04-10
 last_modified_date: 2026-11-17
 tags: [iOS, Objective-C, KVC, KVO]
 ---
 
-# Objective-C의 KVC와 KVO 이해하기
+# KVC와 KVO
 {: .no_toc }
 
 {% include article-toc.md %}
+
+KVC(Key-Value Coding)와 KVO(Key-Value Observing)는 이름이 비슷하지만 역할은 다르다. KVC는 문자열 키로 객체의 값을 읽고 쓰는 방식이고, KVO는 KVC를 기반으로 속성의 변경을 관찰하는 방식이다.
 
 ## 값 접근과 변경 알림 구분하기
 
 `person.name`이 값을 직접 읽는 접근이라면 KVC는 `name`이라는 문자열 키로 같은 값을 찾는 방식이다. KVO는 그 값이 바뀌었을 때 등록한 관찰자에게 알려 주는 방식이다.
 
 본문의 `self`는 관찰을 받는 객체다. 관찰 대상인 `object`를 보관하고, 알림 처리 메서드와 해제 코드를 같은 수명 안에서 연결해야 한다. 등록 코드만 복사하면 변경을 처리하거나 안전하게 해제하는 흐름이 빠진다.
-
-KVC(Key-Value Coding)와 KVO(Key-Value Observing)는 이름이 비슷하지만 역할은 다르다. KVC는 문자열 키로 객체의 값을 읽고 쓰는 방식이고, KVO는 KVC를 기반으로 속성의 변경을 관찰하는 방식이다.
 
 ## KVC: 문자열 키로 속성에 접근하기
 

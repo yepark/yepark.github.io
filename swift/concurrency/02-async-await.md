@@ -1,26 +1,31 @@
 ---
-title: "2. async/await 기초: 기다리는 함수 만들고 부르기"
+title: "async/await와 비동기 함수"
 parent: Concurrency
 grand_parent: Swift
 nav_order: 2
 permalink: /swift/concurrency/async-await/
+last_modified_at: 2026-11-17
+seo:
+  type: BlogPosting
+date: 2026-11-16
+description: "async throws, await, URLSession과 continuation을 호출 순서·오류 처리·취소 관점에서 설명합니다."
 first_written: 2026-11-16
 last_modified_date: 2026-11-17
 tags: [Swift, Concurrency, Async-Await, Continuation]
 ---
 
-# async/await 기초: 기다리는 함수 만들고 부르기
+# async/await와 비동기 함수
 {: .no_toc }
 
 {% include article-toc.md %}
+
+`async`는 함수가 실행 중 중단될 수 있음을 선언하고, `await`는 그 함수를 호출하는 곳에 중단 가능성을 표시한다. 오류까지 발생할 수 있다면 `async throws`로 선언한다.
 
 ## 함수 선언과 호출을 나눠 읽기
 
 `func` 뒤의 이름은 함수의 이름이고, `async`는 중단 가능성을 가진 함수라는 표시다. 호출하는 쪽은 `await`를 적어 이 지점에서 실행이 잠시 다른 작업에 양보될 수 있음을 드러낸다.
 
 `throws`와 `try`는 오류가 전달될 수 있음을 나타내는 별도의 표시다. 네트워크 예제에서는 ‘응답을 받았는가’, ‘HTTP 상태가 정상인가’, ‘JSON이 모델과 맞는가’를 차례로 확인한다. 하나가 성공해도 다음 단계는 실패할 수 있다.
-
-`async`는 함수가 실행 중 중단될 수 있음을 선언하고, `await`는 그 함수를 호출하는 곳에 중단 가능성을 표시한다. 오류까지 발생할 수 있다면 `async throws`로 선언한다.
 
 ## async 함수 선언하기
 
@@ -143,7 +148,7 @@ let profile = try await fetchProfile()
 let notices = try await fetchNotices()
 ```
 
-둘을 함께 시작하는 방법은 4편의 `async let`에서 다룬다. 먼저 데이터 의존성이 있는지 확인한 뒤 병렬화를 선택해야 한다.
+둘을 함께 시작하는 방법은 [구조화된 동시성과 TaskGroup]({{ '/swift/concurrency/parallel-work/' | relative_url }})의 `async let`에서 다룬다. 먼저 데이터 의존성이 있는지 확인한 뒤 병렬화를 선택해야 한다.
 
 ## 콜백 API를 continuation으로 연결하기
 
@@ -165,6 +170,8 @@ func requestToken() async throws -> String {
 continuation은 모든 경로에서 **정확히 한 번** `resume`해야 한다. 한 번도 호출하지 않으면 Task가 영원히 기다리고, 두 번 호출하면 잘못된 동작이다. 직접 제어하지 않는 API를 감쌀 때는 성공·실패·취소 경로를 모두 확인한다.
 
 continuation은 비동기 작업을 새로 만드는 도구가 아니다. 이미 비동기인 콜백 API와 async/await 사이를 연결하는 다리다.
+
+위 코드는 `legacyRequestToken`이 성공이나 실패로 정확히 한 번 완료된다는 계약을 가정한다. 기다리는 Task를 취소한다고 legacy 요청이 자동으로 취소되거나 continuation이 자동 재개되지는 않는다. 실제 어댑터에는 원래 API의 취소 수단을 연결하고, 취소와 완료 콜백이 거의 동시에 도착해도 한 경로만 `resume`하도록 동기화하는 설계가 필요하다. API가 지원하는 async 버전이 있다면 그 계약을 먼저 확인하는 편이 안전하다.
 
 ## async가 필요 없는 함수
 
@@ -190,7 +197,7 @@ func displayName(first: String, last: String) -> String {
 
 다음 편에서는 Task를 직접 만들고, 결과를 기다리고, 화면이나 검색 조건이 바뀌었을 때 작업을 취소하는 방법을 다룬다.
 
-→ [3. Task: 비동기 작업 시작하고 취소하기]({{ '/swift/concurrency/task-cancellation/' | relative_url }})
+→ [Task 수명과 취소]({{ '/swift/concurrency/task-cancellation/' | relative_url }})
 
 ## 참고
 

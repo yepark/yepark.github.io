@@ -1,31 +1,36 @@
 ---
-title: "1. 왜 Swift Concurrency인가: 콜백에서 async/await로"
+title: "Swift Concurrency 실행 모델"
 parent: Concurrency
 grand_parent: Swift
 nav_order: 1
 permalink: /swift/concurrency/why-concurrency/
+last_modified_at: 2026-11-17
+seo:
+  type: BlogPosting
+date: 2026-11-16
+description: "Swift Concurrency의 중단과 재개, Task 실행 단위, 콜백과 async/await의 차이를 분석합니다."
 first_written: 2026-11-16
 last_modified_date: 2026-11-17
 tags: [Swift, Concurrency, Async-Await]
 ---
 
-# 왜 Swift Concurrency인가: 콜백에서 async/await로
+# Swift Concurrency 실행 모델
 {: .no_toc }
 
 {% include article-toc.md %}
-
-## 먼저 떠올릴 상황
-
-새로고침 버튼을 눌렀을 때 서버 응답이 늦어도 스크롤은 계속 움직여야 한다. ‘요청 결과를 기다리는 일’과 ‘화면 이벤트를 처리하는 일’을 함께 진행할 수 있어야 하기 때문이다.
-
-본문의 `Profile`, `requestProfile`, `show`는 앱마다 달라지는 데이터와 동작을 표현한 예시 이름이다. 그대로 복사해 실행할 완성 앱은 아니다. 먼저 호출 순서를 이해하고 다음 편의 구체적인 네트워크 예제로 연결하자.
 
 앱은 네트워크 응답, 파일 읽기, 데이터베이스 조회처럼 **결과가 바로 나오지 않는 일**을 자주 한다. 결과를 기다리는 동안 메인 스레드를 막으면 화면이 멈춘다. 그렇다고 모든 작업을 직접 스레드와 큐로 관리하면 실행 순서, 오류, 취소, 공유 상태를 함께 추적하기가 어려워진다.
 
 Swift Concurrency는 이 문제를 언어 차원에서 다룬다. 핵심 도구는 `async`/`await`, Task, actor다.
 
 {: .note }
-GCD의 `sync`/`async`, Serial/Concurrent Queue가 아직 헷갈린다면 [입문 편: GCD 기초]({{ '/swift/concurrency/gcd-queue-basics/' | relative_url }})부터 읽는 것을 권한다.
+GCD의 `sync`/`async`, Serial/Concurrent Queue가 아직 헷갈린다면 [GCD와 DispatchQueue]({{ '/swift/concurrency/gcd-queue-basics/' | relative_url }})부터 읽는 것을 권한다.
+
+## 먼저 떠올릴 상황
+
+새로고침 버튼을 눌렀을 때 서버 응답이 늦어도 스크롤은 계속 움직여야 한다. ‘요청 결과를 기다리는 일’과 ‘화면 이벤트를 처리하는 일’을 함께 진행할 수 있어야 하기 때문이다.
+
+본문의 `Profile`, `requestProfile`, `show`는 앱마다 달라지는 데이터와 동작을 표현한 예시 이름이다. 그대로 복사해 실행할 완성 앱은 아니다. 먼저 호출 순서를 이해하고 다음 편의 구체적인 네트워크 예제로 연결하자.
 
 ## 동기 코드가 화면을 멈추는 이유
 
@@ -154,7 +159,7 @@ Swift Concurrency를 사용한다고 모든 코드가 자동으로 빠르거나 
 
 다음 편에서는 `async throws` 함수를 직접 만들고 호출하면서, `await`의 실행 순서와 기존 콜백 API를 continuation으로 연결하는 방법을 다룬다.
 
-→ [2. async/await 기초: 기다리는 함수 만들고 부르기]({{ '/swift/concurrency/async-await/' | relative_url }})
+→ [async/await와 비동기 함수]({{ '/swift/concurrency/async-await/' | relative_url }})
 
 ## 참고
 

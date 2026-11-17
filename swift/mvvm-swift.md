@@ -3,6 +3,11 @@ title: "MVVM의 역할과 데이터 흐름"
 parent: "Swift"
 nav_order: 5
 permalink: /swift/mvvm-swift/
+last_modified_at: 2026-11-17
+seo:
+  type: BlogPosting
+date: 2021-04-09
+description: "MVVM의 책임 분리, 화면 상태 모델링, 의존성 주입과 테스트 가능한 데이터 흐름을 설명합니다."
 first_written: 2021-04-09
 last_modified_date: 2026-11-17
 tags: [Swift, iOS, MVVM, Architecture]
@@ -13,13 +18,13 @@ tags: [Swift, iOS, MVVM, Architecture]
 
 {% include article-toc.md %}
 
+MVVM(Model–View–ViewModel)은 화면 표시와 비즈니스 로직을 분리하는 설계 방식이다. 중요한 점은 세 글자의 순서가 호출 순서를 뜻하지 않는다는 것이다. `Model → View → ViewModel`처럼 한 방향으로만 흐르는 구조가 아니라, 각 구성 요소의 책임과 의존 관계를 정리하는 패턴에 가깝다.
+
 ## 화면 하나를 나눠 보는 예
 
 프로필 화면에서 이름을 받아 인사말로 보여 준다고 하자. 사용자 데이터는 Model, ‘안녕하세요, 옙님’이라는 표시 규칙은 ViewModel, 실제 레이블 배치와 터치는 View의 책임으로 나눌 수 있다.
 
 예제는 화면을 완성하는 앱 전체가 아니라 각 역할의 경계를 보여 준다. 먼저 입력이 무엇이고 어떤 상태로 바뀌는지 따라가자. 서비스 프로토콜은 실제 네트워크 대신 테스트용 응답을 넣을 수 있게 하는 약속이다.
-
-MVVM(Model–View–ViewModel)은 화면 표시와 비즈니스 로직을 분리하는 설계 방식이다. 중요한 점은 세 글자의 순서가 호출 순서를 뜻하지 않는다는 것이다. `Model → View → ViewModel`처럼 한 방향으로만 흐르는 구조가 아니라, 각 구성 요소의 책임과 의존 관계를 정리하는 패턴에 가깝다.
 
 ## 각 구성 요소의 역할
 

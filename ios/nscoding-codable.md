@@ -1,25 +1,30 @@
 ---
-title: "NSCoding과 Codable은 무엇이 다른가"
+title: "NSCoding과 Codable의 직렬화 모델"
 parent: "iOS"
 nav_order: 3
 permalink: /ios/nscoding-codable/
+last_modified_at: 2026-11-17
+seo:
+  type: BlogPosting
+date: 2021-04-28
+description: "NSCoding 객체 아카이빙과 Codable 직렬화의 차이, 보안 디코딩과 모델 호환성을 설명합니다."
 first_written: 2021-04-28
 last_modified_date: 2026-11-17
 tags: [iOS, Swift, Objective-C, NSCoding, Codable]
 ---
 
-# NSCoding과 Codable은 무엇이 다른가
+# NSCoding과 Codable의 직렬화 모델
 {: .no_toc }
 
 {% include article-toc.md %}
+
+Objective-C와 Swift를 함께 사용하다 보면 `NSCoding`과 `Codable`을 비슷한 기능으로 오해하기 쉽다. 둘 다 값을 인코딩하고 복원하지만 목적과 데이터 형식이 다르다.
 
 ## 인코딩과 저장 구분하기
 
 인코딩은 메모리의 값을 `Data` 같은 바이트 표현으로 바꾸는 과정이고, 저장은 그 바이트를 파일 등에 기록하는 과정이다. 디코딩은 반대로 바이트를 앱의 값으로 복원한다.
 
 아래에는 같은 `Person` 이름을 쓰는 서로 독립적인 예제가 있다. `Codable` 구조체 예제와 `NSSecureCoding` 클래스 예제를 한 타입처럼 섞으면 안 된다. `NSKeyedUnarchiver` 예제의 `Person`은 보안 코딩을 채택한 클래스라고 가정한다.
-
-Objective-C와 Swift를 함께 사용하다 보면 `NSCoding`과 `Codable`을 비슷한 기능으로 오해하기 쉽다. 둘 다 값을 인코딩하고 복원하지만 목적과 데이터 형식이 다르다.
 
 ## NSCoding: 객체 그래프 아카이빙
 

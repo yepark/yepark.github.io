@@ -4,6 +4,10 @@ description: "AI 에이전트의 관찰·행동·검증·종료 루프와 LangCh
 parent: AI
 nav_order: 3
 permalink: /ai/using-ai/loop-engineering/
+last_modified_at: 2026-11-17
+seo:
+  type: BlogPosting
+date: 2026-11-16
 first_written: 2026-11-16
 last_modified_date: 2026-11-17
 tags: [AI, Agent, Loop-Engineering, LangChain]
@@ -14,18 +18,18 @@ tags: [AI, Agent, Loop-Engineering, LangChain]
 
 {% include article-toc.md %}
 
-## 모델 호출과 도구 실행 나누기
-
-모델이 ‘계산 도구를 사용하겠다’고 출력하는 것과 실제 Python 함수가 실행되는 것은 별개 단계다. 프레임워크가 요청을 받아 함수에 인자를 넘기고, 반환값을 다시 모델에 전달한다.
-
-아래 `multiply` 예제는 계산기 함수와 모델을 연결하는 작은 실습이다. 모델 제공자의 API 키와 사용 가능한 모델 ID가 필요하다. `사용할-모델-이름`은 설명용 자리이므로 실제 ID로 바꿔야 한다.
-
 일반적인 챗봇은 질문을 받고 답변을 한 번 만든다. 에이전트는 목표를 받고, 필요한 정보를 찾고, 도구를 실행하고, 그 결과를 다시 살펴본 뒤 다음 행동을 정한다.
 
 이 반복 구조를 **에이전트 루프**라고 부를 수 있다. 루프 엔지니어링은 이 반복이 목적 없이 돌거나 위험한 행동을 하지 않도록 **관찰, 판단, 행동, 검증, 종료 규칙을 설계하는 일**이다.
 
 {: .note }
 “루프 엔지니어링”은 프롬프트 엔지니어링처럼 하나로 굳어진 표준 직무명이라기보다, 에이전트의 반복 실행 구조를 설명하기 위해 이 글에서 사용하는 실무 용어다.
+
+## 모델 호출과 도구 실행 나누기
+
+모델이 ‘계산 도구를 사용하겠다’고 출력하는 것과 실제 Python 함수가 실행되는 것은 별개 단계다. 프레임워크가 요청을 받아 함수에 인자를 넘기고, 반환값을 다시 모델에 전달한다.
+
+아래 `multiply` 예제는 계산기 함수와 모델을 연결하는 작은 실습이다. 모델 제공자의 API 키와 사용 가능한 모델 ID가 필요하다. `사용할-모델-이름`은 설명용 자리이므로 실제 ID로 바꿔야 한다.
 
 ## 가장 단순한 에이전트 루프
 
@@ -335,7 +339,7 @@ cancel_order          상태 변경, 사용자 승인 필요
 
 ### LangChain 코드를 따로 따라 하기
 
-설치부터 API 키 설정, 도구 단독 실행, 최종 메시지 확인까지는 [LangChain 입문]({{ '/ai/using-ai/langchain/' | relative_url }})에서 하나의 실습 흐름으로 설명한다.
+설치부터 API 키 설정, 도구 단독 실행, 최종 메시지 확인까지는 [LangChain]({{ '/ai/using-ai/langchain/' | relative_url }})에서 하나의 실습 흐름으로 설명한다.
 
 ## 체크리스트
 
@@ -355,7 +359,7 @@ cancel_order          상태 변경, 사용자 승인 필요
 
 단순한 루프 하나로 부족하고 작업에 여러 갈래의 고정된 경로가 생기면 그래프로 표현하는 편이 이해하고 복구하기 쉽다. 다음 편에서 LangGraph와 함께 살펴본다.
 
-→ [그래프 엔지니어링: LangGraph로 상태와 분기 연결하기]({{ '/ai/using-ai/graph-engineering/' | relative_url }})
+→ [그래프 엔지니어링]({{ '/ai/using-ai/graph-engineering/' | relative_url }})
 
 ## 참고
 
