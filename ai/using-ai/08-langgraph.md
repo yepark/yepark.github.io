@@ -1,14 +1,13 @@
 ---
-title: "8. LangGraph 입문: 상태와 분기를 직접 실행해 보기"
+title: "LangGraph"
 description: "모델과 API 키 없이 시작하는 LangGraph 실습으로 StateGraph, 노드, 엣지, 조건 분기와 체크포인트를 설명합니다."
-parent: AI 사용법
-grand_parent: AI
+parent: AI
 nav_order: 8
 permalink: /ai/using-ai/langgraph/
 last_modified_date: 2026-11-17
 ---
 
-# LangGraph 입문: 상태와 분기를 직접 실행해 보기
+# LangGraph
 {: .no_toc }
 
 {% include article-toc.md %}

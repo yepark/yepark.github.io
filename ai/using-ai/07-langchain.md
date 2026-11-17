@@ -1,14 +1,13 @@
 ---
-title: "7. LangChain 입문: 모델 호출부터 도구를 쓰는 에이전트까지"
+title: "LangChain"
 description: "LangChain 설치, 메시지, 모델 응답, 도구 등록과 에이전트 실행을 작은 Python 예제로 차근차근 설명합니다."
-parent: AI 사용법
-grand_parent: AI
+parent: AI
 nav_order: 7
 permalink: /ai/using-ai/langchain/
 last_modified_date: 2026-11-17
 ---
 
-# LangChain 입문: 모델 호출부터 도구를 쓰는 에이전트까지
+# LangChain
 {: .no_toc }
 
 {% include article-toc.md %}
@@ -170,7 +169,7 @@ for message in result["messages"]:
 
 다음 편에서는 유료 모델 호출 없이도 실행 가능한 작은 LangGraph를 만들며 그 차이를 배운다.
 
-→ [8. LangGraph 입문]({{ '/ai/using-ai/langgraph/' | relative_url }})
+→ [LangGraph 입문]({{ '/ai/using-ai/langgraph/' | relative_url }})
 
 ## 참고
 

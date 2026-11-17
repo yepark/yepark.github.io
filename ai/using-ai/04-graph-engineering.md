@@ -1,8 +1,7 @@
 ---
-title: "4. 그래프 엔지니어링: LangGraph로 상태와 분기 연결하기"
+title: "그래프 엔지니어링"
 description: "LangGraph의 상태, 노드, 엣지, 조건 분기, 반복, 체크포인트와 사람 승인을 첫 Python 예제로 설명합니다."
-parent: AI 사용법
-grand_parent: AI
+parent: AI
 nav_order: 4
 permalink: /ai/using-ai/graph-engineering/
 first_written: 2026-11-16
@@ -10,7 +9,7 @@ last_modified_date: 2026-11-17
 tags: [AI, Agent, Graph-Engineering, LangGraph, LangChain]
 ---
 
-# 그래프 엔지니어링: LangGraph로 상태와 분기 연결하기
+# 그래프 엔지니어링
 {: .no_toc }
 
 {% include article-toc.md %}
@@ -386,7 +385,7 @@ LangGraph에서는 그래프를 컴파일할 때 체크포인터를 연결하고
 
 하지만 그래프만으로 도구 권한, 파일 환경, 테스트, 기록, 배포 안전성까지 해결되지는 않는다. 다음 편에서는 이 모든 실행 조건을 묶는 하네스 엔지니어링을 다룬다.
 
-→ [5. 하네스 엔지니어링: AI가 안정적으로 일하는 환경 만들기]({{ '/ai/using-ai/harness-engineering/' | relative_url }})
+→ [하네스 엔지니어링: AI가 안정적으로 일하는 환경 만들기]({{ '/ai/using-ai/harness-engineering/' | relative_url }})
 
 ## 참고
 

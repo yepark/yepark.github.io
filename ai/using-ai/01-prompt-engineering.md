@@ -1,8 +1,7 @@
 ---
-title: "1. 프롬프트 엔지니어링: 원하는 결과를 명확하게 요청하기"
+title: "프롬프트 엔지니어링"
 description: "좋은 AI 프롬프트의 목표·배경·입력·제약·출력·합격 기준을 예제와 재사용 템플릿으로 설명합니다."
-parent: AI 사용법
-grand_parent: AI
+parent: AI
 nav_order: 1
 permalink: /ai/using-ai/prompt-engineering/
 first_written: 2026-11-16
@@ -10,7 +9,7 @@ last_modified_date: 2026-11-17
 tags: [AI, Prompt-Engineering, LLM]
 ---
 
-# 프롬프트 엔지니어링: 원하는 결과를 명확하게 요청하기
+# 프롬프트 엔지니어링
 {: .no_toc }
 
 {% include article-toc.md %}
@@ -277,7 +276,7 @@ AI에게 자료를 주지 않고 최신 사실이나 사내 정책을 정확히 
 
 프롬프트 엔지니어링의 핵심은 화려한 표현이 아니라 목표, 근거, 제약, 출력, 합격 기준을 명확히 하는 것이다. 하지만 아무리 좋은 요청도 필요한 자료가 대화 밖에 있거나 문맥이 너무 길어지면 한계가 생긴다. 다음 편에서는 AI가 판단에 사용할 정보를 선택하고 유지하는 컨텍스트 엔지니어링을 다룬다.
 
-→ [2. 컨텍스트 엔지니어링: 필요한 정보를 필요한 순간에 주기]({{ '/ai/using-ai/context-engineering/' | relative_url }})
+→ [컨텍스트 엔지니어링: 필요한 정보를 필요한 순간에 주기]({{ '/ai/using-ai/context-engineering/' | relative_url }})
 
 ## 참고
 

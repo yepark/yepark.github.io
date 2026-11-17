@@ -1,8 +1,7 @@
 ---
-title: "5. 하네스 엔지니어링: AI가 안정적으로 일하는 환경 만들기"
+title: "하네스 엔지니어링"
 description: "AI 에이전트의 도구·환경·권한·산출물·검증·승인·기록을 묶는 하네스 엔지니어링을 기초부터 설명합니다."
-parent: AI 사용법
-grand_parent: AI
+parent: AI
 nav_order: 5
 permalink: /ai/using-ai/harness-engineering/
 first_written: 2026-11-16
@@ -10,7 +9,7 @@ last_modified_date: 2026-11-17
 tags: [AI, Agent, Harness-Engineering, Codex]
 ---
 
-# 하네스 엔지니어링: AI가 안정적으로 일하는 환경 만들기
+# 하네스 엔지니어링
 {: .no_toc }
 
 {% include article-toc.md %}
@@ -401,7 +400,7 @@ AI 이야기를 잠시 빼고 사람이 이 일을 어떻게 하는지 적는다
 
 하지만 구조가 그럴듯하다고 좋은 하네스인 것은 아니다. 다음 편에서는 동일한 테스트 사례로 프롬프트와 에이전트를 측정하고, 변경이 실제 개선인지 판단하는 평가 방법을 다룬다.
 
-→ [6. 평가와 개선: AI 시스템의 품질을 측정하는 법]({{ '/ai/using-ai/evaluation/' | relative_url }})
+→ [평가와 개선: AI 시스템의 품질을 측정하는 법]({{ '/ai/using-ai/evaluation/' | relative_url }})
 
 ## 참고
 

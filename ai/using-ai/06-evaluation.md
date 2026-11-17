@@ -1,8 +1,7 @@
 ---
-title: "6. 평가와 개선: AI 시스템의 품질을 측정하는 법"
+title: "AI 평가와 개선"
 description: "AI 프롬프트와 에이전트의 정확성·안전성·비용을 평가 데이터셋과 회귀 테스트로 측정하는 방법을 설명합니다."
-parent: AI 사용법
-grand_parent: AI
+parent: AI
 nav_order: 6
 permalink: /ai/using-ai/evaluation/
 first_written: 2026-11-16
@@ -10,7 +9,7 @@ last_modified_date: 2026-11-17
 tags: [AI, Evaluation, Evals, Agent]
 ---
 
-# 평가와 개선: AI 시스템의 품질을 측정하는 법
+# AI 평가와 개선
 {: .no_toc }
 
 {% include article-toc.md %}
@@ -336,7 +335,7 @@ assert "api_key" not in result["answer"]
 - 모델과 프롬프트 버전을 기록하는가?
 - 개선되지 않으면 되돌릴 수 있는가?
 
-## 전체 시리즈 정리
+## 관련 개념 다시 보기
 
 - 프롬프트 엔지니어링은 목표와 결과 형식을 명확하게 만든다.
 - 컨텍스트 엔지니어링은 판단에 필요한 정보를 고르고 유지한다.
@@ -347,9 +346,9 @@ assert "api_key" not in result["answer"]
 
 가장 중요한 원칙은 복잡한 구조부터 시작하지 않는 것이다. 단순한 프롬프트로 기준선을 만들고, 실제 실패가 생기는 지점에 컨텍스트, 도구, 루프, 그래프, 하네스를 필요한 만큼 추가한 뒤 같은 평가로 비교한다.
 
-← [AI 사용법 시리즈 목록으로 돌아가기]({{ '/ai/using-ai/' | relative_url }})
+← [AI 주제별 포스트 목록으로 돌아가기]({{ '/ai/using-ai/' | relative_url }})
 
-→ [7. LangChain 입문: 모델 호출부터 도구를 쓰는 에이전트까지]({{ '/ai/using-ai/langchain/' | relative_url }})
+→ [LangChain 입문: 모델 호출부터 도구를 쓰는 에이전트까지]({{ '/ai/using-ai/langchain/' | relative_url }})
 
 ## 참고
 

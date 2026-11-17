@@ -1,8 +1,7 @@
 ---
-title: "2. 컨텍스트 엔지니어링: 필요한 정보를 필요한 순간에 주기"
+title: "컨텍스트 엔지니어링"
 description: "AI에 필요한 문서와 상태를 선택하고 RAG, 대화 요약, 프롬프트 인젝션까지 관리하는 컨텍스트 설계법을 설명합니다."
-parent: AI 사용법
-grand_parent: AI
+parent: AI
 nav_order: 2
 permalink: /ai/using-ai/context-engineering/
 first_written: 2026-11-16
@@ -10,7 +9,7 @@ last_modified_date: 2026-11-17
 tags: [AI, Context-Engineering, RAG, Agent]
 ---
 
-# 컨텍스트 엔지니어링: 필요한 정보를 필요한 순간에 주기
+# 컨텍스트 엔지니어링
 {: .no_toc }
 
 {% include article-toc.md %}
@@ -292,7 +291,7 @@ Markdown 제목이나 XML 태그처럼 일관된 구분자를 사용하고, 사�
 
 다음 편에서는 모델이 컨텍스트를 보고 한 번 답하는 것을 넘어, 도구를 사용하고 결과를 관찰하며 목표에 도달할 때까지 반복하는 에이전트 루프를 설계한다.
 
-→ [3. 루프 엔지니어링: 관찰·행동·검증의 반복 설계]({{ '/ai/using-ai/loop-engineering/' | relative_url }})
+→ [루프 엔지니어링: 관찰·행동·검증의 반복 설계]({{ '/ai/using-ai/loop-engineering/' | relative_url }})
 
 ## 참고
 

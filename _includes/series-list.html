@@ -1,6 +1,6 @@
 {% assign chapters = site.html_pages | where: 'parent', page.title | where_exp: 'chapter', 'chapter.has_children != true' | sort: 'nav_order' %}
-<nav class="series-nav" aria-label="시리즈 목차">
-  <h2>시리즈 목차</h2>
+<nav class="series-nav" aria-label="{{ include.heading | default: '시리즈 목차' | escape }}">
+  <h2>{{ include.heading | default: '시리즈 목차' }}</h2>
   <ul class="series-list">
     {% for chapter in chapters %}
     <li><a href="{{ chapter.url | relative_url }}"><span class="series-list__title">{{ chapter.title | escape }}</span></a></li>

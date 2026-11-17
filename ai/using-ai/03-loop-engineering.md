@@ -1,8 +1,7 @@
 ---
-title: "3. 루프 엔지니어링: AI가 관찰하고 행동하고 검증하게 만들기"
+title: "루프 엔지니어링"
 description: "AI 에이전트의 관찰·행동·검증·종료 루프와 LangChain 도구 호출을 초보자용 코드로 설명합니다."
-parent: AI 사용법
-grand_parent: AI
+parent: AI
 nav_order: 3
 permalink: /ai/using-ai/loop-engineering/
 first_written: 2026-11-16
@@ -10,7 +9,7 @@ last_modified_date: 2026-11-17
 tags: [AI, Agent, Loop-Engineering, LangChain]
 ---
 
-# 루프 엔지니어링: AI가 관찰하고 행동하고 검증하게 만들기
+# 루프 엔지니어링
 {: .no_toc }
 
 {% include article-toc.md %}
@@ -356,7 +355,7 @@ cancel_order          상태 변경, 사용자 승인 필요
 
 단순한 루프 하나로 부족하고 작업에 여러 갈래의 고정된 경로가 생기면 그래프로 표현하는 편이 이해하고 복구하기 쉽다. 다음 편에서 LangGraph와 함께 살펴본다.
 
-→ [4. 그래프 엔지니어링: LangGraph로 상태와 분기 연결하기]({{ '/ai/using-ai/graph-engineering/' | relative_url }})
+→ [그래프 엔지니어링: LangGraph로 상태와 분기 연결하기]({{ '/ai/using-ai/graph-engineering/' | relative_url }})
 
 ## 참고
 
