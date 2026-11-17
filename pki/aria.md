@@ -11,12 +11,7 @@ tags: [Cryptography, ARIA, Block-Cipher]
 # ARIA 블록 암호 이해하기
 {: .no_toc }
 
-<details open markdown="block">
-  <summary>목차</summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
+{% include article-toc.md %}
 
 ARIA는 국내에서 개발되어 국가표준으로 제정된 범용 블록 암호다. RFC 5794에 알고리즘이 공개되어 있으며, 128비트 블록과 128·192·256비트 키를 사용한다.
 

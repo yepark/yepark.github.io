@@ -11,12 +11,7 @@ tags: [Swift, Optional, Optional-Binding]
 # Optional과 if let·guard let
 {: .no_toc }
 
-<details open markdown="block">
-  <summary>목차</summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
+{% include article-toc.md %}
 
 Swift의 Optional은 값이 있거나 없을 수 있음을 타입으로 표현한다. `String?`은 `String`과 다른 타입이며, 값을 사용하려면 안전하게 꺼내는 과정이 필요하다.
 

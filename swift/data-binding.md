@@ -11,12 +11,7 @@ tags: [Swift, Data-Binding, MVVM, Observation]
 # 클로저 기반 데이터 바인딩과 Box
 {: .no_toc }
 
-<details open markdown="block">
-  <summary>목차</summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
+{% include article-toc.md %}
 
 데이터 바인딩은 상태가 바뀌었을 때 그 변화를 UI 같은 소비자에게 전달하는 연결 방식이다. UIKit에서는 delegate, KVO, NotificationCenter, Combine, 클로저 등 여러 선택지가 있다. 작은 MVVM 예제에서는 `Box`라는 단순한 래퍼로 동작 원리를 이해할 수 있다.
 

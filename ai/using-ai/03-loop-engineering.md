@@ -13,12 +13,7 @@ tags: [AI, Agent, Loop-Engineering, LangChain]
 # 루프 엔지니어링: AI가 관찰하고 행동하고 검증하게 만들기
 {: .no_toc }
 
-<details open markdown="block">
-  <summary>목차</summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
+{% include article-toc.md %}
 
 일반적인 챗봇은 질문을 받고 답변을 한 번 만든다. 에이전트는 목표를 받고, 필요한 정보를 찾고, 도구를 실행하고, 그 결과를 다시 살펴본 뒤 다음 행동을 정한다.
 

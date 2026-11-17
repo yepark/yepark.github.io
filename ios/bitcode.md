@@ -11,12 +11,7 @@ tags: [iOS, Xcode, Bitcode]
 # Bitcode의 역할과 지원 종료
 {: .no_toc }
 
-<details open markdown="block">
-  <summary>목차</summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
+{% include article-toc.md %}
 
 > 이 글은 과거 Xcode에서 사용하던 Bitcode를 설명하는 기록이다. 현재 프로젝트에서 Bitcode를 활성화하는 방법을 안내하는 글이 아니다.
 

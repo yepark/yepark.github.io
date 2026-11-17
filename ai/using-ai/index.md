@@ -4,6 +4,7 @@ description: "프롬프트, 컨텍스트, 루프, 그래프, 하네스 엔지니
 parent: AI
 nav_order: 2
 has_children: true
+has_toc: false
 permalink: /ai/using-ai/
 last_modified_date: 2026-11-16
 ---
@@ -30,16 +31,8 @@ last_modified_date: 2026-11-16
 
 각 단계는 앞 단계를 없애는 기술이 아니다. 좋은 하네스 안에도 좋은 프롬프트가 필요하고, 좋은 그래프도 정확한 컨텍스트와 평가 기준이 없으면 안정적으로 동작하지 않는다.
 
-## 순서
+{% include series-list.html %}
 
-| 편 | 내용 | 핵심 질문 |
-| --- | --- | --- |
-| 1 | [프롬프트 엔지니어링]({{ '/ai/using-ai/prompt-engineering/' | relative_url }}) | AI에게 무엇을 어떻게 요청할까? |
-| 2 | [컨텍스트 엔지니어링]({{ '/ai/using-ai/context-engineering/' | relative_url }}) | 판단에 필요한 정보를 어떻게 골라 줄까? |
-| 3 | [루프 엔지니어링]({{ '/ai/using-ai/loop-engineering/' | relative_url }}) | AI가 언제 도구를 쓰고 언제 멈추게 할까? |
-| 4 | [그래프 엔지니어링]({{ '/ai/using-ai/graph-engineering/' | relative_url }}) | 여러 단계와 분기를 어떻게 연결할까? |
-| 5 | [하네스 엔지니어링]({{ '/ai/using-ai/harness-engineering/' | relative_url }}) | AI가 일할 환경과 안전장치를 어떻게 만들까? |
-| 6 | [평가와 개선]({{ '/ai/using-ai/evaluation/' | relative_url }}) | 결과가 좋아졌다는 것을 어떻게 증명할까? |
 
 ## 어디부터 읽어야 할까
 

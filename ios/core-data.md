@@ -11,12 +11,7 @@ tags: [iOS, Objective-C, Core-Data]
 # Objective-C로 Core Data 시작하기
 {: .no_toc }
 
-<details open markdown="block">
-  <summary>목차</summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
+{% include article-toc.md %}
 
 Core Data는 앱의 모델 객체와 객체 그래프를 관리하는 프레임워크다. 변경 추적, 관계 관리, 검증, Undo/Redo, faulting, 영속성 같은 기능을 제공한다.
 

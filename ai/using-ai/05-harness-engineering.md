@@ -13,12 +13,7 @@ tags: [AI, Agent, Harness-Engineering, Codex]
 # 하네스 엔지니어링: AI가 안정적으로 일하는 환경 만들기
 {: .no_toc }
 
-<details open markdown="block">
-  <summary>목차</summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
+{% include article-toc.md %}
 
 자동차의 엔진이 아무리 좋아도 바퀴, 브레이크, 계기판, 안전벨트 없이 목적지까지 안전하게 갈 수 없다. AI 모델도 비슷하다. 모델은 판단하는 엔진이지만, 실제 일을 끝내려면 자료를 읽는 방법, 사용할 도구, 작업 공간, 권한, 테스트, 기록, 실패 복구가 필요하다.
 

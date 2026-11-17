@@ -13,12 +13,7 @@ tags: [Swift, Concurrency, GCD, DispatchQueue]
 # GCD 기초: sync/async와 Serial/Concurrent Queue
 {: .no_toc }
 
-<details open markdown="block">
-  <summary>목차</summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
+{% include article-toc.md %}
 
 Swift 동시성을 공부할 때 가장 먼저 헷갈리는 조합이 있다.
 

@@ -13,12 +13,7 @@ tags: [AI, Prompt-Engineering, LLM]
 # 프롬프트 엔지니어링: 원하는 결과를 명확하게 요청하기
 {: .no_toc }
 
-<details open markdown="block">
-  <summary>목차</summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
+{% include article-toc.md %}
 
 프롬프트는 AI에게 보내는 입력 전체다. 단순한 질문 한 줄일 수도 있고, 역할·자료·제약·출력 형식·예시를 포함한 긴 작업 명세일 수도 있다.
 

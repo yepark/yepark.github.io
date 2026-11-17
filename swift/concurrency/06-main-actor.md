@@ -12,12 +12,7 @@ tags: [Swift, Concurrency, MainActor, UI]
 # @MainActor: UI 상태를 안전하게 관리하기
 {: .no_toc }
 
-<details open markdown="block">
-  <summary>목차</summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
+{% include article-toc.md %}
 
 UIKit과 AppKit을 비롯한 UI 프레임워크는 화면 상태를 메인 실행 문맥에서 다루도록 요구한다. `MainActor`는 이 규칙을 Swift의 격리 모델로 표현한 전역 actor다. UI를 담당하는 타입에 `@MainActor`를 붙이면 컴파일러가 잘못된 접근을 찾아준다.
 

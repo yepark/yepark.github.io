@@ -47,6 +47,28 @@
 }
 
 // 사이드바 제목
+.main-content .series-list {
+  list-style: none;
+  padding-left: 0;
+  li { margin: 0 0 0.75rem; }
+  li::before { content: none; }
+  a {
+    display: block;
+    padding: 1rem 1.25rem;
+    border: 1px solid $border-color;
+    border-radius: 10px;
+    text-decoration: none;
+    &:hover { border-color: #3451b2; background: #f7f8f9; }
+    &:focus-visible { outline: 2px solid #3451b2; outline-offset: 3px; }
+  }
+  .series-list__title { display: block; font-weight: 600; }
+  .series-list__description { display: block; margin-top: 0.25rem; color: #5b6068; font-size: 0.95rem; }
+}
+.main-content .article-toc {
+  ol { padding-left: 1.5rem; }
+  li { font-size: 0.95rem; }
+}
+
 .site-title { font-weight: 700; letter-spacing: -0.01em; }
 
 // 홈 화면

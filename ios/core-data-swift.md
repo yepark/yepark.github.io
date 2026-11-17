@@ -12,12 +12,7 @@ tags: [iOS, Swift, Core-Data]
 # Swift Core Data 사용법과 핵심 클래스
 {: .no_toc }
 
-<details open markdown="block">
-  <summary>목차</summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
+{% include article-toc.md %}
 
 Core Data는 앱의 객체와 객체 사이 관계를 관리하고, 변경 내용을 추적해 저장소에 보관하는 Apple 프레임워크다. SQLite를 사용할 수 있지만 **SQLite를 Swift 객체로 바꿔 주는 단순 ORM**으로만 이해하면 중요한 기능을 놓친다.
 

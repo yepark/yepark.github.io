@@ -12,12 +12,7 @@ tags: [Swift, Concurrency, Actor, Data-Race]
 # actor: 여러 곳에서 같은 데이터를 건드릴 때
 {: .no_toc }
 
-<details open markdown="block">
-  <summary>목차</summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
+{% include article-toc.md %}
 
 여러 Task가 같은 값을 동시에 읽고 수정하면 실행 순서에 따라 결과가 달라지는 **데이터 경쟁(data race)** 이 생길 수 있다. actor는 공유하는 가변 상태를 한 격리 영역에 넣어, 그 상태를 한 번에 하나의 작업만 다루도록 만드는 참조 타입이다.
 

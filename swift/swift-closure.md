@@ -11,12 +11,7 @@ tags: [Swift, JavaScript, Closure]
 # 자바스크립트와 스위프트 클로저 차이
 {: .no_toc }
 
-<details open markdown="block">
-  <summary>목차</summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
+{% include article-toc.md %}
 
 Swift와 JavaScript는 모두 함수를 값처럼 전달할 수 있고, 함수가 선언된 주변 스코프의 값을 캡처할 수 있다. 두 언어에서 클로저의 핵심 개념은 같지만, 문서에서 사용하는 용어와 메모리 관리 방식에는 차이가 있다.
 

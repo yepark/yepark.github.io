@@ -11,12 +11,7 @@ tags: [iOS, Swift, UIKit, Coordinator, Architecture]
 # Coordinator 패턴으로 화면 전환 분리하기
 {: .no_toc }
 
-<details open markdown="block">
-  <summary>목차</summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
+{% include article-toc.md %}
 
 UIKit 앱에서 View Controller가 다음 화면 생성, 데이터 전달, `push`와 `present`까지 모두 맡기 시작하면 화면 전환 코드가 빠르게 복잡해진다. Coordinator 패턴은 이 이동 흐름을 별도 객체로 분리한다.
 

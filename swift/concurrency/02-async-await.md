@@ -12,12 +12,7 @@ tags: [Swift, Concurrency, Async-Await, Continuation]
 # async/await 기초: 기다리는 함수 만들고 부르기
 {: .no_toc }
 
-<details open markdown="block">
-  <summary>목차</summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
+{% include article-toc.md %}
 
 `async`는 함수가 실행 중 중단될 수 있음을 선언하고, `await`는 그 함수를 호출하는 곳에 중단 가능성을 표시한다. 오류까지 발생할 수 있다면 `async throws`로 선언한다.
 

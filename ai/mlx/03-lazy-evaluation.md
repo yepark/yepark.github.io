@@ -12,12 +12,7 @@ tags: [MLX, Python, Lazy-Evaluation]
 # 게으른 계산: MLX는 왜 계산을 미룰까
 {: .no_toc }
 
-<details open markdown="block">
-  <summary>목차</summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
+{% include article-toc.md %}
 
 MLX에서 `c = a @ b`라고 쓰면, 그 줄에서는 **곱셈을 하지 않는다.** 공식 문서는 이렇게 말한다.
 

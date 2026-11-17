@@ -11,12 +11,7 @@ tags: [iOS, Xcode, Framework, XCFramework]
 # iOS 프로젝트에 프레임워크 추가하기
 {: .no_toc }
 
-<details open markdown="block">
-  <summary>목차</summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
+{% include article-toc.md %}
 
 iOS 프로젝트에 바이너리 프레임워크를 추가할 때는 **링크(link)**와 **임베드(embed)**를 구분해야 한다. 빌드에는 성공했지만 앱 실행 직후 `dyld` 오류가 발생한다면, 대부분 동적 프레임워크가 앱 번들에 포함되지 않았거나 서명·아키텍처가 맞지 않는 경우다.
 

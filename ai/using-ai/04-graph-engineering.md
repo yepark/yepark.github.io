@@ -13,12 +13,7 @@ tags: [AI, Agent, Graph-Engineering, LangGraph, LangChain]
 # 그래프 엔지니어링: LangGraph로 상태와 분기 연결하기
 {: .no_toc }
 
-<details open markdown="block">
-  <summary>목차</summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
+{% include article-toc.md %}
 
 작업이 길어지면 단순한 “모델 → 도구 → 모델” 루프만으로 전체 흐름을 이해하기 어려워진다. 문의 종류에 따라 다른 경로로 보내고, 실패하면 재시도하고, 중요한 작업은 사람의 승인을 기다린 뒤 이어서 실행해야 할 수 있다.
 

@@ -11,12 +11,7 @@ tags: [PKI, RSA, OAEP, PSS, PKCS1]
 # RSA 암호화와 전자서명 정리
 {: .no_toc }
 
-<details open markdown="block">
-  <summary>목차</summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
+{% include article-toc.md %}
 
 RSA는 공개 키와 개인 키를 사용하는 비대칭 암호 알고리즘이다. 큰 정수의 소인수분해가 어렵다는 성질에 안전성의 기반을 두며, 암호화와 전자서명에 모두 활용할 수 있다. 하지만 같은 수학 연산을 쓴다고 해서 암호화와 서명이 서로의 단순한 역연산인 것은 아니다. 각각 다른 인코딩 규칙과 보안 목적을 가진다.
 

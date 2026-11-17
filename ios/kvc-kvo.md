@@ -11,12 +11,7 @@ tags: [iOS, Objective-C, KVC, KVO]
 # Objective-C의 KVC와 KVO 이해하기
 {: .no_toc }
 
-<details open markdown="block">
-  <summary>목차</summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
+{% include article-toc.md %}
 
 KVC(Key-Value Coding)와 KVO(Key-Value Observing)는 이름이 비슷하지만 역할은 다르다. KVC는 문자열 키로 객체의 값을 읽고 쓰는 방식이고, KVO는 KVC를 기반으로 속성의 변경을 관찰하는 방식이다.
 

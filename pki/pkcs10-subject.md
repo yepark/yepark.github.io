@@ -11,12 +11,7 @@ tags: [PKI, CSR, PKCS#10, DN]
 # PKCS#10 인증서 서명 요청과 Subject DN
 {: .no_toc }
 
-<details open markdown="block">
-  <summary>목차</summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
+{% include article-toc.md %}
 
 PKCS#10은 인증서 서명 요청(Certificate Signing Request, CSR)의 문법을 정의한다. CSR에는 인증 대상의 이름, 공개 키, 선택적 속성이 들어가며, 요청자는 해당 내용을 자신의 개인 키로 서명한다.
 

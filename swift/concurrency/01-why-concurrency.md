@@ -12,12 +12,7 @@ tags: [Swift, Concurrency, Async-Await]
 # 왜 Swift Concurrency인가: 콜백에서 async/await로
 {: .no_toc }
 
-<details open markdown="block">
-  <summary>목차</summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
+{% include article-toc.md %}
 
 앱은 네트워크 응답, 파일 읽기, 데이터베이스 조회처럼 **결과가 바로 나오지 않는 일**을 자주 한다. 결과를 기다리는 동안 메인 스레드를 막으면 화면이 멈춘다. 그렇다고 모든 작업을 직접 스레드와 큐로 관리하면 실행 순서, 오류, 취소, 공유 상태를 함께 추적하기가 어려워진다.
 

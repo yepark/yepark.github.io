@@ -12,12 +12,7 @@ tags: [MLX, Python, Array]
 # 배열: MLX에서 숫자를 담는 그릇
 {: .no_toc }
 
-<details open markdown="block">
-  <summary>목차</summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
+{% include article-toc.md %}
 
 MLX로 하는 계산은 **배열(array)**에 숫자를 담아서 한다. 1편에서 `mx.array([1, 2, 3])`으로 만든 것이 바로 배열이다. 그래서 MLX를 쓰려면 배열부터 편하게 다룰 수 있어야 한다.
 

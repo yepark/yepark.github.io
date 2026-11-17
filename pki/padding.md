@@ -11,12 +11,7 @@ tags: [Cryptography, Padding, PKCS7, AES]
 # 블록 암호의 패딩 이해하기
 {: .no_toc }
 
-<details open markdown="block">
-  <summary>목차</summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
+{% include article-toc.md %}
 
 AES 같은 블록 암호는 고정된 크기의 블록을 처리한다. CBC처럼 평문을 블록 단위로 나누는 운용 모드에서 마지막 데이터가 블록 크기에 미치지 못하면, 정해진 규칙으로 바이트를 채우는 패딩이 필요하다.
 

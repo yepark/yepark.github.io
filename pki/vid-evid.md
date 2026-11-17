@@ -11,12 +11,7 @@ tags: [PKI, Certificate, VID, EVID]
 # VID와 EVID의 역할
 {: .no_toc }
 
-<details open markdown="block">
-  <summary>목차</summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
+{% include article-toc.md %}
 
 VID(Virtual ID)는 국내 전자서명인증체계에서 인증서 소유자의 식별번호를 인증서에 그대로 넣지 않고 본인 확인에 사용할 수 있도록 만든 가상식별번호다. EVID(Encrypted VID)는 인증서 발급 과정에서 VID 관련 정보를 인증기관에 안전하게 전달하기 위한 암호화된 값이다.
 

@@ -12,12 +12,7 @@ tags: [Swift, Concurrency, Sendable, Swift-6]
 # Sendable과 Swift 6의 엄격한 동시성 검사
 {: .no_toc }
 
-<details open markdown="block">
-  <summary>목차</summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
+{% include article-toc.md %}
 
 actor가 자기 상태를 안전하게 보호해도, actor나 Task 사이로 안전하지 않은 참조를 넘기면 다시 데이터 경쟁이 생길 수 있다. `Sendable`은 값이 하나의 동시성 격리 영역에서 다른 영역으로 안전하게 전달될 수 있음을 나타내는 프로토콜이다.
 

@@ -11,12 +11,7 @@ tags: [iOS, Xcode, XCTest, UI-Test]
 # 비동기 단위 테스트와 UI 테스트
 {: .no_toc }
 
-<details open markdown="block">
-  <summary>목차</summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
+{% include article-toc.md %}
 
 XCTest에서 비동기 동작을 검증하려면 테스트가 끝나야 하는 조건을 명확히 표현해야 한다. 단순히 일정 시간 `sleep`하는 방식은 느리고 불안정하므로, `XCTestExpectation`이나 조건 기반 expectation을 사용한다.
 

@@ -11,12 +11,7 @@ tags: [Swift, Property]
 # 프로퍼티 한 번에 정리하기
 {: .no_toc }
 
-<details open markdown="block">
-  <summary>목차</summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
+{% include article-toc.md %}
 
 Swift의 프로퍼티는 타입이나 인스턴스에 값을 연결한다. 값을 직접 저장하는 저장 프로퍼티뿐 아니라, 값을 계산하는 연산 프로퍼티와 변경을 감지하는 프로퍼티 옵저버도 제공한다.
 

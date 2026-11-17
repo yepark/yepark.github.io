@@ -13,12 +13,7 @@ tags: [AI, Context-Engineering, RAG, Agent]
 # 컨텍스트 엔지니어링: 필요한 정보를 필요한 순간에 주기
 {: .no_toc }
 
-<details open markdown="block">
-  <summary>목차</summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
+{% include article-toc.md %}
 
 좋은 프롬프트를 썼는데도 AI가 틀릴 때가 있다. 요청을 이해하지 못해서가 아니라 **판단에 필요한 정보가 없거나, 너무 많은 정보 속에 중요한 내용이 묻혔기 때문**일 수 있다.
 

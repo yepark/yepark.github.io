@@ -3,6 +3,7 @@ title: Concurrency
 parent: Swift
 nav_order: 1
 has_children: true
+has_toc: false
 permalink: /swift/concurrency/
 last_modified_date: 2026-11-16
 ---
@@ -13,18 +14,8 @@ Swift에서 오래 걸리는 일을 멈추지 않고 기다리고, 여러 작업
 
 이 시리즈는 Swift 6의 데이터 경쟁 안전성까지 다룬다. 예제의 핵심 문법은 Swift 5.5 이상에서 사용할 수 있고, 마지막 편은 Swift 6 언어 모드를 기준으로 설명한다.
 
-## 순서
+{% include series-list.html %}
 
-| 편 | 내용 |
-| --- | --- |
-| 입문 | [GCD 기초: sync/async와 Serial/Concurrent Queue]({{ '/swift/concurrency/gcd-queue-basics/' | relative_url }}) |
-| 1 | [왜 Swift Concurrency인가: 콜백에서 async/await로]({{ '/swift/concurrency/why-concurrency/' | relative_url }}) |
-| 2 | [async/await 기초: 기다리는 함수 만들고 부르기]({{ '/swift/concurrency/async-await/' | relative_url }}) |
-| 3 | [Task: 비동기 작업 시작하고 취소하기]({{ '/swift/concurrency/task-cancellation/' | relative_url }}) |
-| 4 | [여러 작업 한꺼번에: async let과 TaskGroup]({{ '/swift/concurrency/parallel-work/' | relative_url }}) |
-| 5 | [actor: 여러 곳에서 같은 데이터를 건드릴 때]({{ '/swift/concurrency/actor/' | relative_url }}) |
-| 6 | [@MainActor: UI 상태를 안전하게 관리하기]({{ '/swift/concurrency/main-actor/' | relative_url }}) |
-| 7 | [Sendable과 Swift 6의 엄격한 동시성 검사]({{ '/swift/concurrency/sendable-swift-6/' | relative_url }}) |
 
 ## 먼저 기억할 것
 

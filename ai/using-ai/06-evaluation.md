@@ -13,12 +13,7 @@ tags: [AI, Evaluation, Evals, Agent]
 # 평가와 개선: AI 시스템의 품질을 측정하는 법
 {: .no_toc }
 
-<details open markdown="block">
-  <summary>목차</summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
+{% include article-toc.md %}
 
 프롬프트를 고친 뒤 결과 하나가 좋아졌다고 해서 시스템 전체가 좋아진 것은 아니다. 다른 질문에서는 정확도가 떨어졌을 수 있고, 품질은 같지만 비용과 시간이 두 배가 됐을 수도 있다.
 

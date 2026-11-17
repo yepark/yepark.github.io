@@ -4,6 +4,7 @@ description: "PKCS #1부터 #12까지 각 공개 키 암호 규격의 목적, �
 parent: "PKI & 암호"
 nav_order: 6
 has_children: true
+has_toc: false
 permalink: /pki/pkcs/
 last_modified_date: 2026-11-16
 ---
@@ -14,22 +15,8 @@ PKCS(Public-Key Cryptography Standards)는 RSA Laboratories가 공개 키 암호
 
 일부 규격은 RFC로 발행됐고, 일부는 다른 표준에 흡수되거나 폐기됐다. 따라서 `PKCS #숫자`만 보고 최신 규격이라고 생각하면 안 된다.
 
-## 전체 지도
+{% include series-list.html %}
 
-| 번호 | 주제 | 현재 이해할 핵심 |
-| --- | --- | --- |
-| [#1]({{ '/pki/pkcs/pkcs1/' | relative_url }}) | RSA 암호와 서명 | RFC 8017, OAEP와 PSS |
-| [#2]({{ '/pki/pkcs/pkcs2/' | relative_url }}) | RSA 메시지 다이제스트 | 폐기, PKCS #1에 흡수 |
-| [#3]({{ '/pki/pkcs/pkcs3/' | relative_url }}) | Diffie-Hellman 키 합의 | 역사적 규격, 최신 프로토콜과 그룹 사용 |
-| [#4]({{ '/pki/pkcs/pkcs4/' | relative_url }}) | RSA 키 문법 | 폐기, PKCS #1에 흡수 |
-| [#5]({{ '/pki/pkcs/pkcs5/' | relative_url }}) | 패스워드 기반 암호 | RFC 8018, PBKDF2·PBES2 |
-| [#6]({{ '/pki/pkcs/pkcs6/' | relative_url }}) | 확장 인증서 문법 | 폐기, X.509 v3 확장으로 대체 |
-| [#7]({{ '/pki/pkcs/pkcs7/' | relative_url }}) | 서명·암호 메시지 | RFC 2315, 현재는 CMS RFC 5652 |
-| [#8]({{ '/pki/pkcs/pkcs8/' | relative_url }}) | 개인 키 컨테이너 | RFC 5208, 후속 RFC 5958 |
-| [#9]({{ '/pki/pkcs/pkcs9/' | relative_url }}) | 선택 속성 타입 | RFC 2985 |
-| [#10]({{ '/pki/pkcs/pkcs10/' | relative_url }}) | 인증서 서명 요청 | RFC 2986, CSR |
-| [#11]({{ '/pki/pkcs/pkcs11/' | relative_url }}) | 암호 토큰 API | Cryptoki, HSM·스마트카드 |
-| [#12]({{ '/pki/pkcs/pkcs12/' | relative_url }}) | 키·인증서 묶음 파일 | RFC 7292, `.p12`·`.pfx` |
 
 ## RFC를 읽을 때 알아둘 표현
 

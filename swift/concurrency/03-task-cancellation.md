@@ -12,12 +12,7 @@ tags: [Swift, Concurrency, Task, Cancellation]
 # Task: 비동기 작업 시작하고 취소하기
 {: .no_toc }
 
-<details open markdown="block">
-  <summary>목차</summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
+{% include article-toc.md %}
 
 Task는 Swift 비동기 코드의 실행 단위다. 모든 async 함수는 Task 안에서 실행되며, 동기 코드에서 비동기 작업을 시작해야 할 때 `Task { }`를 만들 수 있다.
 

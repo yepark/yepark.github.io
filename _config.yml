@@ -65,6 +65,7 @@ mermaid:
 markdown: kramdown
 kramdown:
   input: GFM
+  toc_levels: "2"
   syntax_highlighter_opts:
     block:
       line_numbers: false

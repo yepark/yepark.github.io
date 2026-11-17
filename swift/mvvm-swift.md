@@ -11,12 +11,7 @@ tags: [Swift, iOS, MVVM, Architecture]
 # MVVM의 역할과 데이터 흐름
 {: .no_toc }
 
-<details open markdown="block">
-  <summary>목차</summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
+{% include article-toc.md %}
 
 MVVM(Model–View–ViewModel)은 화면 표시와 비즈니스 로직을 분리하는 설계 방식이다. 중요한 점은 세 글자의 순서가 호출 순서를 뜻하지 않는다는 것이다. `Model → View → ViewModel`처럼 한 방향으로만 흐르는 구조가 아니라, 각 구성 요소의 책임과 의존 관계를 정리하는 패턴에 가깝다.
 

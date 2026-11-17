@@ -14,12 +14,7 @@ tags: [MLX, Python, Apple-Silicon]
 # MLX가 뭐고, 내 Mac에서 처음 돌려 보기
 {: .no_toc }
 
-<details open markdown="block">
-  <summary>목차</summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
+{% include article-toc.md %}
 
 ## MLX를 한 문장으로
 

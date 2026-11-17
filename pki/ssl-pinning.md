@@ -13,12 +13,7 @@ tags: [iOS, Swift, SSL, TLS, Pinning, URLSession]
 # SSL 인증서 체인과 SSL 피닝
 {: .no_toc }
 
-<details open markdown="block">
-  <summary>목차</summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
+{% include article-toc.md %}
 
 앱이 `https://`로 서버에 접속할 때마다, iOS는 몰래 한 가지를 확인한다.
 

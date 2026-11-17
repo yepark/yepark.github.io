@@ -12,12 +12,7 @@ tags: [Swift, Concurrency, Async-Let, TaskGroup]
 # 여러 작업 한꺼번에: async let과 TaskGroup
 {: .no_toc }
 
-<details open markdown="block">
-  <summary>목차</summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
+{% include article-toc.md %}
 
 `await`를 순서대로 쓰면 각 작업도 순서대로 실행된다. 서로 의존하지 않는 작업은 함께 시작해 전체 대기 시간을 줄일 수 있다. 작업 수가 코드에 고정돼 있으면 `async let`, 실행 중 결정되면 TaskGroup이 잘 맞는다.
 

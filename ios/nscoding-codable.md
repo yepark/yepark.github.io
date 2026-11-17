@@ -11,12 +11,7 @@ tags: [iOS, Swift, Objective-C, NSCoding, Codable]
 # NSCoding과 Codable은 무엇이 다른가
 {: .no_toc }
 
-<details open markdown="block">
-  <summary>목차</summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
+{% include article-toc.md %}
 
 Objective-C와 Swift를 함께 사용하다 보면 `NSCoding`과 `Codable`을 비슷한 기능으로 오해하기 쉽다. 둘 다 값을 인코딩하고 복원하지만 목적과 데이터 형식이 다르다.
 
