@@ -5,11 +5,20 @@ parent: PKCS 표준
 grand_parent: "PKI & 암호"
 nav_order: 4
 permalink: /pki/pkcs/pkcs4/
-last_modified_date: 2026-11-16
+last_modified_date: 2026-11-17
 tags: [PKI, PKCS4, RSA, ASN1]
 ---
 
 # PKCS #4: 폐기된 RSA 키 문법
+{: .no_toc }
+
+{% include article-toc.md %}
+
+## 키 값과 파일 포맷 구분하기
+
+RSA 키는 여러 큰 정수로 구성된다. 이 값들을 파일에 넣어 다른 프로그램이 읽으려면 필드 순서와 타입을 정한 문법이 필요하다.
+
+ASN.1은 구조를 설명하는 언어이고 DER은 그 구조를 바이트로 바꾸는 규칙이다. PEM은 그 바이트를 텍스트로 옮기는 바깥 표현이다. 같은 `.pem` 파일도 안쪽 구조가 다를 수 있으므로 머리글과 실제 파싱 결과를 함께 확인한다.
 
 PKCS #4는 RSA 키의 표현 문법을 별도로 정의하던 초기 규격이다. 이후 **PKCS #1에 흡수돼 폐기**됐다.
 

@@ -4,7 +4,7 @@ parent: "Swift"
 nav_order: 6
 permalink: /swift/data-binding/
 first_written: 2021-05-03
-last_modified_date: 2026-11-01
+last_modified_date: 2026-11-17
 tags: [Swift, Data-Binding, MVVM, Observation]
 ---
 
@@ -12,6 +12,12 @@ tags: [Swift, Data-Binding, MVVM, Observation]
 {: .no_toc }
 
 {% include article-toc.md %}
+
+## 값과 화면을 연결하는 이유
+
+서버에서 사용자 이름을 받아도 화면의 레이블이 저절로 바뀌지는 않는다. 값이 바뀌었다는 사실을 화면에 알리고, 화면이 새 값을 표시하는 연결이 필요하다.
+
+아래 `Box`는 값을 담는 상자이며 `listener`는 변경을 전달받는 함수다. `bind`는 함수를 등록하고, `value` 변경은 등록한 함수를 호출한다. 처음에는 ‘등록 → 값 변경 → 호출 → 화면 반영’ 순서만 따라가면 된다.
 
 데이터 바인딩은 상태가 바뀌었을 때 그 변화를 UI 같은 소비자에게 전달하는 연결 방식이다. UIKit에서는 delegate, KVO, NotificationCenter, Combine, 클로저 등 여러 선택지가 있다. 작은 MVVM 예제에서는 `Box`라는 단순한 래퍼로 동작 원리를 이해할 수 있다.
 
@@ -41,6 +47,18 @@ final class Box<Value> {
 ```
 
 `value`가 바뀌면 `didSet`이 listener를 호출한다. `bind` 직후 현재 값도 한 번 전달하므로 View는 초기 상태와 이후 변경을 같은 경로로 받을 수 있다.
+
+UIKit 화면을 만들기 전에 콘솔에서 연결을 확인할 수 있다.
+
+```swift
+let name = Box("불러오는 중…")
+name.bind { value in
+    print("화면에 표시할 값:", value)
+}
+name.value = "yep"
+```
+
+등록 직후에는 `불러오는 중…`, 값을 바꾼 뒤에는 `yep`이 출력된다. 함수가 두 번 실행되는 이유는 `bind`의 초기 전달과 `didSet`의 변경 전달이 각각 한 번씩 있기 때문이다.
 
 ```swift
 final class ProfileViewModel {
@@ -94,6 +112,8 @@ final class ObservationToken {
 ```
 
 View Controller가 토큰을 프로퍼티로 보관하면 화면의 수명과 구독 수명이 자연스럽게 맞춰진다. 실제 구현에서는 listener 컬렉션 변경과 값 전달이 동시에 일어날 수 있으므로 직렬 실행 컨텍스트나 actor 같은 동기화 전략도 필요하다.
+
+위 `ObservationToken`만 추가한다고 앞의 `Box`에 구독 해제가 연결되지는 않는다. 여러 listener를 ID별로 저장하는 Box를 별도로 만들고, 토큰의 취소 클로저가 해당 ID를 제거하도록 연결해야 한다. 이 절은 토큰의 수명 관리 원리를 설명하는 조각이다.
 
 ## UI 갱신과 실행 컨텍스트
 

@@ -5,7 +5,7 @@ grand_parent: Swift
 nav_order: 1
 permalink: /swift/concurrency/why-concurrency/
 first_written: 2026-11-16
-last_modified_date: 2026-11-16
+last_modified_date: 2026-11-17
 tags: [Swift, Concurrency, Async-Await]
 ---
 
@@ -13,6 +13,12 @@ tags: [Swift, Concurrency, Async-Await]
 {: .no_toc }
 
 {% include article-toc.md %}
+
+## 먼저 떠올릴 상황
+
+새로고침 버튼을 눌렀을 때 서버 응답이 늦어도 스크롤은 계속 움직여야 한다. ‘요청 결과를 기다리는 일’과 ‘화면 이벤트를 처리하는 일’을 함께 진행할 수 있어야 하기 때문이다.
+
+본문의 `Profile`, `requestProfile`, `show`는 앱마다 달라지는 데이터와 동작을 표현한 예시 이름이다. 그대로 복사해 실행할 완성 앱은 아니다. 먼저 호출 순서를 이해하고 다음 편의 구체적인 네트워크 예제로 연결하자.
 
 앱은 네트워크 응답, 파일 읽기, 데이터베이스 조회처럼 **결과가 바로 나오지 않는 일**을 자주 한다. 결과를 기다리는 동안 메인 스레드를 막으면 화면이 멈춘다. 그렇다고 모든 작업을 직접 스레드와 큐로 관리하면 실행 순서, 오류, 취소, 공유 상태를 함께 추적하기가 어려워진다.
 

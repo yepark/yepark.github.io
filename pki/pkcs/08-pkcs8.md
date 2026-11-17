@@ -5,11 +5,20 @@ parent: PKCS 표준
 grand_parent: "PKI & 암호"
 nav_order: 8
 permalink: /pki/pkcs/pkcs8/
-last_modified_date: 2026-11-16
+last_modified_date: 2026-11-17
 tags: [PKI, PKCS8, Private-Key, RFC5958]
 ---
 
 # PKCS #8: 알고리즘 독립적인 개인 키 컨테이너
+{: .no_toc }
+
+{% include article-toc.md %}
+
+## 키를 담는 상자의 역할
+
+RSA와 EC는 키의 내부 모양이 다르다. 공통 컨테이너가 알고리즘 이름을 함께 담으면 프로그램은 그 정보를 보고 안쪽 키를 올바른 방식으로 해석할 수 있다.
+
+컨테이너에 넣었다고 개인 키가 자동으로 암호화되는 것은 아니다. 파일 머리글과 암호화 알고리즘 정보를 보고 보호 여부를 확인한다. Base64 문자는 사람이 읽기 쉽게 표현한 것이며 비밀을 숨기는 기능은 없다.
 
 PKCS #8은 RSA, EC 같은 특정 알고리즘에 종속되지 않고 개인 키와 알고리즘 정보를 담는 문법이다. RFC 5208이 PKCS #8 v1.2를 담았고, **RFC 5958이 이를 폐기하고 후속 Asymmetric Key Packages를 정의**했다.
 
@@ -29,6 +38,8 @@ PrivateKeyInfo ::= SEQUENCE {
 - `attributes`: 선택 속성
 
 PKCS #8이 키 알고리즘 자체를 다시 정의하는 것은 아니다. RSA라면 `privateKey` 안에 PKCS #1의 RSA 개인 키 구조가 들어갈 수 있다.
+
+택배 상자를 생각하면 바깥의 `privateKeyAlgorithm`은 내용물 종류를 적은 표지이고, 안쪽 `privateKey`는 실제 내용물이다. 바깥 상자가 같아도 RSA와 EC의 안쪽 구조는 다르다. 파서는 알고리즘 식별자를 읽은 뒤 해당 규격에 맞게 내부를 해석한다.
 
 ## RFC 5958의 OneAsymmetricKey
 

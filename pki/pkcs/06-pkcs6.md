@@ -5,11 +5,20 @@ parent: PKCS 표준
 grand_parent: "PKI & 암호"
 nav_order: 6
 permalink: /pki/pkcs/pkcs6/
-last_modified_date: 2026-11-16
+last_modified_date: 2026-11-17
 tags: [PKI, PKCS6, X509]
 ---
 
 # PKCS #6: 확장 인증서 문법과 X.509 v3
+{: .no_toc }
+
+{% include article-toc.md %}
+
+## 인증서에 용도가 필요한 이유
+
+인증서는 공개 키와 주체 정보를 담는다. 하지만 키가 들어 있다고 모든 작업에 사용할 수 있는 것은 아니다. 서버 인증에 쓸지, 다른 인증서를 발급하는 CA 키인지 같은 제한도 표현해야 한다.
+
+확장은 이 추가 정보를 넣는 구조다. 이 편의 목표는 폐기된 PKCS #6을 새로 구현하는 것이 아니라, 현재 인증서의 확장을 읽고 용도를 검증하는 이유를 이해하는 것이다.
 
 PKCS #6는 X.509 인증서에 추가 속성을 연결하기 위한 **Extended-Certificate Syntax**를 정의했던 초기 규격이다. 이후 X.509 v3가 인증서 확장 기능을 직접 제공하면서 폐기됐다.
 

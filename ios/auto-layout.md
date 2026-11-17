@@ -4,7 +4,7 @@ parent: "iOS"
 nav_order: 1
 permalink: /ios/auto-layout/
 first_written: 2021-04-18
-last_modified_date: 2026-11-15
+last_modified_date: 2026-11-17
 tags: [iOS, UIKit, Auto-Layout, Xcode]
 ---
 
@@ -12,6 +12,12 @@ tags: [iOS, UIKit, Auto-Layout, Xcode]
 {: .no_toc }
 
 {% include article-toc.md %}
+
+## 제약 조건을 문장으로 읽기
+
+‘레이블의 왼쪽은 화면에서 16만큼 떨어진다’, ‘버튼 높이는 44다’처럼 위치와 크기의 관계를 정하는 것이 제약 조건이다. Auto Layout은 이 관계들을 동시에 만족하는 화면 배치를 구한다.
+
+기기 너비가 줄거나 글자가 커지면 모든 희망 크기를 지킬 수 없을 수 있다. 우선순위는 그때 어느 관계를 먼저 지킬지 정한다. 본문의 레이블과 입력창 예제는 넓은 화면과 좁은 화면에서 각각 어느 뷰가 변해야 하는지 생각하며 읽자.
 
 Auto Layout을 사용할 때 제약 조건만큼 중요한 것이 우선순위다. 특히 텍스트를 표시하는 뷰는 고유 콘텐츠 크기(intrinsic content size), Content Hugging, Compression Resistance를 함께 이해해야 예상하지 못한 늘어남과 잘림을 막을 수 있다.
 
@@ -27,6 +33,8 @@ Auto Layout을 사용할 때 제약 조건만큼 중요한 것이 우선순위�
 - **Compression Resistance**: 고유 크기보다 작아지지 않으려는 힘이다. 값이 큰 뷰가 덜 줄어든다.
 
 레이블과 텍스트 필드를 한 줄에 놓고 남는 공간을 텍스트 필드가 채우게 하려면, 텍스트 필드의 가로 Hugging을 레이블보다 낮게 둔다. 공간이 부족할 때 레이블의 텍스트를 보존해야 한다면 레이블의 가로 Compression Resistance를 더 높게 둔다.
+
+예를 들어 레이블의 자연스러운 너비가 60이고 입력창이 120인데 둘을 놓을 공간이 240이라면 여분이 남는다. Hugging이 더 낮은 입력창이 주로 늘어나게 의도를 표현할 수 있다. 반대로 공간이 150으로 줄면 어떤 뷰가 줄어들지 Compression Resistance를 비교한다. 다른 필수 제약도 함께 작용하므로 이 숫자만으로 최종 너비가 결정되는 것은 아니다.
 
 ```swift
 label.setContentHuggingPriority(.defaultHigh, for: .horizontal)

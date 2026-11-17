@@ -6,7 +6,7 @@ grand_parent: AI
 nav_order: 4
 permalink: /ai/using-ai/graph-engineering/
 first_written: 2026-11-16
-last_modified_date: 2026-11-16
+last_modified_date: 2026-11-17
 tags: [AI, Agent, Graph-Engineering, LangGraph, LangChain]
 ---
 
@@ -14,6 +14,12 @@ tags: [AI, Agent, Graph-Engineering, LangGraph, LangChain]
 {: .no_toc }
 
 {% include article-toc.md %}
+
+## 처음 실습에는 모델이 필요 없다
+
+첫 그래프 예제는 Python 함수 두 개를 연결할 뿐 모델을 호출하지 않는다. 따라서 API 키 없이도 상태가 다음 함수로 전달되는 원리를 배울 수 있다.
+
+이후 조건 분기 예제는 첫 그래프의 연결을 수정하는 방식으로 읽어야 한다. 기존 종료 엣지를 그대로 남기고 분기까지 추가하면 여러 경로가 함께 활성화될 수 있다. 아래에서는 종료 연결을 교체하는 위치를 명시한다.
 
 작업이 길어지면 단순한 “모델 → 도구 → 모델” 루프만으로 전체 흐름을 이해하기 어려워진다. 문의 종류에 따라 다른 경로로 보내고, 실패하면 재시도하고, 중요한 작업은 사람의 승인을 기다린 뒤 이어서 실행해야 할 수 있다.
 
@@ -191,6 +197,8 @@ print(result["draft"])
 ## 조건에 따라 길을 나누기
 
 초안이 너무 짧으면 보강하고, 충분하면 끝내 보자.
+
+아래 변경은 첫 예제의 `builder.add_edge("write_draft", END)` 줄을 제거하고 **`app = builder.compile()` 앞**에 넣는다. 그래프를 수정한 뒤 다시 컴파일하고 `invoke()`를 실행한다. 기존 종료 엣지와 조건부 엣지를 동시에 남기지 않는다.
 
 ```python
 def choose_next(state: BlogState):

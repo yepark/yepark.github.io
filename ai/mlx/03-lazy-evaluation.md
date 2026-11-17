@@ -5,7 +5,7 @@ grand_parent: AI
 nav_order: 3
 permalink: /ai/mlx/lazy-evaluation/
 first_written: 2026-11-16
-last_modified_date: 2026-11-16
+last_modified_date: 2026-11-17
 tags: [MLX, Python, Lazy-Evaluation]
 ---
 
@@ -13,6 +13,12 @@ tags: [MLX, Python, Lazy-Evaluation]
 {: .no_toc }
 
 {% include article-toc.md %}
+
+## 계산식 생성과 결과 관찰 구분하기
+
+일반 Python 숫자의 `1 + 2`와 MLX 배열의 덧셈은 실행 모델이 다르다. MLX는 결과를 어떻게 만들지 기록하고, 실제 값이 필요한 경계에서 평가한다.
+
+시간을 비교할 때 입력 생성 비용과 결과를 기다리는 비용을 분리해야 한다. 본문 측정값은 해당 환경의 예시다. 같은 숫자가 나오지 않아도 ‘그래프를 만드는 시간’과 ‘계산을 완료하는 시간’의 차이를 관찰하면 학습 목적을 달성한 것이다.
 
 MLX에서 `c = a @ b`라고 쓰면, 그 줄에서는 **곱셈을 하지 않는다.** 공식 문서는 이렇게 말한다.
 
@@ -284,7 +290,9 @@ print(params)
 
 ## 다음 편
 
-1편에서 Apple 실리콘은 **CPU와 GPU가 같은 메모리를 함께 쓴다**고 했다. 다음 편에서는 이 **통합 메모리**가 MLX에서 무슨 뜻인지, 그리고 계산을 CPU와 GPU 중 어디서 할지 고르는 방법을 다룬다.
+다음 편에서는 이 계산 그래프가 실제 소스에서 어떻게 만들어지는지 살펴본다. Python의 덧셈이 C++ 배열 노드와 Metal 실행 경로로 이어지는 순서를 따라간다.
+
+→ [4. MLX 소스 해설: Python의 덧셈이 GPU에서 실행되기까지]({{ '/ai/mlx/source-walkthrough/' | relative_url }})
 
 ## 참고
 

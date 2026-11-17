@@ -6,7 +6,7 @@ grand_parent: AI
 nav_order: 6
 permalink: /ai/using-ai/evaluation/
 first_written: 2026-11-16
-last_modified_date: 2026-11-16
+last_modified_date: 2026-11-17
 tags: [AI, Evaluation, Evals, Agent]
 ---
 
@@ -14,6 +14,12 @@ tags: [AI, Evaluation, Evals, Agent]
 {: .no_toc }
 
 {% include article-toc.md %}
+
+## 비교할 입력을 먼저 고정하기
+
+프롬프트를 고친 뒤 전혀 다른 질문으로 시험하면 좋아진 원인을 알기 어렵다. 같은 질문 몇 개를 저장하고 변경 전후에 똑같이 입력해 보자.
+
+정답 문장이 하나가 아닌 작업은 필수 내용과 금지 행동으로 평가한다. 예를 들어 요약에서는 ‘원문 사실을 바꾸지 않음’, ‘세 문장 이내’, ‘주요 결론 포함’을 각각 확인할 수 있다. 점수는 이 기준을 비교하기 위한 도구다.
 
 프롬프트를 고친 뒤 결과 하나가 좋아졌다고 해서 시스템 전체가 좋아진 것은 아니다. 다른 질문에서는 정확도가 떨어졌을 수 있고, 품질은 같지만 비용과 시간이 두 배가 됐을 수도 있다.
 

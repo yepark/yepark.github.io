@@ -4,7 +4,7 @@ parent: "Swift"
 nav_order: 2
 permalink: /swift/swift-optional/
 first_written: 2021-04-28
-last_modified_date: 2026-11-15
+last_modified_date: 2026-11-17
 tags: [Swift, Optional, Optional-Binding]
 ---
 
@@ -12,6 +12,12 @@ tags: [Swift, Optional, Optional-Binding]
 {: .no_toc }
 
 {% include article-toc.md %}
+
+## 값이 없는 경우부터 생각하기
+
+서버가 닉네임을 보내지 않았다고 생각해 보자. 빈 문자열은 ‘문자열은 있지만 길이가 0’인 값이고, `nil`은 ‘값 자체가 없음’이다. `String?`은 이 두 상황을 구분해 표현한다.
+
+언래핑은 Optional 상자 안의 값을 꺼내는 과정이다. 먼저 값이 있는지 검사하고, 있다면 일반 `String`으로 사용할 새 이름을 만든다. 아래 예제에서는 조건이 성공한 뒤 그 이름을 어느 범위까지 사용할 수 있는지 비교하면 된다.
 
 Swift의 Optional은 값이 있거나 없을 수 있음을 타입으로 표현한다. `String?`은 `String`과 다른 타입이며, 값을 사용하려면 안전하게 꺼내는 과정이 필요하다.
 
@@ -31,11 +37,24 @@ func printNickname(_ nickname: String?) {
 
 바인딩한 `nickname`은 `if` 본문 안에서만 사용할 수 있다. 값의 유무에 따라 서로 다른 흐름이 모두 중요할 때 적합하다.
 
+함수를 선언한 것만으로 출력되지는 않는다. 아래 두 줄을 이어서 호출해 두 경로를 확인한다.
+
+```swift
+printNickname("yep") // 별명: yep
+printNickname(nil)   // 별명이 없습니다
+```
+
+첫 호출에서는 Optional 안의 문자열을 꺼내 첫 번째 `print`가 실행된다. 두 번째는 꺼낼 값이 없으므로 `else`가 실행된다. 빈 문자열 `""`을 넘기면 값은 있는 것이므로 첫 번째 경로로 들어간다.
+
 ## `guard let`: 조건이 아니면 일찍 종료할 때
 
 이후 로직 전체에 값이 필요하다면 `guard let`으로 실패 조건을 먼저 처리한다.
 
 ```swift
+enum ProfileError: Error {
+    case missingID
+}
+
 func loadProfile(id: String?) throws {
     guard let id else {
         throw ProfileError.missingID

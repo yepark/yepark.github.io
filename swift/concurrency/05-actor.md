@@ -5,7 +5,7 @@ grand_parent: Swift
 nav_order: 5
 permalink: /swift/concurrency/actor/
 first_written: 2026-11-16
-last_modified_date: 2026-11-16
+last_modified_date: 2026-11-17
 tags: [Swift, Concurrency, Actor, Data-Race]
 ---
 
@@ -13,6 +13,12 @@ tags: [Swift, Concurrency, Actor, Data-Race]
 {: .no_toc }
 
 {% include article-toc.md %}
+
+## 읽고 더하고 저장하는 사이
+
+잔액 100에서 두 작업이 동시에 10씩 인출한다고 하자. 둘 다 100을 읽고 각각 90을 쓰면 한 번의 인출이 사라진다. 값 읽기와 쓰기의 순서가 겹친 것이 문제다.
+
+actor는 상태에 접근하는 경계를 만든다. 외부에서 접근할 때 `await`가 필요한 이유는 그 경계에서 실행을 기다릴 수 있기 때문이다. 다만 actor 메서드가 다른 작업을 `await`하는 동안에는 다른 요청이 들어올 수 있으므로, 재개한 뒤에도 예전 조건이 유효한지 확인해야 한다.
 
 여러 Task가 같은 값을 동시에 읽고 수정하면 실행 순서에 따라 결과가 달라지는 **데이터 경쟁(data race)** 이 생길 수 있다. actor는 공유하는 가변 상태를 한 격리 영역에 넣어, 그 상태를 한 번에 하나의 작업만 다루도록 만드는 참조 타입이다.
 

@@ -13,9 +13,17 @@ last_modified_date: 2026-11-17
 
 {% include article-toc.md %}
 
+## C++을 처음 읽는 독자를 위해
+
+`namespace`는 이름 충돌을 줄이기 위한 범위이고, `mx::add`의 `::`는 그 범위 안의 함수를 가리킨다. `std::shared_ptr`는 여러 객체가 같은 대상의 수명을 함께 관리하는 참조다.
+
+처음에는 템플릿과 매크로 전체를 이해하려고 멈추기보다 입력과 출력이 무엇인지 적어 보자. Python 배열이 C++ 배열로 바뀌고, 결과 노드가 만들어지고, backend가 실행하는 큰 흐름을 먼저 잡으면 세부 구현을 읽기 쉽다.
+
 MLX에서 배열을 더하는 코드는 짧다. 하지만 실제 계산은 Python 한 줄 안에서 모두 처리되지 않는다. Python과 C++을 잇는 계층, 배열의 모양을 검사하는 계층, 나중에 계산할 그래프를 만드는 계층, CPU나 GPU에서 실행하는 계층이 연결된다.
 
-이 글은 [ml-explore/mlx](https://github.com/ml-explore/mlx)의 커밋 [`fc344c986c4169d99f76b5d95ae6b4a58a359a63`](https://github.com/ml-explore/mlx/tree/fc344c986c4169d99f76b5d95ae6b4a58a359a63)을 2026년 11월 17일에 읽은 기준으로 설명한다. 아래 경로는 해당 커밋에 고정했다. 설명용 의사 코드는 원문을 그대로 복사한 것이 아니라 동작을 이해하기 위해 단순화한 것이다.
+이 글은 [ml-explore/mlx](https://github.com/ml-explore/mlx)의 커밋 [`fc344c986c4169d99f76b5d95ae6b4a58a359a63`](https://github.com/ml-explore/mlx/tree/fc344c986c4169d99f76b5d95ae6b4a58a359a63)을 2026년 11월 17일에 읽은 기준으로 설명한다. 아래 경로는 해당 커밋에 고정했다.
+
+설명용 의사 코드는 원문을 그대로 복사한 것이 아니라 동작을 이해하기 위해 단순화한 것이다.
 
 ## 먼저 분석할 예제
 

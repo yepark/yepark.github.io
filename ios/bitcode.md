@@ -4,7 +4,7 @@ parent: "iOS"
 nav_order: 8
 permalink: /ios/bitcode/
 first_written: 2021-04-09
-last_modified_date: 2026-11-01
+last_modified_date: 2026-11-17
 tags: [iOS, Xcode, Bitcode]
 ---
 
@@ -12,6 +12,12 @@ tags: [iOS, Xcode, Bitcode]
 {: .no_toc }
 
 {% include article-toc.md %}
+
+## 과거 빌드 문서를 읽을 때
+
+앱을 빌드하면 소스가 기계가 실행할 바이너리로 바뀐다. Bitcode는 과거 Apple 도구 체계에서 사용한 중간 표현이다. 오래된 블로그의 설정 화면을 현재 Xcode에 그대로 적용하면 메뉴나 동작이 다를 수 있다.
+
+이 글은 과거 프로젝트를 유지보수하며 남아 있는 Bitcode 설정을 이해하기 위한 글이다. 현재 사용하는 SDK와 배포 도구의 요구사항을 먼저 확인한 뒤, 오래된 빌드 스크립트와 라이브러리 설정을 정리하자.
 
 > 이 글은 과거 Xcode에서 사용하던 Bitcode를 설명하는 기록이다. 현재 프로젝트에서 Bitcode를 활성화하는 방법을 안내하는 글이 아니다.
 

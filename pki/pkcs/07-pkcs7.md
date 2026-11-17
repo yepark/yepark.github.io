@@ -5,11 +5,20 @@ parent: PKCS 표준
 grand_parent: "PKI & 암호"
 nav_order: 7
 permalink: /pki/pkcs/pkcs7/
-last_modified_date: 2026-11-16
+last_modified_date: 2026-11-17
 tags: [PKI, PKCS7, CMS, RFC5652]
 ---
 
 # PKCS #7: 서명·암호 메시지와 CMS
+{: .no_toc }
+
+{% include article-toc.md %}
+
+## 원문과 보호 정보를 한 상자에 담기
+
+전자서명을 검증하려면 서명 값만 아니라 어떤 알고리즘과 공개 키로 검증할지도 알아야 한다. 암호문을 열려면 콘텐츠 키를 어떻게 보호했는지도 필요하다. CMS는 이런 정보를 전달할 구조를 정의한다.
+
+`SignedData`와 `EnvelopedData`를 먼저 구분하자. 하나는 서명 정보를, 다른 하나는 수신자가 열 수 있도록 보호한 암호 메시지를 중심으로 담는다. 구조를 파싱하는 데 성공한 것과 서명·신뢰 검증에 성공한 것은 별개다.
 
 PKCS #7은 데이터를 서명하거나 암호화해 교환하는 문법을 정의했다. RFC 2315가 PKCS #7 v1.5를 담고 있으며, 이후 **CMS(Cryptographic Message Syntax), RFC 5652**로 발전했다.
 

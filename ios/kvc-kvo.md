@@ -4,7 +4,7 @@ parent: "iOS"
 nav_order: 2
 permalink: /ios/kvc-kvo/
 first_written: 2021-04-10
-last_modified_date: 2026-11-01
+last_modified_date: 2026-11-17
 tags: [iOS, Objective-C, KVC, KVO]
 ---
 
@@ -12,6 +12,12 @@ tags: [iOS, Objective-C, KVC, KVO]
 {: .no_toc }
 
 {% include article-toc.md %}
+
+## 값 접근과 변경 알림 구분하기
+
+`person.name`이 값을 직접 읽는 접근이라면 KVC는 `name`이라는 문자열 키로 같은 값을 찾는 방식이다. KVO는 그 값이 바뀌었을 때 등록한 관찰자에게 알려 주는 방식이다.
+
+본문의 `self`는 관찰을 받는 객체다. 관찰 대상인 `object`를 보관하고, 알림 처리 메서드와 해제 코드를 같은 수명 안에서 연결해야 한다. 등록 코드만 복사하면 변경을 처리하거나 안전하게 해제하는 흐름이 빠진다.
 
 KVC(Key-Value Coding)와 KVO(Key-Value Observing)는 이름이 비슷하지만 역할은 다르다. KVC는 문자열 키로 객체의 값을 읽고 쓰는 방식이고, KVO는 KVC를 기반으로 속성의 변경을 관찰하는 방식이다.
 
@@ -36,6 +42,8 @@ NSLog(@"%@", value); // hello
 
 키 경로를 사용하면 중첩된 객체에도 접근할 수 있다.
 
+`setValue:forKey:`의 첫 인자는 저장할 값이고 두 번째 인자는 프로퍼티 이름이다. 이 예제에서는 `@"testValue"`가 클래스에 선언된 `testValue`와 정확히 일치해야 한다. Objective-C의 `@"..."`는 `NSString` 문자열 리터럴이다.
+
 ```objc
 NSString *city = [person valueForKeyPath:@"address.city"];
 ```
@@ -57,6 +65,8 @@ static void *TestValueContext = &TestValueContext;
 ```
 
 변경 알림은 `observeValueForKeyPath:ofObject:change:context:`에서 처리한다.
+
+등록한 뒤 `[object setValue:@"changed" forKey:@"testValue"];`처럼 값을 바꾸면 알림 경로를 확인할 수 있다. `change`는 이전 값과 새 값 같은 정보를 담는 사전이고, `context`는 이 알림이 내가 등록한 관찰인지 구분하는 식별자다.
 
 ```objc
 - (void)observeValueForKeyPath:(NSString *)keyPath

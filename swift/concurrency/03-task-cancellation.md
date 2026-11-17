@@ -5,7 +5,7 @@ grand_parent: Swift
 nav_order: 3
 permalink: /swift/concurrency/task-cancellation/
 first_written: 2026-11-16
-last_modified_date: 2026-11-16
+last_modified_date: 2026-11-17
 tags: [Swift, Concurrency, Task, Cancellation]
 ---
 
@@ -13,6 +13,12 @@ tags: [Swift, Concurrency, Task, Cancellation]
 {: .no_toc }
 
 {% include article-toc.md %}
+
+## 작업을 시작한 뒤의 수명 생각하기
+
+검색창에서 ‘스’를 입력한 뒤 곧바로 ‘스위프트’로 고쳤다고 하자. 첫 검색 결과는 더 이상 필요하지 않을 수 있다. 어떤 작업을 취소할지 알려면 시작할 때 반환된 Task 참조를 보관해야 한다.
+
+`cancel()`은 강제 종료 버튼이 아니라 취소 상태를 알리는 요청이다. 실행 중인 함수가 그 상태를 확인하거나 취소를 지원하는 API에서 오류를 받아야 흐름을 멈출 수 있다. 아래 코드는 시작·참조 보관·취소 요청·취소 확인 순서로 읽자.
 
 Task는 Swift 비동기 코드의 실행 단위다. 모든 async 함수는 Task 안에서 실행되며, 동기 코드에서 비동기 작업을 시작해야 할 때 `Task { }`를 만들 수 있다.
 

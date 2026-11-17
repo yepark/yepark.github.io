@@ -5,7 +5,7 @@ grand_parent: Swift
 nav_order: 6
 permalink: /swift/concurrency/main-actor/
 first_written: 2026-11-16
-last_modified_date: 2026-11-16
+last_modified_date: 2026-11-17
 tags: [Swift, Concurrency, MainActor, UI]
 ---
 
@@ -13,6 +13,12 @@ tags: [Swift, Concurrency, MainActor, UI]
 {: .no_toc }
 
 {% include article-toc.md %}
+
+## UI 상태가 의미하는 것
+
+목록 데이터, 로딩 표시, 오류 문구처럼 화면이 읽는 값이 UI 상태다. 이 값들이 여러 실행 흐름에서 무질서하게 바뀌면 이전 결과가 최신 화면을 덮거나 표시가 어긋날 수 있다.
+
+`@MainActor`는 이런 상태의 소유 경계를 선언한다. 하지만 함수에 붙였다고 무거운 계산이 가벼워지는 것은 아니다. 예제에서는 ‘어디서 상태를 바꾸는가’와 ‘어디서 오래 계산하는가’를 각각 확인하자.
 
 UIKit과 AppKit을 비롯한 UI 프레임워크는 화면 상태를 메인 실행 문맥에서 다루도록 요구한다. `MainActor`는 이 규칙을 Swift의 격리 모델로 표현한 전역 actor다. UI를 담당하는 타입에 `@MainActor`를 붙이면 컴파일러가 잘못된 접근을 찾아준다.
 

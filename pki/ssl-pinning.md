@@ -6,7 +6,7 @@ permalink: /pki/ssl-pinning/
 redirect_from:
   - /ios/ssl-pinning/
 first_written: 2026-11-15
-last_modified_date: 2026-11-15
+last_modified_date: 2026-11-17
 tags: [iOS, Swift, SSL, TLS, Pinning, URLSession]
 ---
 
@@ -14,6 +14,12 @@ tags: [iOS, Swift, SSL, TLS, Pinning, URLSession]
 {: .no_toc }
 
 {% include article-toc.md %}
+
+## 기본 신뢰 검사 위에 추가하는 조건
+
+HTTPS는 통신을 암호화하는 것과 접속한 서버를 확인하는 것을 함께 수행한다. 인증서는 공개 키와 서버 이름을 연결하고, 인증서 체인은 신뢰하는 발급자까지 그 연결을 검증하는 데 쓰인다.
+
+피닝은 이 기본 검사에 앱이 정한 인증서 또는 키 조건을 더한다. 서버의 인증서 교체 계획과 백업 핀을 준비하지 않으면 정상 서버도 차단할 수 있다. 예제의 호스트와 핀 값은 실제 서비스에 그대로 복사하지 않는다.
 
 앱이 `https://`로 서버에 접속할 때마다, iOS는 몰래 한 가지를 확인한다.
 

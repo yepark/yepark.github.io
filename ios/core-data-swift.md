@@ -5,7 +5,7 @@ parent: "iOS"
 nav_order: 5
 permalink: /ios/core-data-swift/
 first_written: 2026-11-16
-last_modified_date: 2026-11-16
+last_modified_date: 2026-11-17
 tags: [iOS, Swift, Core-Data]
 ---
 
@@ -13,6 +13,12 @@ tags: [iOS, Swift, Core-Data]
 {: .no_toc }
 
 {% include article-toc.md %}
+
+## 처음에는 저장과 다시 읽기부터
+
+먼저 할 일 하나를 저장하고 앱을 다시 열어 조회하는 흐름만 완성해 보자. 관계, batch 처리, CloudKit 같은 기능은 이 기본 흐름이 동작한 뒤에 추가해도 된다.
+
+본문의 CRUD 예제는 데이터 모델 편집기에서 `TaskItem`을 만들고 저장소 로드가 끝났다고 가정한다. 이후 `Project` 관계 예제를 따라 할 때는 해당 엔티티와 inverse 관계도 모델에 추가해야 한다. 각 코드 조각이 요구하는 준비 상태를 확인하고 진행하자.
 
 Core Data는 앱의 객체와 객체 사이 관계를 관리하고, 변경 내용을 추적해 저장소에 보관하는 Apple 프레임워크다. SQLite를 사용할 수 있지만 **SQLite를 Swift 객체로 바꿔 주는 단순 ORM**으로만 이해하면 중요한 기능을 놓친다.
 
@@ -168,6 +174,10 @@ func createTask(title: String, in context: NSManagedObjectContext) throws {
 
 `TaskItem(context:)`를 호출하면 객체가 해당 컨텍스트에 삽입된 상태가 된다. 필수 속성을 채우지 않으면 저장 시 검증 오류가 날 수 있다.
 
+`context`는 편집 작업 공간, `TaskItem`은 그 공간에 등록한 데이터 한 건이다. `UUID()`는 새 식별값을 만들고 `Date()`는 현재 시각을 만든다. `try context.save()`는 지금까지 쌓인 변경을 저장하며, 실패하면 호출한 쪽으로 오류를 전달한다.
+
+함수를 호출한 뒤 앱을 종료하고 다시 조회해 보자. 조회 결과가 없다면 저장 오류를 무시하지 않았는지, 같은 저장소를 열었는지, 검색 조건으로 제외된 것은 아닌지 순서대로 확인한다.
+
 여러 객체를 한 번에 만들 때마다 `save()`하지 말고 의미 있는 작업 단위가 끝났을 때 저장한다. 하지만 너무 많은 변경을 한 컨텍스트에 오래 쌓으면 메모리가 커질 수 있다.
 
 ## Read: 조회하기
@@ -197,6 +207,8 @@ func fetchTasks(in context: NSManagedObjectContext) throws -> [TaskItem] {
 - `resultType`: 관리 객체, object ID, dictionary, count 등 결과 형태
 
 `fetchBatchSize`와 페이지 번호 방식은 같은 개념이 아니다. 배치 크기는 조회 결과 컬렉션을 다루면서 필요한 객체를 묶음으로 실체화해 메모리를 관리하는 힌트다.
+
+앞의 조회에서는 `isDone == NO`가 미완료 항목만 고르고, `ascending: false`가 최신 날짜부터 정렬한다. 따라서 완료된 할 일을 저장했다면 전체 건수가 늘어도 이 조회 결과에는 나타나지 않는다. 저장과 조회 조건을 따로 확인해야 하는 이유다.
 
 ## Update: 객체 수정하기
 
@@ -250,6 +262,9 @@ project.name = "블로그"
 
 let task = TaskItem(context: context)
 task.title = "Core Data 글 쓰기"
+task.id = UUID()
+task.createdAt = Date()
+task.isDone = false
 task.project = project
 
 try context.save()

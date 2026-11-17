@@ -5,11 +5,20 @@ parent: PKCS 표준
 grand_parent: "PKI & 암호"
 nav_order: 5
 permalink: /pki/pkcs/pkcs5/
-last_modified_date: 2026-11-16
+last_modified_date: 2026-11-17
 tags: [PKI, PKCS5, PBKDF2, RFC8018]
 ---
 
 # PKCS #5: 패스워드 기반 암호와 PBKDF2
+{: .no_toc }
+
+{% include article-toc.md %}
+
+## 패스워드에서 암호 키를 만들기
+
+사람이 기억하는 패스워드와 암호 알고리즘이 요구하는 고정 길이 키는 다르다. KDF는 패스워드에 salt와 연산 비용을 적용해 필요한 키 바이트를 만드는 함수다.
+
+salt는 같은 패스워드라도 다른 결과가 나오게 하는 입력이며 보통 비밀이 아니다. 반복 횟수는 공격자가 후보를 시험하는 비용과 사용자 대기 시간을 함께 바꾼다. 코드의 예전 기본값을 그대로 선택하기보다 현재 기기와 정책에 맞춰 측정해야 한다.
 
 PKCS #5는 사람이 입력한 패스워드로 암호 키를 만들고 데이터를 암호화하거나 인증하는 방법을 정의한다. 현재 기본 문서는 **RFC 8018, PKCS #5 v2.1**이다.
 

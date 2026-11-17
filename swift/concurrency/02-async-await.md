@@ -5,7 +5,7 @@ grand_parent: Swift
 nav_order: 2
 permalink: /swift/concurrency/async-await/
 first_written: 2026-11-16
-last_modified_date: 2026-11-16
+last_modified_date: 2026-11-17
 tags: [Swift, Concurrency, Async-Await, Continuation]
 ---
 
@@ -13,6 +13,12 @@ tags: [Swift, Concurrency, Async-Await, Continuation]
 {: .no_toc }
 
 {% include article-toc.md %}
+
+## 함수 선언과 호출을 나눠 읽기
+
+`func` 뒤의 이름은 함수의 이름이고, `async`는 중단 가능성을 가진 함수라는 표시다. 호출하는 쪽은 `await`를 적어 이 지점에서 실행이 잠시 다른 작업에 양보될 수 있음을 드러낸다.
+
+`throws`와 `try`는 오류가 전달될 수 있음을 나타내는 별도의 표시다. 네트워크 예제에서는 ‘응답을 받았는가’, ‘HTTP 상태가 정상인가’, ‘JSON이 모델과 맞는가’를 차례로 확인한다. 하나가 성공해도 다음 단계는 실패할 수 있다.
 
 `async`는 함수가 실행 중 중단될 수 있음을 선언하고, `await`는 그 함수를 호출하는 곳에 중단 가능성을 표시한다. 오류까지 발생할 수 있다면 `async throws`로 선언한다.
 

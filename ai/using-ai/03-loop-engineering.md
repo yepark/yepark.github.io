@@ -6,7 +6,7 @@ grand_parent: AI
 nav_order: 3
 permalink: /ai/using-ai/loop-engineering/
 first_written: 2026-11-16
-last_modified_date: 2026-11-16
+last_modified_date: 2026-11-17
 tags: [AI, Agent, Loop-Engineering, LangChain]
 ---
 
@@ -14,6 +14,12 @@ tags: [AI, Agent, Loop-Engineering, LangChain]
 {: .no_toc }
 
 {% include article-toc.md %}
+
+## 모델 호출과 도구 실행 나누기
+
+모델이 ‘계산 도구를 사용하겠다’고 출력하는 것과 실제 Python 함수가 실행되는 것은 별개 단계다. 프레임워크가 요청을 받아 함수에 인자를 넘기고, 반환값을 다시 모델에 전달한다.
+
+아래 `multiply` 예제는 계산기 함수와 모델을 연결하는 작은 실습이다. 모델 제공자의 API 키와 사용 가능한 모델 ID가 필요하다. `사용할-모델-이름`은 설명용 자리이므로 실제 ID로 바꿔야 한다.
 
 일반적인 챗봇은 질문을 받고 답변을 한 번 만든다. 에이전트는 목표를 받고, 필요한 정보를 찾고, 도구를 실행하고, 그 결과를 다시 살펴본 뒤 다음 행동을 정한다.
 

@@ -4,7 +4,7 @@ parent: "PKI & 암호"
 nav_order: 1
 permalink: /pki/padding/
 first_written: 2021-04-23
-last_modified_date: 2026-11-01
+last_modified_date: 2026-11-17
 tags: [Cryptography, Padding, PKCS7, AES]
 ---
 
@@ -12,6 +12,12 @@ tags: [Cryptography, Padding, PKCS7, AES]
 {: .no_toc }
 
 {% include article-toc.md %}
+
+## 블록 길이를 숫자로 보기
+
+AES의 블록은 16바이트다. CBC로 암호화할 원문이 18바이트라면 두 번째 블록에는 2바이트만 있어 나머지 14바이트를 채워야 한다. PKCS #7 규칙에서는 값 14를 뜻하는 `0E`를 14번 붙인다.
+
+바이트는 데이터 길이 단위다. 한글 한 글자가 항상 1바이트인 것은 아니므로 문자열 글자 수로 패딩 길이를 계산하면 안 된다. 실제 문자 인코딩을 거친 바이트 길이를 기준으로 암호 API를 사용한다.
 
 AES 같은 블록 암호는 고정된 크기의 블록을 처리한다. CBC처럼 평문을 블록 단위로 나누는 운용 모드에서 마지막 데이터가 블록 크기에 미치지 못하면, 정해진 규칙으로 바이트를 채우는 패딩이 필요하다.
 

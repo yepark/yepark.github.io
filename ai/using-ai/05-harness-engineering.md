@@ -6,7 +6,7 @@ grand_parent: AI
 nav_order: 5
 permalink: /ai/using-ai/harness-engineering/
 first_written: 2026-11-16
-last_modified_date: 2026-11-16
+last_modified_date: 2026-11-17
 tags: [AI, Agent, Harness-Engineering, Codex]
 ---
 
@@ -14,6 +14,12 @@ tags: [AI, Agent, Harness-Engineering, Codex]
 {: .no_toc }
 
 {% include article-toc.md %}
+
+## 반복되는 실패 하나에서 시작하기
+
+AI에게 글 작성을 맡길 때마다 출처가 빠진다고 하자. 다음에는 출처를 적을 파일과 검토 기준을 준비하고, 출처가 없으면 게시 단계로 넘어가지 않게 만들 수 있다. 이것이 작은 하네스의 시작이다.
+
+Agent, Skill, Orchestrator라는 이름보다 누가 무엇을 만들고 다음 단계가 무엇을 확인하는지 먼저 적자. 파일 구조는 이 작업 순서를 재사용하고 기록하기 위한 수단이다. 단일 에이전트가 같은 절차를 수행하는 구성도 가능하다.
 
 자동차의 엔진이 아무리 좋아도 바퀴, 브레이크, 계기판, 안전벨트 없이 목적지까지 안전하게 갈 수 없다. AI 모델도 비슷하다. 모델은 판단하는 엔진이지만, 실제 일을 끝내려면 자료를 읽는 방법, 사용할 도구, 작업 공간, 권한, 테스트, 기록, 실패 복구가 필요하다.
 

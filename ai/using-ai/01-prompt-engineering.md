@@ -6,7 +6,7 @@ grand_parent: AI
 nav_order: 1
 permalink: /ai/using-ai/prompt-engineering/
 first_written: 2026-11-16
-last_modified_date: 2026-11-16
+last_modified_date: 2026-11-17
 tags: [AI, Prompt-Engineering, LLM]
 ---
 
@@ -14,6 +14,12 @@ tags: [AI, Prompt-Engineering, LLM]
 {: .no_toc }
 
 {% include article-toc.md %}
+
+## 첫 실습은 짧은 요청 하나로
+
+‘이 글을 요약해 줘’라는 요청에 독자와 길이만 추가해 보자. 예를 들어 ‘개발을 처음 배우는 사람이 읽도록 세 문장으로 요약해 줘’라고 바꾸고 결과 차이를 비교한다.
+
+이 글의 템플릿은 채워야 할 양식의 예다. 모든 칸을 길게 작성해야 하는 것은 아니다. 결과가 어긋날 때 빠진 기준을 한 항목씩 추가하고, 같은 입력에서 개선됐는지 확인하자.
 
 프롬프트는 AI에게 보내는 입력 전체다. 단순한 질문 한 줄일 수도 있고, 역할·자료·제약·출력 형식·예시를 포함한 긴 작업 명세일 수도 있다.
 

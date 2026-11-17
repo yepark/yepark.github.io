@@ -5,11 +5,20 @@ parent: PKCS 표준
 grand_parent: "PKI & 암호"
 nav_order: 1
 permalink: /pki/pkcs/pkcs1/
-last_modified_date: 2026-11-16
+last_modified_date: 2026-11-17
 tags: [PKI, PKCS1, RSA, RFC8017]
 ---
 
 # PKCS #1: RSA 암호와 전자서명
+{: .no_toc }
+
+{% include article-toc.md %}
+
+## 암호화와 서명의 등장인물
+
+파일을 Alice가 Bob에게 보낼 때, 기밀성이 목적이면 Bob의 공개 키로 보호하고 Bob이 개인 키로 연다. Alice가 보냈다는 사실을 검증하려면 Alice가 개인 키로 서명하고 Bob은 Alice의 공개 키로 검증한다.
+
+OAEP와 PSS는 각각 이 두 목적에 맞는 인코딩 규칙이다. 키 형식, 암호화 방식, 서명 방식은 서로 구분해서 읽자. 아래 RFC 번호는 표준 문서의 식별자이며 알고리즘 버전 번호와는 다르다.
 
 PKCS #1은 RSA 공개 키·개인 키의 구조와 암호화·서명 방식을 정의한다. 현재 참고할 규격은 **PKCS #1 v2.2인 RFC 8017**이다.
 

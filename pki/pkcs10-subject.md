@@ -4,7 +4,7 @@ parent: "PKI & 암호"
 nav_order: 4
 permalink: /pki/pkcs10-subject/
 first_written: 2021-04-10
-last_modified_date: 2026-11-01
+last_modified_date: 2026-11-17
 tags: [PKI, CSR, PKCS#10, DN]
 ---
 
@@ -12,6 +12,12 @@ tags: [PKI, CSR, PKCS#10, DN]
 {: .no_toc }
 
 {% include article-toc.md %}
+
+## 발급 요청과 인증서 구분하기
+
+CSR은 ‘이 공개 키와 이름으로 인증서를 발급해 달라’는 서명된 요청서다. 최종 인증서는 CA가 심사하고 자신의 서명을 붙여 발급하는 별도의 문서다.
+
+DN은 주체 이름을 여러 속성으로 표현한 구조다. `CN`, `O`, `C`는 각각 속성의 짧은 이름이며, 실제 ASN.1 데이터에서는 OID로 식별된다. 화면에 보이는 DN 문자열과 서명에 사용한 바이트 표현을 혼동하지 말자.
 
 PKCS#10은 인증서 서명 요청(Certificate Signing Request, CSR)의 문법을 정의한다. CSR에는 인증 대상의 이름, 공개 키, 선택적 속성이 들어가며, 요청자는 해당 내용을 자신의 개인 키로 서명한다.
 

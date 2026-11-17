@@ -4,7 +4,7 @@ parent: "iOS"
 nav_order: 4
 permalink: /ios/core-data/
 first_written: 2021-04-23
-last_modified_date: 2026-11-15
+last_modified_date: 2026-11-17
 tags: [iOS, Objective-C, Core-Data]
 ---
 
@@ -12,6 +12,12 @@ tags: [iOS, Objective-C, Core-Data]
 {: .no_toc }
 
 {% include article-toc.md %}
+
+## Objective-C 예제를 읽는 순서
+
+이 글은 `Employee`라는 데이터 설계와 그에 대응하는 `EmployeeMO` 클래스가 준비돼 있다고 가정한다. `.xcdatamodeld`의 엔티티 이름과 코드의 문자열이 일치해야 저장할 객체를 만들 수 있다.
+
+객체를 만든 직후에는 컨텍스트라는 작업 공간 안에만 변경이 기록된다. `save:`가 성공해야 저장소에 반영된다. 조회·수정·삭제 코드도 같은 컨텍스트의 큐에서 실행해야 하며, 앱 초기화 때 저장소 로드가 완료됐는지 먼저 확인한다.
 
 Core Data는 앱의 모델 객체와 객체 그래프를 관리하는 프레임워크다. 변경 추적, 관계 관리, 검증, Undo/Redo, faulting, 영속성 같은 기능을 제공한다.
 

@@ -5,11 +5,20 @@ parent: PKCS 표준
 grand_parent: "PKI & 암호"
 nav_order: 9
 permalink: /pki/pkcs/pkcs9/
-last_modified_date: 2026-11-16
+last_modified_date: 2026-11-17
 tags: [PKI, PKCS9, Attributes, RFC2985]
 ---
 
 # PKCS #9: 인증서·CMS·PKCS #12의 속성
+{: .no_toc }
+
+{% include article-toc.md %}
+
+## 속성 이름 대신 번호를 사용하는 이유
+
+서로 다른 프로그램이 ‘서명 시각’이나 ‘콘텐츠 해시’라는 항목을 같은 의미로 읽으려면 공통 식별자가 필요하다. OID는 이런 항목을 구분하는 숫자 경로다.
+
+`Attribute`는 속성 종류와 그 값의 묶음이다. 화면용 별칭, 서명으로 보호된 속성, 발급을 희망하는 확장 요청은 신뢰 수준이 다르다. 값이 들어 있다는 이유만으로 권한이나 신원이 확인됐다고 판단하지 않는다.
 
 PKCS #9은 다른 PKCS 규격에서 공통으로 사용하는 속성 타입과 OID를 정의한다. 현재 핵심 문서는 **RFC 2985**다.
 

@@ -7,7 +7,7 @@ permalink: /ai/mlx/what-is-mlx/
 redirect_from:
   - /mlx/what-is-mlx/
 first_written: 2026-11-15
-last_modified_date: 2026-11-15
+last_modified_date: 2026-11-17
 tags: [MLX, Python, Apple-Silicon]
 ---
 
@@ -15,6 +15,12 @@ tags: [MLX, Python, Apple-Silicon]
 {: .no_toc }
 
 {% include article-toc.md %}
+
+## 실행 환경을 먼저 구분하기
+
+터미널은 명령을 입력하는 창이고, Python은 아래 예제 코드를 실행하는 프로그램이다. `pip`는 Python 패키지를 설치하는 도구다. 명령 앞에 `$`가 표시된 다른 문서를 보더라도 그 기호까지 입력하지는 않는다.
+
+이 글은 Apple 실리콘 Mac에서 시작하는 경로를 다룬다. 저장소의 다른 OS·백엔드 지원과 구분해 읽자. 설치한 MLX 버전은 `pip show mlx`로 확인하고, 버전별 Python·OS 요구사항은 현재 패키지 문서를 기준으로 맞춘다.
 
 ## MLX를 한 문장으로
 

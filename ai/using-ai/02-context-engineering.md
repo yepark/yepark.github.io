@@ -6,7 +6,7 @@ grand_parent: AI
 nav_order: 2
 permalink: /ai/using-ai/context-engineering/
 first_written: 2026-11-16
-last_modified_date: 2026-11-16
+last_modified_date: 2026-11-17
 tags: [AI, Context-Engineering, RAG, Agent]
 ---
 
@@ -14,6 +14,12 @@ tags: [AI, Context-Engineering, RAG, Agent]
 {: .no_toc }
 
 {% include article-toc.md %}
+
+## 질문에 답할 자료가 있는지부터
+
+AI에게 회사의 휴가 규정을 물어도 실제 규정 문서를 주지 않으면 사내 정책을 알 수 없다. ‘추측하지 말라’는 지시와 ‘답할 근거를 제공하는 일’이 함께 필요하다.
+
+컨텍스트는 모델이 이번 응답을 만들 때 볼 수 있는 입력 자료다. 모델을 새로 학습시키는 것과 다르다. 문서를 첨부하거나 검색 결과를 넣으면 그 내용을 참고할 수 있지만, 이후의 모든 세션에 영구 저장됐다고 가정하면 안 된다.
 
 좋은 프롬프트를 썼는데도 AI가 틀릴 때가 있다. 요청을 이해하지 못해서가 아니라 **판단에 필요한 정보가 없거나, 너무 많은 정보 속에 중요한 내용이 묻혔기 때문**일 수 있다.
 

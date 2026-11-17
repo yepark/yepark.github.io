@@ -5,7 +5,7 @@ grand_parent: AI
 nav_order: 2
 permalink: /ai/mlx/array/
 first_written: 2026-11-15
-last_modified_date: 2026-11-16
+last_modified_date: 2026-11-17
 tags: [MLX, Python, Array]
 ---
 
@@ -13,6 +13,12 @@ tags: [MLX, Python, Array]
 {: .no_toc }
 
 {% include article-toc.md %}
+
+## 리스트와 배열을 비교하며 읽기
+
+Python 리스트는 일반 값을 순서대로 담는 자료구조다. MLX 배열은 수치 연산을 위해 원소의 자료형과 모양을 함께 관리한다. 같은 `+` 기호라도 리스트는 이어 붙이고 배열은 대응하는 원소를 더한다.
+
+첫 예제에서는 값만 보지 말고 `shape`와 `dtype`도 함께 출력해 보자. 축 번호는 0부터 시작한다. 2차원에서는 행·열로 설명하지만 차원이 늘어나면 각 축의 의미를 데이터 설계에 맞춰 따로 정해야 한다.
 
 MLX로 하는 계산은 **배열(array)**에 숫자를 담아서 한다. 1편에서 `mx.array([1, 2, 3])`으로 만든 것이 바로 배열이다. 그래서 MLX를 쓰려면 배열부터 편하게 다룰 수 있어야 한다.
 
@@ -180,7 +186,7 @@ array([2], dtype=float64)
 ```
 
 {: .note }
-이 시리즈의 예제는 `float32`로 계산한다. CPU와 GPU를 고르는 방법은 4편에서 자세히 다룬다.
+이 시리즈의 예제는 `float32`로 계산한다. `stream=mx.cpu`는 해당 연산의 실행 장치로 CPU를 지정한다. 모든 배열의 실행 장치가 영구적으로 바뀌는 설정으로 해석하지 않는다.
 
 ## 원하는 부분만 꺼내기
 

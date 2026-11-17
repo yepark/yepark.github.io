@@ -4,7 +4,7 @@ parent: "iOS"
 nav_order: 3
 permalink: /ios/nscoding-codable/
 first_written: 2021-04-28
-last_modified_date: 2026-11-01
+last_modified_date: 2026-11-17
 tags: [iOS, Swift, Objective-C, NSCoding, Codable]
 ---
 
@@ -12,6 +12,12 @@ tags: [iOS, Swift, Objective-C, NSCoding, Codable]
 {: .no_toc }
 
 {% include article-toc.md %}
+
+## 인코딩과 저장 구분하기
+
+인코딩은 메모리의 값을 `Data` 같은 바이트 표현으로 바꾸는 과정이고, 저장은 그 바이트를 파일 등에 기록하는 과정이다. 디코딩은 반대로 바이트를 앱의 값으로 복원한다.
+
+아래에는 같은 `Person` 이름을 쓰는 서로 독립적인 예제가 있다. `Codable` 구조체 예제와 `NSSecureCoding` 클래스 예제를 한 타입처럼 섞으면 안 된다. `NSKeyedUnarchiver` 예제의 `Person`은 보안 코딩을 채택한 클래스라고 가정한다.
 
 Objective-C와 Swift를 함께 사용하다 보면 `NSCoding`과 `Codable`을 비슷한 기능으로 오해하기 쉽다. 둘 다 값을 인코딩하고 복원하지만 목적과 데이터 형식이 다르다.
 
@@ -75,6 +81,8 @@ let decoded = try JSONDecoder().decode(Person.self, from: data)
 `NSSecureCoding`을 채택해도 디코딩할 때 허용 클래스를 지정하지 않으면 장점을 살릴 수 없다. Objective-C에서는 `decodeObjectOfClass:forKey:`, 컬렉션은 `decodeObjectOfClasses:forKey:`처럼 복원 가능한 타입을 제한한다.
 
 Swift에서 아카이브를 해제할 때도 최상위 타입을 명시한다.
+
+아래 `Person`은 앞의 `Codable` 구조체가 아니라 `NSSecureCoding`을 채택한 클래스다. `archivedData`는 그 클래스의 인스턴스를 보안 아카이빙한 `Data`라고 가정한다. 두 예제는 같은 파일에 그대로 이어 붙이는 코드가 아니다.
 
 ```swift
 let person = try NSKeyedUnarchiver.unarchivedObject(

@@ -5,11 +5,20 @@ parent: PKCS 표준
 grand_parent: "PKI & 암호"
 nav_order: 2
 permalink: /pki/pkcs/pkcs2/
-last_modified_date: 2026-11-16
+last_modified_date: 2026-11-17
 tags: [PKI, PKCS2, RSA]
 ---
 
 # PKCS #2: 폐기된 RSA 메시지 다이제스트 규격
+{: .no_toc }
+
+{% include article-toc.md %}
+
+## 폐기된 번호도 알아두는 이유
+
+오래된 연동 문서에는 현재 사용하지 않는 표준 이름이 남을 수 있다. PKCS 번호는 학습 단계나 보안 등급이 아니라 서로 다른 규격을 식별하는 이름이다.
+
+이 편에서는 구현 방법보다 역사적 규격이 어디로 통합됐는지 확인한다. 메시지 다이제스트는 원문의 지문에 비유할 수 있지만, 누구나 계산할 수 있어 그것만으로 작성자를 증명하지는 못한다.
 
 PKCS #2는 RSA 암호와 함께 사용할 메시지 다이제스트를 다루던 초기 규격이다. 이 규격은 **1990년대에 PKCS #1로 흡수돼 폐기**됐다.
 

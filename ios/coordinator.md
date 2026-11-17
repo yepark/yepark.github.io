@@ -4,7 +4,7 @@ parent: "iOS"
 nav_order: 5
 permalink: /ios/coordinator/
 first_written: 2021-04-29
-last_modified_date: 2026-11-01
+last_modified_date: 2026-11-17
 tags: [iOS, Swift, UIKit, Coordinator, Architecture]
 ---
 
@@ -12,6 +12,12 @@ tags: [iOS, Swift, UIKit, Coordinator, Architecture]
 {: .no_toc }
 
 {% include article-toc.md %}
+
+## 화면 전환 코드의 출발점
+
+`push`는 내비게이션 스택에 화면을 추가하고, `present`는 다른 화면을 모달로 표시한다. Coordinator는 이 UIKit 기능을 대신 구현하지 않고, 언제 어떤 화면을 만들지 결정한다.
+
+첫 예제는 `HomeViewController`와 `DetailViewController`가 앱에 정의돼 있다고 가정한다. 이어지는 자식 Coordinator 코드는 기존 클래스에 추가할 구조를 설명한다. 동일한 이름의 클래스를 한 파일에 두 번 선언하는 완성 예제는 아니다.
 
 UIKit 앱에서 View Controller가 다음 화면 생성, 데이터 전달, `push`와 `present`까지 모두 맡기 시작하면 화면 전환 코드가 빠르게 복잡해진다. Coordinator 패턴은 이 이동 흐름을 별도 객체로 분리한다.
 
