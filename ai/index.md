@@ -12,4 +12,3 @@ permalink: /ai/
 ## 카테고리
 
 - [AI 사용법]({{ '/ai/using-ai/' | relative_url }}): 프롬프트, 컨텍스트, 루프, 그래프, 하네스, 평가
-- [MLX]({{ '/ai/mlx/' | relative_url }}): Apple 실리콘 Mac에서 머신러닝 실행하기

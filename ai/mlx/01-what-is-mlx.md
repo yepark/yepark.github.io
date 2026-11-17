@@ -1,7 +1,7 @@
 ---
 title: "1. MLX가 뭐고, 내 Mac에서 처음 돌려 보기"
 parent: MLX
-grand_parent: AI
+grand_parent: iOS
 nav_order: 1
 permalink: /ai/mlx/what-is-mlx/
 redirect_from:

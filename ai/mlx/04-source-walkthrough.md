@@ -2,7 +2,7 @@
 title: "4. MLX 소스 해설: Python의 덧셈이 GPU에서 실행되기까지"
 description: "MLX 실제 소스를 따라 Python 바인딩, C++ array, 지연 계산 그래프, eval과 Metal 백엔드의 역할을 설명합니다."
 parent: MLX
-grand_parent: AI
+grand_parent: iOS
 nav_order: 4
 permalink: /ai/mlx/source-walkthrough/
 last_modified_date: 2026-11-17

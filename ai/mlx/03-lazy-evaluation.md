@@ -1,7 +1,7 @@
 ---
 title: "3. 게으른 계산: MLX는 왜 계산을 미룰까"
 parent: MLX
-grand_parent: AI
+grand_parent: iOS
 nav_order: 3
 permalink: /ai/mlx/lazy-evaluation/
 first_written: 2026-11-16

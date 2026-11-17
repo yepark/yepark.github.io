@@ -1,13 +1,13 @@
 ---
 title: MLX
-parent: AI
-nav_order: 1
+parent: iOS
+nav_order: 22
 has_children: true
 has_toc: false
 permalink: /ai/mlx/
 redirect_from:
   - /mlx/
-last_modified_date: 2026-11-15
+last_modified_date: 2026-11-17
 ---
 
 # MLX

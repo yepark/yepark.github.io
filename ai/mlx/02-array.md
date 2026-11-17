@@ -1,7 +1,7 @@
 ---
 title: "2. 배열: MLX에서 숫자를 담는 그릇"
 parent: MLX
-grand_parent: AI
+grand_parent: iOS
 nav_order: 2
 permalink: /ai/mlx/array/
 first_written: 2026-11-15
