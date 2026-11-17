@@ -18,10 +18,10 @@ redirect_from:
 ## 주제
 
 <ul class="topic-list">
-  <li><a href="{{ '/ai/' | relative_url }}">AI</a><span>MLX로 Mac에서 머신러닝 돌리기, 기초부터</span></li>
-  <li><a href="{{ '/swift/' | relative_url }}">Swift</a><span>옵셔널, 프로퍼티, 클로저처럼 매일 만나는 것들</span></li>
-  <li><a href="{{ '/ios/' | relative_url }}">iOS</a><span>화면 배치, 데이터 저장, 테스트, 빌드</span></li>
-  <li><a href="{{ '/pki/' | relative_url }}">PKI & 암호</a><span>인증서, RSA, 블록 암호</span></li>
+  <li><a class="topic-card" href="{{ '/ai/' | relative_url }}"><span class="topic-card__title">AI</span><span class="topic-card__description">MLX로 Mac에서 머신러닝 돌리기, 기초부터</span></a></li>
+  <li><a class="topic-card" href="{{ '/swift/' | relative_url }}"><span class="topic-card__title">Swift</span><span class="topic-card__description">옵셔널, 프로퍼티, 클로저처럼 매일 만나는 것들</span></a></li>
+  <li><a class="topic-card" href="{{ '/ios/' | relative_url }}"><span class="topic-card__title">iOS</span><span class="topic-card__description">화면 배치, 데이터 저장, 테스트, 빌드</span></a></li>
+  <li><a class="topic-card" href="{{ '/pki/' | relative_url }}"><span class="topic-card__title">PKI & 암호</span><span class="topic-card__description">인증서, RSA, 블록 암호</span></a></li>
 </ul>
 
 ## 최근에 고친 글
