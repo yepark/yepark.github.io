@@ -1,0 +1,13 @@
+{%- assign article_ad_slot = site.adsense.post_end_slot | default: '' | strip -%}
+{%- if page.seo.type == 'BlogPosting' and article_ad_slot != '' -%}
+<aside class="article-ad" aria-label="광고">
+  <p class="article-ad__label">광고</p>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="{{ site.adsense.client | escape }}"
+       data-ad-slot="{{ article_ad_slot | escape }}"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+</aside>
+<script src="{{ '/assets/js/article-ad.js' | relative_url }}" defer></script>
+{%- endif -%}

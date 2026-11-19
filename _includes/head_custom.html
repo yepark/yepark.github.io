@@ -1,10 +1,15 @@
 <meta name="google-site-verification" content="MSp6uhAP8eQeq8EDciGAfi-yS-MRy6pxpnpC0EhmMhw">
 <meta name="naver-site-verification" content="b5caa97b826b6bb1c002099db42d48cb6d6bf53a">
+{% if page.seo.type == 'BlogPosting' %}
+<meta name="robots" content="max-image-preview:large">
+<meta property="article:modified_time" content="{{ page.last_modified_at | date_to_xmlschema }}">
+{% endif %}
+{% include article-breadcrumbs.html %}
 <link rel="icon" href="{{ '/assets/images/favicon.ico' | relative_url }}" sizes="any">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap">
-<meta name="google-adsense-account" content="ca-pub-2792981526199831">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2792981526199831" crossorigin="anonymous"></script>
+<meta name="google-adsense-account" content="{{ site.adsense.client | escape }}">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ site.adsense.client | escape }}" crossorigin="anonymous"></script>

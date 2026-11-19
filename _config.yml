@@ -13,6 +13,29 @@ social:
   links:
     - "https://github.com/yepark"
 
+adsense:
+  client: "ca-pub-2792981526199831"
+  # 승인 후 AdSense에서 생성한 반응형 디스플레이 광고 단위 ID를 넣는다.
+  post_end_slot: ""
+
+defaults:
+  - scope:
+      path: "ai"
+    values:
+      layout: article
+  - scope:
+      path: "swift"
+    values:
+      layout: article
+  - scope:
+      path: "ios"
+    values:
+      layout: article
+  - scope:
+      path: "pki"
+    values:
+      layout: article
+
 remote_theme: just-the-docs/just-the-docs@v0.10.1
 
 plugins:

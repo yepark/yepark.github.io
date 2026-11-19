@@ -196,3 +196,26 @@ $box: #f7f8f9;
   a { color: $text !important; text-decoration: none !important; }
   a:hover { color: $accent !important; }
 }
+
+// 본문을 다 읽은 뒤의 광고. 미설정·미충전 상태에는 광고 안내 공간을 만들지 않는다.
+.article-ad {
+  min-height: 1px;
+  margin: 0;
+
+  &[hidden] { display: none; }
+  .article-ad__label { display: none; }
+
+  &--filled {
+    margin: 2.5rem 0 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid $border-color;
+
+    .article-ad__label {
+      display: block;
+      margin: 0 0 0.75rem;
+      color: $muted;
+      font-size: 0.75rem;
+      font-weight: 400;
+    }
+  }
+}

@@ -1,14 +1,14 @@
 ---
 title: "Siri AI와 App Intents"
-description: "Apple Intelligence와 Siri AI의 App Intent, App Entity, 검색, 스키마와 화면 문맥을 초보자용 Swift 예제로 설명합니다."
+description: "Siri AI와 App Intents의 실행 경로, AppEntity·EntityQuery의 ID 조회와 동명 항목 처리, Spotlight·스키마·화면 문맥 및 데이터 검증을 실행 예제로 설명합니다."
 parent: iOS
 nav_order: 21
 permalink: /ios/siri-ai-app-intents/
 date: 2026-11-17
-last_modified_at: 2026-11-17
+last_modified_at: 2026-11-19
 seo:
   type: BlogPosting
-last_modified_date: 2026-11-17
+last_modified_date: 2026-11-19
 ---
 
 # Siri AI와 App Intents
@@ -19,6 +19,27 @@ last_modified_date: 2026-11-17
 사용자가 Siri에게 ‘내 메모 앱에서 미완료 메모 개수 알려 줘’라고 말했다고 하자. 시스템이 요청을 이해하더라도 앱이 데이터를 읽는 기능을 공개하지 않았다면 원하는 결과를 얻기 어렵다. App Intents는 앱의 행동과 데이터를 시스템이 사용할 수 있는 형태로 설명하는 프레임워크다.
 
 이 글의 기본 코드는 iOS 16부터 제공되는 App Intents의 개념을 사용한다. Apple의 최신 문서에 포함된 Siri AI Developer Preview와 추가 시스템 연동 기능은 별도의 배포 상태·SDK·지원 조건을 확인해야 한다. 기본 Intent 구현만으로 모든 자연어 요청이 모든 OS에서 실행되는 것은 아니다.
+
+## Siri가 요청을 이해한 뒤 앱에서는 무슨 일이 일어날까
+
+‘여행 준비 메모를 읽어 줘’라는 요청을 실행하려면 ‘읽기’라는 행동과 ‘어느 메모인지’라는 대상을 모두 정해야 한다.
+
+```mermaid
+flowchart TD
+    A[사용자 요청] --> B[행동과 필요한 입력 해석]
+    B --> C[메모 후보 조회]
+    C --> D{대상이 하나로 정해졌는가}
+    D -->|아니요| E[사용자에게 대상 선택 요청]
+    E --> F[선택한 메모 ID]
+    D -->|예| F
+    F --> G[현재 데이터와 접근 권한 재확인]
+    G --> H[앱 서비스 실행]
+    H --> I[Intent 결과 반환]
+```
+
+이 그림은 역할을 나눈 개념도다. 시스템이 모든 버전에서 이 화면 순서 그대로 표시한다는 뜻은 아니다. 중요한 경계는 자연어 해석과 앱의 실제 데이터 접근이다. 앱은 해석된 요청이라도 대상이 존재하는지, 지금 접근할 수 있는지, 어떤 변경을 허용할지 확인해야 한다.
+
+Foundation Models로 직접 문장을 생성하지 않아도 이 연결은 만들 수 있다. App Intent의 `perform()`은 모델에 쓰는 프롬프트가 아니라 앱 기능을 실행하는 메서드다. 시스템은 파라미터를 해석한 뒤 이를 호출한다. 반환값으로 대화 응답이나 후속 동작을 제공할 수 있다. [perform 공식 문서](https://developer.apple.com/documentation/appintents/appintent/perform())에서 이 실행 계약을 확인한다.
 
 ## 앱 버튼과 Intent를 같은 행동으로 보기
 
@@ -119,6 +140,67 @@ struct MemoShortcuts: AppShortcutsProvider {
 
 Entity에는 ‘여행 메모’라는 이름과 고유 ID를 표현한다. Query는 그 ID를 현재 저장소의 레코드로 바꾼다. 메모가 삭제됐거나 접근 권한이 바뀌었다면 조회 실패로 처리해야 한다. 사용자의 자연어 제목만으로 다른 메모를 임의 선택하지 않는다.
 
+## 같은 제목의 메모 두 개로 Entity를 이해하기
+
+다음 두 메모를 저장했다고 하자.
+
+| 저장 ID | 제목 | 본문 |
+| --- | --- | --- |
+| `memo-001` | 여행 준비 | 여권을 확인한다. |
+| `memo-002` | 여행 준비 | 충전기를 챙긴다. |
+
+제목은 둘 다 같으므로 제목 검색은 후보를 찾는 단계다. 선택한 대상을 다음 실행에서도 가리키려면 안정적인 ID가 필요하다. 앱을 실행할 때마다 새 UUID를 만들어 같은 메모의 ID를 바꾸면 저장된 단축어가 원래 대상을 다시 찾기 어려워진다.
+
+아래는 [실행 가능한 전체 예제]({{ '/assets/examples/swift/memo-entities.swift' | relative_url }})의 Entity 선언이다.
+
+```swift
+struct MemoEntity: AppEntity {
+    static let typeDisplayRepresentation: TypeDisplayRepresentation = "메모"
+    static let defaultQuery = MemoQuery()
+    let id: String
+    let title: String
+
+    var displayRepresentation: DisplayRepresentation {
+        DisplayRepresentation(title: "\(title)", subtitle: "\(id)")
+    }
+}
+```
+
+`typeDisplayRepresentation`은 ‘메모’라는 데이터 종류의 표시 이름이다. `displayRepresentation`은 메모 하나를 표시할 정보다. 이 예제는 두 제목이 같아 ID를 부제로 표시하지만, 제품에서는 날짜나 폴더처럼 사용자가 구분하기 좋은 정보를 선택할 수 있다.
+
+`defaultQuery`는 시스템이 이 종류의 데이터를 다시 찾을 때 사용할 조회 구현이다. 메모 본문 전체를 Entity에 복제하지 않고 ID와 제목만 전달했다. 본문은 실제 기능 실행 시 현재 저장소에서 읽는 구조로 확장할 수 있다. [AppEntity 문서](https://developer.apple.com/documentation/appintents/appentity)는 지속적인 식별자와 표시 정보의 역할을 설명한다.
+
+### 이름으로 찾는 조회와 ID로 복원하는 조회
+
+| 메서드 | 입력 의미 | 반환해야 할 것 |
+| --- | --- | --- |
+| `entities(matching:)` | 사용자가 표현한 검색 문자열 | 일치하는 후보들 |
+| `entities(for:)` | 이미 선택되거나 저장된 ID들 | 지금 존재하는 해당 항목들 |
+| `suggestedEntities()` | 선택 화면의 초기 후보 요청 | 앱이 제안할 항목들 |
+
+이 예제의 Query는 `EntityStringQuery`를 채택한다. `EntityQuery`가 ID 기반 조회를 담당하고, `EntityStringQuery`가 문자열 검색을 더한다. 직접 작성한 문자열 검색이 자동으로 의미 검색 모델이 되는 것은 아니다. 예제는 제목에 문자열이 포함됐는지 검사한다. 두 프로토콜은 [EntityQuery](https://developer.apple.com/documentation/appintents/entityquery), [EntityStringQuery](https://developer.apple.com/documentation/appintents/entitystringquery) 문서에서 구분할 수 있다.
+
+### 직접 실행한 결과
+
+전체 파일을 내려받아 macOS에서 다음 명령으로 컴파일하고 실행한다. 생성할 실행 파일이 없는 작업 폴더에서 사용한다.
+
+```bash
+swiftc -parse-as-library memo-entities.swift -o memo-entities
+./memo-entities
+```
+
+macOS 15.6·Xcode 16.2의 Swift 6.0.3으로 실행한 결과다.
+
+```text
+title search: ["memo-001", "memo-002"]
+selected: ["memo-002"]
+deleted ID: 0 results
+```
+
+‘여행’으로 찾으면 후보 두 개가 나온다. `memo-002`를 ID로 조회하면 그 항목 하나만 나온다. 그다음 해당 항목을 저장소에서 지우고 다시 같은 ID로 조회하면 빈 배열을 반환한다. 삭제된 ID를 받았다고 제목이 같은 `memo-001`로 대체하면 사용자가 선택한 대상을 바꾸는 오류가 된다.
+
+이 실행은 AppEntity·Query와 앱의 actor 저장소를 macOS 프로세스에서 직접 호출한 검증이다. 단축어 앱의 발견 과정, 음성 인식, Siri AI의 전체 호출 성공을 검증한 결과는 아니다. 실제 앱에서는 `@main` 실행 부분을 제외하고 앱 타깃에 Entity·Query·저장 서비스 코드를 연결한다. 샘플 저장소는 프로세스 메모리에만 있으므로 재시작하면 초기 데이터로 돌아간다.
+
 ## 최신 Siri AI 연동에서 추가되는 요소
 
 Apple의 안내는 행동과 데이터 공개를 바탕으로 다음 요소를 함께 설명한다.
@@ -133,11 +215,56 @@ Apple의 안내는 행동과 데이터 공개를 바탕으로 다음 요소를 �
 
 화면 문맥은 스크린샷을 보고 DB 내용을 모두 알아내는 기능으로 이해하면 안 된다. 앱이 화면에 보이는 항목과 Entity의 관계를 제공해야 한다. Donation도 임의의 개인정보 전체를 업로드하라는 뜻으로 해석하지 말고 각 API의 데이터 범위를 확인한다.
 
+### EntityQuery와 Spotlight는 같은 검색이 아니다
+
+앞의 Query는 앱이 받은 ID나 검색어를 저장소에서 찾는 코드다. Spotlight 인덱싱은 시스템 검색이 앱의 콘텐츠를 발견하도록 별도 정보를 제공하는 경로다. Query를 선언했다고 모든 데이터가 자동으로 Spotlight에 등록되는 것은 아니다.
+
+Apple의 [Entity 인덱싱 문서](https://developer.apple.com/documentation/appintents/making-app-entities-available-in-spotlight)는 `IndexedEntity`, 인덱스에 포함할 속성, 인덱스 갱신과 재색인을 설명한다. 기능을 붙일 때는 새 메모 추가뿐 아니라 수정·삭제·계정 전환 때 인덱스를 어떻게 맞출지도 설계한다. 예전 검색 결과가 남을 수 있으므로 실행 시점의 ID 조회와 접근 검사를 생략하지 않는다.
+
+### 스키마는 앱 기능의 의미를 맞추는 계약이다
+
+메서드 이름을 `createMemo`라고 지었다고 시스템이 모든 입력의 의미를 자동으로 알지는 못한다. 시스템 스키마는 알려진 동작과 데이터 구조에 앱 타입을 대응시키는 방법이다. 예를 들어 메모 작성과 메모 열기는 서로 다른 행동이다.
+
+[App schema domains](https://developer.apple.com/documentation/appintents/app-schema-domains) 문서는 도메인별 동작과 적용 매크로를 구분한다. 모든 스키마가 Siri 노출에 같은 범위를 제공하지도 않는다. 실제 기능과 맞는 도메인인지, 해당 스키마가 어떤 시스템 표면을 지원하는지 확인한다. 스키마를 붙이는 것은 DB 접근 권한이나 사용자 확인을 면제받는 절차가 아니다.
+
+### ‘이 메모’가 무엇인지 알려 주는 정보
+
+앱 화면에 메모 A가 열려 있을 때 사용자가 ‘이 메모를 공유해 줘’라고 하면 ‘이 메모’라는 말만으로는 ID가 없다. 화면과 Entity의 연결은 현재 보이는 대상을 시스템이 참조할 단서를 제공한다.
+
+하지만 사용자가 다른 메모로 이동했거나 공유 직전에 원본이 삭제될 수 있다. 화면 문맥으로 받은 Entity도 실행 시 저장소의 현재 상태와 대조해야 한다. 표시 이름은 사용자를 위한 정보, 안정적인 ID는 대상을 다시 찾기 위한 정보, 접근 검사는 그 대상으로 행동해도 되는지 판단하는 규칙이다. 세 역할을 합치지 않는다.
+
 ## Core Data와 연결하는 순서
 
 먼저 화면에서 호출하는 메모 조회 서비스를 만든다. Intent에서도 같은 서비스를 사용하고, Query는 메모 ID로 조회한다. 실제 `NSManagedObject` 접근은 해당 context의 큐 규칙을 따른다. Intent는 앱 화면과 별도 실행 환경에서 호출될 수 있으므로 전역 화면 객체가 이미 만들어져 있다고 가정하지 않는다.
 
 외부에 전달할 값은 ID, 제목, 필요한 텍스트처럼 범위가 분명한 형태로 변환한다. 잠금 상태에서 민감한 내용을 읽을 수 있는지도 인증 정책과 함께 검토한다.
+
+## 요약 Intent와 Foundation Models를 함께 연결한다면
+
+```text
+Intent: 어떤 메모를 요약할지 입력 받음
+  → 저장 서비스: 현재 사용자 권한으로 ID 조회
+  → 요약 서비스: 모델 가용성 확인, 입력 범위 제한, 생성
+  → 결과 검증: 원문·요청 ID와 결과의 대응 확인
+  → Intent: 요약 결과 반환
+```
+
+이때 Intent는 시스템 진입점이고 Foundation Models는 내용 생성 도구다. 둘 사이에는 저장소 조회와 앱의 정책이 들어간다. 모델이 사용할 수 없으면 요약만 실패한 것으로 안내하고, 메모 조회나 열기까지 무조건 막을 필요는 없다.
+
+메일 발송이나 메모 삭제를 붙일 때는 생성된 문장과 실제 변경 명령을 분리한다. 대상 ID, 변경 내용, 사용자 확인을 정한 뒤 앱 서비스가 수행하도록 한다. 네트워크 지연이나 재시도로 같은 요청이 다시 들어올 가능성까지 포함해 중복 변경 정책도 정해야 한다.
+
+## 발견·대상 해석·실행을 따로 진단하기
+
+| 증상 | 먼저 확인할 경계 |
+| --- | --- |
+| 단축어에 행동이 보이지 않음 | 앱 타깃 포함 여부와 시스템의 행동 발견 |
+| 행동은 보이지만 메모 선택이 안 됨 | Query 반환값과 저장소 접근 |
+| 같은 제목의 다른 메모가 실행됨 | 후보 선택과 안정적인 ID 유지 |
+| 삭제한 메모가 계속 후보에 보임 | 인덱스 갱신과 실행 시 재조회 |
+| 화면 버튼은 되는데 Intent는 실패 | UI 객체에 대한 의존, 인증·저장소 초기화 차이 |
+| 기본 단축어는 되는데 최신 Siri 연동은 안 됨 | 해당 기능의 OS·SDK·언어·제공 조건 |
+
+한 번에 ‘Siri가 안 된다’고 묶으면 원인을 좁힐 수 없다. Query를 코드로 직접 시험하고, 단축어 실행을 확인하고, 그다음 Siri 호출과 최신 기능을 확인하는 순서가 각 경계를 분리하는 데 도움이 된다.
 
 ## 구현 후 어떻게 확인할까
 

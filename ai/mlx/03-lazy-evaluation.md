@@ -5,12 +5,12 @@ parent: MLX
 grand_parent: iOS
 nav_order: 3
 permalink: /ai/mlx/lazy-evaluation/
-last_modified_at: 2026-11-17
+last_modified_at: 2026-11-19
 seo:
   type: BlogPosting
 date: 2026-11-16
 first_written: 2026-11-16
-last_modified_date: 2026-11-17
+last_modified_date: 2026-11-19
 tags: [MLX, Python, Lazy-Evaluation, Benchmark]
 ---
 
@@ -164,6 +164,8 @@ total_ms = (finished - start) * 1000
 ## 제품 코드에서의 평가 경계
 
 학습 루프에서는 손실과 갱신된 파라미터 등 필요한 상태를 적절한 주기로 평가한다. 너무 자주 기다리면 작업 준비 비용이 늘고, 지나치게 미루면 그래프와 임시 상태가 커질 수 있다.
+
+작은 실제 구현은 [MLX 자동 미분과 학습 루프]({{ '/ai/mlx/training-loop/' | relative_url }})에서 확인할 수 있다. 그 예제는 매 단계 갱신한 파라미터를 평가하고, 기록할 때만 Python 스칼라로 손실을 꺼낸다. ‘갱신 전 손실’과 ‘갱신 후 손실’도 구분해 기록한다.
 
 추론에서는 첫 토큰 지연과 이후 토큰 생성 속도, 배치 처리량이 서로 다른 지표다. 행렬곱 한 번의 시간을 전체 언어 모델의 성능으로 대체하지 않는다.
 

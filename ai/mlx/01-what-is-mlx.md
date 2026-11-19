@@ -5,14 +5,14 @@ parent: MLX
 grand_parent: iOS
 nav_order: 1
 permalink: /ai/mlx/what-is-mlx/
-last_modified_at: 2026-11-17
+last_modified_at: 2026-11-19
 seo:
   type: BlogPosting
 date: 2026-11-15
 redirect_from:
   - /mlx/what-is-mlx/
 first_written: 2026-11-15
-last_modified_date: 2026-11-17
+last_modified_date: 2026-11-19
 tags: [MLX, Python, Apple-Silicon]
 ---
 
@@ -137,6 +137,8 @@ print(gradient.tolist())
 ```
 
 손실이 각 원소 제곱의 합이면 원소별 도함수는 `2w`다. 출력은 `[2.0, -4.0, 6.0]`이며, 재현 스크립트에서도 이 값을 검증한다. 실제 학습에서는 손실 정의, 파라미터 선택, 업데이트와 평가 경계가 추가된다.
+
+이 기울기로 무엇을 바꾸는지까지 이어 보려면 [MLX 자동 미분과 학습 루프]({{ '/ai/mlx/training-loop/' | relative_url }})를 읽자. `y = 2x + 1`의 계수를 0에서 출발해 찾으며 첫 손실 9와 첫 기울기 `[-8, -2]`를 직접 계산한다. 모델의 예측 함수, 학습 데이터와 수정할 파라미터를 분리해 설명한다.
 
 ## CPU와 GPU 결과 비교
 

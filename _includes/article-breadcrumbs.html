@@ -1,0 +1,22 @@
+{%- if page.seo.type == 'BlogPosting' and page.parent -%}
+{%- assign crumb_position = 1 -%}
+{%- assign crumb_parent = site.pages | where: 'title', page.parent | first -%}
+{%- assign crumb_grandparent = site.pages | where: 'title', page.grand_parent | first -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {%- if page.grand_parent and crumb_grandparent -%}
+    {"@type": "ListItem", "position": {{ crumb_position }}, "name": {{ crumb_grandparent.title | jsonify }}, "item": {{ crumb_grandparent.url | absolute_url | jsonify }}},
+    {%- assign crumb_position = crumb_position | plus: 1 -%}
+    {%- endif -%}
+    {%- if crumb_parent -%}
+    {"@type": "ListItem", "position": {{ crumb_position }}, "name": {{ crumb_parent.title | jsonify }}, "item": {{ crumb_parent.url | absolute_url | jsonify }}},
+    {%- assign crumb_position = crumb_position | plus: 1 -%}
+    {%- endif -%}
+    {"@type": "ListItem", "position": {{ crumb_position }}, "name": {{ page.title | jsonify }}, "item": {{ page.url | absolute_url | jsonify }}}
+  ]
+}
+</script>
+{%- endif -%}
