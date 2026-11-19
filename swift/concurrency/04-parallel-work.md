@@ -4,13 +4,13 @@ parent: Concurrency
 grand_parent: Swift
 nav_order: 4
 permalink: /swift/concurrency/parallel-work/
-last_modified_at: 2026-11-17
+last_modified_at: 2026-11-20
 seo:
   type: BlogPosting
 date: 2026-11-16
 description: "async let과 TaskGroup의 자식 작업 수명, 오류 전파, 결과 순서와 동시 실행 제한을 분석합니다."
 first_written: 2026-11-16
-last_modified_date: 2026-11-17
+last_modified_date: 2026-11-20
 tags: [Swift, Concurrency, Async-Let, TaskGroup]
 ---
 
@@ -145,7 +145,8 @@ func processLimited(
     _ values: [Int],
     limit: Int
 ) async -> [Output] {
-    await withTaskGroup(of: Output.self, returning: [Output].self) { group in
+    precondition(limit > 0, "limit must be positive")
+    return await withTaskGroup(of: Output.self, returning: [Output].self) { group in
         var iterator = values.makeIterator()
         var results: [Output] = []
 
@@ -167,7 +168,21 @@ func processLimited(
 }
 ```
 
-항상 `limit`개 이하만 실행된다. 실제 코드에서는 `limit > 0`인지 검증하고 결과 순서가 필요한지도 결정해야 한다.
+이 구현은 한 결과를 소비할 때 하나만 추가하므로 대기 중인 자식 수를 `limit` 이하로 유지한다. `precondition`은 잘못된 프로그래머 입력을 즉시 중단한다. 사용자 입력으로 받은 limit이라면 API 경계에서 오류로 처리하는 편이 적합하다. 반환 배열은 완료 순서이며 입력 순서가 아니다.
+
+본문의 `Output`과 `process`는 앱에서 정의할 타입·작업이다. 외부 서버 없이 실행할 수 있도록 `Int`를 두 배로 만드는 [전체 예제]({{ "/assets/examples/swift/limited-tasks.swift" | relative_url }})를 제공한다. Swift 6.0.3의 Swift 6 모드에서 양수 제한과 빈 입력을 실행했다.
+
+```bash
+swiftc -swift-version 6 -parse-as-library limited-tasks.swift -o limited-tasks
+./limited-tasks
+```
+
+```text
+doubled (sorted): [2, 4, 6, 8, 10]
+empty input: []
+```
+
+출력은 비교를 위해 정렬했다. 이 실행은 결과와 빈 입력 처리를 확인하며 네트워크 성능이나 실제 CPU 병렬성을 측정한 결과는 아니다.
 
 ## async let과 TaskGroup 선택 기준
 

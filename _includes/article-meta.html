@@ -1,0 +1,7 @@
+{% assign written = page.first_written | default: page.date %}
+{% assign revised = page.last_modified_at | default: page.last_modified_date %}
+<div class="article-meta" aria-label="글 정보">
+  <a rel="author" href="{{ '/about/' | relative_url }}">{{ page.author.name | default: page.author | default: site.author.name | default: 'yep' | escape }}</a>
+  {% if written %}<span>작성 <time datetime="{{ written | date: '%Y-%m-%d' }}">{{ written | date: '%Y.%m.%d' }}</time></span>{% endif %}
+  {% if revised %}<span>수정 <time datetime="{{ revised | date: '%Y-%m-%d' }}">{{ revised | date: '%Y.%m.%d' }}</time></span>{% endif %}
+</div>

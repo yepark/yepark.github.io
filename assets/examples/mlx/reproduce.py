@@ -22,6 +22,19 @@ def validate_arrays():
     assert mx.sum(x, axis=0).tolist() == [5, 7, 9]
     assert mx.sum(x, axis=1).tolist() == [6, 15]
 
+    sequence = mx.arange(6).reshape(2, 3)
+    assert sequence.reshape(3, 2).tolist() == [[0, 1], [2, 3], [4, 5]]
+    transposed_add = sequence.T + mx.full((3, 2), 10)
+    assert transposed_add.tolist() == [[10, 13], [11, 14], [12, 15]]
+
+    prediction = mx.array([[1.0], [2.0]])
+    target = mx.array([1.0, 2.0])
+    wrong_errors = prediction - target
+    assert wrong_errors.shape == (2, 2)
+    wrong_loss = mx.mean(mx.square(wrong_errors)).item()
+    correct_loss = mx.mean(mx.square(prediction.squeeze(-1) - target)).item()
+    assert wrong_loss == 0.5 and correct_loss == 0.0
+
     def loss(w):
         return mx.sum(w * w)
 
@@ -34,6 +47,9 @@ def validate_arrays():
         "row_centered": normalized.tolist(),
         "matrix_product": product.tolist(),
         "gradient": gradient.tolist(),
+        "transposed_add": transposed_add.tolist(),
+        "broadcast_loss": {"wrong_shape": list(wrong_errors.shape),
+                           "wrong": wrong_loss, "correct": correct_loss},
     }
 
 

@@ -1,9 +1,11 @@
-{% assign chapters = site.html_pages | where: 'parent', page.title | where_exp: 'chapter', 'chapter.has_children != true' | sort: 'nav_order' %}
+{% assign chapters = site.html_pages | where: 'parent', page.title | sort: 'nav_order' %}
+{% if chapters.size > 0 %}
 <nav class="series-nav" aria-label="{{ include.heading | default: '시리즈 목차' | escape }}">
-  <h2>{{ include.heading | default: '시리즈 목차' }}</h2>
+  <h2>{{ include.heading | default: '시리즈 목차' | escape }}</h2>
   <ul class="series-list">
     {% for chapter in chapters %}
-    <li><a href="{{ chapter.url | relative_url }}"><span class="series-list__title">{{ chapter.title | escape }}</span></a></li>
+    <li><a href="{{ chapter.url | relative_url }}"><span class="series-list__title">{{ chapter.title | escape }}</span><span class="series-list__arrow" aria-hidden="true">→</span></a></li>
     {% endfor %}
   </ul>
 </nav>
+{% endif %}

@@ -6,10 +6,10 @@ grand_parent: iOS
 nav_order: 4
 permalink: /ai/mlx/source-walkthrough/
 date: 2026-11-17
-last_modified_at: 2026-11-17
+last_modified_at: 2026-11-20
 seo:
   type: BlogPosting
-last_modified_date: 2026-11-17
+last_modified_date: 2026-11-20
 ---
 
 # MLX 실행 엔진 소스 분석
@@ -19,7 +19,7 @@ last_modified_date: 2026-11-17
 
 MLX에서 배열을 더하는 코드는 짧다. 하지만 실제 계산은 Python 한 줄 안에서 모두 처리되지 않는다. Python과 C++을 잇는 계층, 배열의 모양을 검사하는 계층, 나중에 계산할 그래프를 만드는 계층, CPU나 GPU에서 실행하는 계층이 연결된다.
 
-이 글은 [ml-explore/mlx](https://github.com/ml-explore/mlx)의 커밋 [`fc344c986c4169d99f76b5d95ae6b4a58a359a63`](https://github.com/ml-explore/mlx/tree/fc344c986c4169d99f76b5d95ae6b4a58a359a63)을 2026년 11월 17일에 읽은 기준으로 설명한다. 아래 경로는 해당 커밋에 고정했다.
+이 글은 [ml-explore/mlx](https://github.com/ml-explore/mlx)의 커밋 [`fc344c986c4169d99f76b5d95ae6b4a58a359a63`](https://github.com/ml-explore/mlx/tree/fc344c986c4169d99f76b5d95ae6b4a58a359a63)을 기준으로 설명한다. 2026년 11월 20일 최종 교열에서도 같은 커밋의 미분 규칙을 확인했다. 아래 경로는 해당 커밋에 고정했다.
 
 설명용 의사 코드는 원문을 그대로 복사한 것이 아니라 동작을 이해하기 위해 단순화한 것이다.
 
@@ -244,11 +244,19 @@ print(z.tolist())
 
 실행 검증은 패키지 0.32.4로 수행했고, 이 글의 소스 링크는 명시한 개발 커밋에 고정했다. 두 버전이 동일한 빌드라는 주장은 하지 않는다. 정확한 실행 경로 연구에서는 사용한 바이너리와 소스 버전을 맞춰 빌드해야 한다.
 
-## 연구를 확장하는 방법
+## 이 실행 엔진이 자동 미분과 만나는 곳
 
-`add` 경로를 이해한 뒤 `matmul`을 따라가면 큰 행렬 계산이 다른 커널 선택과 최적화를 필요로 한다는 점을 볼 수 있다. 그다음 `grad`가 primitive의 미분 규칙을 어떻게 활용하는지 읽으면 학습 코드와 저수준 연산의 연결이 보인다.
+학습 코드의 `mx.grad`는 GPU가 모든 가능한 입력을 조금씩 바꿔 보는 명령이 아니다. 함수 변환이 연산별 미분 규칙으로 기울기를 만드는 계산을 구성하고, 그 계산도 같은 배열·primitive·평가 경로를 통해 실행한다.
 
-이 글은 소스 읽기와 실행 경로 분석을 수행했다. 개발 커밋을 직접 빌드하거나 특정 GPU 커널을 프로파일링하지는 않았다. 릴리스 패키지에서 실행한 연산과 벤치마크는 [MLX 지연 평가와 성능 측정]({{ '/ai/mlx/lazy-evaluation/' | relative_url }})에 환경과 측정 경계를 기록했다.
+고정 커밋의 [`Add::vjp`](https://github.com/ml-explore/mlx/blob/fc344c986c4169d99f76b5d95ae6b4a58a359a63/mlx/primitives.cpp#L317)는 출력 쪽에서 전달된 기울기를 미분 대상 입력으로 전달한다. 같은 shape의 실수 입력에서 `c = a + b`이면 a를 조금 늘린 양만큼 c도 늘어나고, b도 마찬가지이므로 두 입력의 국소 미분은 1이다. `vjp`는 출력 쪽 기울기와 이 국소 미분을 결합하는 역방향 계산 규칙이다.
+
+[`Multiply::vjp`](https://github.com/ml-explore/mlx/blob/fc344c986c4169d99f76b5d95ae6b4a58a359a63/mlx/primitives.cpp#L3261)는 다른 입력과 출력 쪽 기울기를 곱한다. `c = a × b`이면 a에 대한 국소 미분은 b이기 때문이다. 실제 소스는 복소수 처리를 위한 켤레도 포함한다. 여기서는 같은 shape의 실수 입력으로 의미를 좁혀 읽었으며 broadcasting의 역방향 합산까지 이 두 함수만으로 설명한 것은 아니다.
+
+예를 들어 `loss(w) = sum(w * w)`에서는 곱셈의 양쪽 입력이 같은 w다. 두 경로의 기여 w가 합쳐져 `2w`가 된다. 첫 글에서 실행한 `[1, -2, 3] → [2, -4, 6]`이 이 규칙과 연결된다. [학습 루프]({{ '/ai/mlx/training-loop/' | relative_url }})의 기울기 `[-8, -2]`도 예측·오차·제곱·평균의 미분 규칙을 결합한 결과다.
+
+따라서 학습 시간을 측정할 때 순방향 `predict`만 평가하면 전체 업데이트를 측정한 것이 아니다. 기울기 계산과 파라미터 갱신이 의존하는 그래프까지 실행해야 한다. 반대로 `grad` 호출 직후의 Python 시간만 보면 새 미분 그래프를 만든 시간과 계산 완료 시간을 혼동할 수 있다.
+
+이 글에서는 개발 커밋을 직접 빌드하거나 특정 GPU 커널을 프로파일링하지 않았다. 릴리스 패키지에서 실행한 연산과 벤치마크는 [MLX 지연 평가와 성능 측정]({{ '/ai/mlx/lazy-evaluation/' | relative_url }})에 환경과 측정 경계를 기록했다. 다음으로 `matmul`을 따라가면 이항 연산과 다른 커널 선택을, `transforms.cpp`의 역방향 순회를 따라가면 미분 규칙을 합치는 과정을 연구할 수 있다.
 
 ## 참고 소스
 

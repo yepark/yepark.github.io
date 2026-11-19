@@ -1,15 +1,15 @@
 ---
 title: "그래프 엔지니어링"
-description: "LangGraph의 상태, 노드, 엣지, 조건 분기, 반복, 체크포인트와 사람 승인을 첫 Python 예제로 설명합니다."
+description: "문의 처리 사례로 상태 계약·조건 분기·반복 상한·체크포인트·승인과 재실행 경계를 설계합니다."
 parent: AI
 nav_order: 4
 permalink: /ai/using-ai/graph-engineering/
-last_modified_at: 2026-11-17
+last_modified_at: 2026-11-20
 seo:
   type: BlogPosting
 date: 2026-11-16
 first_written: 2026-11-16
-last_modified_date: 2026-11-17
+last_modified_date: 2026-11-20
 tags: [AI, Agent, Graph-Engineering, LangGraph, LangChain]
 ---
 
@@ -27,11 +27,9 @@ tags: [AI, Agent, Graph-Engineering, LangGraph, LangChain]
 {: .note }
 “그래프 엔지니어링”도 하나로 표준화된 직무명이라기보다, 이 글에서는 AI 워크플로와 에이전트 제어 흐름을 그래프로 설계하는 일을 뜻한다.
 
-## 처음 실습에는 모델이 필요 없다
+## 이 글에서 설계할 범위
 
-첫 그래프 예제는 Python 함수 두 개를 연결할 뿐 모델을 호출하지 않는다. 따라서 API 키 없이도 상태가 다음 함수로 전달되는 원리를 배울 수 있다.
-
-이후 조건 분기 예제는 첫 그래프의 연결을 수정하는 방식으로 읽어야 한다. 기존 종료 엣지를 그대로 남기고 분기까지 추가하면 여러 경로가 함께 활성화될 수 있다. 아래에서는 종료 연결을 교체하는 위치를 명시한다.
+문의 하나를 접수해 검색·답변·검토로 보내는 경로를 설계한다. 본문의 Python 타입과 라우터는 상태 모양을 보여 주는 부분 코드이며, 실행 가능한 앱 전체가 아니다. 설치부터 실행할 전체 파일은 [LangGraph]({{ '/ai/using-ai/langgraph/' | relative_url }})에 있다. 해당 실습에는 모델이나 API 키가 필요 없다.
 
 ## 그래프를 일상적인 업무로 이해하기
 
@@ -113,125 +111,66 @@ LangGraph는 상태를 가진 장기 실행 에이전트와 워크플로를 그�
 
 초보자 기준으로 둘을 구분하면 다음과 같다.
 
-| 도구 | 쉽게 말하면 | 잘 맞는 상황 |
+| 도구 | 제공하는 제어 | 잘 맞는 상황 |
 | --- | --- | --- |
-| LangChain | 모델과 도구를 빠르게 연결하는 부품 상자 | 기본 에이전트, RAG, 간단한 도구 호출 |
-| LangGraph | 상태와 실행 경로를 직접 그리는 작업 흐름 엔진 | 복잡한 분기, 반복, 승인, 중단 후 재개 |
+| LangChain | 모델·도구·기본 에이전트 연결 | 기본 에이전트, RAG, 간단한 도구 호출 |
+| LangGraph | 노드·분기·실행 상태 정의 | 복잡한 분기, 반복, 승인, 중단 후 재개 |
 
 둘 중 하나만 선택하는 관계가 아니다. LangGraph 노드 안에서 LangChain의 모델, 도구, 검색기를 사용할 수 있다.
 
-## 설치하기
+## 하나의 요청을 끝까지 따라가기
 
-Python 가상 환경을 만든 뒤 패키지를 설치한다.
+“무료 플랜에서 내보내기를 할 수 있나요?”라는 문의를 처리한다고 하자. 문의를 분류한 뒤 일반 사용법이면 문서를 검색하고, 결제 관련이면 담당자에게 넘긴다. 입력이 비어 있으면 검색하지 않는다.
 
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -U langgraph langchain langchain-openai
+```text
+입력 검사 ─ 빈 입력 → 추가 정보 요청 → 종료
+    │ 정상
+    ↓
+분류 ─ 결제 → 담당자 검토 대기
+    │ 사용법
+    ↓
+문서 검색 ─ 근거 없음 → 답변 불가 안내 → 종료
+    │ 근거 있음
+    ↓
+답변 작성 → 근거 검사 ─ 통과 → 완료
+               │ 실패
+               ↓
+             수정 → 근거 검사
 ```
 
-API 키는 코드에 직접 쓰지 말고 환경 변수나 비밀 관리 도구를 사용한다.
+그림만으로는 구현할 수 없다. ‘정상’, ‘근거 있음’, ‘통과’가 각각 어떤 상태를 뜻하는지 정해야 한다.
 
-```bash
-export OPENAI_API_KEY="발급받은-키"
+| 단계 | 읽는 값 | 새로 만드는 값 | 다음 단계의 전제 |
+| --- | --- | --- | --- |
+| 입력 검사 | 원문 | 정리한 질문, 입력 오류 | 질문이 비어 있지 않음 |
+| 분류 | 질문 | `howto` 또는 `billing` | 허용된 분류값임 |
+| 문서 검색 | 질문, 사용자 권한 | 문서 ID·버전·본문 | 해당 사용자가 읽을 수 있는 자료임 |
+| 답변 작성 | 질문, 검색 근거 | 초안, 인용 ID | 없는 근거를 참조하지 않음 |
+| 근거 검사 | 초안, 근거 | 통과 여부, 결함 | 필수 검사를 모두 통과함 |
+| 수정 | 초안, 결함 | 새 초안, 수정 횟수 | 수정 상한을 넘지 않음 |
+
+분류 모델이 임의 문자열을 반환할 때의 처리도 필요하다. 알 수 없는 분류를 결제 경로로 임의 변환하지 말고 명시적인 오류나 추가 확인 경로로 보낸다. 검사 함수가 실패하는 경우와 ‘검사 결과 불합격’도 다르다. 검사 서버의 시간 초과를 답변의 품질 불합격으로 기록하면 원인 분석이 틀어진다.
+
+## 상태는 단계마다 달라진다
+
+앞의 `SupportState`는 개념을 보여 주는 타입 스케치다. `TypedDict`의 모든 필드를 처음부터 채운다는 뜻으로 읽으면 곤란하다. 초기에는 질문만 있고, 검색 뒤에 근거가 생긴다. Python 타입 힌트는 런타임 입력 검증도 대신하지 않는다.
+
+```text
+접수됨       질문
+검색 완료    질문 + 분류 + 근거
+검토 완료    질문 + 분류 + 근거 + 초안 + 평가
+완료         필수 검사 통과 + 최종 답변
 ```
 
-실제 키를 Git 저장소의 `.env`나 소스 파일에 커밋하지 않는다.
+승인 여부를 단순한 `bool`로 두면 ‘아직 묻지 않음’과 ‘거절됨’을 구분하지 못한다. `not_requested`, `pending`, `approved`, `rejected`처럼 업무가 실제로 구분하는 상태를 사용한다. 승인에는 승인자, 대상 행동의 ID, 그 행동의 입력 버전도 연결한다. 금액이나 수신자가 바뀌면 예전 승인을 그대로 재사용해서는 안 된다.
 
-## 모델 없이 배우는 첫 LangGraph
+## 분기와 병렬 의존성은 다른 연결이다
 
-먼저 LLM 호출 없이 그래프 구조만 이해해 보자. 입력한 주제로 목차를 만들고 초안을 만드는 두 단계다.
+조건 분기는 여러 경로 중 실행할 경로를 선택한다. 반면 두 검색 결과를 모두 기다리는 합류는 두 작업의 완료가 필요하다. 두 종류의 화살표를 같은 규칙으로 구현하면 선택되지 않은 경로를 영원히 기다리거나, 필요한 근거 하나가 없는 상태에서 답변을 시작할 수 있다.
 
-```python
-from typing_extensions import TypedDict
-from langgraph.graph import StateGraph, START, END
+기본 갱신 규칙이 필드를 대체하는 프레임워크에서는 병렬 노드가 같은 필드를 쓰는 경우도 설계해야 한다. 예를 들어 두 검색이 모두 `documents`를 반환한다면 결과를 어떤 규칙으로 합칠지 정해야 한다. 단순히 ‘공유 상태’라고 이름 붙인다고 안전하게 누적되지는 않는다. LangGraph에서는 이런 필드별 결합 규칙을 reducer로 표현한다. [Graph API 공식 문서](https://docs.langchain.com/oss/python/langgraph/graph-api)가 상태 갱신과 reducer를 설명한다.
 
-
-class BlogState(TypedDict):
-    topic: str
-    outline: list[str]
-    draft: str
-
-
-def make_outline(state: BlogState):
-    topic = state["topic"]
-    return {
-        "outline": [
-            f"{topic}이란?",
-            f"{topic}은 언제 사용할까?",
-            f"{topic} 예제",
-        ]
-    }
-
-
-def write_draft(state: BlogState):
-    lines = [f"# {state['topic']}"]
-
-    for heading in state["outline"]:
-        lines.append(f"\n## {heading}\n설명을 작성합니다.")
-
-    return {"draft": "\n".join(lines)}
-
-
-builder = StateGraph(BlogState)
-builder.add_node("make_outline", make_outline)
-builder.add_node("write_draft", write_draft)
-
-builder.add_edge(START, "make_outline")
-builder.add_edge("make_outline", "write_draft")
-builder.add_edge("write_draft", END)
-
-app = builder.compile()
-
-result = app.invoke({"topic": "LangGraph"})
-print(result["draft"])
-```
-
-### 코드를 순서대로 해석하면
-
-1. `BlogState`는 그래프가 들고 다닐 작업 노트의 모양이다.
-2. `make_outline` 노드는 `topic`을 읽고 `outline`을 추가한다.
-3. `write_draft` 노드는 앞 노드가 만든 `outline`을 읽고 `draft`를 만든다.
-4. `add_node`로 함수에 노드 이름을 붙인다.
-5. `add_edge`로 실행 순서를 연결한다.
-6. `compile()`이 실행 가능한 그래프를 만든다.
-7. `invoke()`에 최초 상태를 넣으면 START부터 END까지 실행된다.
-
-이 예제의 핵심은 각 함수가 전역 변수를 몰래 바꾸는 대신 **상태를 입력받고 상태 변경을 반환한다**는 점이다.
-
-## 조건에 따라 길을 나누기
-
-초안이 너무 짧으면 보강하고, 충분하면 끝내 보자.
-
-아래 변경은 첫 예제의 `builder.add_edge("write_draft", END)` 줄을 제거하고 **`app = builder.compile()` 앞**에 넣는다. 그래프를 수정한 뒤 다시 컴파일하고 `invoke()`를 실행한다. 기존 종료 엣지와 조건부 엣지를 동시에 남기지 않는다.
-
-```python
-def choose_next(state: BlogState):
-    if len(state["draft"]) < 500:
-        return "expand_draft"
-    return "finish"
-
-
-def expand_draft(state: BlogState):
-    return {
-        "draft": state["draft"] + "\n\n더 자세한 예시를 추가합니다."
-    }
-
-
-builder.add_node("expand_draft", expand_draft)
-
-builder.add_conditional_edges(
-    "write_draft",
-    choose_next,
-    {
-        "expand_draft": "expand_draft",
-        "finish": END,
-    },
-)
-builder.add_edge("expand_draft", END)
-```
-
-`choose_next`는 작업을 수행하는 노드가 아니라 다음 경로를 고르는 라우터다. 실제 서비스에서는 길이 하나만 보지 말고 내용 평가, 안전 검사, 사용자 권한 같은 조건을 함께 사용할 수 있다.
+모델과 API 키 없이 설치·분기·상태 갱신을 실행하는 전체 코드는 [LangGraph]({{ '/ai/using-ai/langgraph/' | relative_url }})에 있다. 두 작업의 필수 의존성을 실행하는 예제는 [DAG]({{ '/ai/dag/' | relative_url }})에서 확인할 수 있다.
 
 ## 반복을 만들 때 반드시 상한을 둔다
 
@@ -329,26 +268,6 @@ LangGraph에서는 그래프를 컴파일할 때 체크포인터를 연결하고
 - 중간 결과를 관찰하고 싶은가?
 - 실패했을 때 이 단계부터 다시 시작할 가치가 있는가?
 
-## LangChain만 쓸지 LangGraph까지 쓸지
-
-### LangChain의 기본 에이전트로 시작해도 좋은 경우
-
-- 도구 수가 적다.
-- 모델이 다음 도구를 자유롭게 골라도 된다.
-- 승인과 복구 경로가 단순하다.
-- 짧은 요청 안에 끝난다.
-
-### LangGraph를 직접 고려할 경우
-
-- 반드시 지켜야 하는 업무 순서가 있다.
-- 조건 분기와 재시도가 많다.
-- 사람 승인에서 오래 멈췄다가 재개해야 한다.
-- 단계별 상태와 실행 기록이 중요하다.
-- 일부 단계만 다시 실행해야 한다.
-- 여러 에이전트나 워크플로를 명시적으로 조정한다.
-
-프레임워크를 먼저 고르고 문제를 끼워 맞추지 않는다. 먼저 사람이 하는 업무 흐름을 그린 뒤 필요한 도구를 선택한다.
-
 ## 실습: 종이에 먼저 경로를 그리기
 
 문의 처리 업무를 세 종류로 나눈다. 사용법 질문은 문서 검색으로, 결제 문제는 담당자 검토로, 빈 입력은 추가 질문으로 보낸다.
@@ -372,28 +291,15 @@ LangGraph에서는 그래프를 컴파일할 때 체크포인터를 연결하고
 
 부분 코드 연결이 헷갈린다면 [LangGraph]({{ '/ai/using-ai/langgraph/' | relative_url }})의 모델 없는 전체 예제를 먼저 실행하자. 상태·분기·compile·invoke를 각각 구분해 설명한다.
 
-## 그래프 설계 체크리스트
+## 복구 경계까지 그려야 실행 설계가 된다
 
-- 시작 상태와 완료 상태가 명확한가?
-- 각 노드는 한 가지 책임을 갖는가?
-- 상태에는 원본 데이터가 저장되는가?
-- 모든 조건 분기에 갈 곳이 있는가?
-- 반복 경로에 횟수·시간·비용 상한이 있는가?
-- 일시 오류와 사람 판단 필요를 다른 경로로 처리하는가?
-- 중요한 외부 행동 전에 승인 노드가 있는가?
-- 중단 후 재개할 체크포인트가 있는가?
-- 외부 쓰기 작업은 재실행해도 중복되지 않는가?
-- 노드별 입력, 출력, 지연, 오류를 추적할 수 있는가?
+체크포인트는 외부 서비스의 변경을 되돌리는 기능이 아니다. 메일을 보낸 뒤 상태 저장 전에 중단됐다면 노드를 재실행할 때 중복 발송할 수 있다. 외부 변경에는 업무 ID와 중복 방지 정책을 연결하고, 어느 상태에서 다시 시작해도 되는지 정한다.
 
-## 정리
+또한 LangGraph의 `interrupt()`로 중단한 노드는 재개할 때 시작 부분부터 다시 실행될 수 있다. 중단 앞에 발송 같은 부수 효과를 두면 반복될 수 있다. [Interrupts 공식 문서](https://docs.langchain.com/oss/python/langgraph/interrupts)는 재개 동작과 멱등성 주의사항을 설명한다. 상태를 저장했다는 사실만으로 노드 안의 임의 줄부터 이어지는 것은 아니다.
 
-그래프는 에이전트를 복잡하게 보이게 만드는 그림이 아니라, 복잡한 일을 상태와 경로로 드러내는 도구다. LangChain이 모델과 도구를 빠르게 연결한다면, LangGraph는 그 부품들이 언제 실행되고 어디서 멈추며 어떻게 재개되는지를 세밀하게 제어한다.
-
-하지만 그래프만으로 도구 권한, 파일 환경, 테스트, 기록, 배포 안전성까지 해결되지는 않는다. 다음 편에서는 이 모든 실행 조건을 묶는 하네스 엔지니어링을 다룬다.
-
-→ [하네스 엔지니어링]({{ '/ai/using-ai/harness-engineering/' | relative_url }})
+이 글의 설계로는 요청의 분기, 필수 데이터, 종료 조건과 복구 경계를 정할 수 있다. 검색의 관련성이나 생성한 문장의 정확성은 별도의 평가 대상이다. 경로가 올바르다는 검사와 답이 올바르다는 검사를 함께 갖춰야 한다.
 
 ## 참고
 
 - [LangChain 공식 문서: Learn](https://docs.langchain.com/oss/python/learn)
-- [LangGraph 공식 문서: Thinking in LangGraph](https://docs.langchain.com/oss/javascript/langgraph/thinking-in-langgraph)
+- [LangGraph 공식 문서: Thinking in LangGraph](https://docs.langchain.com/oss/python/langgraph/thinking-in-langgraph)

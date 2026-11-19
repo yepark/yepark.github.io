@@ -4,12 +4,12 @@ description: "Swift Core Data의 핵심 클래스와 CRUD, 관계, 백그라운�
 parent: "iOS"
 nav_order: 5
 permalink: /ios/core-data-swift/
-last_modified_at: 2026-11-17
+last_modified_at: 2026-11-20
 seo:
   type: BlogPosting
 date: 2026-11-16
 first_written: 2026-11-16
-last_modified_date: 2026-11-17
+last_modified_date: 2026-11-20
 tags: [iOS, Swift, Core-Data]
 ---
 
@@ -83,13 +83,17 @@ Xcode에서 `.xcdatamodeld` 파일을 열고 Entity를 추가한다. 예제로 `
 
 Entity의 Codegen을 `Class Definition`으로 두면 Xcode가 `NSManagedObject` 하위 클래스를 자동 생성한다. 직접 파일을 생성할 때는 Codegen을 `Manual/None`으로 맞춰 중복 클래스가 생기지 않게 한다.
 
-자동 생성 클래스를 Swift에서 다음처럼 사용한다고 가정한다.
+다음은 `Manual/None`을 선택했을 때 직접 선언할 최소 클래스다. `Class Definition`이면 같은 이름의 클래스를 추가하지 않는다. 파일 맨 위에는 `import CoreData`가 필요하다.
 
 ```swift
 @objc(TaskItem)
 public class TaskItem: NSManagedObject {}
 
 extension TaskItem {
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<TaskItem> {
+        NSFetchRequest<TaskItem>(entityName: "TaskItem")
+    }
+
     @NSManaged public var id: UUID
     @NSManaged public var title: String
     @NSManaged public var isDone: Bool
@@ -106,6 +110,7 @@ extension TaskItem {
 ```swift
 import CoreData
 
+@MainActor
 final class CoreDataStack {
     static let shared = CoreDataStack()
 
@@ -127,10 +132,14 @@ final class CoreDataStack {
         }
 
         container.viewContext.automaticallyMergesChangesFromParent = true
-        container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        container.viewContext.mergePolicy = NSMergePolicy(
+            merge: .mergeByPropertyObjectTrumpMergePolicyType
+        )
     }
 }
 ```
+
+Swift 6 모드에서는 위처럼 `NSMergePolicy` 인스턴스를 구성한다. 구형 SDK의 전역 `NSMergeByPropertyObjectTrumpMergePolicy` 변수는 공유 가변 전역으로 진단될 수 있다. 스택의 UI 접근은 `@MainActor`로 한정하고, 백그라운드 컨텍스트는 해당 `perform` 블록 안에서만 사용한다.
 
 ### `loadPersistentStores`는 무엇을 할까
 
@@ -287,7 +296,17 @@ let viewContext = container.viewContext
 let taskOnMain = try viewContext.existingObject(with: objectID) as! TaskItem
 ```
 
-새 객체는 저장 전까지 임시 object ID를 가질 수 있다. 컨텍스트 사이에 전달하기 전에 저장하거나 `obtainPermanentIDs(for:)`로 영구 ID를 얻는다.
+새 객체는 임시 object ID를 가질 수 있다. `obtainPermanentIDs(for:)`는 영구 ID를 배정하지만 객체를 저장하지는 않는다. 독립된 컨텍스트가 저장소에서 읽으려면 먼저 원래 컨텍스트를 저장해야 한다. 부모·자식 구성이라면 최종 저장소까지 save가 전달됐는지도 확인한다. 위 `existingObject` 호출은 대상 `viewContext`의 큐에서 실행한다.
+
+모델 파일 없이 이 차이를 확인하는 [core-data-identifiers.swift]({{ "/assets/examples/swift/core-data-identifiers.swift" | relative_url }})를 제공한다. `swift -swift-version 6 core-data-identifiers.swift`로 실행한다. Swift 6.0.3에서 메모리 저장소와 별개의 두 컨텍스트로 확인한 결과다.
+
+```text
+permanent ID before save: true
+reader count before save: 0
+reader count after save: 1
+```
+
+이 시험은 영구 ID의 배정과 저장 완료가 다름을 확인한다. SQLite 파일의 디스크 지속성이나 마이그레이션을 시험한 것은 아니다.
 
 ## 백그라운드에서 대량 작업하기
 
@@ -295,7 +314,9 @@ let taskOnMain = try viewContext.existingObject(with: objectID) as! TaskItem
 let container = CoreDataStack.shared.container
 
 try await container.performBackgroundTask { context in
-    context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+    context.mergePolicy = NSMergePolicy(
+        merge: .mergeByPropertyObjectTrumpMergePolicyType
+    )
 
     for index in 0..<1_000 {
         let task = TaskItem(context: context)
@@ -412,28 +433,21 @@ description?.setOption(
 
 ```swift
 final class CoreDataStackTests: XCTestCase {
-    var stack: CoreDataStack!
-
-    override func setUp() {
-        super.setUp()
-        stack = CoreDataStack(inMemory: true)
-    }
-
+    @MainActor
     func testCreateTask() throws {
+        let stack = CoreDataStack(inMemory: true)
         let context = stack.container.viewContext
-
         try createTask(title: "테스트", in: context)
 
         let request = TaskItem.fetchRequest()
         let result = try context.fetch(request)
-
         XCTAssertEqual(result.count, 1)
         XCTAssertEqual(result.first?.title, "테스트")
     }
 }
 ```
 
-각 테스트마다 새 컨테이너를 만들어 상태가 섞이지 않게 한다. 마이그레이션과 실제 SQLite 특성을 시험할 때는 별도의 임시 디렉터리 저장소가 필요하다.
+테스트 타깃에는 `import XCTest`, `import CoreData`와 앱 모듈에 대한 `@testable import`가 필요하다. 이 스택은 기본 description의 동기 로드를 사용하는 입문 예제다. `shouldAddStoreAsynchronously`를 켠 구성은 저장소 로드 완료를 기다리는 준비 과정도 필요하다. 각 테스트마다 새 컨테이너를 만들어 상태가 섞이지 않게 한다. 마이그레이션과 실제 SQLite 특성을 시험할 때는 별도의 임시 디렉터리 저장소가 필요하다.
 
 ## 자주 하는 실수
 

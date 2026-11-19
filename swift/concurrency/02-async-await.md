@@ -4,13 +4,13 @@ parent: Concurrency
 grand_parent: Swift
 nav_order: 2
 permalink: /swift/concurrency/async-await/
-last_modified_at: 2026-11-17
+last_modified_at: 2026-11-20
 seo:
   type: BlogPosting
 date: 2026-11-16
 description: "async throws, await, URLSession과 continuation을 호출 순서·오류 처리·취소 관점에서 설명합니다."
 first_written: 2026-11-16
-last_modified_date: 2026-11-17
+last_modified_date: 2026-11-20
 tags: [Swift, Concurrency, Async-Await, Continuation]
 ---
 
@@ -107,13 +107,15 @@ func printUser(from url: URL) async {
         print(user.name)
     } catch is CancellationError {
         print("작업 취소")
+    } catch let error as URLError where error.code == .cancelled {
+        print("요청 취소")
     } catch {
         print("불러오기 실패: \(error)")
     }
 }
 ```
 
-취소를 일반 오류와 구분하면 취소된 화면에서 불필요한 오류 알림을 띄우지 않을 수 있다.
+`URLSession`은 취소를 `URLError.cancelled`로 알릴 수 있다. `CancellationError`만 잡으면 취소가 일반 실패로 표시될 수 있으므로 사용 API의 오류 계약도 확인한다. 위 함수는 선언만으로 요청을 시작하지 않는다. 실제 JSON이 `{"id": 1, "name": "yep"}` 형태인 URL을 `await printUser(from: url)`에 넘겨야 한다. HTTP 성공과 JSON 모델 일치는 별도 검사다.
 
 ## async 함수는 어디서 호출할 수 있나
 

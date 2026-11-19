@@ -6,10 +6,10 @@ grand_parent: "PKI & 암호"
 nav_order: 6
 permalink: /pki/pkcs/pkcs6/
 date: 2026-11-17
-last_modified_at: 2026-11-17
+last_modified_at: 2026-11-20
 seo:
   type: BlogPosting
-last_modified_date: 2026-11-17
+last_modified_date: 2026-11-20
 tags: [PKI, PKCS6, X509]
 ---
 
@@ -85,6 +85,10 @@ PKCS #6 포맷을 새로 생성하지 않는다. 오래된 파일이나 소프�
 
 파싱한 확장 값을 화면에 출력하는 것과 그 제한을 실제 검증에 반영하는 것은 다른 작업이다. PKCS #6의 역사를 읽은 뒤에는 새로운 확장 컨테이너를 만들기보다 현재 플랫폼의 인증서 검증 API가 어떤 정책을 적용하는지 확인하는 쪽으로 학습을 이어간다.
 
-## 관련 RFC
+## 역사적 구조와 현재 프로파일의 근거
 
 - [RFC 5280: Internet X.509 Public Key Infrastructure Certificate and CRL Profile](https://www.rfc-editor.org/rfc/rfc5280.html)
+
+- [RFC 2630 §10.2.1](https://www.rfc-editor.org/rfc/rfc2630.html#section-10.2.1): 옛 CMS에서 PKCS #6 extended certificate를 obsolete로 다루는 문맥. RFC 2630도 현재 CMS 구현 문서가 아닌 역사적 근거다.
+
+RFC 5280은 PKCS #6 자체를 RFC로 옮긴 문서가 아니라 인터넷에서 X.509 인증서와 CRL을 사용하는 프로파일이다.

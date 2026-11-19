@@ -5,10 +5,10 @@ parent: AI
 nav_order: 8
 permalink: /ai/using-ai/langgraph/
 date: 2026-11-17
-last_modified_at: 2026-11-17
+last_modified_at: 2026-11-20
 seo:
   type: BlogPosting
-last_modified_date: 2026-11-17
+last_modified_date: 2026-11-20
 ---
 
 # LangGraph
@@ -32,15 +32,15 @@ LangGraph를 처음 배우면서 모델 호출까지 동시에 다루면 오류 
 
 ## 환경 준비하기
 
-Python 3.11 이상 환경을 기준으로 진행한다.
+Python 3.11 이상 환경을 기준으로 진행한다. 아래 예제는 Python 3.11.18과 LangGraph 1.2.23에서 실행했다.
 
 ```bash
 python3.11 -m venv .venv
 source .venv/bin/activate
-python -m pip install -U langgraph
+python -m pip install langgraph==1.2.23
 ```
 
-다음 전체 예제를 `first_graph.py`에 저장한다. 부분 코드를 여러 위치에 붙이는 대신 한 파일에서 실행해 흐름부터 확인하자.
+다음 전체 예제를 `first_graph.py`에 저장한다. 스트리밍과 체크포인트까지 포함한 [전체 파일]({{ "/assets/examples/ai/first_graph.py" | relative_url }})도 제공한다. 부분 코드를 여러 위치에 붙이는 대신 한 파일에서 실행해 흐름부터 확인하자.
 
 ## 전체 실행 코드
 
@@ -99,9 +99,7 @@ for text in ["  안녕하세요  ", "   "]:
 python first_graph.py
 ```
 
-예상 출력은 다음과 같다.
-
-아래 출력은 Python 3.11 환경에서 본문의 전체 코드, 단계별 스트리밍, 메모리 체크포인트 예제를 실제 실행해 확인했다. 유료 모델 API는 호출하지 않았다.
+기본 두 입력의 실행 결과는 다음과 같다. 전체 파일을 실행하면 이어서 스트리밍 변경값과 저장된 상태도 출력된다. 모델 API는 호출하지 않는다.
 
 ```text
 입력한 내용: 안녕하세요 / 글자 수: 5
@@ -179,6 +177,8 @@ print(snapshot.values)
 처음부터 모든 노드를 에이전트로 만들 필요는 없다. 노드는 한 단계의 책임을 뜻하며, AI 판단이 필요 없는 단계는 일반 함수로 남겨도 된다.
 
 ## 다음 실습
+
+`len(text)`는 Python 문자열의 코드 포인트 수다. 사람이 보는 글자 수와 항상 같지는 않다. 조합형 문자나 여러 코드 포인트로 구성된 이모지는 다르게 셀 수 있다. 이 예제는 바이트 수나 화면상의 문자 너비를 재는 프로그램이 아니다.
 
 입력에 공백, 한글, 여러 줄 문장을 각각 넣어 보자. 다음에는 글자 수가 일정 기준을 넘을 때 별도 노드로 보내는 분기를 추가한다. 새 경로를 만들 때는 기존 두 입력이 여전히 예상대로 처리되는지도 다시 확인한다.
 

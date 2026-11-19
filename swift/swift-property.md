@@ -3,13 +3,13 @@ title: "Swift 프로퍼티와 초기화"
 parent: "Swift"
 nav_order: 3
 permalink: /swift/swift-property/
-last_modified_at: 2026-11-17
+last_modified_at: 2026-11-20
 seo:
   type: BlogPosting
 date: 2021-04-11
 description: "Swift 저장·연산·지연 프로퍼티와 옵저버, 프로퍼티 래퍼의 초기화 및 동시 접근 조건을 분석합니다."
 first_written: 2021-04-11
-last_modified_date: 2026-11-17
+last_modified_date: 2026-11-20
 tags: [Swift, Property]
 ---
 
@@ -54,10 +54,16 @@ let user = User(id: 1, name: "yep")
 `lazy` 프로퍼티는 처음 접근할 때 초기값을 만든다. 초기화 비용이 크거나, 인스턴스 초기화가 끝난 뒤에야 필요한 값이 있을 때 유용하다.
 
 ```swift
+final class DataImporter {
+    init() { print("importer 초기화") }
+}
+
 final class DataManager {
     lazy var importer = DataImporter()
 }
 ```
+
+`let manager = DataManager()`만 실행하면 위 출력은 없다. `manager.importer`에 처음 접근할 때 `importer 초기화`가 한 번 출력된다. 다음 접근에서는 이미 저장된 인스턴스를 사용한다.
 
 지연 저장 프로퍼티는 초기화 시점이 늦기 때문에 반드시 `var`로 선언한다. 여러 스레드가 초기화되지 않은 `lazy` 프로퍼티에 동시에 접근하면 한 번만 초기화된다는 보장이 없다. 동시 접근 가능성이 있다면 별도의 동기화가 필요하다.
 
@@ -134,11 +140,21 @@ struct AudioSettings {
 }
 ```
 
+래퍼를 선언한 것만으로 출력은 없다. 다음을 이어서 실행하면 setter가 범위를 벗어난 값을 100으로 제한하는 것을 확인할 수 있다.
+
+```swift
+var settings = AudioSettings()
+settings.volume = 150
+print(settings.volume) // 100
+```
+
 ## 타입 프로퍼티
 
 타입 프로퍼티는 특정 인스턴스가 아니라 타입 자체에 속한다. `static`으로 선언하며, 클래스에서 재정의를 허용하는 연산 타입 프로퍼티는 `class`를 사용할 수 있다.
 
 ```swift
+import Foundation
+
 enum API {
     static let baseURL = URL(string: "https://example.com")!
 }

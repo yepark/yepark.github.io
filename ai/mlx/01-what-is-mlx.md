@@ -5,14 +5,14 @@ parent: MLX
 grand_parent: iOS
 nav_order: 1
 permalink: /ai/mlx/what-is-mlx/
-last_modified_at: 2026-11-19
+last_modified_at: 2026-11-20
 seo:
   type: BlogPosting
 date: 2026-11-15
 redirect_from:
   - /mlx/what-is-mlx/
 first_written: 2026-11-15
-last_modified_date: 2026-11-19
+last_modified_date: 2026-11-20
 tags: [MLX, Python, Apple-Silicon]
 ---
 
@@ -21,9 +21,9 @@ tags: [MLX, Python, Apple-Silicon]
 
 {% include article-toc.md %}
 
-MLX는 다차원 배열 연산과 함수 변환을 제공하는 머신러닝 프레임워크다. NumPy와 유사한 Python 배열 API를 출발점으로, 자동 미분과 모델 구성·최적화 기능을 연결한다. Apple 실리콘에서는 CPU와 Metal GPU를 함께 활용할 수 있다.
+숫자 다섯 개에서 규칙을 배우는 모델을 만든다고 하자. 예측값을 계산하는 것만으로는 학습이 되지 않는다. 정답과의 오차를 구하고, 바꿀 파라미터의 기울기를 계산하고, 새 값으로 갱신하는 연산이 필요하다. MLX는 이 계산에 쓰이는 다차원 배열 연산과 함수 변환을 제공하는 머신러닝 프레임워크다. NumPy와 유사한 Python 배열 API를 출발점으로, 자동 미분과 모델 구성·최적화 기능을 연결한다. Apple 실리콘에서는 CPU와 Metal GPU를 함께 활용할 수 있다.
 
-이 글의 목표는 첫 연산 실행에서 멈추지 않고, 이후 성능과 메모리 문제를 분석할 수 있는 실행 모델을 잡는 것이다. 설명은 Mac의 Python 환경을 기준으로 한다. 사이트의 iOS 카테고리에는 Apple 플랫폼 AI 개발을 함께 모았으며, 이 Python 설치 절차를 iPhone 앱 배포 절차로 해석하면 안 된다.
+아래에서는 같은 배열에 원소별 곱셈과 행렬곱을 적용하고, 그 차이를 손으로 계산한다. 이어서 자동 미분과 CPU·GPU 실행으로 확장한다. 설명과 명령은 Apple 실리콘 Mac의 Python 환경을 기준으로 한다. iPhone 앱에 Python 패키지를 배포하는 절차는 아니다.
 
 ## MLX가 담당하는 계층
 
@@ -79,7 +79,7 @@ source .venv/bin/activate
 uv pip install "mlx==0.32.4"
 ```
 
-`mkdir`는 폴더를 만들고, `cd`는 그 폴더로 이동한다. 가상 환경을 활성화한 뒤 설치해야 다른 프로젝트의 패키지와 구분된다. `uv` 자체는 [공식 설치 안내](https://docs.astral.sh/uv/getting-started/installation/)를 따른다.
+활성화한 가상 환경에 버전을 고정해 설치하면 다른 프로젝트와 패키지를 구분하고 같은 API로 예제를 다시 실행할 수 있다. `uv` 자체는 [공식 설치 안내](https://docs.astral.sh/uv/getting-started/installation/)를 따른다.
 
 ## 환경을 코드로 기록하기
 
@@ -125,7 +125,7 @@ print(matrix_product.tolist())
 
 ## 자동 미분으로 연결하기
 
-자동 미분은 계산 그래프에 정의된 연산의 미분 규칙을 조합해 도함수를 구하는 기능이다. 단순히 입력을 조금 바꿔 차분을 계산하는 수치 미분과는 다르다.
+자동 미분은 계산 그래프에 정의된 연산의 미분 규칙을 조합해 도함수를 구하는 기능이다. [공식 함수 변환 문서](https://ml-explore.github.io/mlx/build/html/usage/function_transforms.html)는 함수를 미분 가능한 다른 함수로 바꾸는 API를 설명한다. 단순히 입력을 조금 바꿔 차분을 계산하는 수치 미분과는 다르다.
 
 ```python
 def loss(w):

@@ -5,14 +5,14 @@ parent: MLX
 grand_parent: iOS
 nav_order: 2
 permalink: /ai/mlx/array/
-last_modified_at: 2026-11-17
+last_modified_at: 2026-11-20
 seo:
   type: BlogPosting
 date: 2026-11-15
 redirect_from:
   - /mlx/array/
 first_written: 2026-11-15
-last_modified_date: 2026-11-17
+last_modified_date: 2026-11-20
 tags: [MLX, Python, Array]
 ---
 
@@ -21,7 +21,7 @@ tags: [MLX, Python, Array]
 
 {% include article-toc.md %}
 
-배열 코드를 읽을 때 숫자만 보면 연산의 의미를 놓치기 쉽다. 입력의 shape, 각 축의 의미, dtype과 출력 shape를 함께 추적해야 한다. 특히 broadcasting이나 reduction이 끼어들면 코드가 실행돼도 의도와 다른 결과를 만들 수 있다.
+두 샘플에서 특성 세 개씩을 측정했다고 하자. `[[1, 2, 3], [4, 5, 6]]`의 행을 샘플, 열을 특성으로 정하면 “특성별 보정값을 더한다”와 “샘플별 평균을 뺀다”는 서로 다른 축을 다룬다. 배열 코드를 읽을 때 숫자만 보면 이 차이를 놓치기 쉽다. 입력의 shape, 각 축의 의미, dtype과 출력 shape를 함께 추적해야 한다. 특히 broadcasting이나 reduction이 끼어들면 코드가 실행돼도 의도와 다른 결과를 만들 수 있다.
 
 이 글은 2차원 예제로 시작해 모델 입력에 자주 쓰는 배치 연산까지 확장한다. 예제는 MLX 0.32.4에서 확인했으며 Python의 리스트와 함수 문법을 알고 있다고 가정한다.
 
@@ -108,7 +108,9 @@ stride는 각 축에서 한 칸 움직일 때 실제 데이터 위치가 얼마�
 
 전치한 배열은 논리적 축과 접근 순서가 달라진다. 이처럼 shape와 메모리의 연속성은 별개의 속성이다. 모든 reshape나 transpose가 언제나 복사 없이 끝난다는 보장은 없으며, 후속 연산이 요구하는 배치에 따라 추가 처리가 필요할 수 있다.
 
-이 차이는 소스의 일반 stride 커널과 연속 메모리 최적화 경로를 읽을 때 중요하다.
+예를 들어 원본 값이 `[0, 1, 2, 3, 4, 5]`인 버퍼에 있고 stride가 `(3, 1)`이면 좌표 `(1, 0)`은 `1×3 + 0×1 = 3`번 원소다. 전치 뷰의 shape는 `(3, 2)`, stride는 `(1, 3)`이므로 전치 좌표 `(0, 1)`도 같은 3번 원소를 가리킨다. 반면 `(3, 2)`로 reshape한 연속 배열의 `(0, 1)`은 1번 원소다. 앞의 두 출력이 다른 이유를 주소 대응으로 설명할 수 있다.
+
+이 계산은 원소 단위다. 바이트 주소를 구하려면 `float32`에서는 원소 위치에 4바이트를 곱한다. Python API에서 내부 stride를 직접 관찰했다는 뜻은 아니며, [고정 커밋의 배열 구조](https://github.com/ml-explore/mlx/blob/fc344c986c4169d99f76b5d95ae6b4a58a359a63/mlx/array.h)에 있는 shape·stride 표현을 설명한 것이다. 실제 커널이 뷰를 그대로 받는지, 연속화하는지는 [소스 분석 글]({{ '/ai/mlx/source-walkthrough/' | relative_url }})에서 구분한다.
 
 ## broadcasting의 정확한 규칙
 
@@ -139,7 +141,9 @@ assert (prediction - target).shape == (2, 2)
 assert (prediction.squeeze(-1) - target).shape == (2,)
 ```
 
-학습 코드에서 손실이 예상과 다르면 dtype보다 먼저 이 입력 shape를 검사할 가치가 있다.
+이 예측과 정답은 같은 두 값인데 잘못 뺀 결과는 `[[0, -1], [1, 0]]`이다. 대응하는 샘플끼리 비교한 것이 아니라 모든 예측과 모든 정답을 짝지었다. 제곱 평균을 내면 `(0 + 1 + 1 + 0) / 4 = 0.5`가 된다. `squeeze(-1)`로 마지막 길이 1인 축을 제거한 뒤 비교하면 손실은 0이다. 두 값은 MLX 0.32.4의 재현 스크립트로 직접 확인했다.
+
+자동 미분은 잘못 작성한 계산도 그대로 미분한다. 따라서 여기서 생긴 기울기가 원래 의도한 샘플별 손실을 줄여 준다고 기대할 수 없다. 학습 코드에서 손실이 예상과 다르면 입력과 출력의 축 의미를 먼저 확인해야 하는 이유다.
 
 ## reduction과 keepdims
 
@@ -195,4 +199,4 @@ print((x @ x.T).tolist())
 - [MLX 지연 평가와 성능 측정]({{ '/ai/mlx/lazy-evaluation/' | relative_url }})
 - [MLX Array API](https://ml-explore.github.io/mlx/build/html/python/array.html)
 - [MLX Indexing Arrays](https://ml-explore.github.io/mlx/build/html/usage/indexing.html)
-- [MLX Numerical Precision](https://ml-explore.github.io/mlx/build/html/usage/numerical_precision.html)
+- [MLX Numerical Precision](https://ml-explore.github.io/mlx/build/html/usage/precision.html)

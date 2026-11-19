@@ -6,8 +6,8 @@ nav_order: 9
 permalink: /ai/dag/
 date: 2026-11-17
 first_written: 2026-11-17
-last_modified_date: 2026-11-17
-last_modified_at: 2026-11-17
+last_modified_date: 2026-11-20
+last_modified_at: 2026-11-20
 seo:
   type: BlogPosting
 tags: [AI, DAG, Workflow, Python, LangGraph]
@@ -90,7 +90,7 @@ flowchart LR
 
 ## Python에서 의존성을 적는 방법
 
-Python 표준 라이브러리의 `graphlib.TopologicalSorter`를 사용한다. 이 글의 코드는 Python 3.12 이상을 기준으로 한다.
+Python 표준 라이브러리의 `graphlib.TopologicalSorter`를 사용한다. 이 글의 코드는 Python 3.12 이상을 기준으로 하며 전체 파일은 Python 3.12.16에서 실행했다. `python3`가 macOS 기본 3.9를 가리킬 수 있으므로 아래 실행에서는 `python3.12`를 명시한다.
 
 ```python
 from graphlib import TopologicalSorter
@@ -114,11 +114,11 @@ print(tuple(TopologicalSorter(dependencies).static_order()))
 
 ## 준비된 작업만 실행하는 작은 실행기
 
-순서 목록을 한 번 만드는 대신, 완료된 작업에 따라 다음 작업을 풀어 주는 방식으로 실행해 보자. 전체 코드는 [dag.py]({{ '/assets/examples/ai/dag.py' | relative_url }})에서 받을 수 있다.
+순서 목록을 한 번 만드는 대신, 완료된 작업에 따라 다음 작업을 풀어 주는 방식으로 실행해 보자. 실제 파일의 함수명 `run_graph`는 아래 코드와 같다. 전체 코드는 [dag.py]({{ '/assets/examples/ai/dag.py' | relative_url }})에서 받을 수 있다.
 
 ```bash
-python3 --version
-python3 dag.py
+python3.12 --version
+python3.12 dag.py
 ```
 
 핵심 실행 루프는 다음과 같다. `execute` 함수와 의존성 정의는 다운로드 파일에 함께 들어 있다.

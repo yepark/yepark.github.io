@@ -5,10 +5,10 @@ parent: AI
 nav_order: 7
 permalink: /ai/using-ai/langchain/
 date: 2026-11-17
-last_modified_at: 2026-11-17
+last_modified_at: 2026-11-20
 seo:
   type: BlogPosting
-last_modified_date: 2026-11-17
+last_modified_date: 2026-11-20
 ---
 
 # LangChain
@@ -31,12 +31,12 @@ LangChain은 모델 자체가 아니다. 사용할 모델은 별도로 선택하
 
 ## Python 환경 준비하기
 
-공식 quickstart의 Python 3.11 이상 환경을 기준으로 진행한다. `python3.11` 명령이 없다면 해당 Python을 먼저 설치하고 경로를 확인한다.
+공식 quickstart의 Python 3.11 이상 환경을 기준으로 진행한다. 이 글의 도구 단독 실행은 Python 3.11.18, LangChain 1.5.2, langchain-openai 1.8.3에서 확인했다. `python3.11` 명령이 없다면 해당 Python을 먼저 설치하고 경로를 확인한다.
 
 ```bash
 python3.11 -m venv .venv
 source .venv/bin/activate
-python -m pip install -U langchain langchain-openai
+python -m pip install langchain==1.5.2 langchain-openai==1.8.3
 ```
 
 가상 환경은 현재 프로젝트에서 쓸 Python 패키지를 따로 모으는 공간이다. 설치가 끝나면 다음 명령으로 버전을 기록한다.
@@ -121,7 +121,15 @@ print(multiply.invoke({"a": 123, "b": 456}))
 
 ## 4. 모델과 도구 연결하기
 
-`hello.py`의 모델을 만든 코드와 방금 정의한 `multiply` 뒤에 다음을 연결한다.
+아래 조각은 `hello.py`의 `model`과 앞 절의 `multiply` 정의를 요구한다. 붙이는 위치가 헷갈리면 [calculator_agent.py]({{ "/assets/examples/ai/calculator_agent.py" | relative_url }}) 전체 파일을 내려받아 실행한다. 기본 실행은 도구만 시험하며 네트워크를 호출하지 않는다.
+
+```bash
+python calculator_agent.py
+# tool-only: 56088
+python calculator_agent.py --online
+```
+
+`--online`에서만 앞서 설정한 키와 모델 ID로 실제 모델을 호출한다. 이 경로의 모델 응답과 도구 선택은 실행 검증하지 않았다. 파일은 요청 시간 제한 30초, 제공자 자동 재시도 0회, 그래프 실행 상한을 설정한다. 이 상한은 정확한 토큰·요금 한도를 뜻하지 않는다. 다음은 그 연결의 핵심 코드다.
 
 ```python
 from langchain.agents import create_agent
@@ -171,9 +179,8 @@ for message in result["messages"]:
 
 기본 에이전트로 시작해도 충분한 작업이 많다. 업무 순서가 고정돼 있거나, 조건 분기·승인·중단 후 재개를 직접 제어해야 한다면 그래프를 명시적으로 설계하는 편이 유리하다.
 
-다음 편에서는 유료 모델 호출 없이도 실행 가능한 작은 LangGraph를 만들며 그 차이를 배운다.
+[LangGraph]({{ "/ai/using-ai/langgraph/" | relative_url }})에서는 모델 호출 없이 상태와 실행 경로를 시험한다.
 
-→ [LangGraph]({{ '/ai/using-ai/langgraph/' | relative_url }})
 
 ## 참고
 

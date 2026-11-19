@@ -3,13 +3,13 @@ title: "Auto Layout의 제약과 우선순위"
 parent: "iOS"
 nav_order: 1
 permalink: /ios/auto-layout/
-last_modified_at: 2026-11-17
+last_modified_at: 2026-11-20
 seo:
   type: BlogPosting
 date: 2021-04-18
 description: "Auto Layout의 고유 콘텐츠 크기, Hugging·Compression Resistance, baseline과 제약 충돌 진단을 설명합니다."
 first_written: 2021-04-18
-last_modified_date: 2026-11-17
+last_modified_date: 2026-11-20
 tags: [iOS, UIKit, Auto-Layout, Xcode]
 ---
 
@@ -51,7 +51,7 @@ label.setContentCompressionResistancePriority(
 )
 ```
 
-`required`(1000)는 "절대 어기면 안 되는 규칙"이다. 공간이 모자라서 지킬 수 없으면 콘솔에 제약 충돌 로그가 찍힌다. 그래서 위 예제처럼 `.defaultHigh + 1`(751)로 "레이블보다 조금 더 중요하다"는 정도만 표현했다.
+`required`(1000)는 "절대 어기면 안 되는 규칙"이다. 공간이 모자라서 지킬 수 없으면 콘솔에 제약 충돌 로그가 찍힌다. 그래서 위 예제처럼 `.defaultHigh + 1`(751)로 "입력창의 기본 Compression Resistance(750)보다 레이블을 조금 더 보존한다"는 정도만 표현했다.
 
 ## Baseline 정렬
 

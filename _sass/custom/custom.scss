@@ -1,221 +1,84 @@
-// 한글 본문을 읽기 편하게
+// A quiet technical journal: ink, paper, and one cool accent.
+$ink: #202b3b;
+$muted: #626c79;
+$accent: #354f8d;
+$rule: #e1e5ea;
+$paper: #f6f8fa;
+
+body { color: $ink; -webkit-font-smoothing: antialiased; }
+.main, .main-content-wrap, .main-content, .journal-article { min-width: 0; }
 .main-content {
   word-break: keep-all;
-  overflow-wrap: break-word;
-  letter-spacing: -0.005em;
-
+  overflow-wrap: anywhere;
+  letter-spacing: -0.008em;
+  line-height: 1.85;
   p, li { font-size: 1.0625rem; }
-
-  h1 { font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
-  h2 {
-    font-weight: 700;
-    margin-top: 3rem;
-    padding-top: 1.25rem;
-    border-top: 1px solid $border-color;
-  }
-  h3 { font-weight: 650; margin-top: 2rem; }
-
-  strong { color: $body-heading-color; }
-
-  blockquote {
-    margin-left: 0;
-    padding: 0.25rem 1rem;
-    border-left: 3px solid $border-color;
-    color: $grey-dk-100;
-  }
-
-  img {
-    border: 1px solid $border-color;
-    border-radius: 6px;
-  }
-
-  table { font-size: 0.95rem; }
-
-  code { font-size: 0.875em; }
-  div.highlighter-rouge, figure.highlight {
-    border-radius: 8px;
-  }
-
-  details {
-    margin: 1rem 0 2rem;
-    padding: 0.75rem 1rem;
-    background: $sidebar-color;
-    border-radius: 8px;
-    summary { cursor: pointer; font-weight: 600; }
-    ol { margin-bottom: 0; }
-  }
+  p { margin-top: 1rem; margin-bottom: 1.25rem; }
+  h1, h2, h3, h4 { color: $ink; line-height: 1.4; scroll-margin-top: 1.5rem; }
+  h1 { margin: 0 0 1rem; font-size: 2.15rem !important; font-weight: 750; letter-spacing: -0.04em; }
+  h2 { margin: 3.25rem 0 1.15rem; padding-top: 1.4rem; border-top: 1px solid $rule; font-size: 1.5rem !important; font-weight: 700; letter-spacing: -0.025em; }
+  h3 { margin: 2.2rem 0 0.85rem; font-size: 1.2rem !important; font-weight: 650; letter-spacing: -0.015em; }
+  h4 { font-size: 1.0625rem !important; font-weight: 650; }
+  strong { color: $ink; font-weight: 650; }
+  a:not(.btn) { color: $accent; background-image: none; text-decoration: underline; text-decoration-color: rgba($accent, 0.35); text-underline-offset: 4px; &:hover { text-decoration-color: $accent; } }
+  .anchor-heading { text-decoration: none !important; }
+  img { max-width: 100%; height: auto; border-radius: 4px; }
+  blockquote { margin: 1.5rem 0; padding: 0.15rem 1.2rem; border-left: 3px solid #a9b7d1; color: $muted; }
+  hr { margin: 2.5rem 0; background-color: $rule; }
+  .table-wrapper { max-width: 100%; overflow-x: auto; border: 1px solid $rule; border-radius: 4px; box-shadow: none; }
+  table { min-width: 100%; margin: 0; font-size: 0.9375rem; line-height: 1.7; border-collapse: collapse; }
+  th, td { padding: 0.8rem 1rem; border-color: $rule; min-width: 7rem; }
+  th { color: $ink; background: $paper; font-weight: 650; }
+  code { font-size: 0.86em; }
+  :not(pre) > code { padding: 0.12em 0.3em; color: #4d426d; background: #f0f2f6; border: 0; border-radius: 3px; word-break: break-word; }
+  div.highlighter-rouge, figure.highlight { max-width: 100%; margin: 1.5rem 0; border: 1px solid $rule; border-radius: 5px; }
+  div.highlighter-rouge div.highlight { padding: 1.1rem; }
+  pre { max-width: 100%; line-height: 1.7; tab-size: 4; }
+  pre code { overflow-wrap: normal; word-break: normal; }
+  .note, .tip, .warning, .question { color: $ink; background: $paper !important; border-left: 3px solid #889ab9; border-radius: 0 4px 4px 0; box-shadow: none !important; &::before { color: $accent !important; } }
+  .warning { border-left-color: #885b71; &::before { color: #70445c !important; } }
+  details { margin: 1.5rem 0 2rem; padding: 0.8rem 1rem; border: 1px solid $rule; border-radius: 4px; background: $paper; summary { cursor: pointer; color: $ink; font-size: 0.9375rem; font-weight: 600; } }
+  .article-toc { ol { margin-bottom: 0.25rem; padding-left: 1.5rem; } li { font-size: 0.9375rem; line-height: 1.75; } a { display: inline-block; padding: 0.15rem 0; } }
 }
-
-// 사이드바 제목
-.main-content .series-list {
-  list-style: none;
-  padding-left: 0;
-  li { margin: 0 0 0.75rem; }
-  li::before { content: none; }
-  a {
-    display: block;
-    padding: 1rem 1.25rem;
-    border: 1px solid $border-color;
-    border-radius: 10px;
-    text-decoration: none;
-    &:hover { border-color: #3451b2; background: #f7f8f9; }
-    &:focus-visible { outline: 2px solid #3451b2; outline-offset: 3px; }
-  }
-  .series-list__title { display: block; font-weight: 600; }
+.highlight .c, .highlight .c1, .highlight .cm, .highlight .cs, .highlight .cp { color: #586773 !important; }
+a:focus, button:focus, summary:focus, input:focus, [tabindex]:focus { outline: 2px solid $accent; outline-offset: 4px; }
+.site-title { color: $ink !important; font-weight: 750; letter-spacing: -0.04em; }
+.site-header { border-bottom-color: $rule; }
+.side-bar { background: #f7f8fa; }
+.nav-list .nav-list-item {
+  .nav-list-link { color: #4a5565; padding-top: 0.45rem; padding-bottom: 0.45rem; line-height: 1.5; &:hover { background: #eceff4; background-image: none; } &.active { color: $accent; background: #e9edf5; background-image: none; font-weight: 650; } }
+  .nav-list-expander { color: $muted; min-height: 2.3rem; }
 }
-.main-content .article-toc {
-  ol { padding-left: 1.5rem; }
-  li { font-size: 0.95rem; }
-}
+.site-nav > .nav-list > .nav-list-item > .nav-list-link { font-weight: 600; }
+.nav-list .nav-list .nav-list-link { font-size: 0.875rem; }
+.breadcrumb-nav-list-item, .breadcrumb-nav-list-item a { color: $muted !important; font-size: 0.8125rem; }
+.site-footer, .site-footer a, .aux-nav a { color: $muted !important; }
+.site-footer { font-size: 0.75rem; }
+.article-meta { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 1rem; row-gap: 0.2rem; margin: 0 0 1.75rem; color: $muted; font-size: 0.8125rem; line-height: 1.8; font-variant-numeric: tabular-nums; a { color: $muted !important; text-decoration: none !important; } }
+.main-content:has(.journal-article--post) > footer > .d-flex.mt-2 { display: none !important; }
 
-.site-title { font-weight: 700; letter-spacing: -0.01em; }
-
-// 홈 화면
-.home-intro {
-  padding: 1rem 0 0.5rem;
-  .home-intro__lead { font-size: 1.25rem !important; color: $grey-dk-100; }
-}
-.topic-list {
-  list-style: none;
-  padding-left: 0 !important;
-  li::before { content: none !important; }
-  li {
-    padding: 0;
-    margin-bottom: 0.75rem;
-    border: 1px solid $border-color;
-    border-radius: 10px;
-    background: #fff;
-    overflow: hidden;
-  }
-  .topic-card {
-    display: block;
-    padding: 1rem 1.25rem;
-    border-radius: inherit;
-  }
-  .topic-card__title { display: block; font-weight: 700; font-size: 1.1rem; }
-  .topic-card__description { display: block; color: $grey-dk-000; font-size: 0.95rem; }
-}
-.recent-list {
-  padding-left: 0 !important;
-  list-style: none;
-  li::before { content: none !important; }
-  .date { color: $grey-dk-000; font-family: $mono-font-family; font-size: 0.85rem; margin-right: 0.75rem; }
-}
-
-// ---------- 색: 가독성과 대비 기준 (WCAG AA 4.5:1 이상) ----------
-// 본문 #2a2c30 14.0:1 / h1 #0f172a 17.9:1 / h2 #1e3a8a 10.4:1 / h3 #334155 10.4:1
-// 보조 글씨 #5b6068 6.3:1 / 포인트 #3451b2 7.1:1
-$text: #2a2c30;
-$h1: #0f172a;
-$h2: #1e3a8a;
-$h3: #334155;
-$muted: #5b6068;
-$accent: #3451b2;
-$green: #2f6b4f;
-$orange: #a3401c;
-$box: #f7f8f9;
-
+// Home and category indexes share open, ruled lists rather than cards.
 .main-content {
-  color: $text;
-  h1 { color: $h1; }
-  h2 { color: $h2; }
-  h3, h4 { color: $h3; }
-  strong { color: $h1; }
+  .home-intro { padding: 0.7rem 0 2.5rem; border-bottom: 2px solid $ink; h1 { font-size: clamp(2rem, 4vw, 2.8rem) !important; line-height: 1.32; margin: 1rem 0 1.2rem; } }
+  .home-intro__eyebrow { margin: 0; color: $accent; font-size: 0.8125rem; font-weight: 650; letter-spacing: 0.05em; }
+  .home-intro__lead { margin: 0 0 1.4rem; color: $muted; font-size: 1.0625rem; line-height: 1.8; }
+  .home-intro__author { font-size: 0.875rem; text-decoration: none !important; span { margin-left: 0.4rem; } }
+  .home-section { margin-top: 2.5rem; }
+  .section-heading { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 1rem; margin-bottom: 1rem; h2 { border: 0; padding: 0; margin: 0; font-size: 1.25rem !important; } > span { color: $muted; font-size: 0.8125rem; } }
+  .topic-list, .recent-list, .series-list { padding: 0; margin: 0; list-style: none; > li { margin: 0; padding: 0; border-bottom: 1px solid $rule; &::before { content: none; } } a { text-decoration: none !important; &:hover { background: $paper; } } }
+  .topic-list { border-top: 1px solid $rule; a { display: grid; grid-template-columns: 7rem 1fr auto; align-items: baseline; gap: 1rem; padding: 1.1rem 0.25rem; } .topic-title { font-weight: 650; color: $ink; } .topic-description { font-size: 0.9375rem; color: $muted; line-height: 1.65; } .topic-arrow { color: $muted; } }
+  .recent-list { border-top: 1px solid $rule; a { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.05rem 0.25rem; } .recent-list__text { min-width: 0; } .recent-list__topic { display: block; margin-bottom: 0.2rem; color: $muted; font-size: 0.75rem; } .recent-list__title { display: block; color: $ink; font-size: 1rem; font-weight: 550; line-height: 1.6; } time { flex-shrink: 0; color: $muted; font-size: 0.75rem; font-variant-numeric: tabular-nums; } }
+  .series-list { border-top: 1px solid $rule; a { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 0.9rem 0.25rem; color: $ink; font-size: 1rem; } .series-list__arrow { color: $muted; } }
 }
-
-// 사이드바: 글자는 본문색, 지금 보는 글만 포인트 색
-.site-title { color: $h1 !important; }
-.nav-list .nav-list-item .nav-list-link {
-  color: $text;
-  &:hover { background-image: none; background-color: #f0f1f3; }
-  &.active { color: $accent; font-weight: 600; background-image: none; }
+.article-ad { min-height: 1px; margin: 0; &[hidden] { display: none; } .article-ad__label { display: none; } &--filled { margin: 2.5rem 0 1rem; padding-top: 1rem; border-top: 1px solid $rule; .article-ad__label { display: block; margin: 0 0 0.75rem; color: $muted; font-size: 0.75rem; font-weight: 400; } } }
+@media (max-width: 49.99rem) {
+  .main-content-wrap { padding: 1.5rem 1.25rem; }
+  .main-content { h1 { font-size: 1.8rem !important; } h2 { font-size: 1.35rem !important; margin-top: 2.6rem; } h3 { font-size: 1.125rem !important; } p, li { font-size: 1rem; } .home-intro { padding-top: 0.35rem; padding-bottom: 2rem; } .desktop-break { display: none; } .topic-list a { grid-template-columns: 1fr auto; gap: 0.2rem 0.75rem; padding: 1rem 0.2rem; } .topic-description { grid-row: 2; grid-column: 1; } .topic-arrow { grid-column: 2; grid-row: 1 / 3; align-self: center; } .recent-list a { gap: 0.75rem; } .recent-list time { font-size: 0.6875rem; } }
+  .article-meta { column-gap: 0.75rem; font-size: 0.75rem; }
 }
-.nav-list .nav-list-item .nav-list-expander { color: $muted; }
-.aux-nav .aux-nav-list-item a { color: $muted; }
-.site-footer, .site-footer a { color: $muted !important; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; } }
 
-// 본문 링크: 포인트 색 + 옅은 밑줄
-.main-content a:not(.btn) {
-  color: $accent;
-  text-decoration: underline;
-  text-decoration-color: rgba(52, 81, 178, 0.35);
-  text-underline-offset: 3px;
-  background-image: none;
-  &:hover { text-decoration-color: $accent; }
-}
-.main-content .anchor-heading { text-decoration: none !important; }
-.main-content details a:not(.btn) { text-decoration: none; color: $text; &:hover { color: $accent; } }
-.breadcrumb-nav-list-item, .breadcrumb-nav-list-item a { color: $muted !important; }
-
-// 강조 상자: 같은 회색 바탕, 왼쪽 선과 제목 색으로만 구분
-.main-content {
-  .note, .tip, .warning, .question {
-    background: $box !important;
-    color: $text;
-    border-left: 3px solid $accent;
-    border-radius: 0 6px 6px 0;
-    box-shadow: none !important;
-    &::before { color: $accent !important; }
-  }
-  .tip { border-left-color: $green; &::before { color: $green !important; } }
-  .warning { border-left-color: $orange; &::before { color: $orange !important; } }
-  .question { border-left-color: $muted; &::before { color: $muted !important; } }
-
-  blockquote { border-left-color: $accent; color: $text; background: none; }
-  table th { background: #fafafa; color: $h3; }
-  ol > li::before, ul > li::before { color: $muted; }
-}
-
-// 코드: 주석 글씨를 진하게 (기본 회색은 대비가 낮다)
-.highlight .c, .highlight .c1, .highlight .cm, .highlight .cs, .highlight .cp { color: #5f6b76 !important; }
-.main-content :not(pre) > code { color: #9a2a52; background: #f3f4f6; border: none; }
-
-// 홈
-.home-intro .home-intro__lead { color: $muted !important; }
-.topic-list li {
-  background: #ffffff;
-  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
-  &:hover {
-    border-color: $accent;
-    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
-    transform: translateY(-1px);
-  }
-  .topic-card {
-    color: $text !important;
-    text-decoration: none !important;
-    &:focus-visible {
-      outline: 3px solid rgba(52, 81, 178, 0.35);
-      outline-offset: -3px;
-    }
-  }
-  .topic-card__title { color: $h2 !important; }
-  .topic-card__description { color: $muted !important; }
-}
-.recent-list {
-  .date { color: $muted !important; }
-  a { color: $text !important; text-decoration: none !important; }
-  a:hover { color: $accent !important; }
-}
-
-// 본문을 다 읽은 뒤의 광고. 미설정·미충전 상태에는 광고 안내 공간을 만들지 않는다.
-.article-ad {
-  min-height: 1px;
-  margin: 0;
-
-  &[hidden] { display: none; }
-  .article-ad__label { display: none; }
-
-  &--filled {
-    margin: 2.5rem 0 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid $border-color;
-
-    .article-ad__label {
-      display: block;
-      margin: 0 0 0.75rem;
-      color: $muted;
-      font-size: 0.75rem;
-      font-weight: 400;
-    }
-  }
-}
+// Replace the theme’s automatic category list with the shared Korean index.
+.main-content > main > .journal-article--index ~ hr,
+.main-content > main > .journal-article--index ~ h2.text-delta,
+.main-content > main > .journal-article--index ~ h2.text-delta + ul { display: none; }

@@ -4,13 +4,13 @@ parent: Concurrency
 grand_parent: Swift
 nav_order: 5
 permalink: /swift/concurrency/actor/
-last_modified_at: 2026-11-17
+last_modified_at: 2026-11-20
 seo:
   type: BlogPosting
 date: 2026-11-16
 description: "Actor의 상태 격리와 await 경계에서의 재진입, 불변식 보존 및 트랜잭션 설계 문제를 설명합니다."
 first_written: 2026-11-16
-last_modified_date: 2026-11-17
+last_modified_date: 2026-11-20
 tags: [Swift, Concurrency, Actor, Data-Race]
 ---
 
@@ -19,7 +19,7 @@ tags: [Swift, Concurrency, Actor, Data-Race]
 
 {% include article-toc.md %}
 
-여러 Task가 같은 값을 동시에 읽고 수정하면 실행 순서에 따라 결과가 달라지는 **데이터 경쟁(data race)** 이 생길 수 있다. actor는 공유하는 가변 상태를 한 격리 영역에 넣어, 그 상태를 한 번에 하나의 작업만 다루도록 만드는 참조 타입이다.
+서로 다른 실행 흐름이 동기화 없이 같은 메모리에 접근하고 그중 하나가 쓰기라면 **데이터 경쟁(data race)** 이다. 데이터 경쟁이 없어도 작업의 논리적 순서 때문에 결과가 잘못되는 경합 조건(race condition)은 남을 수 있다. actor는 공유하는 가변 상태를 한 격리 영역에 넣어, 그 상태를 한 번에 하나의 작업만 다루도록 만드는 참조 타입이다.
 
 ## 읽고 더하고 저장하는 사이
 

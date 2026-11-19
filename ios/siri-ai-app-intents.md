@@ -5,10 +5,10 @@ parent: iOS
 nav_order: 21
 permalink: /ios/siri-ai-app-intents/
 date: 2026-11-17
-last_modified_at: 2026-11-19
+last_modified_at: 2026-11-20
 seo:
   type: BlogPosting
-last_modified_date: 2026-11-19
+last_modified_date: 2026-11-20
 ---
 
 # Siri AI와 App Intents
@@ -58,16 +58,7 @@ Foundation Models로 직접 문장을 생성하지 않아도 이 연결은 만�
 
 둘은 함께 사용할 수 있다. Intent가 사용자의 메모를 찾고, 앱의 서비스가 Foundation Models로 요약한 뒤 결과를 돌려주는 식이다. 시스템 진입점과 모델 생성 로직을 구분하면 테스트하기 쉽다.
 
-## 핵심 용어 먼저 익히기
-
-- `AppIntent`: ‘메모 추가’, ‘운동 시작’ 같은 행동
-- `@Parameter`: 행동에 필요한 입력값
-- `perform()`: 실제 앱 코드를 실행하는 메서드
-- `AppEntity`: 메모·사진·프로젝트처럼 시스템에 설명할 데이터
-- `EntityQuery`: ID나 검색어를 실제 앱 데이터로 바꾸는 조회 규칙
-- `AppShortcutsProvider`: 미리 구성한 단축어와 호출 표현을 제공하는 타입
-
-Core Data의 `NSManagedObject`를 그대로 Siri에 공개하는 대신 안정적인 ID와 표시 이름을 가진 `AppEntity`로 표현하는 것이 이해하기 쉽다. 저장 방식은 앱 내부 책임으로 유지한다.
+이 구분을 코드의 경계로 옮기면 Intent는 ‘무엇을 할지’, Entity는 ‘어느 대상을 말하는지’, Query는 ‘그 대상을 지금 어디서 찾는지’를 담당한다. `@Parameter`는 행동의 입력을 선언하고, `AppShortcutsProvider`는 미리 구성한 행동과 호출 표현을 시스템에 제공한다. Core Data 객체 자체를 공개할 필요는 없다. 안정적인 ID와 표시 정보만 Entity로 옮기고 저장 규칙은 앱 서비스에 남긴다.
 
 ## 가장 작은 Intent 만들기
 
@@ -194,16 +185,49 @@ macOS 15.6·Xcode 16.2의 Swift 6.0.3으로 실행한 결과다.
 ```text
 title search: ["memo-001", "memo-002"]
 selected: ["memo-002"]
+read body: 충전기를 챙긴다.
+revoked access: denied
 deleted ID: 0 results
+deleted read: missing
 ```
 
-‘여행’으로 찾으면 후보 두 개가 나온다. `memo-002`를 ID로 조회하면 그 항목 하나만 나온다. 그다음 해당 항목을 저장소에서 지우고 다시 같은 ID로 조회하면 빈 배열을 반환한다. 삭제된 ID를 받았다고 제목이 같은 `memo-001`로 대체하면 사용자가 선택한 대상을 바꾸는 오류가 된다.
+‘여행’으로 찾으면 후보 두 개가 나온다. `memo-002`를 ID로 조회하면 그 항목 하나만 나온다. 선택한 Entity로 Intent를 직접 호출하면 두 번째 메모의 본문을 읽는다. 이어서 접근을 철회하면 Query의 후보에서 사라지고, 이미 선택한 Entity로 실행해도 저장 서비스가 거부한다. 마지막으로 해당 항목을 지우고 같은 ID로 조회하면 빈 배열을 반환하며 읽기는 존재하지 않는 항목 오류로 끝난다. 삭제된 ID를 받았다고 제목이 같은 `memo-001`로 대체하면 사용자가 선택한 대상을 바꾸는 오류가 된다.
 
-이 실행은 AppEntity·Query와 앱의 actor 저장소를 macOS 프로세스에서 직접 호출한 검증이다. 단축어 앱의 발견 과정, 음성 인식, Siri AI의 전체 호출 성공을 검증한 결과는 아니다. 실제 앱에서는 `@main` 실행 부분을 제외하고 앱 타깃에 Entity·Query·저장 서비스 코드를 연결한다. 샘플 저장소는 프로세스 메모리에만 있으므로 재시작하면 초기 데이터로 돌아간다.
+이 실행은 AppEntity·Query·Intent의 `perform()`과 앱의 actor 저장소를 macOS 프로세스에서 직접 호출한 검증이다. 단축어 앱의 발견 과정, 음성 인식, Siri AI의 전체 호출 성공을 검증한 결과는 아니다. 실제 앱에서는 `@main` 실행 부분을 제외하고 앱 타깃에 Entity·Query·저장 서비스 코드를 연결한다. 샘플 저장소는 프로세스 메모리에만 있으므로 재시작하면 초기 데이터로 돌아간다.
+
+## 선택한 뒤에도 저장소를 다시 읽는 이유
+
+Entity는 선택 시점의 ID와 표시 정보를 가진 값이다. 권한이 계속 유효하다거나 본문이 그대로라는 보증서는 아니다. 전체 예제의 읽기 Intent는 Entity에 들어 있던 제목으로 본문을 추정하지 않고 ID로 현재 레코드를 다시 읽는다.
+
+```swift
+struct ReadMemoIntent: AppIntent {
+    static let title: LocalizedStringResource = "메모 읽기"
+    static var authenticationPolicy: IntentAuthenticationPolicy { .requiresAuthentication }
+
+    @Parameter(title: "메모")
+    var memo: MemoEntity
+
+    init() {}
+    init(memo: MemoEntity) { self.memo = memo }
+
+    func perform() async throws -> some IntentResult & ReturnsValue<String> {
+        let current = try await MemoStore.shared.read(id: memo.id)
+        return .result(value: current.body)
+    }
+}
+```
+
+`MemoStore.read(id:)`는 같은 actor 호출 안에서 존재 여부와 현재 접근 규칙을 검사하고 본문을 반환한다. Query에도 같은 접근 규칙을 적용해 볼 수 없는 메모를 후보로 노출하지 않는다. 후보 검색과 실제 실행 사이에는 시간이 있으므로 두 검사 모두 필요하다. 예제의 `deniedIDs`는 이 차이를 보여 주는 메모리상의 규칙이며 실제 계정 인증을 구현한 코드는 아니다.
+
+`ReturnsValue<String>`은 본문을 후속 단축어가 사용할 값으로 반환한다. 앞의 `ProvidesDialog`처럼 말할 문장을 제공하는 것과 반환 데이터는 역할이 다르다. 본문 전체를 음성으로 읽을지, 미리보기만 표시할지는 기능 요구에 맞춰 정한다.
+
+또한 [authenticationPolicy](https://developer.apple.com/documentation/appintents/appintent/authenticationpolicy)의 기본값은 잠금 상태에서도 실행을 허용하는 `alwaysAllowed`다. 이 읽기 Intent는 사용자 인증을 요구하도록 선언했다. 시스템의 기기 인증과 앱의 계정별 접근 규칙은 서로 다른 검사다. `perform()`을 코드로 직접 부른 이번 실행은 시스템 인증 화면의 동작을 검증하지 않는다. 제품에서는 `MemoError`를 사용자에게 이해되는 안내로 변환하고 원문을 오류 로그에 남기지 않는다.
 
 ## 최신 Siri AI 연동에서 추가되는 요소
 
-Apple의 안내는 행동과 데이터 공개를 바탕으로 다음 요소를 함께 설명한다.
+2026년 11월 19일 확인한 [Siri AI Developer Preview 문서](https://developer.apple.com/documentation/appintents/siri-ai-developer-preview)는 제공 범위를 명확히 나눈다. 지원 기기·지역에서 개발용 프로필로 실행하거나 TestFlight 내부 테스터에게 제공해 시험할 수 있다. 외부 TestFlight 테스터와 App Store 배포본에는 이 Preview 기능이 제공되지 않는다고 명시한다. 기본 App Intents의 단축어 연동까지 제한된다는 뜻은 아니다.
+
+따라서 아래의 최신 연동 요소를 구현했다고 일반 배포 사용자가 같은 동작을 곧바로 사용할 수 있다고 설명해서는 안 된다. Preview API와 Siri 동작은 바뀔 수 있으며, 사용하는 SDK와 배포 경로에서 확인해야 한다. Apple의 안내는 행동과 데이터 공개를 바탕으로 다음 요소를 함께 설명한다.
 
 | 요소 | 필요한 이유 | 메모 앱의 예 |
 | --- | --- | --- |
@@ -266,16 +290,7 @@ Intent: 어떤 메모를 요약할지 입력 받음
 
 한 번에 ‘Siri가 안 된다’고 묶으면 원인을 좁힐 수 없다. Query를 코드로 직접 시험하고, 단축어 실행을 확인하고, 그다음 Siri 호출과 최신 기능을 확인하는 순서가 각 경계를 분리하는 데 도움이 된다.
 
-## 구현 후 어떻게 확인할까
-
-1. Intent를 포함한 앱 타깃이 빌드되는지 확인한다.
-2. 설치 후 단축어에서 행동이 보이는지 확인한다.
-3. 입력값이 없는 경우와 빈 문자열을 각각 시험한다.
-4. 존재하지 않는 Entity ID를 전달했을 때 실패 처리를 확인한다.
-5. Siri의 언어와 앱 지역화에 맞는 호출 문구를 시험한다.
-6. 최신 Siri AI 기능은 해당 Developer Preview의 조건과 기기에서 별도로 검증한다.
-
-이 글의 예제는 기본 연결 구조를 설명한다. 최신 Siri AI의 전체 기능을 구현한 샘플은 아니며, 기기에서 음성 실행을 검증한 것으로 간주하면 안 된다.
+검증은 코드 호출에서 시스템 호출로 넓힌다. 먼저 위의 작은 데이터로 동명 후보, 선택한 ID, 접근 철회와 삭제를 확인한다. 그다음 앱 타깃에 연결해 단축어에서 발견과 실행을 확인하고, 지원 언어의 Siri 호출을 시험한다. 최신 Preview의 문맥 해석·앱 간 동작은 해당 배포 조건에서 별도로 확인한다. 코드가 실행된다는 것과 시스템이 올바른 대상을 찾아 실행한다는 것은 각각 증거가 필요하다.
 
 ## 이어서 읽기
 

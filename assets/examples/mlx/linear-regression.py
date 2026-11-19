@@ -30,6 +30,25 @@ def main():
     assert abs(initial_loss.item() - 9) < 1e-6
     assert mx.allclose(first_gradient, mx.array([-8.0, -2.0])).item()
 
+    # An independent central-difference check at the starting point.
+    epsilon = 0.01
+    differences = []
+    for direction in (mx.array([epsilon, 0.0]), mx.array([0.0, epsilon])):
+        estimate = (loss(parameters + direction, x, y)
+                    - loss(parameters - direction, x, y)) / (2 * epsilon)
+        differences.append(estimate.item())
+    assert all(abs(a - b) < 1e-3
+               for a, b in zip(differences, first_gradient.tolist()))
+
+    # For these centered inputs, lr=0.6 makes the w error grow by -1.4.
+    unstable = parameters
+    for _ in range(3):
+        _, gradient = value_and_grad(unstable, x, y)
+        unstable = unstable - 0.6 * gradient
+        mx.eval(unstable)
+    unstable_loss = loss(unstable, x, y).item()
+    assert unstable_loss > initial_loss.item()
+
     history = {}
     for step in range(1, 101):
         _, gradient = value_and_grad(parameters, x, y)
@@ -56,6 +75,8 @@ def main():
                         "machine": platform.machine(), "macOS": platform.mac_ver()[0]},
         "initial_loss": initial_loss.item(),
         "first_gradient": first_gradient.tolist(),
+        "finite_difference": differences,
+        "loss_after_3_updates_at_lr_0_6": unstable_loss,
         "loss_after_update": history,
         "parameters": [round(v, 6) for v in parameters.tolist()],
         "held_out_prediction": round(held_out_prediction, 6),

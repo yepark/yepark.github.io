@@ -1,5 +1,18 @@
 ---
 layout: default
 ---
-{{ content }}
+<article class="journal-article{% if page.seo.type == 'BlogPosting' %} journal-article--post{% endif %}{% if page.has_children %} journal-article--index{% endif %}">
+{% if page.seo.type == 'BlogPosting' %}
+  {% capture article_meta %}{% include article-meta.html %}{% endcapture %}
+  {% assign heading_end = '</h1>' | append: article_meta %}
+  {{ content | replace_first: '</h1>', heading_end }}
+{% else %}
+  {{ content }}
+{% endif %}
+{% if page.has_children %}
+  {% unless content contains 'class="series-nav"' %}
+    {% include series-list.html heading="전체 글" %}
+  {% endunless %}
+{% endif %}
 {% include article-ad.html %}
+</article>

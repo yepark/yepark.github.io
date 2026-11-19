@@ -4,12 +4,12 @@ description: "AI 프롬프트와 에이전트의 정확성·안전성·비용을
 parent: AI
 nav_order: 6
 permalink: /ai/using-ai/evaluation/
-last_modified_at: 2026-11-17
+last_modified_at: 2026-11-20
 seo:
   type: BlogPosting
 date: 2026-11-16
 first_written: 2026-11-16
-last_modified_date: 2026-11-17
+last_modified_date: 2026-11-20
 tags: [AI, Evaluation, Evals, Agent]
 ---
 
@@ -144,7 +144,7 @@ assert result["requires_approval"] is True
 assert "api_key" not in result["answer"]
 ```
 
-가장 빠르고 일관되므로 가능한 항목은 먼저 결정적 검사로 만든다.
+이 검사는 각 조건만 확인한다. 특히 `"api_key"`라는 문자열이 없다는 검사는 실제 키 값의 유출을 막지 못한다. 키가 다른 이름이나 인코딩으로 나타날 수도 있다. 비밀을 입력에서 제거하고 도구·로그 접근을 제한하는 정책을 이 검사 하나로 대체해서는 안 된다. 가능한 형식·범위 검사는 코드로 만들되 검사가 증명하는 범위를 구분한다.
 
 ### 2. 스키마 검사
 
@@ -226,6 +226,59 @@ assert "api_key" not in result["answer"]
 
 숫자는 예시다. C의 품질 향상 4점이 비용과 지연 증가를 감수할 가치가 있는지는 업무에 따라 다르다. 모든 요청에 C를 쓰지 않고 어려운 요청에만 라우팅할 수도 있다.
 
+## 실행해 보는 평가기: 평균 뒤에 숨은 실패
+
+다음은 환불 요청을 분류한 결과를 검사하는 전체 예제다. Python 3.11 이상에서 외부 패키지와 API 키 없이 실행한다. 두 버전의 **가상 출력**을 고정해 평가기만 시험하며, 모델 성능을 측정한 수치가 아니다.
+
+```python
+cases = {
+    "normal": "billing",
+    "cancel": "billing",
+    "bug": "bug",
+    "attack": "blocked",
+}
+baseline = {
+    "normal": ("billing", []),
+    "cancel": ("feature", []),
+    "bug": ("feature", []),
+    "attack": ("blocked", []),
+}
+candidate = {
+    "normal": ("billing", []),
+    "cancel": ("billing", []),
+    "bug": ("bug", []),
+    "attack": ("blocked", ["execute_refund"]),
+}
+
+for name, outputs in [("baseline", baseline), ("candidate", candidate)]:
+    correct = sum(outputs[key][0] == label for key, label in cases.items())
+    violations = sum("execute_refund" in tools for _, tools in outputs.values())
+    accepted = correct == len(cases) and violations == 0
+    print(f"{name}: labels={correct}/{len(cases)}, "
+          f"violations={violations}, accepted={accepted}")
+```
+
+`evaluate.py`에 저장해 `python evaluate.py`로 실행한 결과다.
+
+```text
+baseline: labels=2/4, violations=0, accepted=False
+candidate: labels=4/4, violations=1, accepted=False
+```
+
+각 튜플의 첫 값은 분류 결과이고 둘째 값은 실제 호출한 도구 목록이다. 이 사례에서는 평가 중 환불 실행을 모두 금지한다. 후보 버전은 분류를 전부 맞혔지만 공격 사례에서 금지 도구를 호출했으므로 채택하지 않는다. 최종 문장만 읽거나 분류 정답률만 평균 내면 이 실패가 숨는다.
+
+실제 평가에서는 `baseline`, `candidate` 자리에 저장한 실행 결과와 트레이스를 읽는다. 모델이 “도구를 쓰지 않았다”고 주장한 답변이 아니라 실행기가 기록한 호출을 검사한다. ‘환불은 승인 후에만 가능’이 요구사항이라면 단순 금지 목록 대신 승인된 행동 ID와 실제 도구 호출의 인자를 대조해야 한다.
+
+[실행 파일 내려받기]({{ "/assets/examples/ai/evaluate.py" | relative_url }}). 본문의 코드와 같은 파일이다.
+
+## 작은 표본에서 결론을 부풀리지 않기
+
+정답률의 분모는 총 실행 수이고, 실패율의 분모가 요청 수인지 도구 호출 수인지도 명시해야 한다. 같은 요청을 반복 호출하면 실행 수는 늘지만 서로 다른 업무 사례가 늘어난 것은 아니다.
+
+확률적인 모델은 같은 입력에서도 결과가 달라질 수 있다. 사례별로 같은 횟수를 반복하고 어느 입력에서 통과가 실패로, 실패가 통과로 바뀌었는지 함께 기록한다. 표본이 적으면 하나의 변경이 큰 백분율 차이로 보이므로 성공 건수와 전체 건수를 함께 제시한다. 운영 분포를 대표하는 별도 세트와 반복 측정 없이 ‘전체 정확도가 향상됐다’고 결론 내리지 않는다.
+
+p95 지연은 응답 시간 관측값 중 약 95%가 그 이하가 되는 경계다. 평균이 같아도 일부 요청이 길게 지연될 수 있다. 표본 수·측정 구간·오류 포함 여부를 기록해야 다른 버전과 비교할 수 있다.
+
 ## 프롬프트를 바꿀 때의 평가 루프
 
 ```text
@@ -305,7 +358,7 @@ assert "api_key" not in result["answer"]
 
 ## 실습: 요약 프롬프트 평가표 만들기
 
-앞선 프롬프트 편의 회의 메모를 다시 사용한다. 평가 항목은 날짜·시간·장소·준비물 네 가지를 보존했는지와 원문에 없는 사실을 만들지 않았는지다.
+다음 회의 메모를 평가한다고 하자. “금요일 오후 3시, 2층 회의실에서 iOS 팀 회의가 있다. Core Data 마이그레이션 테스트 결과를 준비한다.” 평가 항목은 날짜·시간·장소·준비물 네 가지를 보존했는지와 원문에 없는 사실을 만들지 않았는지다.
 
 | 검사 | 통과 예 | 실패 예 |
 | --- | --- | --- |
@@ -326,33 +379,6 @@ assert "api_key" not in result["answer"]
 
 문장 수나 필수 필드 유무는 코드로 검사할 수 있다. 의미가 유지됐는지, 독자가 이해하기 쉬운지는 사람 검토가 필요할 수 있다. 측정하기 쉬운 항목만 검사해 전체 품질을 놓치지 않도록 한다.
 
-## 체크리스트
-
-- “좋다”를 정확성, 안전성, 비용 같은 축으로 나눴는가?
-- 실제 사용 분포와 과거 실패가 평가 세트에 포함됐는가?
-- 가능한 항목을 코드와 스키마로 먼저 검사하는가?
-- 모델 평가 결과 일부를 사람이 교정하는가?
-- 최종 답변뿐 아니라 도구 호출 경로도 평가하는가?
-- 단순한 기준선과 같은 입력으로 비교하는가?
-- 품질과 함께 비용·지연을 측정하는가?
-- 새 실패를 회귀 사례로 추가하는가?
-- 모델과 프롬프트 버전을 기록하는가?
-- 개선되지 않으면 되돌릴 수 있는가?
-
-## 관련 개념 다시 보기
-
-- 프롬프트 엔지니어링은 목표와 결과 형식을 명확하게 만든다.
-- 컨텍스트 엔지니어링은 판단에 필요한 정보를 고르고 유지한다.
-- 루프 엔지니어링은 관찰, 행동, 검증, 종료의 반복을 만든다.
-- 그래프 엔지니어링은 상태와 단계, 분기, 재시도를 연결한다.
-- 하네스 엔지니어링은 도구, 환경, 권한, 산출물, 기록을 묶는다.
-- 평가는 이 모든 변경이 실제로 나아졌는지 증명한다.
-
-가장 중요한 원칙은 복잡한 구조부터 시작하지 않는 것이다. 단순한 프롬프트로 기준선을 만들고, 실제 실패가 생기는 지점에 컨텍스트, 도구, 루프, 그래프, 하네스를 필요한 만큼 추가한 뒤 같은 평가로 비교한다.
-
-← [AI 주제별 포스트 목록으로 돌아가기]({{ '/ai/using-ai/' | relative_url }})
-
-→ [LangChain]({{ '/ai/using-ai/langchain/' | relative_url }})
 
 ## 참고
 

@@ -6,10 +6,10 @@ grand_parent: "PKI & 암호"
 nav_order: 4
 permalink: /pki/pkcs/pkcs4/
 date: 2026-11-17
-last_modified_at: 2026-11-17
+last_modified_at: 2026-11-20
 seo:
   type: BlogPosting
-last_modified_date: 2026-11-17
+last_modified_date: 2026-11-20
 tags: [PKI, PKCS4, RSA, ASN1]
 ---
 
@@ -35,7 +35,7 @@ RSAPublicKey ::= SEQUENCE {
 }
 ```
 
-- `n`: 두 큰 소수의 곱으로 만든 모듈러스
+- `n`: 보통 두 큰 소수의 곱으로 만든 모듈러스. RFC 8017은 여러 소수를 쓰는 multi-prime RSA도 정의한다.
 - `e`: 공개 지수
 
 ## RSA 개인 키의 핵심 값
@@ -95,6 +95,8 @@ PEM 텍스트
 ## 현재 규격에서 확인할 위치
 
 RSA 키의 ASN.1 문법은 [RFC 8017 부록 A.1](https://www.rfc-editor.org/rfc/rfc8017.html#appendix-A.1)에서 확인한다. 키를 담는 바깥 컨테이너는 [PKCS #8]({{ '/pki/pkcs/pkcs8/' | relative_url }})의 책임이다. 폐기된 PKCS #4라는 이름과 현재 파일이 실제로 사용하는 구조를 분리해서 기록하면 오래된 시스템을 분석할 때 혼동을 줄일 수 있다.
+
+PKCS #4 자체의 새로운 RFC를 뜻하는 목록이 아니다. 아래는 현재 RSA 키 구조와 컨테이너를 확인할 문서다.
 
 ## 관련 RFC
 

@@ -1,0 +1,4 @@
+# Verified together with Python 3.11.18. No model API used in offline checks.
+langchain==1.5.2
+langchain-openai==1.8.3
+langgraph==1.2.23

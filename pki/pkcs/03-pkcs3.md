@@ -1,15 +1,15 @@
 ---
 title: "PKCS #3: Diffie-Hellman 키 합의"
-description: "PKCS #3 Diffie-Hellman 키 합의 원리, 중간자 공격, KDF와 현재 권장되는 후속 RFC를 설명합니다."
+description: "PKCS #3 Diffie-Hellman 키 합의 원리, 중간자 공격, KDF와 관련 프로토콜 RFC를 설명합니다."
 parent: PKCS 표준
 grand_parent: "PKI & 암호"
 nav_order: 3
 permalink: /pki/pkcs/pkcs3/
 date: 2026-11-17
-last_modified_at: 2026-11-17
+last_modified_at: 2026-11-20
 seo:
   type: BlogPosting
-last_modified_date: 2026-11-17
+last_modified_date: 2026-11-20
 tags: [PKI, PKCS3, Diffie-Hellman]
 ---
 
@@ -59,6 +59,8 @@ DH 결과는 정해진 KDF에 넣어 암호화 키, 인증 키, nonce 관련 값
 
 PKCS #3 자체는 역사적 규격이다. 새 프로토콜에서는 직접 `p`와 `g`를 임의 선택하지 않고, 최신 프로토콜이 정한 검증된 그룹과 키 파생 절차를 사용한다.
 
+이 세 문서는 PKCS #3를 그대로 재발행한 최신판이 아니다. 수학적 키 합의, 그룹 선택, 키 표현과 파생 방식의 적용 문맥이 다르다.
+
 - TLS의 유한체 일회성 DH 그룹: RFC 7919
 - X25519와 X448: RFC 7748
 - CMS에서의 DH 키 합의: RFC 2631 및 후속 알고리즘 규격
@@ -96,7 +98,7 @@ assert alice_shared == bob_shared == 2
 
 연동 문서에서 DH를 만나면 그룹 식별, 공개 키 표현, 상대 인증, 공유 비밀을 키로 바꾸는 규칙을 각각 찾는다. 수학적으로 같은 공유 비밀을 얻었어도 KDF의 문맥 입력이나 출력 길이가 다르면 최종 암호 키는 맞지 않는다.
 
-## 관련 RFC
+## 관련 RFC: 직접 대체 관계와 구분하기
 
 - [RFC 2631: Diffie-Hellman Key Agreement Method](https://www.rfc-editor.org/rfc/rfc2631.html)
 - [RFC 7919: Negotiated Finite Field Diffie-Hellman Ephemeral Parameters for TLS](https://www.rfc-editor.org/rfc/rfc7919.html)
