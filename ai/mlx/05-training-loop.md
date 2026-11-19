@@ -7,8 +7,8 @@ nav_order: 5
 permalink: /ai/mlx/training-loop/
 date: 2026-11-19
 first_written: 2026-11-19
-last_modified_at: 2026-11-19
-last_modified_date: 2026-11-19
+last_modified_at: 2026-11-20
+last_modified_date: 2026-11-20
 seo:
   type: BlogPosting
 tags: [MLX, Python, Autodiff, Training]
@@ -167,6 +167,7 @@ MLX는 지연 평가를 사용하므로 새 배열을 표현하는 코드와 실
 
 ## 이어서 읽기
 
+- [MLX로 작은 신경망 만들기]({{ '/ai/mlx/neural-network/' | relative_url }}) — 다음 글: `mlx.nn`으로 XOR 학습
 - [MLX 배열과 수치 연산]({{ '/ai/mlx/array/' | relative_url }}) — shape와 broadcasting 오류
 - [MLX 지연 평가와 성능 측정]({{ '/ai/mlx/lazy-evaluation/' | relative_url }}) — 평가 경계와 메모리
 - [MLX 실행 엔진 소스 분석]({{ '/ai/mlx/source-walkthrough/' | relative_url }}) — 계산이 백엔드로 내려가는 경로
