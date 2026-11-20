@@ -7,8 +7,8 @@ nav_order: 6
 permalink: /ai/mlx/neural-network/
 date: 2026-11-20
 first_written: 2026-11-20
-last_modified_at: 2026-11-20
-last_modified_date: 2026-11-20
+last_modified_at: 2026-11-21
+last_modified_date: 2026-11-21
 seo:
   type: BlogPosting
 tags: [MLX, Python, Neural-Network, mlx.nn]
@@ -280,7 +280,7 @@ print(names)
 
 ## 다음 편
 
-다음 편에서는 `mlx-lm`으로 이미 학습된 언어 모델을 불러와 실행해 본다. 이번 글의 `Module`과 파라미터 트리가 큰 모델에서 어떻게 쓰이는지 이어서 본다.
+[mlx-lm으로 언어 모델 실행하기]({{ '/ai/mlx/mlx-lm/' | relative_url }})에서는 `mlx-lm`의 모델 코드로 언어 모델을 만들고 실행해 본다. 이번 글의 `Module`과 파라미터 트리가 언어 모델에서 어떻게 쓰이는지 이어서 본다.
 
 함께 읽으면 좋은 글:
 
