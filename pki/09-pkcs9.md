@@ -1,10 +1,11 @@
 ---
 title: "PKCS #9: 인증서·CMS·PKCS #12의 속성"
 description: "RFC 2985의 contentType, messageDigest, extensionRequest, friendlyName 등 PKCS #9 속성을 설명합니다."
-parent: PKCS 표준
-grand_parent: "PKI & 암호"
+parent: "PKI & 암호"
 nav_order: 9
-permalink: /pki/pkcs/pkcs9/
+permalink: /pki/pkcs9/
+redirect_from:
+  - /pki/pkcs/pkcs9/
 date: 2026-11-17
 last_modified_at: 2026-11-17
 seo:

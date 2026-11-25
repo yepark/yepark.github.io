@@ -1,10 +1,11 @@
 ---
 title: "PKCS #4: 폐기된 RSA 키 문법"
 description: "폐기된 PKCS #4 RSA 키 문법과 PKCS #1·PKCS #8·PEM 키 파일 형식의 차이를 설명합니다."
-parent: PKCS 표준
-grand_parent: "PKI & 암호"
+parent: "PKI & 암호"
 nav_order: 4
-permalink: /pki/pkcs/pkcs4/
+permalink: /pki/pkcs4/
+redirect_from:
+  - /pki/pkcs/pkcs4/
 date: 2026-11-17
 last_modified_at: 2026-11-20
 seo:

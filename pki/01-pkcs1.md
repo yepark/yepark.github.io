@@ -1,10 +1,11 @@
 ---
 title: "PKCS #1: RSA 암호와 전자서명"
 description: "RFC 8017의 RSA 키 구조, OAEP 암호화, PSS 전자서명과 PKCS #1 v1.5 호환성 주의사항을 설명합니다."
-parent: PKCS 표준
-grand_parent: "PKI & 암호"
+parent: "PKI & 암호"
 nav_order: 1
-permalink: /pki/pkcs/pkcs1/
+permalink: /pki/pkcs1/
+redirect_from:
+  - /pki/pkcs/pkcs1/
 date: 2026-11-17
 last_modified_at: 2026-11-17
 seo:

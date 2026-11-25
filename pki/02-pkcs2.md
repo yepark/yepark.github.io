@@ -1,10 +1,11 @@
 ---
 title: "PKCS #2: 폐기된 RSA 메시지 다이제스트 규격"
 description: "폐기된 PKCS #2 메시지 다이제스트 규격이 PKCS #1에 흡수된 배경과 현재 확인할 RSA 서명 표준을 설명합니다."
-parent: PKCS 표준
-grand_parent: "PKI & 암호"
+parent: "PKI & 암호"
 nav_order: 2
-permalink: /pki/pkcs/pkcs2/
+permalink: /pki/pkcs2/
+redirect_from:
+  - /pki/pkcs/pkcs2/
 date: 2026-11-17
 last_modified_at: 2026-11-17
 seo:

@@ -1,10 +1,11 @@
 ---
 title: "PKCS #5: 패스워드 기반 암호와 PBKDF2"
 description: "RFC 8018의 PBKDF2, PBES2, salt와 반복 횟수 등 패스워드 기반 암호화의 핵심을 설명합니다."
-parent: PKCS 표준
-grand_parent: "PKI & 암호"
+parent: "PKI & 암호"
 nav_order: 5
-permalink: /pki/pkcs/pkcs5/
+permalink: /pki/pkcs5/
+redirect_from:
+  - /pki/pkcs/pkcs5/
 date: 2026-11-17
 last_modified_at: 2026-11-17
 seo:

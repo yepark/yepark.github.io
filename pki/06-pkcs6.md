@@ -1,10 +1,11 @@
 ---
 title: "PKCS #6: 확장 인증서 문법과 X.509 v3"
 description: "폐기된 PKCS #6 확장 인증서 문법과 이를 대체한 X.509 v3 확장, critical 처리 규칙을 설명합니다."
-parent: PKCS 표준
-grand_parent: "PKI & 암호"
+parent: "PKI & 암호"
 nav_order: 6
-permalink: /pki/pkcs/pkcs6/
+permalink: /pki/pkcs6/
+redirect_from:
+  - /pki/pkcs/pkcs6/
 date: 2026-11-17
 last_modified_at: 2026-11-20
 seo:
