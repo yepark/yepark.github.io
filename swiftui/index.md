@@ -1,17 +1,18 @@
 ---
-title: "SwiftUI 핵심 개념"
+title: "SwiftUI"
 description: "UIKit 개발자가 SwiftUI로 넘어갈 때 알아야 할 선언형 UI, View와 body, 수정자 순서, 레이아웃, @State·@Binding·@Observable 데이터 흐름, 뷰 정체성, UIKit 연동을 실행 결과와 함께 설명합니다."
-parent: iOS
-nav_order: 23
-permalink: /ios/swiftui/
+nav_order: 5
+permalink: /swiftui/
+redirect_from:
+  - /ios/swiftui/
 date: 2026-11-26
-last_modified_at: 2026-11-26
+last_modified_at: 2026-11-27
 seo:
   type: BlogPosting
-last_modified_date: 2026-11-26
+last_modified_date: 2026-11-27
 ---
 
-# SwiftUI 핵심 개념
+# SwiftUI
 {: .no_toc }
 
 {% include article-toc.md %}

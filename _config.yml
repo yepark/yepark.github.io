@@ -32,6 +32,10 @@ defaults:
     values:
       layout: article
   - scope:
+      path: "swiftui"
+    values:
+      layout: article
+  - scope:
       path: "pki"
     values:
       layout: article
