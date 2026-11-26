@@ -2,7 +2,7 @@
 title: "루프 엔지니어링"
 description: "AI 에이전트의 관찰·행동·종료 규칙을 모델 호출 없는 Python 예제로 검증하고 완료·실패·한도 소진을 구분합니다."
 parent: AI
-nav_order: 3
+nav_order: 4
 permalink: /ai/using-ai/loop-engineering/
 last_modified_at: 2026-11-20
 seo:

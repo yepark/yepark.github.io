@@ -2,7 +2,7 @@
 title: "그래프 엔지니어링"
 description: "문의 처리 사례로 상태 계약·조건 분기·반복 상한·체크포인트·승인과 재실행 경계를 설계합니다."
 parent: AI
-nav_order: 4
+nav_order: 5
 permalink: /ai/using-ai/graph-engineering/
 last_modified_at: 2026-11-20
 seo:
