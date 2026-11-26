@@ -84,7 +84,7 @@ flowchart TD
 ```
 
 {: .tip }
-작업자가 둘 이상이어도 최종 결과를 받아들이는 조건은 목표에 맞춰 한곳에 적어 둔다. 예를 들어 글 하나의 예제가 통과해도 링크가 깨졌으면 게시 단계는 멈춘다. ADR 승인, 구현과 검증의 반복, 마지막 골든 게이트까지 이어지는 개발 과정은 [AI 워크플로우]({{ '/ai/using-ai/ai-workflow/' | relative_url }})에서 다룬다.
+작업자가 둘 이상이어도 최종 결과를 받아들이는 조건은 목표에 맞춰 한곳에 적어 둔다. 예를 들어 글 하나의 예제가 통과해도 링크가 깨졌으면 게시 단계는 멈춘다. ADR과 기준 원본을 확인하고, 구현과 검증을 반복한 뒤 골든 게이트를 실행하는 과정은 [워크플로우]({{ '/ai/using-ai/ai-workflow/' | relative_url }})에서 다룬다.
 
 ## 조정 프로그램이 실행하는 작은 예
 
@@ -966,7 +966,7 @@ Anthropic은 평가를 시작할 때 실제 사용을 대표하는 질문 약 20
 - [루프 엔지니어링]({{ '/ai/using-ai/loop-engineering/' | relative_url }}): 에이전트 하나가 반복하며 일하는 구조
 - [그래프 엔지니어링]({{ '/ai/using-ai/graph-engineering/' | relative_url }}): 상태와 분기를 그래프로 설계하기
 - [하네스 엔지니어링]({{ '/ai/using-ai/harness-engineering/' | relative_url }}): 에이전트 하나를 둘러싼 실행 환경
-- [AI 워크플로우]({{ '/ai/using-ai/ai-workflow/' | relative_url }}): ADR에서 구현, 검증 루프, 골든 게이트까지 이어지는 개발 과정
+- [워크플로우]({{ '/ai/using-ai/ai-workflow/' | relative_url }}): ADR에서 구현, 검증 루프, 골든 게이트까지 이어지는 개발 과정
 - [A2A]({{ '/ai/using-ai/a2a/' | relative_url }}): 서로 다른 팀의 에이전트를 잇는 프로토콜
 
 ## 참고
