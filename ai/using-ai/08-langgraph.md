@@ -1573,7 +1573,7 @@ python -m pytest -q test_first_graph.py
 
 ## 다음 편
 
-[그래프 엔지니어링]({{ "/ai/using-ai/graph-engineering/" | relative_url }})에서 상태의 경계를 정하고, 일부 병렬 노드가 실패했을 때 어떤 값으로 합칠지 살펴본다. 순환 없이 의존성만 표현하는 방법은 [DAG와 AI 워크플로]({{ "/ai/dag/" | relative_url }})에서 이어진다.
+[그래프 엔지니어링]({{ "/ai/using-ai/graph-engineering/" | relative_url }})에서 상태의 경계를 정하고, 일부 병렬 노드가 실패했을 때 어떤 값으로 합칠지 살펴본다. 순환 없이 의존성만 표현하는 방법은 [DAG]({{ "/ai/dag/" | relative_url }})에서 이어진다.
 
 ## 참고
 

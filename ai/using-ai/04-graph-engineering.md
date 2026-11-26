@@ -61,7 +61,7 @@ flowchart TD
 | 상태(state) | 노드들이 함께 읽고 쓰는 작업 데이터 | 승객이 들고 다니는 표 |
 | 체크포인트(checkpoint) | 어느 시점의 상태를 저장해 둔 것 | 게임의 세이브 파일 |
 
-이 글의 실습은 [LangGraph](https://docs.langchain.com/oss/python/langgraph/graph-api)로 한다. LangGraph는 상태를 가진 워크플로우를 그래프로 만들고 실행하는 Python 라이브러리다. 설치와 첫 그래프 만들기는 [LangGraph 실습]({{ '/ai/using-ai/langgraph/' | relative_url }})에 있으니, 여기서는 **설계**에 집중한다. 되돌아가는 화살표가 없는 의존성 그래프는 [DAG와 AI 워크플로우]({{ '/ai/dag/' | relative_url }})에서 따로 다룬다.
+이 글의 실습은 [LangGraph](https://docs.langchain.com/oss/python/langgraph/graph-api)로 한다. LangGraph는 상태를 가진 워크플로우를 그래프로 만들고 실행하는 Python 라이브러리다. 설치와 첫 그래프 만들기는 [LangGraph 실습]({{ '/ai/using-ai/langgraph/' | relative_url }})에 있으니, 여기서는 **설계**에 집중한다. 되돌아가는 화살표가 없는 의존성 그래프는 [DAG]({{ '/ai/dag/' | relative_url }})에서 따로 다룬다.
 
 ## 그래프가 나을 때, 자유로운 에이전트가 나을 때
 
@@ -1393,7 +1393,7 @@ ok   Billing  -> clarify
 - [하네스 엔지니어링]({{ '/ai/using-ai/harness-engineering/' | relative_url }}): 그래프가 쓰는 도구, 권한, 기록을 묶는 실행 환경
 - [AI 평가와 개선]({{ '/ai/using-ai/evaluation/' | relative_url }}): 경로가 아니라 답의 품질을 재는 방법
 - [LangGraph 실습]({{ '/ai/using-ai/langgraph/' | relative_url }}): 설치, `StateGraph`, `compile`과 `invoke`의 기초
-- [DAG와 AI 워크플로우]({{ '/ai/dag/' | relative_url }}): 되돌아가는 화살표가 없는 의존성 그래프
+- [DAG]({{ '/ai/dag/' | relative_url }}): 되돌아가는 화살표가 없는 의존성 그래프
 
 다음 글 [AI 평가와 개선]({{ '/ai/using-ai/evaluation/' | relative_url }})에서는 그래프가 맞는 길로 갔다는 것을 넘어, 그 길 끝에서 나온 답이 맞는지를 데이터셋과 회귀 시험으로 재는 방법을 다룬다.
 
