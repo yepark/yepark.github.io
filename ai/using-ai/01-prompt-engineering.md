@@ -16,8 +16,6 @@ tags: [AI, Prompt-Engineering, LLM]
 # 프롬프트 엔지니어링
 {: .no_toc }
 
-> 🎧 [NotebookLM으로 이 글 살펴보기](https://notebooklm.link.google/DizMUNa9lUOl){:target="_blank" rel="noopener"}
-
 {% include article-toc.md %}
 
 “결제 버튼을 누르면 오류가 나요.”
