@@ -210,7 +210,7 @@ uv venv .venv
 Python 3.12.16
 ```
 
-`asyncio.timeout()`과 `asyncio.TaskGroup`은 Python 3.11부터 들어간 기능이다. 그보다 낮은 버전에서는 아래 코드가 돌지 않는다. 표준 라이브러리만 쓰므로 따로 설치할 패키지는 없다.
+`asyncio.timeout()`과 `asyncio.TaskGroup`은 Python 3.11부터 들어간 기능이다. 그보다 낮은 버전에서는 아래 코드가 돌지 않는다. 표준 라이브러리만 쓴다. 아래 1~7단계의 Python 코드 블록을 순서대로 이어 붙여 `orchestrator.py`로 저장한다.
 
 ### 1단계: 일을 맡길 때의 계약
 
@@ -349,8 +349,7 @@ class Budget:
 ```python
 # ---------- 1. 작업 분해 ----------
 def make_plan(goal):
-    # 실제 시스템에서는 모델이 계획을 만든다.
-    # 여기서는 고정 규칙으로 만든다.
+    # 실습에서는 고정 규칙으로 계획을 만든다.
     return [
         Task("spec", "spec", ("cpu", "ram_gb")),
         Task("price_a", "shop_a", ("price", "seen")),
@@ -363,7 +362,7 @@ def make_plan(goal):
 
 **작업 분해(task decomposition)**는 큰 목표를 맡길 수 있는 작은 일로 쪼개는 것이다. 이사를 할 때 "짐 싸기, 차 예약, 주소 변경"으로 나누는 것과 같다.
 
-실제 오케스트레이터에서는 이 계획을 모델이 만든다. Anthropic의 리드 에이전트는 질문의 난이도에 맞춰 하위 에이전트 수를 정하도록 프롬프트에 규칙을 넣었다. 단순한 사실 찾기는 에이전트 하나가 도구 호출 3~10번, 직접 비교는 하위 에이전트 2~4개, 복잡한 조사는 10개가 넘는 하위 에이전트를 쓰는 식이다.
+요청마다 필요한 작업이 달라지는 시스템은 모델로 계획을 만들 수도 있다. Anthropic의 리드 에이전트는 질문의 난이도에 맞춰 하위 에이전트 수를 정하도록 프롬프트에 규칙을 넣었다. 단순한 사실 찾기는 에이전트 하나가 도구 호출 3~10번, 직접 비교는 하위 에이전트 2~4개, 복잡한 조사는 10개가 넘는 하위 에이전트를 쓰는 식이다.
 
 ### 5단계: 위임, 시간 제한, 재시도, 대체, 사람에게 넘기기
 
@@ -445,7 +444,7 @@ def aggregate(res):
     if "spec" in res:
         report["spec"] = res["spec"]
     prices = [res[k] for k in ("price_a", "price_b")
-              if k in res]
+              if k in res and res[k].get("status") != "needs_human"]
     if len(prices) == 2 and \
             prices[0]["price"] != prices[1]["price"]:
         # 규칙: 더 최근에 확인한 값을 쓴다
