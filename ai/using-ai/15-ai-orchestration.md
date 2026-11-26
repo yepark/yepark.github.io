@@ -101,7 +101,7 @@ Microsoft의 [AI agent orchestration patterns](https://learn.microsoft.com/en-us
 
 ### 5. 전문가 파이프라인
 
-일을 정해진 순서로 전문가에게 넘긴다. 조사 → 작성 → 검토처럼 순서가 고정된 경우다. Microsoft 문서의 **Sequential** 패턴이 여기에 해당한다. 한 흐름 안에서 단계를 잇는 설계는 [AI 워크플로]({{ '/ai/using-ai/ai-workflow/' | relative_url }}) 글에서 자세히 다룬다.
+일을 정해진 순서로 전문가에게 넘긴다. 조사 → 작성 → 검토처럼 순서가 고정된 경우다. Microsoft 문서의 **Sequential** 패턴이 여기에 해당한다. 한 흐름 안에서 단계를 잇는 설계는 [AI 워크플로우]({{ '/ai/using-ai/ai-workflow/' | relative_url }}) 글에서 자세히 다룬다.
 
 ### 6. 라우터와 모델 라우팅
 
@@ -825,7 +825,7 @@ $ cat provider.json
 
 OpenAI Agents SDK의 [Tracing 문서](https://openai.github.io/openai-agents-python/tracing/)는 용어를 이렇게 정의한다.
 
-- **trace**: 하나의 워크플로를 처음부터 끝까지 실행한 기록이다. 여러 span으로 이루어진다.
+- **trace**: 하나의 워크플로우를 처음부터 끝까지 실행한 기록이다. 여러 span으로 이루어진다.
 - **span**: 시작과 끝 시각이 있는 작업 하나다. 부모 span을 가질 수 있다.
 - **group_id**: 같은 대화에서 나온 여러 trace를 묶는 ID다.
 - SDK는 에이전트 실행, 모델 호출, 함수 도구 호출, 가드레일, **핸드오프**를 기본으로 각각 span으로 남긴다.
@@ -897,7 +897,7 @@ Anthropic은 평가를 시작할 때 실제 사용을 대표하는 질문 약 20
 - [루프 엔지니어링]({{ '/ai/using-ai/loop-engineering/' | relative_url }}): 에이전트 하나가 반복하며 일하는 구조
 - [그래프 엔지니어링]({{ '/ai/using-ai/graph-engineering/' | relative_url }}): 상태와 분기를 그래프로 설계하기
 - [하네스 엔지니어링]({{ '/ai/using-ai/harness-engineering/' | relative_url }}): 에이전트 하나를 둘러싼 실행 환경
-- [AI 워크플로]({{ '/ai/using-ai/ai-workflow/' | relative_url }}): 체이닝, 라우팅, 병렬화 같은 한 흐름 안의 패턴
+- [AI 워크플로우]({{ '/ai/using-ai/ai-workflow/' | relative_url }}): 체이닝, 라우팅, 병렬화 같은 한 흐름 안의 패턴
 - [A2A]({{ '/ai/using-ai/a2a/' | relative_url }}): 서로 다른 팀의 에이전트를 잇는 프로토콜
 
 ## 참고

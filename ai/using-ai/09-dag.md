@@ -1,5 +1,5 @@
 ---
-title: "DAG와 AI 워크플로"
+title: "DAG와 AI 워크플로우"
 description: "DAG의 방향·비순환·위상 정렬을 문서 검색 사례로 이해하고, Python 의존성 실행 예제로 병렬 처리와 실패 전파를 검증합니다. LangGraph의 반복과도 구분합니다."
 parent: AI
 nav_order: 9
@@ -13,7 +13,7 @@ seo:
 tags: [AI, DAG, Workflow, Python, LangGraph]
 ---
 
-# DAG와 AI 워크플로
+# DAG와 AI 워크플로우
 {: .no_toc }
 
 {% include article-toc.md %}
@@ -251,7 +251,7 @@ DAG 형태: 검색 → 초안 → 검사 → 완료
 
 결과를 재사용할 때도 노드 이름만 캐시 키로 삼으면 안 된다. 같은 `draft`라도 질문, 검색 문서, 모델과 프롬프트가 다르면 다른 계산이다. 무엇이 바뀌면 캐시를 무효화할지 정의해야 한다.
 
-배치 일정과 작업 재시도·상태 관리를 갖춘 도구로는 Airflow 같은 워크플로 시스템이 있다. 수학적인 DAG 구조 위에 실행 관리 기능을 더한 도구이며, 이 글의 작은 스케줄러와 기능 범위가 다르다. 구체적인 실행 정책은 [Airflow Dag 공식 문서](https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/dags.html)에서 확인한다.
+배치 일정과 작업 재시도·상태 관리를 갖춘 도구로는 Airflow 같은 워크플로우 시스템이 있다. 수학적인 DAG 구조 위에 실행 관리 기능을 더한 도구이며, 이 글의 작은 스케줄러와 기능 범위가 다르다. 구체적인 실행 정책은 [Airflow Dag 공식 문서](https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/dags.html)에서 확인한다.
 
 ## 직접 바꿔 보며 이해하기
 

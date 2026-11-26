@@ -1,6 +1,6 @@
 ---
 title: "그래프 엔지니어링"
-description: "AI 워크플로를 그래프로 설계하는 법을 LangGraph 1.2.23 실행 결과로 설명합니다. 상태 계약, reducer, 조건 분기와 기본 경로, 반복 상한, fan-out과 합류, 체크포인트와 승인, 시간 여행, 재시도와 멱등성, 버전 변경, 테스트까지 다룹니다."
+description: "AI 워크플로우를 그래프로 설계하는 법을 LangGraph 1.2.23 실행 결과로 설명합니다. 상태 계약, reducer, 조건 분기와 기본 경로, 반복 상한, fan-out과 합류, 체크포인트와 승인, 시간 여행, 재시도와 멱등성, 버전 변경, 테스트까지 다룹니다."
 parent: AI
 nav_order: 5
 permalink: /ai/using-ai/graph-engineering/
@@ -49,7 +49,7 @@ flowchart TD
 [루프 엔지니어링]({{ '/ai/using-ai/loop-engineering/' | relative_url }})에서는 모델이 행동을 고르고 결과를 보고 다시 고르는 반복 하나를 다뤘다. 그래프는 그 반복과 갈림길, 동시에 하는 일을 **눈에 보이는 구조로 꺼내 놓는다.** 위 그림의 "수정 → 근거 검사" 화살표가 바로 루프다. 다만 이제 그 루프가 언제 빠져나오는지가 그림에 적혀 있다.
 
 {: .note }
-"그래프 엔지니어링"은 표준화된 직무명이 아니다. 이 글에서는 AI 워크플로와 에이전트의 제어 흐름을 그래프로 설계하는 일을 이 이름으로 부른다.
+"그래프 엔지니어링"은 표준화된 직무명이 아니다. 이 글에서는 AI 워크플로우와 에이전트의 제어 흐름을 그래프로 설계하는 일을 이 이름으로 부른다.
 
 ## 용어 다섯 개
 
@@ -61,16 +61,16 @@ flowchart TD
 | 상태(state) | 노드들이 함께 읽고 쓰는 작업 데이터 | 승객이 들고 다니는 표 |
 | 체크포인트(checkpoint) | 어느 시점의 상태를 저장해 둔 것 | 게임의 세이브 파일 |
 
-이 글의 실습은 [LangGraph](https://docs.langchain.com/oss/python/langgraph/graph-api)로 한다. LangGraph는 상태를 가진 워크플로를 그래프로 만들고 실행하는 Python 라이브러리다. 설치와 첫 그래프 만들기는 [LangGraph 실습]({{ '/ai/using-ai/langgraph/' | relative_url }})에 있으니, 여기서는 **설계**에 집중한다. 되돌아가는 화살표가 없는 의존성 그래프는 [DAG와 AI 워크플로]({{ '/ai/dag/' | relative_url }})에서 따로 다룬다.
+이 글의 실습은 [LangGraph](https://docs.langchain.com/oss/python/langgraph/graph-api)로 한다. LangGraph는 상태를 가진 워크플로우를 그래프로 만들고 실행하는 Python 라이브러리다. 설치와 첫 그래프 만들기는 [LangGraph 실습]({{ '/ai/using-ai/langgraph/' | relative_url }})에 있으니, 여기서는 **설계**에 집중한다. 되돌아가는 화살표가 없는 의존성 그래프는 [DAG와 AI 워크플로우]({{ '/ai/dag/' | relative_url }})에서 따로 다룬다.
 
 ## 그래프가 나을 때, 자유로운 에이전트가 나을 때
 
 Anthropic의 [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)는 두 가지를 나눈다.
 
-- **워크플로**: 모델과 도구가 "미리 정해 둔 코드 경로"를 따라 움직이는 시스템.
+- **워크플로우**: 모델과 도구가 "미리 정해 둔 코드 경로"를 따라 움직이는 시스템.
 - **에이전트**: 모델이 스스로 과정과 도구 사용을 정하는 시스템.
 
-그래프는 워크플로를 표현하는 가장 직접적인 방법이다. 이 글은 같은 문서가 소개하는 다섯 가지 워크플로 패턴을 그래프 모양으로 옮기면 어떻게 되는지 정리해 두었다.
+그래프는 워크플로우를 표현하는 가장 직접적인 방법이다. 이 글은 같은 문서가 소개하는 다섯 가지 워크플로우 패턴을 그래프 모양으로 옮기면 어떻게 되는지 정리해 두었다.
 
 | 패턴 (문서의 설명) | 그래프 모양 | LangGraph에서 쓰는 것 |
 | --- | --- | --- |
@@ -1393,7 +1393,7 @@ ok   Billing  -> clarify
 - [하네스 엔지니어링]({{ '/ai/using-ai/harness-engineering/' | relative_url }}): 그래프가 쓰는 도구, 권한, 기록을 묶는 실행 환경
 - [AI 평가와 개선]({{ '/ai/using-ai/evaluation/' | relative_url }}): 경로가 아니라 답의 품질을 재는 방법
 - [LangGraph 실습]({{ '/ai/using-ai/langgraph/' | relative_url }}): 설치, `StateGraph`, `compile`과 `invoke`의 기초
-- [DAG와 AI 워크플로]({{ '/ai/dag/' | relative_url }}): 되돌아가는 화살표가 없는 의존성 그래프
+- [DAG와 AI 워크플로우]({{ '/ai/dag/' | relative_url }}): 되돌아가는 화살표가 없는 의존성 그래프
 
 다음 글 [AI 평가와 개선]({{ '/ai/using-ai/evaluation/' | relative_url }})에서는 그래프가 맞는 길로 갔다는 것을 넘어, 그 길 끝에서 나온 답이 맞는지를 데이터셋과 회귀 시험으로 재는 방법을 다룬다.
 
@@ -1408,4 +1408,4 @@ ok   Billing  -> clarify
 - [LangGraph: Fault tolerance](https://docs.langchain.com/oss/python/langgraph/fault-tolerance) — `RetryPolicy` 기본값, at-least-once, 멱등성 키
 - [LangGraph: Subgraphs](https://docs.langchain.com/oss/python/langgraph/use-subgraphs) — 하위 그래프 두 방식, 체크포인터 상속, `subgraphs=True`
 - [LangGraph: Persistence](https://docs.langchain.com/oss/python/langgraph/persistence) — 체크포인터와 store, 운영용 저장소
-- [Anthropic: Building effective agents](https://www.anthropic.com/engineering/building-effective-agents) (2024-12-19) — 워크플로와 에이전트, 다섯 가지 워크플로 패턴
+- [Anthropic: Building effective agents](https://www.anthropic.com/engineering/building-effective-agents) (2024-12-19) — 워크플로우와 에이전트, 다섯 가지 워크플로우 패턴
