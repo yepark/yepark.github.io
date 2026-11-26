@@ -1,6 +1,6 @@
 ---
-title: "AI 오케스트레이션"
-description: "여러 모델, 에이전트, 도구를 하나의 목표로 묶는 AI 오케스트레이션을 설명합니다. 감독자, 계층형, 핸드오프, 공유 상태, 모델 라우팅 구조와 계약, 예산, 재시도, 취소, 체크포인트, 추적을 asyncio로 만든 작은 오케스트레이터의 실제 실행 결과로 확인합니다."
+title: "오케스트레이션"
+description: "여러 AI에게 일을 나눠 맡기고 결과를 검증하는 법을 처음부터 설명합니다. 서브에이전트에 줄 작업 지시, 의존성, 통합 검증을 익히고 Python 실습으로 재시도와 취소를 확인합니다."
 parent: AI
 nav_order: 15
 permalink: /ai/using-ai/ai-orchestration/
@@ -13,10 +13,80 @@ last_modified_date: 2026-11-27
 tags: [AI, Agent, Orchestration, Multi-Agent, Python]
 ---
 
-# AI 오케스트레이션
+# 오케스트레이션
 {: .no_toc }
 
 {% include article-toc.md %}
+
+## AI에게 일을 나눠 맡기는 첫 실습
+
+AI에게 "기술 문서 세 편을 보강해 줘"라고 부탁했다고 하자. 한 작업자는 검색 예제를 실행하고, 다른 작업자는 Swift 테스트를 돌리고, 또 다른 작업자는 프레임워크 문서의 API를 확인할 수 있다. 결과가 돌아오면 누군가는 각 글과 실행 결과를 대조하고, 함께 빌드하고, 게시할 수 있는지 판단해야 한다.
+
+이처럼 여러 작업자가 한 목표를 향하도록 **일을 나누고, 실행 순서를 정하고, 결과를 이어 붙이는 일**이 오케스트레이션이다. 그 조정을 맡은 프로그램이나 에이전트를 **오케스트레이터**라고 한다. 팀에서 각자 할 일을 정하고 결과를 합치는 담당자와 비슷하다.
+
+서브에이전트는 큰 요청에서 떼어 낸 작은 일을 맡는 AI 작업자다. 조정 에이전트가 서브에이전트에 맡길 일을 적고, 결과를 받아 다음 행동을 고르는 구조를 **감독자 패턴**이라고 부른다. 아래처럼 독립적인 일 세 개를 나누고 마지막에 합칠 수 있다. [LangChain Multi-agent](https://docs.langchain.com/oss/python/langchain/multi-agent), [Anthropic의 멀티 에이전트 리서치 사례](https://www.anthropic.com/research/multi-agent-research-system)
+
+```mermaid
+flowchart TD
+    U[사람이 목표와 완료 기준을 정함] --> L[조정 AI가 할 일과 의존성을 나눔]
+    L --> R[검색 예제 담당]
+    L --> S[Swift 실습 담당]
+    L --> F[프레임워크 문서 담당]
+    R --> V[조정 AI가 결과와 실행 기록을 대조]
+    S --> V
+    F --> V
+    V --> G{통합 검증이 통과했나}
+    G -->|실패| X[문제를 고칠 담당자에게 넘김]
+    X --> V
+    G -->|통과| P[결과와 남은 제한을 보고]
+```
+
+### 순서를 먼저 정한다
+
+위 예에서 각 실습은 사용하는 파일과 실행 환경이 달라서 함께 돌릴 수 있다. 사이트 전체 빌드는 결과 세 편이 모인 뒤에 해야 한다. 이렇게 어떤 일이 다른 일의 결과를 기다리는 것을 **의존성**이라고 한다. 먼저 작업 목록을 쓰고, 각 줄의 시작 조건을 적어 보면 어디를 동시에 맡겨도 되는지 보인다.
+
+| 일 | 시작 조건 | 완료를 확인할 증거 |
+| --- | --- | --- |
+| 검색 실습 보강 | 해당 글과 예제 파일을 읽음 | 검색 결과와 모델 응답을 재실행한 출력 |
+| Swift 실습 보강 | 해당 글과 예제 파일을 읽음 | 테스트 명령, 통과 수, 사용한 버전 |
+| 프레임워크 문서 보강 | 해당 글과 공식 문서를 읽음 | 실행한 예제와 실제 출력, 공식 출처 |
+| 통합 검증 | 제출한 변경을 모음 | 사이트 빌드 결과와 내부 링크 검사 |
+
+두 작업자가 같은 파일을 수정해야 한다면 한 사람에게 맡기거나 한쪽은 읽기 전용으로 검토하게 한다. 독립된 파일이라도 한쪽이 API를 바꾸고 다른 쪽이 그 API를 사용한다면, 먼저 인터페이스를 합의한 뒤에 시작한다. 단계를 설계하는 방법은 [DAG와 AI 워크플로우]({{ '/ai/dag/' | relative_url }})에서 이어서 볼 수 있다.
+
+### 각 작업자에게 완료 조건을 전달한다
+
+"RAG 글을 잘 써 줘"만 전달하면 조사 범위, 검증 방법, 반환 형식을 작업자가 추측해야 한다. 아래처럼 쓰면 조정 AI가 결과를 받아 바로 확인할 수 있다.
+
+```text
+목표: 문서를 검색하고 증거를 붙여 답하는 예제를 설명한다.
+편집 범위: 지정된 글 1편. 해당 예제는 읽고 실행한다.
+입력: 현재 초안, 로컬 실행 예제, 공식 문서.
+제출: 글 경로, 실행 명령, 실제 출력, 미확인 사항.
+완료 조건: 글의 출력이 실제 실행과 일치한다.
+실패 시: 오류와 시도한 조치를 알리고 작업을 돌려준다.
+```
+
+조정 AI는 작업자의 “완료” 보고에 적힌 경로와 출력을 확인한다. 다음 단계에서 필요한 증거가 빠졌다면, 무엇이 빠졌는지 지정해 요청을 돌려보낸다. 결과가 늦어지는 경우에는 기한과 남은 예산을 보고 기다릴지, 범위를 줄일지, 사람에게 알릴지 결정한다.
+
+### 조정 AI에게 한 번 맡겨 보기
+
+서브에이전트 기능을 쓸 수 있는 개발 AI와 함께 아래 요청을 사용해 본다. 처음에는 구현 대신 읽기와 검증을 맡겨도 흐름을 연습할 수 있다.
+
+```text
+이 저장소의 문서 세 편을 검토해 줘.
+1. 시작 전에 각 문서의 담당 범위와 완료 조건을 적어 줘.
+2. 독립적인 검토는 읽기 전용 서브에이전트에 나눠 줘.
+3. 각 작업자에게 파일 경로, 확인 항목, 실행할 명령을 줘.
+4. 각 결과에서 파일 위치와 실제 출력으로 확인한 내용을 모아 줘.
+5. 결과가 충돌하면 근거가 되는 파일이나 명령으로 확인해 줘.
+6. 마지막에 통과, 실패, 미확인을 나눠 알려 줘.
+```
+
+{: .tip }
+작업자가 둘 이상이어도 최종 결과를 받아들이는 조건은 목표에 맞춰 한곳에 적어 둔다. 예를 들어 글 하나의 예제가 통과해도 링크가 깨졌으면 게시 단계는 멈춘다. ADR 승인, 구현과 검증의 반복, 마지막 골든 게이트까지 이어지는 개발 과정은 [AI 워크플로우]({{ '/ai/using-ai/ai-workflow/' | relative_url }})에서 다룬다.
+
+## 조정 프로그램이 실행하는 작은 예
 
 "노트북 하나 추천해 줘"라는 부탁을 AI 여러 개가 나눠서 처리한다고 해 보자. 하나는 사양을 찾고, 둘은 서로 다른 쇼핑몰에서 가격을 보고, 하나는 후기를 모으고, 하나는 재고를 확인한다.
 
@@ -101,7 +171,7 @@ Microsoft의 [AI agent orchestration patterns](https://learn.microsoft.com/en-us
 
 ### 5. 전문가 파이프라인
 
-일을 정해진 순서로 전문가에게 넘긴다. 조사 → 작성 → 검토처럼 순서가 고정된 경우다. Microsoft 문서의 **Sequential** 패턴이 여기에 해당한다. 한 흐름 안에서 단계를 잇는 설계는 [AI 워크플로우]({{ '/ai/using-ai/ai-workflow/' | relative_url }}) 글에서 자세히 다룬다.
+일을 정해진 순서로 전문가에게 넘긴다. 조사 → 작성 → 검토처럼 순서가 고정된 경우다. Microsoft 문서의 **Sequential** 패턴이 여기에 해당한다. 작업 순서와 의존성을 연결하는 방법은 [DAG와 AI 워크플로우]({{ '/ai/dag/' | relative_url }})에서 다룬다.
 
 ### 6. 라우터와 모델 라우팅
 
@@ -897,12 +967,12 @@ Anthropic은 평가를 시작할 때 실제 사용을 대표하는 질문 약 20
 - [루프 엔지니어링]({{ '/ai/using-ai/loop-engineering/' | relative_url }}): 에이전트 하나가 반복하며 일하는 구조
 - [그래프 엔지니어링]({{ '/ai/using-ai/graph-engineering/' | relative_url }}): 상태와 분기를 그래프로 설계하기
 - [하네스 엔지니어링]({{ '/ai/using-ai/harness-engineering/' | relative_url }}): 에이전트 하나를 둘러싼 실행 환경
-- [AI 워크플로우]({{ '/ai/using-ai/ai-workflow/' | relative_url }}): 체이닝, 라우팅, 병렬화 같은 한 흐름 안의 패턴
+- [AI 워크플로우]({{ '/ai/using-ai/ai-workflow/' | relative_url }}): ADR에서 구현, 검증 루프, 골든 게이트까지 이어지는 개발 과정
 - [A2A]({{ '/ai/using-ai/a2a/' | relative_url }}): 서로 다른 팀의 에이전트를 잇는 프로토콜
 
 ## 참고
 
-- [Anthropic: How we built our multi-agent research system](https://www.anthropic.com/engineering/multi-agent-research-system)
+- [Anthropic: How we built our multi-agent research system](https://www.anthropic.com/research/multi-agent-research-system)
 - [Anthropic: Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)
 - [OpenAI Agents SDK: Agent orchestration](https://openai.github.io/openai-agents-python/multi_agent/)
 - [OpenAI Agents SDK: Handoffs](https://openai.github.io/openai-agents-python/handoffs/)
