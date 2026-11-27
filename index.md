@@ -23,6 +23,7 @@ redirect_from:
     <li><a href="{{ '/ai/' | relative_url }}"><span class="topic-title">AI</span><span class="topic-description">머신러닝의 기초부터 AI 에이전트의 설계와 평가까지</span><span class="topic-arrow" aria-hidden="true">→</span></a></li>
     <li><a href="{{ '/swift/' | relative_url }}"><span class="topic-title">Swift</span><span class="topic-description">언어의 기본 개념과 동시성, 더 안전한 코드의 구조</span><span class="topic-arrow" aria-hidden="true">→</span></a></li>
     <li><a href="{{ '/ios/' | relative_url }}"><span class="topic-title">iOS</span><span class="topic-description">앱의 설계와 테스트, MLX와 Apple 플랫폼 AI</span><span class="topic-arrow" aria-hidden="true">→</span></a></li>
+    <li><a href="{{ '/swiftui/' | relative_url }}"><span class="topic-title">SwiftUI</span><span class="topic-description">선언형 UI와 상태 관리, Combine으로 만드는 화면</span><span class="topic-arrow" aria-hidden="true">→</span></a></li>
     <li><a href="{{ '/pki/' | relative_url }}"><span class="topic-title">PKI &amp; 암호</span><span class="topic-description">암호 알고리즘부터 인증서와 전자서명의 동작 원리</span><span class="topic-arrow" aria-hidden="true">→</span></a></li>
   </ul>
 </section>
