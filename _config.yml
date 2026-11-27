@@ -39,6 +39,10 @@ defaults:
       path: "pki"
     values:
       layout: article
+  - scope:
+      path: "spring"
+    values:
+      layout: article
 
 remote_theme: just-the-docs/just-the-docs@v0.10.1
 
