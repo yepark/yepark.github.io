@@ -5,12 +5,12 @@ parent: RxSwift
 grand_parent: Swift
 nav_order: 1
 permalink: /swift/rxswift/observable/
-last_modified_at: 2026-11-26
+last_modified_at: 2026-11-27
 seo:
   type: BlogPosting
 date: 2026-11-25
 first_written: 2026-11-25
-last_modified_date: 2026-11-26
+last_modified_date: 2026-11-27
 tags: [Swift, RxSwift, Observable, Reactive]
 ---
 
@@ -491,6 +491,20 @@ dispose하자마자 정리 코드가 실행되어 작업이 취소됐다. 실제
 | 클로저에서 `self`를 강하게 캡처 | 객체·DisposeBag이 해제되지 않는다 | `[weak self]` 또는 `subscribe(with:)` |
 | `create`에서 `Disposables.create()`를 비워 둠 | 구독을 끊어도 작업은 계속 돈다 | 정리 클로저에서 작업을 취소한다 |
 | `onError` 생략 | 기본 오류 핸들러에 전달된다 | 에러를 처리하거나 흐름 안에서 바꾼다 |
+
+## 주요 API
+
+| API | 역할 |
+| --- | --- |
+| `Observable.just(x)` | 값 하나를 보내고 완료 |
+| `Observable.of(a, b, ...)`, `Observable.from([...])` | 여러 값을 차례로 보내고 완료 |
+| `Observable.range(start:count:)` | 연속 정수 |
+| `Observable.create { observer in }` | 직접 이벤트를 만든다. `Disposable`을 돌려준다 |
+| `observer.onNext` / `onError` / `onCompleted` | 값·오류·완료 이벤트 보내기 |
+| `subscribe(onNext:onError:onCompleted:onDisposed:)` | 이벤트 받기 |
+| `Disposables.create { }` | 구독이 끝날 때 정리 코드 |
+| `disposed(by: bag)`, `DisposeBag` | 가방이 해제될 때 구독을 함께 해제 |
+| `dispose()` | 구독 직접 해제 |
 
 ## 정리
 

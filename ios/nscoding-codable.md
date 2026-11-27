@@ -3,13 +3,13 @@ title: "NSCoding과 Codable의 직렬화 모델"
 parent: "iOS"
 nav_order: 3
 permalink: /ios/nscoding-codable/
-last_modified_at: 2026-11-17
+last_modified_at: 2026-11-27
 seo:
   type: BlogPosting
 date: 2021-04-28
 description: "NSCoding 객체 아카이빙과 Codable 직렬화의 차이, 보안 디코딩과 모델 호환성을 설명합니다."
 first_written: 2021-04-28
-last_modified_date: 2026-11-17
+last_modified_date: 2026-11-27
 tags: [iOS, Swift, Objective-C, NSCoding, Codable]
 ---
 
@@ -115,6 +115,20 @@ struct Person: Codable {
 ```
 
 서버 JSON처럼 독립적으로 진화하는 형식이라면 `CodingKeys`, 사용자 정의 `init(from:)`, 버전 필드를 사용해 호환 범위를 명시한다. 장기 보관 데이터에는 “현재 모델이 자동으로 합성되니 계속 읽힐 것”이라고 가정하지 않는 것이 중요하다.
+
+## 주요 API
+
+| API | 역할 |
+| --- | --- |
+| `NSCoding` | `encodeWithCoder:` / `initWithCoder:`로 객체를 인코딩·복원 |
+| `NSSecureCoding` | 복원할 클래스를 확인하는 보안 버전. `supportsSecureCoding` |
+| `NSKeyedArchiver.archivedData(withRootObject:requiringSecureCoding:)` | 객체 그래프를 `Data`로 |
+| `NSKeyedUnarchiver.unarchivedObject(ofClass:from:)` | 허용한 클래스로만 복원 |
+| `Codable` | `Encodable & Decodable`. 값 타입을 외부 형식으로 변환 |
+| `JSONEncoder` / `JSONDecoder` | JSON 인코딩·디코딩 |
+| `PropertyListEncoder` / `Decoder` | plist 인코딩·디코딩 |
+| `CodingKeys` | 프로퍼티 이름과 외부 키 이름 대응 |
+| `init(from:)`, `encode(to:)` | 직접 구현하는 디코딩·인코딩 |
 
 ## 참고
 

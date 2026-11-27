@@ -5,12 +5,12 @@ parent: RxSwift
 grand_parent: Swift
 nav_order: 6
 permalink: /swift/rxswift/error-handling/
-last_modified_at: 2026-11-26
+last_modified_at: 2026-11-27
 seo:
   type: BlogPosting
 date: 2026-11-25
 first_written: 2026-11-25
-last_modified_date: 2026-11-26
+last_modified_date: 2026-11-27
 tags: [Swift, RxSwift, Error, catch, retry]
 ---
 
@@ -342,6 +342,18 @@ Unhandled error happened: server
 ```
 
 `do(onError:)`에서는 오류를 보고 로그를 남길 수 있다. 위 코드에서는 `catchAndReturn`이 복구를 맡는다. `onError`를 생략한 구독은 기본 오류 핸들러로 오류를 보낸다. 위 출력의 `Unhandled error happened`는 이번 실행 환경에서 기본 핸들러가 남긴 로그다.
+
+## 주요 API
+
+| API | 역할 |
+| --- | --- |
+| `catch { error in }` | 오류를 다른 Observable로 바꾼다 |
+| `catchAndReturn(x)` | 오류 대신 값 하나를 보내고 완료 |
+| `retry(n)` | 오류가 나면 최대 n번 다시 구독 |
+| `retry(when:)` | 조건과 지연을 직접 정한 재시도 |
+| `materialize()` / `dematerialize()` | 이벤트를 `Event` 값으로 바꾸거나 되돌린다 |
+| `timeout(_:scheduler:)` | 시간 안에 이벤트가 없으면 오류 |
+| `flatMapLatest` | 안쪽 요청 오류를 안쪽에서 처리하면 바깥 입력 스트림은 유지된다 |
 
 ## 정리
 

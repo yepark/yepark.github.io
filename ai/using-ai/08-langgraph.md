@@ -1566,6 +1566,28 @@ python -m pytest -q test_first_graph.py
 
 프로그램을 서버에서 실행할 때는 컴파일된 그래프에 지속 저장소를 붙이는 경우와 LangSmith의 Agent Server로 배포하는 경우의 설정을 각각 확인한다. 이 글의 실습은 로컬 Python 프로세스에서 실행했다. [Agent Server 애플리케이션 구조](https://docs.langchain.com/oss/python/langgraph/application-structure)
 
+## 주요 API
+
+| API | 역할 |
+| --- | --- |
+| `StateGraph(State)` | 상태 스키마로 그래프 빌더를 만든다 |
+| `add_node(name, fn)`, `add_edge(a, b)` | 노드와 고정 연결 추가 |
+| `add_conditional_edges(src, fn, mapping)` | 함수 결과로 다음 노드를 고른다 |
+| `START`, `END` | 시작점과 끝점 |
+| `compile(checkpointer=, interrupt_before=, store=)` | 실행 가능한 그래프로 만든다 |
+| `app.invoke(input, config)`, `app.stream(input, stream_mode=)` | 실행, 단계별 스트림 |
+| `Annotated[list, operator.add]` | 리듀서. 여러 노드의 갱신을 합치는 규칙 |
+| `MessagesState`, `add_messages` | 메시지 목록 상태와 ID 기반 병합 리듀서 |
+| `Command(update=, goto=, resume=)` | 상태 갱신과 이동을 함께 지시, 중단 재개 값 전달 |
+| `Send(node, arg)` | 실행 중 정한 개수만큼 같은 노드를 병렬로 부른다 |
+| `interrupt(value)` | 노드 안에서 멈추고 외부 입력을 기다린다 |
+| `InMemorySaver`, `SqliteSaver` | 체크포인트 저장소 |
+| `app.get_state(cfg)`, `get_state_history(cfg)`, `update_state(cfg, values)` | 스냅샷 조회, 이력, 상태 수정 |
+| `InMemoryStore` | 스레드를 넘어 공유하는 장기 저장소 |
+| `RetryPolicy` | 노드 재시도 정책 |
+| `@entrypoint`, `@task` | Functional API. 그래프 대신 함수로 흐름을 쓴다 |
+| `ToolNode`, `tools_condition` | 도구 호출 실행 노드와 분기 함수 |
+
 ## 실습 소스
 
 본문의 예제 코드를 파일로 받을 수 있다. 내려받은 파일을 한 폴더에 두고 본문 순서대로 실행한다.

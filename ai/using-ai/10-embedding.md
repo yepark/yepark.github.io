@@ -162,6 +162,15 @@ RAG(Retrieval-Augmented Generation)는 질문과 의미적으로 가까운 문�
 
 의미 검색과 키워드 검색을 함께 쓰는 하이브리드 방식이 실무에서 자주 등장하는 이유다.
 
+## 주요 API
+
+| API | 역할 |
+| --- | --- |
+| `SentenceTransformer(model_name)` | `sentence_transformers`. 임베딩 모델을 불러온다. 처음 실행 때 내려받는다 |
+| `model.encode(sentences, normalize_embeddings=)` | 문장 목록을 벡터 배열로 바꾼다 |
+| `np.dot(a, b)` | 내적. 정규화된 벡터끼리는 코사인 유사도와 같다 |
+| `np.linalg.norm(a)` | 벡터 길이. 코사인 유사도의 분모 |
+
 ## 실습 소스
 
 본문의 예제 코드를 파일로 받을 수 있다. 내려받은 파일을 한 폴더에 두고 본문 순서대로 실행한다.

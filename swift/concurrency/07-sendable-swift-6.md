@@ -4,13 +4,13 @@ parent: Concurrency
 grand_parent: Swift
 nav_order: 7
 permalink: /swift/concurrency/sendable-swift-6/
-last_modified_at: 2026-11-17
+last_modified_at: 2026-11-27
 seo:
   type: BlogPosting
 date: 2026-11-16
 description: "Sendable과 @Sendable 캡처 검사, Swift 6 언어 모드와 동시성 마이그레이션 경계를 설명합니다."
 first_written: 2026-11-16
-last_modified_date: 2026-11-17
+last_modified_date: 2026-11-27
 tags: [Swift, Concurrency, Sendable, Swift-6]
 ---
 
@@ -217,6 +217,18 @@ Swift Concurrency의 도구들은 서로 다른 문제를 해결한다.
 | Swift 6 검사 | 위 규칙을 컴파일 단계에서 강제 |
 
 한 기능을 전부 actor로 바꾸거나 모든 함수에 `@MainActor`를 붙이는 것이 목표는 아니다. 값의 소유자, 실행 경계, 취소 범위를 코드에 정확히 표현하면 컴파일러가 그 설계를 검증해 준다.
+
+## 주요 API
+
+| API | 역할 |
+| --- | --- |
+| `Sendable` | 격리 영역 사이로 안전하게 넘길 수 있는 타입 |
+| `@Sendable` | 동시에 실행돼도 안전한 클로저 |
+| `@unchecked Sendable` | 컴파일러 검사 대신 개발자가 안전을 보장 |
+| `sending` | 값을 넘긴 뒤 보내는 쪽에서 더 쓰지 않음을 표시 |
+| `nonisolated(unsafe)` | 전역·정적 변수의 격리 검사를 끈다 |
+| `Mutex` | `Synchronization` 모듈. 락으로 보호하는 상태 |
+| Swift 6 언어 모드 | 데이터 경쟁 가능성을 컴파일 오류로 검사 |
 
 ## 정리
 

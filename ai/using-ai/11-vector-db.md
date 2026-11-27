@@ -213,6 +213,18 @@ HNSW 인덱스는 삽입 후에 구성된다. 문서를 먼저 모두 올리고 
 **검색 결과를 그대로 믿지 않는다.**  
 유사도 점수가 높아도 답변에 필요한 내용이 없을 수 있다. 검색 단계와 생성 단계를 각각 평가해야 한다. 검색이 맞았는지와 생성이 맞았는지는 별개의 문제다.
 
+## 주요 API
+
+| API | 역할 |
+| --- | --- |
+| `chromadb.Client()` | 메모리에 저장하는 클라이언트 |
+| `chromadb.PersistentClient(path=)` | 로컬 폴더에 저장하는 클라이언트 |
+| `client.create_collection(name, metadata=)` | 컬렉션 생성. `{"hnsw:space": "cosine"}`로 거리 방식을 정한다 |
+| `client.get_or_create_collection(name)` | 있으면 가져오고 없으면 만든다 |
+| `collection.add(ids=, documents=, embeddings=, metadatas=)` | 문서와 벡터, 메타데이터 저장 |
+| `collection.query(query_embeddings=, n_results=, where=)` | 가까운 벡터 검색. `where`로 메타데이터 필터 |
+| `collection.count()` | 저장된 항목 수 |
+
 ## 실습 소스
 
 본문의 예제 코드를 파일로 받을 수 있다. 내려받은 파일을 한 폴더에 두고 본문 순서대로 실행한다.

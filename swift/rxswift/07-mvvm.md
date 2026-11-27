@@ -5,12 +5,12 @@ parent: RxSwift
 grand_parent: Swift
 nav_order: 7
 permalink: /swift/rxswift/mvvm/
-last_modified_at: 2026-11-26
+last_modified_at: 2026-11-27
 seo:
   type: BlogPosting
 date: 2026-11-25
 first_written: 2026-11-25
-last_modified_date: 2026-11-26
+last_modified_date: 2026-11-27
 tags: [Swift, RxSwift, MVVM, Architecture, iOS]
 ---
 
@@ -442,6 +442,19 @@ failed: [] offline
 ```
 
 `RxBlocking`은 응답 하나를 기다려 반환하는 식으로 결과를 확인할 때 쓸 수 있다. 위 테스트는 백그라운드에서 전달하는 결과에 1초 제한을 두었다. 화면에서 메인 큐에 전달할 값을 메인 큐에서 차단하며 기다리면 전달을 막을 수 있다. 이벤트 순서나 지연을 확인할 때는 `TestScheduler`로 기록을 비교한다.
+
+## 주요 API
+
+| API | 역할 |
+| --- | --- |
+| `Single`, `Maybe`, `Completable` | 값 1개, 0~1개, 완료만 보내는 Observable |
+| `Driver` | `RxCocoa`. 메인 스레드, 오류 없음, 마지막 값 공유 |
+| `Signal` | `Driver`와 같지만 새 구독자에게 이전 값을 다시 보내지 않는다 |
+| `asDriver(onErrorJustReturn:)` | Observable을 Driver로 |
+| `drive(_:)`, `emit(to:)` | Driver·Signal을 화면에 연결 |
+| `bind(to:)` | Observable을 Observer·Relay에 연결 |
+| `PublishRelay`, `BehaviorRelay` | ViewModel 입력·상태 |
+| `SharingScheduler.mock` | 테스트에서 Driver의 스케줄러를 바꾼다 |
 
 ## 정리
 

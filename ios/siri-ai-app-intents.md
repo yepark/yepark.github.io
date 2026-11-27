@@ -5,10 +5,10 @@ parent: iOS
 nav_order: 21
 permalink: /ios/siri-ai-app-intents/
 date: 2026-11-17
-last_modified_at: 2026-11-20
+last_modified_at: 2026-11-27
 seo:
   type: BlogPosting
-last_modified_date: 2026-11-20
+last_modified_date: 2026-11-27
 ---
 
 # Siri AI와 App Intents
@@ -291,6 +291,20 @@ Intent: 어떤 메모를 요약할지 입력 받음
 한 번에 ‘Siri가 안 된다’고 묶으면 원인을 좁힐 수 없다. Query를 코드로 직접 시험하고, 단축어 실행을 확인하고, 그다음 Siri 호출과 최신 기능을 확인하는 순서가 각 경계를 분리하는 데 도움이 된다.
 
 검증은 코드 호출에서 시스템 호출로 넓힌다. 먼저 위의 작은 데이터로 동명 후보, 선택한 ID, 접근 철회와 삭제를 확인한다. 그다음 앱 타깃에 연결해 단축어에서 발견과 실행을 확인하고, 지원 언어의 Siri 호출을 시험한다. 최신 Preview의 문맥 해석·앱 간 동작은 해당 배포 조건에서 별도로 확인한다. 코드가 실행된다는 것과 시스템이 올바른 대상을 찾아 실행한다는 것은 각각 증거가 필요하다.
+
+## 주요 API
+
+| API | 역할 |
+| --- | --- |
+| `AppIntent` | 시스템에 공개하는 앱의 행동. `perform()`을 구현한다 |
+| `@Parameter` | Intent가 받는 입력 |
+| `IntentResult`, `ReturnsValue`, `ProvidesDialog` | `perform()`의 결과 종류 |
+| `AppEntity` | 시스템이 가리킬 수 있는 앱의 데이터 항목 |
+| `EntityQuery` | ID나 검색어로 Entity를 찾는다 |
+| `DisplayRepresentation`, `TypeDisplayRepresentation` | 항목과 타입을 화면에 보여 줄 이름 |
+| `AppShortcutsProvider`, `AppShortcut` | 설치 즉시 쓸 수 있는 단축어와 호출 문구 |
+| `IntentAuthenticationPolicy` | 잠금 상태에서 실행할 수 있는지 |
+| `LocalizedStringResource` | 지역화된 제목과 설명 |
 
 ## 이어서 읽기
 

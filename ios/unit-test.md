@@ -3,13 +3,13 @@ title: "비동기 단위 테스트와 UI 테스트"
 parent: "iOS"
 nav_order: 6
 permalink: /ios/unit-test/
-last_modified_at: 2026-11-17
+last_modified_at: 2026-11-27
 seo:
   type: BlogPosting
 date: 2021-04-17
 description: "XCTest expectation, 비동기 완료 조건, UI 접근성 식별자와 안정적인 테스트 설계를 설명합니다."
 first_written: 2021-04-17
-last_modified_date: 2026-11-17
+last_modified_date: 2026-11-27
 tags: [iOS, Xcode, XCTest, UI-Test]
 ---
 
@@ -125,6 +125,21 @@ Swift 테스트 타깃에서 다음과 같이 모듈을 가져오면 `internal` 
 - 외부 네트워크와 실제 시간은 테스트 더블로 분리한다.
 - UI 테스트는 핵심 사용자 흐름과 회귀 버그에 집중한다.
 - 테스트 실패 메시지에 기대값과 실제 상태가 드러나게 한다.
+
+## 주요 API
+
+| API | 역할 |
+| --- | --- |
+| `XCTestCase` | 테스트를 담는 클래스. `test`로 시작하는 메서드가 테스트 |
+| `XCTAssertEqual`, `XCTAssertTrue` | 기대값 검사 |
+| `XCTestExpectation`, `fulfill()` | 비동기 작업이 끝나야 할 조건과 완료 표시 |
+| `wait(for:timeout:)` | expectation이 충족될 때까지 기다린다 |
+| `XCTNSPredicateExpectation` | 조건식이 참이 될 때 충족되는 expectation |
+| `XCTWaiter` | 대기 결과(`XCTWaiterResult`)를 직접 받아 분기한다 |
+| `XCUIApplication`, `launch()` | UI 테스트에서 앱 실행 |
+| `app.buttons[...]`, `app.staticTexts[...]`, `tap()` | 화면 요소 찾기와 조작 |
+| `waitForExistence(timeout:)` | 요소가 나타날 때까지 기다린다 |
+| `@testable import` | 앱 모듈의 internal 타입을 테스트에서 사용 |
 
 ## 참고 자료
 

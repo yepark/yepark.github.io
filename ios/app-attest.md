@@ -5,10 +5,10 @@ parent: iOS
 nav_order: 23
 permalink: /ios/app-attest/
 date: 2026-11-26
-last_modified_at: 2026-11-26
+last_modified_at: 2026-11-27
 seo:
   type: BlogPosting
-last_modified_date: 2026-11-26
+last_modified_date: 2026-11-27
 tags: [iOS, Security, DeviceCheck, App-Attest]
 ---
 
@@ -261,6 +261,19 @@ App Attest가 증명하는 것은 "이 요청은 정상 Apple 기기에서 실�
 - `invalidKey`에서 새 키를 만드는 경로가 있는가
 - assertion 카운터를 원자적으로 갱신하는가
 - 지원하지 않는 기기와 검증 실패에 대한 정책이 있는가
+
+## 주요 API
+
+| API | 역할 |
+| --- | --- |
+| `DCAppAttestService.shared` | App Attest 서비스 싱글턴 |
+| `isSupported` | 현재 기기·환경에서 사용할 수 있는지 |
+| `generateKey() async throws -> String` | Secure Enclave에 키를 만들고 keyID를 돌려준다 |
+| `attestKey(_:clientDataHash:) async throws -> Data` | Apple 서버를 거쳐 키 증명(attestation)을 받는다. 설치당 한 번 |
+| `generateAssertion(_:clientDataHash:) async throws -> Data` | 요청 데이터 해시에 서명한 assertion. 요청마다 |
+| `DCError.Code` | `.featureUnsupported`, `.invalidKey`, `.invalidInput`, `.serverUnavailable`, `.unknownSystemFailure` |
+| `SHA256.hash(data:)` | CryptoKit. `clientDataHash` 계산 |
+| `com.apple.developer.devicecheck.appattest-environment` | entitlement. `development` 또는 `production` |
 
 ## 이어서 읽기
 

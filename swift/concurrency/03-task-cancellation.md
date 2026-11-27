@@ -4,13 +4,13 @@ parent: Concurrency
 grand_parent: Swift
 nav_order: 3
 permalink: /swift/concurrency/task-cancellation/
-last_modified_at: 2026-11-17
+last_modified_at: 2026-11-27
 seo:
   type: BlogPosting
 date: 2026-11-16
 description: "Task 생성과 수명, 구조화된 동시성, 협력적 취소와 검색 작업의 최신 결과 보장 방법을 설명합니다."
 first_written: 2026-11-16
-last_modified_date: 2026-11-17
+last_modified_date: 2026-11-27
 tags: [Swift, Concurrency, Task, Cancellation]
 ---
 
@@ -210,6 +210,19 @@ detached Task는 생성한 곳의 actor 격리와 task-local 문맥을 이어받
 - 상위 async 함수가 `try await`한다.
 - Task 핸들을 저장하고 `value`를 기다린다.
 - Task 내부에서 오류를 잡아 사용자 상태나 로그로 남긴다.
+
+## 주요 API
+
+| API | 역할 |
+| --- | --- |
+| `Task { }` | 현재 actor와 우선순위를 이어받는 비구조화 작업 |
+| `Task.detached { }` | 현재 문맥을 이어받지 않는 작업 |
+| `task.cancel()` | 취소 요청. 작업이 스스로 확인해야 멈춘다 |
+| `task.value` | 작업 결과를 기다려 받는다 |
+| `Task.isCancelled` | 취소 요청 여부 확인 |
+| `Task.checkCancellation()` | 취소됐으면 `CancellationError`를 던진다 |
+| `Task.sleep(for:)` | 기다리는 중에도 취소에 반응한다 |
+| `withTaskCancellationHandler(operation:onCancel:)` | 취소 순간 정리 코드를 실행 |
 
 ## 정리
 

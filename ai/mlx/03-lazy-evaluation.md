@@ -175,6 +175,17 @@ total_ms = (finished - start) * 1000
 
 실제로 어느 경계가 적합한지는 작업 규모와 메모리 제약을 함께 측정해 결정한다. 이 글의 작은 벤치마크는 측정 방법을 설명하는 출발점이다.
 
+## 주요 API
+
+| API | 역할 |
+| --- | --- |
+| `mx.eval(*arrays)` | 그래프를 평가하고 결과가 준비될 때까지 기다린다 |
+| `mx.async_eval(*arrays)` | 평가를 예약만 하고 바로 돌아온다 |
+| `mx.synchronize()` | 예약된 작업이 끝날 때까지 기다린다 |
+| `mx.compile(fn)` | 함수의 계산 그래프를 최적화한 함수로 바꾼다. 지연 평가와는 별개 기능 |
+| `mx.ones(shape)`, `mx.arange(n)` | 측정용 입력 배열 생성 |
+| `a.item()`, `print(a)`, `np.array(a)` | 값을 꺼내는 순간 평가가 일어난다 |
+
 ## 참고와 후속 글
 
 - [MLX 실행 엔진 소스 분석]({{ '/ai/mlx/source-walkthrough/' | relative_url }})

@@ -5,14 +5,14 @@ parent: MLX
 grand_parent: iOS
 nav_order: 1
 permalink: /ai/mlx/what-is-mlx/
-last_modified_at: 2026-11-20
+last_modified_at: 2026-11-27
 seo:
   type: BlogPosting
 date: 2026-11-15
 redirect_from:
   - /mlx/what-is-mlx/
 first_written: 2026-11-15
-last_modified_date: 2026-11-20
+last_modified_date: 2026-11-27
 tags: [MLX, Python, Apple-Silicon]
 ---
 
@@ -163,6 +163,20 @@ python reproduce.py
 ```
 
 이 스크립트의 검증 성공은 다룬 연산과 입력에 대한 결과다. 모든 모델의 학습 안정성이나 모든 GPU 작업의 성능을 보장하지 않는다. 실제 제품에서는 데이터 전처리와 결과 후처리까지 포함한 지연, 메모리 피크, 오류 처리도 측정해야 한다.
+
+## 주요 API
+
+| API | 역할 |
+| --- | --- |
+| `mx.array(data, dtype=)` | Python 리스트나 숫자로 MLX 배열을 만든다 |
+| `a * b`, `mx.matmul(a, b)` / `a @ b` | 원소별 곱과 행렬곱 |
+| `mx.sum(a, axis=)` | 지정한 축의 합. 축을 주지 않으면 전체 합 |
+| `mx.eval(*arrays)` | 지연된 계산을 실제로 실행하고 끝날 때까지 기다린다 |
+| `mx.grad(fn)` | 함수 `fn`의 첫 번째 인자에 대한 기울기 함수를 만든다 |
+| `mx.default_device()` | 연산이 기본으로 실행될 장치를 확인한다 |
+| `mx.cpu`, `mx.gpu` | 연산에 `stream=`으로 넘겨 실행 장치를 고른다 |
+| `mx.allclose(a, b)` | 두 배열이 허용 오차 안에서 같은지 비교한다 |
+| `mx.float32` | 32비트 실수 dtype |
 
 ## 참고와 후속 글
 

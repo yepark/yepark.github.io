@@ -5,10 +5,10 @@ parent: iOS
 nav_order: 20
 permalink: /ios/foundation-models/
 date: 2026-11-17
-last_modified_at: 2026-11-20
+last_modified_at: 2026-11-27
 seo:
   type: BlogPosting
-last_modified_date: 2026-11-20
+last_modified_date: 2026-11-27
 ---
 
 # Foundation Models
@@ -264,6 +264,21 @@ iOS 26의 [GenerationError](https://developer.apple.com/documentation/foundation
 이 글은 API의 호출 구조와 결과 해석을 설명한다. 사용한 Mac은 macOS 15.6, Xcode 16.2·Swift 6.0.3이며 iOS 18.3 런타임만 설치돼 있다. 따라서 Foundation Models 코드를 컴파일하거나 기기에서 생성하지 못했다. 위의 응답 비교는 설명용이며 실제 생성 결과로 제시하지 않았다.
 
 Xcode 26 이상 SDK와 지원 기기에서는 먼저 같은 입력을 여러 번 생성해 사실 보존 조건을 검사한다. 이어서 모델 미준비, 긴 입력, 생성 중 화면 종료와 문서 전환을 시험한다. iOS 27의 PCC·동적 프로필은 해당 SDK·기기·접근 조건에서 별도로 검증해야 한다.
+
+## 주요 API
+
+| API | 역할 |
+| --- | --- |
+| `SystemLanguageModel.default` | 시스템 온디바이스 모델 |
+| `.availability` | 모델 사용 가능 여부와 불가 사유 |
+| `LanguageModelSession(instructions:)` | 지침과 대화 기록을 유지하는 세션 |
+| `session.respond(to:)` | 응답 전체를 기다려 받는다. 결과는 `response.content` |
+| `session.respond(to:generating:)` | 지정한 `@Generable` 타입으로 결과를 받는다 |
+| `session.streamResponse(to:)` | 생성 중인 내용을 스냅샷으로 차례로 받는다 |
+| `@Generable` | 모델이 채울 수 있는 구조체로 표시 |
+| `@Guide(description:)` | 필드별 설명과 제약을 모델에 알려 준다 |
+| `Tool` | 모델이 호출할 앱 기능을 정의하는 프로토콜 |
+| `LanguageModelSession.GenerationError` | 컨텍스트 초과, 안전 제한 등 생성 오류 |
 
 ## 이어서 읽기
 

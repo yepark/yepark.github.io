@@ -693,6 +693,24 @@ A: 프로 플랜은 한 달에 9,900원입니다. [pricing.md]에서 확인で�
 | 답은 맞고 출처가 틀리다 | 주장과 인용 조각의 대응 |
 | 앱에서 응답을 읽지 못한다 | 모델 원문과 파서 예외 |
 
+## 주요 API
+
+| API | 역할 |
+| --- | --- |
+| `Document(page_content=, metadata=)` | 본문과 출처 등 부가 정보를 담는 문서 |
+| `RecursiveCharacterTextSplitter(chunk_size=, chunk_overlap=)` | 문단·문장 경계를 따라 조각으로 나눈다 |
+| `splitter.split_documents(docs)` | 문서 목록을 조각 목록으로 |
+| `HuggingFaceEmbeddings(model_name=)` | 로컬 임베딩 모델 |
+| `InMemoryVectorStore.from_documents(docs, emb)` | 메모리 벡터 저장소 |
+| `store.similarity_search_with_score(q, k=)` | 가까운 조각과 점수 검색 |
+| `store.as_retriever(search_kwargs=)` | 체인에 넣을 검색기로 변환 |
+| `retriever.invoke(q)` | 질문으로 문서 검색 |
+| `ChatPromptTemplate.from_messages` | 근거와 질문을 넣을 프롬프트 |
+| `RunnablePassthrough` | 체인에서 입력을 그대로 넘긴다 |
+| `StrOutputParser`, `PydanticOutputParser`, `JsonOutputParser` | 응답을 문자열·스키마·JSON으로 |
+| `BM25Retriever`, `EnsembleRetriever` | 키워드 검색과 여러 검색기의 결합(하이브리드) |
+| `CrossEncoder(model_name)` | `sentence_transformers`. 질문과 조각 쌍의 관련도를 다시 매겨 순서를 바꾼다(재순위) |
+
 ## 실습 소스
 
 본문의 예제 코드를 파일로 받을 수 있다. 내려받은 파일을 한 폴더에 두고 본문 순서대로 실행한다.

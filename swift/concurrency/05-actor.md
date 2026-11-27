@@ -4,13 +4,13 @@ parent: Concurrency
 grand_parent: Swift
 nav_order: 5
 permalink: /swift/concurrency/actor/
-last_modified_at: 2026-11-20
+last_modified_at: 2026-11-27
 seo:
   type: BlogPosting
 date: 2026-11-16
 description: "Actor의 상태 격리와 await 경계에서의 재진입, 불변식 보존 및 트랜잭션 설계 문제를 설명합니다."
 first_written: 2026-11-16
-last_modified_date: 2026-11-20
+last_modified_date: 2026-11-27
 tags: [Swift, Concurrency, Actor, Data-Race]
 ---
 
@@ -182,6 +182,16 @@ print(manager.serviceName) // await 불필요
 - 상태의 소유자를 한 곳으로 모으고 싶다.
 
 반대로 단순 데이터 전달에는 `struct`, 화면 상태에는 `@MainActor`, 아예 변경되지 않는 데이터에는 불변 `Sendable` 값이 더 자연스러울 수 있다. 모든 클래스를 actor로 바꾸는 것이 목표는 아니다.
+
+## 주요 API
+
+| API | 역할 |
+| --- | --- |
+| `actor` | 가변 상태를 격리해 한 번에 한 작업만 접근하게 하는 참조 타입 |
+| `await actor.method()` | 외부에서 actor 격리 멤버 호출 |
+| `nonisolated` | 격리가 필요 없는 멤버. `await` 없이 호출 |
+| `isolated` 매개변수 | 함수를 특정 actor 격리 안에서 실행 |
+| `@globalActor` | 여러 타입이 공유하는 전역 actor 정의 |
 
 ## 정리
 

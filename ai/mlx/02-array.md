@@ -5,14 +5,14 @@ parent: MLX
 grand_parent: iOS
 nav_order: 2
 permalink: /ai/mlx/array/
-last_modified_at: 2026-11-20
+last_modified_at: 2026-11-27
 seo:
   type: BlogPosting
 date: 2026-11-15
 redirect_from:
   - /mlx/array/
 first_written: 2026-11-15
-last_modified_date: 2026-11-20
+last_modified_date: 2026-11-27
 tags: [MLX, Python, Array]
 ---
 
@@ -193,6 +193,19 @@ print((x @ x.T).tolist())
 `float32`와 `float16`, 서로 다른 장치의 결과가 바이트 단위로 같아야 한다고 요구하면 정상적인 작은 차이도 실패로 볼 수 있다. 반대로 큰 허용 오차는 실제 오류를 숨긴다. 데이터의 단위와 허용 가능한 오차를 먼저 정한다.
 
 [재현 스크립트]({{ '/assets/examples/mlx/reproduce.py' | relative_url }})는 broadcasting, 축 합계, 평균 제거, 행렬곱과 자동 미분의 작은 정답 사례를 assertion으로 검사한다. 여기서 확인한 결과는 큰 모델 전체의 수치 안정성을 대신하지 않는다.
+
+## 주요 API
+
+| API | 역할 |
+| --- | --- |
+| `mx.array(data, dtype=)` | 배열 생성 |
+| `mx.arange(n)`, `mx.zeros(shape)` | 연속 정수 배열, 0으로 채운 배열 |
+| `a.shape`, `a.ndim`, `a.size`, `a.dtype` | 축별 길이, 축 개수, 원소 수, 원소 타입 |
+| `a.reshape(shape)`, `a.T` / `mx.transpose(a)` | 모양 바꾸기, 축 순서 바꾸기 |
+| `mx.sum(a, axis=, keepdims=)` | 축을 따라 합. `keepdims=True`면 줄인 축을 길이 1로 남긴다 |
+| `mx.mean(a, axis=, keepdims=)` | 축을 따라 평균 |
+| `a + b` (broadcasting) | shape가 달라도 규칙에 맞으면 원소를 맞춰 계산한다 |
+| `a @ b` | 행렬곱. 앞 배열의 마지막 축과 뒤 배열의 끝에서 두 번째 축이 같아야 한다 |
 
 ## 참고와 후속 글
 

@@ -375,6 +375,20 @@ text = generate(model, tokenizer, prompt=prompt,
 {: .note }
 Mac의 GPU에서 이 모델이 얼마나 빠른지, 메모리를 얼마나 쓰는지는 이 글에서 측정하지 않았다. 직접 실행할 때는 [지연 평가 글]({{ '/ai/mlx/lazy-evaluation/' | relative_url }})의 측정 방법을 따른다.
 
+## 주요 API
+
+| API | 역할 |
+| --- | --- |
+| `llama.ModelArgs(...)`, `llama.Model(args)` | `mlx_lm.models.llama`. 설정으로 Llama 구조 모델을 만든다 |
+| `model(ids, cache=)` | 토큰 번호 배열을 받아 위치마다 다음 토큰 점수(logits)를 낸다 |
+| `generate_step(prompt, model, ...)` | `mlx_lm.generate`. 한 토큰씩 생성하는 제너레이터 |
+| `make_prompt_cache(model)` | `mlx_lm.models.cache`. 층마다 KV 캐시를 만든다 |
+| `make_sampler(temp=, top_p=, ...)` | `mlx_lm.sample_utils`. 점수에서 다음 토큰을 고르는 함수를 만든다 |
+| `model.save_weights(path)` | 가중치를 safetensors로 저장 |
+| `load_model(path)` | `mlx_lm.utils`. `config.json`과 가중치 파일로 모델을 불러온다 |
+| `nn.quantize(model, group_size=, bits=)` | 선형 층을 양자화 층으로 바꾼다 |
+| `load(repo)`, `generate(model, tokenizer, prompt=)` | `mlx_lm`. 공개 모델 불러오기와 텍스트 생성 |
+
 ## 실습 소스
 
 본문의 예제 코드를 파일로 받을 수 있다. 내려받은 파일을 한 폴더에 두고 본문 순서대로 실행한다.

@@ -3,13 +3,13 @@ title: "KVC와 KVO"
 parent: "iOS"
 nav_order: 2
 permalink: /ios/kvc-kvo/
-last_modified_at: 2026-11-17
+last_modified_at: 2026-11-27
 seo:
   type: BlogPosting
 date: 2021-04-10
 description: "Objective-C KVC의 문자열 키 접근과 KVO의 변경 관찰, 등록·해제 및 객체 수명 조건을 설명합니다."
 first_written: 2021-04-10
-last_modified_date: 2026-11-17
+last_modified_date: 2026-11-27
 tags: [iOS, Objective-C, KVC, KVO]
 ---
 
@@ -109,6 +109,20 @@ static void *TestValueContext = &TestValueContext;
 - **Delegate/Closure**: 일대일 통신이나 명시적인 흐름이 필요할 때 이해하기 쉽다.
 
 KVO는 모델 객체의 상태 변화를 연결하는 데 유용하지만, 문자열 키와 객체 수명 관리 비용이 있다. 이벤트의 의미가 중요하다면 Notification이나 명시적인 콜백이 더 읽기 쉬울 수 있다.
+
+## 주요 API
+
+| API | 역할 |
+| --- | --- |
+| `valueForKey:` / `setValue:forKey:` | 문자열 키로 값 읽기·쓰기 |
+| `valueForKeyPath:` / `setValue:forKeyPath:` | `address.city`처럼 경로로 접근 |
+| `addObserver:forKeyPath:options:context:` | 속성 변경 관찰 등록 |
+| `observeValueForKeyPath:ofObject:change:context:` | 변경 알림을 받는 메서드 |
+| `removeObserver:forKeyPath:context:` | 관찰 해제 |
+| `NSKeyValueObservingOptionNew` / `Old` | 알림에 새 값·이전 값 포함 |
+| `NSKeyValueChangeNewKey` / `OldKey` | `change` 사전에서 값 꺼내는 키 |
+| `willChangeValueForKey:` / `didChangeValueForKey:` | 수동 변경 알림 |
+| Swift `observe(_:options:changeHandler:)` | `NSKeyValueObservation`을 돌려주는 블록 기반 관찰 |
 
 ## 참고 자료
 
