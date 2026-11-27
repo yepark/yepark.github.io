@@ -15,6 +15,10 @@ permalink: /ios/
 - [Foundation Models]({{ '/ios/foundation-models/' | relative_url }}): 앱에서 시스템 온디바이스 모델 사용하기
 - [Siri AI와 App Intents]({{ '/ios/siri-ai-app-intents/' | relative_url }}): 앱의 기능과 데이터를 시스템에 연결하기
 
+## 기기 관리
+
+- [Apple MDM]({{ '/ios/mdm/' | relative_url }}): ADE(DEP) 자동 등록부터 구성 프로파일, MDM 명령, 앱 배포, 선언형 기기 관리(DDM)까지
+
 ## 보안
 
 - [App Attest와 attestKey]({{ '/ios/app-attest/' | relative_url }}): 서버가 정상 앱의 요청인지 확인하기
