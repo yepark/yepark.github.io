@@ -28,7 +28,7 @@ Objective-C와 Swift를 함께 사용하다 보면 `NSCoding`과 `Codable`을 �
 
 ## NSCoding: 객체 그래프 아카이빙
 
-`NSCoding`은 객체를 `NSCoder`로 인코딩하고 디코딩하기 위한 Foundation 프로토콜이다. 일반적으로 `NSKeyedArchiver`와 함께 객체 그래프를 파일이나 `Data`로 보관할 때 사용한다.
+`NSCoding`은 객체를 `NSCoder`로 인코딩하고 디코딩하기 위한 Foundation 프로토콜이다. 일반적으로 `NSKeyedArchiver`와 함께 객체 그래프(서로를 참조하는 여러 객체의 묶음. 예: 사람 → 주소, 사람 → 친구 목록)를 참조 관계까지 그대로 파일이나 `Data`로 보관할 때 사용한다.
 
 ```objc
 @interface Person : NSObject <NSSecureCoding>
@@ -52,7 +52,7 @@ Objective-C와 Swift를 함께 사용하다 보면 `NSCoding`과 `Codable`을 �
 @end
 ```
 
-새 코드에서는 허용할 클래스를 검증하는 `NSSecureCoding`과 보안 디코딩 API를 우선한다. 신뢰할 수 없는 아카이브를 아무 클래스로나 복원하면 객체 치환 문제가 생길 수 있다.
+새 코드에서는 허용할 클래스를 검증하는 `NSSecureCoding`과 보안 디코딩 API를 우선한다. 신뢰할 수 없는 아카이브를 아무 클래스로나 복원하면, 공격자가 아카이브 안의 클래스 이름을 바꿔 앱이 예상하지 못한 다른 클래스의 객체를 만들게 할 수 있다(객체 치환 공격).
 
 ## Codable: 외부 표현과의 변환
 

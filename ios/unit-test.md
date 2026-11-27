@@ -48,7 +48,7 @@ XCTest에서 비동기 동작을 검증하려면 테스트가 끝나야 하는 �
 
 ## 상태 변화를 기다리는 테스트
 
-콜백을 외부로 노출하지 않는 객체라면 predicate expectation으로 상태가 만족될 때까지 기다릴 수 있다.
+콜백을 외부로 노출하지 않는 객체라면 predicate expectation으로 상태가 만족될 때까지 기다릴 수 있다. predicate(`NSPredicate`)는 "`isValid == YES`"처럼 참·거짓을 판정하는 조건식 객체다.
 
 ```objc
 - (void)testObjectEventuallyBecomesValid {
@@ -122,7 +122,7 @@ Swift 테스트 타깃에서 다음과 같이 모듈을 가져오면 `internal` 
 
 - 고정된 대기 시간보다 expectation과 `waitForExistence`를 사용한다.
 - 한 테스트에서는 하나의 명확한 동작을 검증한다.
-- 외부 네트워크와 실제 시간은 테스트 더블로 분리한다.
+- 외부 네트워크와 실제 시간은 테스트 더블(정해진 응답을 돌려주는 가짜 객체)로 바꿔 끼운다.
 - UI 테스트는 핵심 사용자 흐름과 회귀 버그에 집중한다.
 - 테스트 실패 메시지에 기대값과 실제 상태가 드러나게 한다.
 
