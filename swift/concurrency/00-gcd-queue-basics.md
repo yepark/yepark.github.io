@@ -31,7 +31,7 @@ Swift 동시성을 공부할 때 가장 먼저 헷갈리는 조합이 있다.
 > `sync`와 `async`는 **작업을 보낸 호출자가 기다리는가**를 말한다.  
 > `serial`과 `concurrent`는 **큐가 여러 작업을 어떤 방식으로 실행하는가**를 말한다.
 
-이 두 문장만 정확히 이해하면 GCD(Grand Central Dispatch)의 큰 뼈대가 잡힌다.
+이 두 문장만 정확히 이해하면 GCD의 큰 뼈대가 잡힌다.
 
 ## 예제를 실행하기 전에
 
@@ -329,7 +329,7 @@ QoS는 실행 순서를 확정하는 값이 아니라 시스템 스케줄러에 
 
 ## 가장 위험한 실수: 같은 Serial Queue에 sync
 
-메인 스레드에서 Main Queue에 `sync`로 작업을 보내면 데드락이 발생한다.
+메인 스레드에서 Main Queue에 `sync`로 작업을 보내면 데드락(교착 상태: 두 쪽이 서로 상대가 끝나기를 기다리느라 둘 다 영원히 멈춘 상태)이 발생한다.
 
 ```swift
 // 메인 스레드에서 실행 중
@@ -470,12 +470,6 @@ func loadImage() async throws -> Image {
 - `async == concurrent`, `sync == serial`이 아니다.
 - 같은 Serial Queue에 `sync`로 다시 진입하면 데드락이 발생할 수 있다.
 
-## 다음 편
-
-이제 “기다리는 동안 앱을 멈추지 않는 것”과 “여러 작업을 함께 관리하는 것”이 서로 다른 문제라는 기반이 생겼다. 다음 편에서는 콜백과 GCD 중심 코드가 Swift의 `async`/`await`, Task, actor로 어떻게 바뀌었는지 살펴본다.
-
-→ [Swift Concurrency 실행 모델]({{ '/swift/concurrency/why-concurrency/' | relative_url }})
-
 ## 주요 API
 
 | API | 역할 |
@@ -489,6 +483,12 @@ func loadImage() async throws -> Image {
 | `DispatchQueue.concurrentPerform(iterations:execute:)` | 반복을 병렬로 실행하고 모두 끝날 때까지 기다린다 |
 | `DispatchGroup` | 여러 작업이 모두 끝났는지 추적 |
 | `asyncAfter(deadline:)` | 지정 시간 뒤 실행 |
+
+## 다음 편
+
+이제 “기다리는 동안 앱을 멈추지 않는 것”과 “여러 작업을 함께 관리하는 것”이 서로 다른 문제라는 기반이 생겼다. 다음 편에서는 콜백과 GCD 중심 코드가 Swift의 `async`/`await`, Task, actor로 어떻게 바뀌었는지 살펴본다.
+
+→ [Swift Concurrency 실행 모델]({{ '/swift/concurrency/why-concurrency/' | relative_url }})
 
 ## 참고
 

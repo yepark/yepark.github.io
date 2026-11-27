@@ -115,7 +115,7 @@ func makeThumbnails(_ images: [Image]) async throws -> [Thumbnail] {
 
 ## 검색 입력 디바운스 예제
 
-사용자가 새 글자를 입력할 때 이전 검색을 취소하는 패턴이다.
+사용자가 새 글자를 입력할 때 이전 검색을 취소하는 패턴이다. 디바운스(debounce)는 입력이 잠깐 멈출 때까지 기다렸다가 마지막 입력으로만 작업을 실행하는 기법이다. 글자 하나마다 서버에 요청하지 않게 해 준다.
 
 ```swift
 import Foundation
