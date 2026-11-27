@@ -60,7 +60,7 @@ CertificationRequestInfo ::= SEQUENCE {
 
 RFC 2986은 `subject`를 “인증서 주체, 즉 인증받을 공개 키의 소유자에 대한 Distinguished Name”으로 정의한다.
 
-DN은 여러 RDN(Relative Distinguished Name)의 조합으로 표현된다. 자주 사용되는 속성은 다음과 같다.
+DN은 여러 RDN(Relative Distinguished Name)을 이어 붙여 표현한다. RDN 하나는 `O=예제회사`처럼 "속성=값" 한 쌍이고, 이것들을 나라 → 조직 → 부서 → 이름처럼 큰 범위부터 작은 범위로 쌓아 하나의 고유한 이름을 만든다. 자주 사용되는 속성은 다음과 같다.
 
 - `CN`: Common Name
 - `O`: Organization

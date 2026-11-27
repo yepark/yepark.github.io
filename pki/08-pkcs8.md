@@ -19,7 +19,7 @@ tags: [PKI, PKCS8, Private-Key, RFC5958]
 
 {% include article-toc.md %}
 
-PKCS #8은 RSA, EC 같은 특정 알고리즘에 종속되지 않고 개인 키와 알고리즘 정보를 담는 문법이다. RFC 5208이 PKCS #8 v1.2를 담았고, **RFC 5958이 이를 폐기하고 후속 Asymmetric Key Packages를 정의**했다.
+PKCS #8은 RSA, EC(타원곡선) 같은 특정 알고리즘에 종속되지 않고 개인 키와 알고리즘 정보를 담는 문법이다. RFC 5208이 PKCS #8 v1.2를 담았고, **RFC 5958이 이를 폐기하고 후속 Asymmetric Key Packages를 정의**했다.
 
 ## 키를 담는 상자의 역할
 

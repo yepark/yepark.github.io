@@ -48,8 +48,8 @@ PKCS #6는 X.509 인증서에 추가 속성을 연결하기 위한 **Extended-Ce
 | Extended Key Usage | TLS 서버, 코드 서명 같은 세부 용도 |
 | Subject Alternative Name | DNS, IP, 이메일 등 대체 이름 |
 | Subject/Authority Key Identifier | 주체 키와 발급자 키 식별 보조 |
-| CRL Distribution Points | CRL 위치 |
-| Authority Information Access | OCSP·발급자 인증서 위치 |
+| CRL Distribution Points | CRL(폐지된 인증서 목록)을 받을 주소 |
+| Authority Information Access | OCSP(인증서 폐지 여부를 실시간으로 묻는 서비스)와 발급자 인증서 주소 |
 
 ## critical 플래그
 
@@ -62,7 +62,7 @@ X.509 확장에는 `critical` 여부가 있다. 검증자가 이해하지 못하
 - 인터넷 PKI 인증서 프로파일: RFC 5280
 - 인증서 ASN.1 구조: X.509와 관련 프로파일
 - TLS 서버 이름 확인: 해당 TLS 및 서비스 식별 규격
-- 특정 조직의 인증서: 그 조직의 CP/CPS와 인증서 프로파일
+- 특정 조직의 인증서: 그 조직의 CP/CPS(인증서 정책과 인증 업무 준칙, 즉 CA가 무엇을 확인하고 어떻게 발급하는지 적은 문서)와 인증서 프로파일
 
 PKCS #6 포맷을 새로 생성하지 않는다. 오래된 파일이나 소프트웨어를 분석할 때만 역사적 구조로 만날 수 있다.
 
@@ -71,7 +71,7 @@ PKCS #6 포맷을 새로 생성하지 않는다. 오래된 파일이나 소프�
 - 알 수 없는 critical 확장을 무시하지 않는다.
 - Key Usage와 Extended Key Usage를 모두 확인한다.
 - CA 인증서는 Basic Constraints와 인증서 서명 용도를 확인한다.
-- 이름 검증을 Subject의 CN만으로 단순 처리하지 않는다.
+- 이름 검증을 Subject의 CN(Common Name)만 보고 끝내지 않는다. 서버 이름은 Subject Alternative Name을 기준으로 확인한다.
 - 파싱 성공과 신뢰 검증 성공을 구분한다.
 
 ## 서명은 맞는데 인증서 용도는 틀릴 수 있다
