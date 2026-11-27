@@ -4,12 +4,12 @@ description: "Apple 실리콘 Mac에 TensorFlow를 설치하고, 텐서 연산, 
 parent: AI
 nav_order: 17
 permalink: /ai/using-ai/tensorflow-mac/
-last_modified_at: 2026-11-26
+last_modified_at: 2026-11-27
 seo:
   type: BlogPosting
 date: 2026-11-26
 first_written: 2026-11-26
-last_modified_date: 2026-11-26
+last_modified_date: 2026-11-27
 tags: [AI, Machine-Learning, TensorFlow, Keras, Python, macOS]
 ---
 
@@ -294,6 +294,17 @@ pred: [7 2 1] label: [7 2 1] conf: [0.998 0.998 0.997]
 | `tensorflow-metal` 설치 후 오류 | 플러그인과 TensorFlow 버전 호환. 플러그인을 지우고 CPU로 먼저 확인 |
 | MNIST 다운로드 실패 | 네트워크·프록시. 받다 만 파일이 `~/.keras/datasets`에 남았으면 지우고 다시 실행 |
 | shape 관련 오류 | 각 단계에서 `.shape`를 출력해 입력과 층이 기대하는 shape 비교 |
+
+## 실습 소스
+
+본문의 예제 코드를 파일로 받을 수 있다. 내려받은 파일을 한 폴더에 두고 본문 순서대로 실행한다.
+
+패키지는 `pip install -r requirements.txt`로 설치한다.
+
+- [requirements.txt]({{ '/assets/examples/ai/tensorflow-mac/requirements.txt' | relative_url }})
+- [t1.py]({{ '/assets/examples/ai/tensorflow-mac/t1.py' | relative_url }})
+- [t2.py]({{ '/assets/examples/ai/tensorflow-mac/t2.py' | relative_url }})
+- [t3.py]({{ '/assets/examples/ai/tensorflow-mac/t3.py' | relative_url }})
 
 ## 이어서 읽기
 

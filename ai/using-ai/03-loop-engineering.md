@@ -985,6 +985,21 @@ facts: {'status': 'shipped'}
 {: .tip }
 마지막으로, 루프가 정말 필요한지부터 묻자. Anthropic 글은 가능한 한 가장 단순한 해법을 찾고, 필요할 때만 복잡도를 늘리라고 권한다. 조회 한 번이면 끝나는 일은 루프 없이 함수 하나로 충분하다. 결과에 따라 다음 행동이 달라져야 할 때 루프를 쓴다.
 
+## 실습 소스
+
+본문의 예제 코드를 파일로 받을 수 있다. 내려받은 파일을 한 폴더에 두고 본문 순서대로 실행한다.
+
+패키지는 `pip install -r requirements.txt`로 설치한다.
+
+- [requirements.txt]({{ '/assets/examples/ai/loop-engineering/requirements.txt' | relative_url }})
+- [llm_loop.py]({{ '/assets/examples/ai/loop-engineering/llm_loop.py' | relative_url }})
+- [react_loop.py]({{ '/assets/examples/ai/loop-engineering/react_loop.py' | relative_url }})
+- [refine.py]({{ '/assets/examples/ai/loop-engineering/refine.py' | relative_url }})
+- [retry.py]({{ '/assets/examples/ai/loop-engineering/retry.py' | relative_url }})
+- [test_loop.py]({{ '/assets/examples/ai/loop-engineering/test_loop.py' | relative_url }})
+
+**추가 준비가 필요한 파일** (Apple 실리콘 Mac의 MLX 로컬 모델): `llm_loop.py`
+
 ## 정리
 
 - 에이전트 루프는 **관찰 → 결정 → 행동 → 결과 관찰 → 상태 갱신 → 멈출지 판단**의 반복이다. 모델은 결정 한 칸을 맡고, 나머지는 프로그램이 한다.

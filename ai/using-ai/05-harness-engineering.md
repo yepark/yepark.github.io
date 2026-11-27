@@ -633,6 +633,13 @@ Anthropic의 도구 작성 글은 시제품을 만든 뒤 평가를 돌려 성�
 5. **위 책임 표로 고칠 곳을 정한다.** 하네스 쪽 원인이면 하네스를, 정보가 충분했는데 틀렸으면 모델·프롬프트를 고친다.
 6. **결함 주입 과제로 추가한다.** 같은 실패가 다시 오지 않는지 평가 세트에 남긴다.
 
+## 실습 소스
+
+본문의 예제 코드를 파일로 받을 수 있다. 내려받은 파일을 한 폴더에 두고 본문 순서대로 실행한다.
+
+- [harness.py]({{ '/assets/examples/ai/harness-engineering/harness.py' | relative_url }})
+- [reset.sh]({{ '/assets/examples/ai/harness-engineering/reset.sh' | relative_url }})
+
 ## 정리
 
 - 하네스는 모델을 실제로 일하는 에이전트로 만드는 바깥 장치 전체다. 모델은 다음 행동을 고르고, 나머지는 하네스가 한다.

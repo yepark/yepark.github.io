@@ -693,6 +693,32 @@ A: 프로 플랜은 한 달에 9,900원입니다. [pricing.md]에서 확인で�
 | 답은 맞고 출처가 틀리다 | 주장과 인용 조각의 대응 |
 | 앱에서 응답을 읽지 못한다 | 모델 원문과 파서 예외 |
 
+## 실습 소스
+
+본문의 예제 코드를 파일로 받을 수 있다. 내려받은 파일을 한 폴더에 두고 본문 순서대로 실행한다.
+
+패키지는 `pip install -r requirements.txt`로 설치한다.
+
+- [requirements.txt]({{ '/assets/examples/ai/rag/requirements.txt' | relative_url }})
+- [docs.py]({{ '/assets/examples/ai/rag/docs.py' | relative_url }})
+- [llm.py]({{ '/assets/examples/ai/rag/llm.py' | relative_url }})
+- [prompt.py]({{ '/assets/examples/ai/rag/prompt.py' | relative_url }})
+- [s1_split.py]({{ '/assets/examples/ai/rag/s1_split.py' | relative_url }})
+- [s1b_overlap.py]({{ '/assets/examples/ai/rag/s1b_overlap.py' | relative_url }})
+- [s2_search.py]({{ '/assets/examples/ai/rag/s2_search.py' | relative_url }})
+- [s3_stages.py]({{ '/assets/examples/ai/rag/s3_stages.py' | relative_url }})
+- [s4_chain.py]({{ '/assets/examples/ai/rag/s4_chain.py' | relative_url }})
+- [s5_struct.py]({{ '/assets/examples/ai/rag/s5_struct.py' | relative_url }})
+- [s6_fail.py]({{ '/assets/examples/ai/rag/s6_fail.py' | relative_url }})
+- [s7_hybrid.py]({{ '/assets/examples/ai/rag/s7_hybrid.py' | relative_url }})
+- [s8_rerank.py]({{ '/assets/examples/ai/rag/s8_rerank.py' | relative_url }})
+- [s9_eval.py]({{ '/assets/examples/ai/rag/s9_eval.py' | relative_url }})
+- [s10_rewrite.py]({{ '/assets/examples/ai/rag/s10_rewrite.py' | relative_url }})
+- [s11_faith.py]({{ '/assets/examples/ai/rag/s11_faith.py' | relative_url }})
+- [store.py]({{ '/assets/examples/ai/rag/store.py' | relative_url }})
+
+**추가 준비가 필요한 파일** (Hugging Face 임베딩 모델과 Apple 실리콘 Mac의 MLX 로컬 모델): `store.py`, `s2_search.py`, `llm.py`, `prompt.py`, `s3_stages.py`, `s4_chain.py`, `s5_struct.py`, `s6_fail.py`, `s7_hybrid.py`, `s8_rerank.py`, `s9_eval.py`, `s10_rewrite.py`, `s11_faith.py`
+
 ## 정리
 
 {: .note }

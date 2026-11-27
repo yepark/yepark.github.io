@@ -4,12 +4,12 @@ description: "텍스트를 벡터로 바꾸는 원리와 코사인 유사도·�
 parent: AI
 nav_order: 10
 permalink: /ai/using-ai/embedding/
-last_modified_at: 2026-11-25
+last_modified_at: 2026-11-27
 seo:
   type: BlogPosting
 date: 2026-11-25
 first_written: 2026-11-25
-last_modified_date: 2026-11-25
+last_modified_date: 2026-11-27
 tags: [AI, Embedding, RAG, Vector, Python]
 ---
 
@@ -161,6 +161,18 @@ RAG(Retrieval-Augmented Generation)는 질문과 의미적으로 가까운 문�
 - **도메인 편향**: 범용 모델은 특정 전문 분야의 용어를 충분히 구분하지 못할 수 있다.
 
 의미 검색과 키워드 검색을 함께 쓰는 하이브리드 방식이 실무에서 자주 등장하는 이유다.
+
+## 실습 소스
+
+본문의 예제 코드를 파일로 받을 수 있다. 내려받은 파일을 한 폴더에 두고 본문 순서대로 실행한다.
+
+패키지는 `pip install -r requirements.txt`로 설치한다.
+
+- [requirements.txt]({{ '/assets/examples/ai/embedding/requirements.txt' | relative_url }})
+- [embed.py]({{ '/assets/examples/ai/embedding/embed.py' | relative_url }})
+- [similarity.py]({{ '/assets/examples/ai/embedding/similarity.py' | relative_url }})
+
+**추가 준비가 필요한 파일** (Hugging Face 임베딩 모델 다운로드): `embed.py`
 
 ## 정리
 

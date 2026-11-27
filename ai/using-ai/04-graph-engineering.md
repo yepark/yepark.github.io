@@ -1375,6 +1375,26 @@ ok   Billing  -> clarify
 4. **값을 고쳐 분기해 본다.** `update_state`로 의심 가는 값만 바꿔 경로가 바로잡히는지 본다. 원래 기록은 남는다.
 5. **고친 뒤 그 입력을 경로 시험에 추가한다.** 같은 고장이 다시 오지 않게 한다.
 
+## 실습 소스
+
+본문의 예제 코드를 파일로 받을 수 있다. 내려받은 파일을 한 폴더에 두고 본문 순서대로 실행한다.
+
+패키지는 `pip install -r requirements.txt`로 설치한다.
+
+- [requirements.txt]({{ '/assets/examples/ai/graph-engineering/requirements.txt' | relative_url }})
+- [approval.py]({{ '/assets/examples/ai/graph-engineering/approval.py' | relative_url }})
+- [cycle.py]({{ '/assets/examples/ai/graph-engineering/cycle.py' | relative_url }})
+- [error_edge.py]({{ '/assets/examples/ai/graph-engineering/error_edge.py' | relative_url }})
+- [fanout.py]({{ '/assets/examples/ai/graph-engineering/fanout.py' | relative_url }})
+- [join.py]({{ '/assets/examples/ai/graph-engineering/join.py' | relative_url }})
+- [migrate.py]({{ '/assets/examples/ai/graph-engineering/migrate.py' | relative_url }})
+- [partial.py]({{ '/assets/examples/ai/graph-engineering/partial.py' | relative_url }})
+- [retry.py]({{ '/assets/examples/ai/graph-engineering/retry.py' | relative_url }})
+- [route.py]({{ '/assets/examples/ai/graph-engineering/route.py' | relative_url }})
+- [route_bad.py]({{ '/assets/examples/ai/graph-engineering/route_bad.py' | relative_url }})
+- [subgraph.py]({{ '/assets/examples/ai/graph-engineering/subgraph.py' | relative_url }})
+- [table_test.py]({{ '/assets/examples/ai/graph-engineering/table_test.py' | relative_url }})
+
 ## 정리
 
 {: .note }

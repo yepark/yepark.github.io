@@ -464,6 +464,17 @@ v4 seed=0: json=10/10 schema=10/10 label=7/10 quote=8/10
 
 프롬프트가 길어진다고 무조건 좋아지지 않는다. 중복 규칙은 비용을 높이고 중요한 지시를 묻히게 한다. 반복해서 실패를 막아 주지 못하는 문장은 제거한다.
 
+## 실습 소스
+
+본문의 예제 코드를 파일로 받을 수 있다. 내려받은 파일을 한 폴더에 두고 본문 순서대로 실행한다.
+
+패키지는 `pip install -r requirements.txt`로 설치한다.
+
+- [requirements.txt]({{ '/assets/examples/ai/prompt-engineering/requirements.txt' | relative_url }})
+- [prompt_eval.py]({{ '/assets/examples/ai/prompt-engineering/prompt_eval.py' | relative_url }})
+
+**추가 준비가 필요한 파일** (Apple 실리콘 Mac의 MLX 로컬 모델): `prompt_eval.py`
+
 ## 정리
 
 프롬프트 엔지니어링의 핵심은 화려한 표현이 아니라 목표, 근거, 제약, 출력, 합격 기준을 명확히 하는 것이다. 하지만 아무리 좋은 요청도 필요한 자료가 대화 밖에 있거나 문맥이 너무 길어지면 한계가 생긴다. 정보의 선택·보존 문제는 [컨텍스트 엔지니어링]({{ "/ai/using-ai/context-engineering/" | relative_url }})에서 다룬다.

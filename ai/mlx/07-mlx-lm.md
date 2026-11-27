@@ -375,6 +375,15 @@ text = generate(model, tokenizer, prompt=prompt,
 {: .note }
 Mac의 GPU에서 이 모델이 얼마나 빠른지, 메모리를 얼마나 쓰는지는 이 글에서 측정하지 않았다. 직접 실행할 때는 [지연 평가 글]({{ '/ai/mlx/lazy-evaluation/' | relative_url }})의 측정 방법을 따른다.
 
+## 실습 소스
+
+본문의 예제 코드를 파일로 받을 수 있다. 내려받은 파일을 한 폴더에 두고 본문 순서대로 실행한다.
+
+패키지는 `pip install -r requirements.txt`로 설치한다.
+
+- [requirements.txt]({{ '/assets/examples/mlx/mlx-lm/requirements.txt' | relative_url }})
+- [tiny_llama.py]({{ '/assets/examples/mlx/mlx-lm/tiny_llama.py' | relative_url }})
+
 ## 정리
 
 {: .note }
