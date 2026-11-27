@@ -18,6 +18,8 @@ tags: [SwiftUI, iOS]
 
 {% include article-toc.md %}
 
+SwiftUI 연재의 첫 글이다. UIKit과 무엇이 다른지부터 시작해, `body`가 화면을 "설명"한다는 말의 의미와 `some View`, `ViewBuilder`, 수정자가 어떻게 동작하는지 작은 예제로 확인한다.
+
 ## 선언형 UI에서 상태가 화면이 되는 순서 {#declarative-ui}
 
 버튼을 누르면 숫자가 1씩 올라가는 화면을 UIKit으로 만든다고 해 보자. 버튼 액션에서 숫자를 올리고, 레이블의 `text`를 직접 바꾼다. 숫자를 바꾸는 일과 화면을 바꾸는 일을 **둘 다 내가** 한다.

@@ -18,7 +18,9 @@ tags: [SwiftUI, iOS]
 
 {% include article-toc.md %}
 
-## 레이아웃: 스택, Spacer, frame, padding
+SwiftUI에는 Auto Layout의 제약 조건이 없다. 대신 부모 뷰가 자식에게 "이만큼 쓸 수 있어"라고 크기를 제안하고, 자식이 자기 크기를 정해 답하는 단순한 규칙으로 화면을 배치한다. 이 글에서는 스택, `Spacer`, `frame`, `padding`으로 메일 목록의 한 줄을 만들며 이 규칙을 확인한다.
+
+## 스택과 Spacer로 한 줄 만들기
 {: id="레이아웃-스택-spacer-frame-padding" }
 
 SwiftUI 레이아웃에서는 부모가 자식에게 크기를 **제안**하고, 자식이 자기 크기를 **응답**한다. 부모는 응답을 바탕으로 자식을 **배치**한다. `HStack`은 자식에게 가로 공간을 어떻게 나눌지 결정한다. `Text`는 받은 폭에 따라 줄바꿈을 하고, `Spacer`는 배정된 남는 폭을 차지한다.

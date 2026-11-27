@@ -18,6 +18,8 @@ tags: [SwiftUI, iOS]
 
 {% include article-toc.md %}
 
+앞 글에서 `@State` 값은 뷰 struct가 새로 만들어져도 유지된다고 했다. 이 글은 그 값이 언제 사라지는지, 즉 SwiftUI가 "같은 뷰"를 어떻게 알아보는지(정체성)를 실험으로 확인한다. 이어서 정체성이 중요한 목록(`List`, `ForEach`)과 화면 이동(`NavigationStack`)을 다룬다.
+
 ## 뷰의 정체성과 수명
 {: id="뷰의-정체성과-수명" }
 

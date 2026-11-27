@@ -18,6 +18,8 @@ tags: [SwiftUI, iOS]
 
 {% include article-toc.md %}
 
+이미 UIKit으로 만든 앱도 SwiftUI를 조금씩 섞어 쓸 수 있다. 이 글은 UIKit 화면 안에 SwiftUI 뷰를 넣는 방법과 그 반대 방향, 그리고 코드를 실행하지 않고 Xcode에서 화면을 바로 확인하는 `#Preview`를 다룬다.
+
 ## UIKit과 함께 쓰기
 {: id="uikit과-함께-쓰기" }
 
