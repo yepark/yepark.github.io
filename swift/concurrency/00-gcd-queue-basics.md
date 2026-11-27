@@ -5,12 +5,12 @@ parent: Concurrency
 grand_parent: Swift
 nav_order: 0
 permalink: /swift/concurrency/gcd-queue-basics/
-last_modified_at: 2026-11-17
+last_modified_at: 2026-11-27
 seo:
   type: BlogPosting
 date: 2026-11-16
 first_written: 2026-11-16
-last_modified_date: 2026-11-17
+last_modified_date: 2026-11-27
 tags: [Swift, Concurrency, GCD, DispatchQueue]
 ---
 
@@ -18,6 +18,8 @@ tags: [Swift, Concurrency, GCD, DispatchQueue]
 {: .no_toc }
 
 {% include article-toc.md %}
+
+**GCD(Grand Central Dispatch)**는 실행할 작업을 큐에 넣으면 시스템이 스레드를 관리하며 실행해 주는 Apple의 동시성 라이브러리다. **DispatchQueue**는 GCD에서 작업을 받아 정해진 방식(한 번에 하나씩 또는 여러 개를 동시에)으로 실행하는 큐다. 개발자는 스레드를 직접 만들지 않고, 어떤 큐에 어떤 방식으로 작업을 보낼지만 정한다.
 
 Swift 동시성을 공부할 때 가장 먼저 헷갈리는 조합이 있다.
 

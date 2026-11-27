@@ -7,8 +7,8 @@ nav_order: 6
 permalink: /ai/mlx/neural-network/
 date: 2026-11-20
 first_written: 2026-11-20
-last_modified_at: 2026-11-21
-last_modified_date: 2026-11-21
+last_modified_at: 2026-11-27
+last_modified_date: 2026-11-27
 seo:
   type: BlogPosting
 tags: [MLX, Python, Neural-Network, mlx.nn]
@@ -29,6 +29,8 @@ tags: [MLX, Python, Neural-Network, mlx.nn]
 | 1 | 1 | 0 |
 
 [앞 글]({{ '/ai/mlx/training-loop/' | relative_url }})에서는 `w × x + b` 하나로 직선 관계를 학습했다. 같은 방식의 모델을 XOR에 그대로 쓰면 어떻게 될까. 이번 글에서는 실제로 실패하는 모습을 먼저 보고, 층을 하나 더 쌓아 문제를 푼다. 이때 파라미터를 직접 관리하던 코드를 `mlx.nn`과 `mlx.optimizers`로 바꾼다.
+
+**신경망(neural network)**은 입력에 가중치를 곱해 더하는 계산(선형 변환)과 비선형 함수를 여러 층으로 쌓아, 직선 하나로는 표현할 수 없는 관계를 학습하는 모델이다. 각 층의 가중치와 편향이 학습으로 조정되는 파라미터다.
 
 {: .tip }
 쉽게 말하면, 앞 글에서 숫자 두 개(w, b)를 손으로 들고 다녔다면 이번에는 숫자 33개가 든 상자를 MLX가 대신 들어 준다.

@@ -4,13 +4,13 @@ parent: Concurrency
 grand_parent: Swift
 nav_order: 4
 permalink: /swift/concurrency/parallel-work/
-last_modified_at: 2026-11-20
+last_modified_at: 2026-11-27
 seo:
   type: BlogPosting
 date: 2026-11-16
 description: "async let과 TaskGroup의 자식 작업 수명, 오류 전파, 결과 순서와 동시 실행 제한을 분석합니다."
 first_written: 2026-11-16
-last_modified_date: 2026-11-20
+last_modified_date: 2026-11-27
 tags: [Swift, Concurrency, Async-Let, TaskGroup]
 ---
 
@@ -20,6 +20,8 @@ tags: [Swift, Concurrency, Async-Let, TaskGroup]
 {% include article-toc.md %}
 
 `await`를 순서대로 쓰면 각 작업도 순서대로 실행된다. 서로 의존하지 않는 작업은 함께 시작해 전체 대기 시간을 줄일 수 있다. 작업 수가 코드에 고정돼 있으면 `async let`, 실행 중 결정되면 TaskGroup이 잘 맞는다.
+
+**구조화된 동시성(structured concurrency)**은 동시에 실행하는 작업을 그 작업을 시작한 코드 블록의 범위에 묶는 방식이다. 블록을 벗어나기 전에 자식 작업이 모두 끝나야 하고, 부모 작업이 취소되면 자식 작업에도 취소가 전달되며, 자식의 오류는 부모가 받아 처리한다. `async let`과 TaskGroup이 이 방식을 따른다.
 
 ## 의존하는 작업과 독립적인 작업
 
