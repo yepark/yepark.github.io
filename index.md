@@ -21,8 +21,8 @@ redirect_from:
   <div class="section-heading"><h2 id="topics-heading">주제 탐색</h2><span>궁금한 원리부터 시작하세요</span></div>
   <ul class="topic-list">
     <li><a href="{{ '/ai/' | relative_url }}"><span class="topic-title">AI</span><span class="topic-description">머신러닝의 기초부터 AI 에이전트의 설계와 평가까지</span><span class="topic-arrow" aria-hidden="true">→</span></a></li>
-    <li><a href="{{ '/swift/' | relative_url }}"><span class="topic-title">Swift</span><span class="topic-description">언어의 기본 개념과 동시성, 더 안전한 코드의 구조</span><span class="topic-arrow" aria-hidden="true">→</span></a></li>
     <li><a href="{{ '/ios/' | relative_url }}"><span class="topic-title">iOS</span><span class="topic-description">앱의 설계와 테스트, MLX와 Apple 플랫폼 AI</span><span class="topic-arrow" aria-hidden="true">→</span></a></li>
+    <li><a href="{{ '/swift/' | relative_url }}"><span class="topic-title">Swift</span><span class="topic-description">언어의 기본 개념과 동시성, 더 안전한 코드의 구조</span><span class="topic-arrow" aria-hidden="true">→</span></a></li>
     <li><a href="{{ '/swiftui/' | relative_url }}"><span class="topic-title">SwiftUI</span><span class="topic-description">선언형 UI와 상태 관리, Combine으로 만드는 화면</span><span class="topic-arrow" aria-hidden="true">→</span></a></li>
     <li><a href="{{ '/spring/' | relative_url }}"><span class="topic-title">Spring</span><span class="topic-description">Spring Boot로 만드는 REST API와 데이터·트랜잭션·테스트</span><span class="topic-arrow" aria-hidden="true">→</span></a></li>
     <li><a href="{{ '/pki/' | relative_url }}"><span class="topic-title">보안</span><span class="topic-description">암호 알고리즘부터 인증서와 전자서명의 동작 원리</span><span class="topic-arrow" aria-hidden="true">→</span></a></li>
