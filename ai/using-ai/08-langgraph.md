@@ -1566,6 +1566,38 @@ python -m pytest -q test_first_graph.py
 
 프로그램을 서버에서 실행할 때는 컴파일된 그래프에 지속 저장소를 붙이는 경우와 LangSmith의 Agent Server로 배포하는 경우의 설정을 각각 확인한다. 이 글의 실습은 로컬 Python 프로세스에서 실행했다. [Agent Server 애플리케이션 구조](https://docs.langchain.com/oss/python/langgraph/application-structure)
 
+## 실습 소스
+
+본문의 예제 코드를 파일로 받을 수 있다. 내려받은 파일을 한 폴더에 두고 본문 순서대로 실행한다.
+
+패키지는 `pip install -r requirements.txt`로 설치한다.
+
+- [requirements.txt]({{ '/assets/examples/ai/langgraph/requirements.txt' | relative_url }})
+- [ex01_first.py]({{ '/assets/examples/ai/langgraph/ex01_first.py' | relative_url }})
+- [ex02_reducers.py]({{ '/assets/examples/ai/langgraph/ex02_reducers.py' | relative_url }})
+- [ex03_parallel.py]({{ '/assets/examples/ai/langgraph/ex03_parallel.py' | relative_url }})
+- [ex04_messages.py]({{ '/assets/examples/ai/langgraph/ex04_messages.py' | relative_url }})
+- [ex05_schemas.py]({{ '/assets/examples/ai/langgraph/ex05_schemas.py' | relative_url }})
+- [ex06_pydantic.py]({{ '/assets/examples/ai/langgraph/ex06_pydantic.py' | relative_url }})
+- [ex07_command.py]({{ '/assets/examples/ai/langgraph/ex07_command.py' | relative_url }})
+- [ex08_send.py]({{ '/assets/examples/ai/langgraph/ex08_send.py' | relative_url }})
+- [ex09_stream.py]({{ '/assets/examples/ai/langgraph/ex09_stream.py' | relative_url }})
+- [ex10_agent.py]({{ '/assets/examples/ai/langgraph/ex10_agent.py' | relative_url }})
+- [ex11_msgstream.py]({{ '/assets/examples/ai/langgraph/ex11_msgstream.py' | relative_url }})
+- [ex12_limits.py]({{ '/assets/examples/ai/langgraph/ex12_limits.py' | relative_url }})
+- [ex13_persist.py]({{ '/assets/examples/ai/langgraph/ex13_persist.py' | relative_url }})
+- [ex14_sqlite.py]({{ '/assets/examples/ai/langgraph/ex14_sqlite.py' | relative_url }})
+- [ex15_interrupt.py]({{ '/assets/examples/ai/langgraph/ex15_interrupt.py' | relative_url }})
+- [ex16_breakpoint.py]({{ '/assets/examples/ai/langgraph/ex16_breakpoint.py' | relative_url }})
+- [ex17_store.py]({{ '/assets/examples/ai/langgraph/ex17_store.py' | relative_url }})
+- [ex18_subgraph.py]({{ '/assets/examples/ai/langgraph/ex18_subgraph.py' | relative_url }})
+- [ex19_functional.py]({{ '/assets/examples/ai/langgraph/ex19_functional.py' | relative_url }})
+- [ex21_retry.py]({{ '/assets/examples/ai/langgraph/ex21_retry.py' | relative_url }})
+- [ex22_async.py]({{ '/assets/examples/ai/langgraph/ex22_async.py' | relative_url }})
+- [ex23_prebuilt.py]({{ '/assets/examples/ai/langgraph/ex23_prebuilt.py' | relative_url }})
+- [ex24_toolnode.py]({{ '/assets/examples/ai/langgraph/ex24_toolnode.py' | relative_url }})
+- [test_first_graph.py]({{ '/assets/examples/ai/langgraph/test_first_graph.py' | relative_url }})
+
 ## 정리
 
 - 일반 Python 함수로 노드를 만들고 `StateGraph`에서 다음 실행 위치를 정한다.

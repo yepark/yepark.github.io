@@ -269,6 +269,16 @@ print(names)
 
 `trainable_parameters()`에서 `l1`이 빠졌다. `nn.value_and_grad`는 이 학습 가능한 파라미터에 대해서만 기울기를 구한다. `parameters()`에는 여전히 `l1`도 들어 있다. 사라진 것이 아니라 학습 대상에서만 빠진 것이다.
 
+## 실습 소스
+
+본문의 예제 코드를 파일로 받을 수 있다. 내려받은 파일을 한 폴더에 두고 본문 순서대로 실행한다.
+
+패키지는 `pip install -r requirements.txt`로 설치한다.
+
+- [requirements.txt]({{ '/assets/examples/mlx/neural-network/requirements.txt' | relative_url }})
+- [layer.py]({{ '/assets/examples/mlx/neural-network/layer.py' | relative_url }})
+- [xor.py]({{ '/assets/examples/mlx/neural-network/xor.py' | relative_url }})
+
 ## 정리
 
 {: .note }

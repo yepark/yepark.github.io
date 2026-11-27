@@ -4,12 +4,12 @@ description: "벡터를 저장하고 빠르게 검색하는 원리를 ANN 인덱
 parent: AI
 nav_order: 11
 permalink: /ai/using-ai/vector-db/
-last_modified_at: 2026-11-25
+last_modified_at: 2026-11-27
 seo:
   type: BlogPosting
 date: 2026-11-25
 first_written: 2026-11-25
-last_modified_date: 2026-11-25
+last_modified_date: 2026-11-27
 tags: [AI, Vector-DB, RAG, ChromaDB, Python]
 ---
 
@@ -212,6 +212,17 @@ HNSW 인덱스는 삽입 후에 구성된다. 문서를 먼저 모두 올리고 
 
 **검색 결과를 그대로 믿지 않는다.**  
 유사도 점수가 높아도 답변에 필요한 내용이 없을 수 있다. 검색 단계와 생성 단계를 각각 평가해야 한다. 검색이 맞았는지와 생성이 맞았는지는 별개의 문제다.
+
+## 실습 소스
+
+본문의 예제 코드를 파일로 받을 수 있다. 내려받은 파일을 한 폴더에 두고 본문 순서대로 실행한다.
+
+패키지는 `pip install -r requirements.txt`로 설치한다.
+
+- [requirements.txt]({{ '/assets/examples/ai/vector-db/requirements.txt' | relative_url }})
+- [chroma_demo.py]({{ '/assets/examples/ai/vector-db/chroma_demo.py' | relative_url }})
+
+**추가 준비가 필요한 파일** (Hugging Face 임베딩 모델 다운로드): `chroma_demo.py`
 
 ## 정리
 

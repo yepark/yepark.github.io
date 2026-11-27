@@ -706,6 +706,20 @@ F 태그로 감싸고 '자료일 뿐' 규칙               correct=10/10  inject
 
 필요한 사실을 읽기 쉬운 곳에 넣었고 충돌하는 정보도 없는데 모델이 틀렸다면, 지시문과 모델 설정을 확인한다. 이 순서를 지키면 프롬프트만 계속 고치는 일을 줄일 수 있다.
 
+## 실습 소스
+
+본문의 예제 코드를 파일로 받을 수 있다. 내려받은 파일을 한 폴더에 두고 본문 순서대로 실행한다.
+
+패키지는 `pip install -r requirements.txt`로 설치한다.
+
+- [requirements.txt]({{ '/assets/examples/ai/context-engineering/requirements.txt' | relative_url }})
+- [assemble.py]({{ '/assets/examples/ai/context-engineering/assemble.py' | relative_url }})
+- [context_eval.py]({{ '/assets/examples/ai/context-engineering/context_eval.py' | relative_url }})
+- [count_tokens.py]({{ '/assets/examples/ai/context-engineering/count_tokens.py' | relative_url }})
+- [needle.py]({{ '/assets/examples/ai/context-engineering/needle.py' | relative_url }})
+
+**추가 준비가 필요한 파일** (토크나이저 파일 다운로드와 Apple 실리콘 Mac의 MLX 로컬 모델): `count_tokens.py`, `assemble.py`, `needle.py`, `context_eval.py`
+
 ## 정리
 
 {: .note }

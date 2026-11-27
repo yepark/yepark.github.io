@@ -4,12 +4,12 @@ description: "규칙을 직접 쓰는 대신 데이터에서 규칙을 찾는 �
 parent: AI
 nav_order: 16
 permalink: /ai/using-ai/machine-learning/
-last_modified_at: 2026-11-26
+last_modified_at: 2026-11-27
 seo:
   type: BlogPosting
 date: 2026-11-26
 first_written: 2026-11-26
-last_modified_date: 2026-11-26
+last_modified_date: 2026-11-27
 tags: [AI, Machine-Learning, Python, NumPy]
 ---
 
@@ -137,6 +137,15 @@ degree=12  train MSE=0.000  test MSE=0.052
 | 기준 변경 | 드묾 | 자주 바뀜 |
 
 두 방법 모두 평가 데이터로 성능을 재야 한다는 점은 같다. 프롬프트 쪽 방법은 [프롬프트 엔지니어링]({{ '/ai/using-ai/prompt-engineering/' | relative_url }})과 [평가]({{ '/ai/using-ai/evaluation/' | relative_url }})에서 다룬다.
+
+## 실습 소스
+
+본문의 예제 코드를 파일로 받을 수 있다. 내려받은 파일을 한 폴더에 두고 본문 순서대로 실행한다.
+
+패키지는 `pip install -r requirements.txt`로 설치한다.
+
+- [requirements.txt]({{ '/assets/examples/ai/machine-learning/requirements.txt' | relative_url }})
+- [overfit.py]({{ '/assets/examples/ai/machine-learning/overfit.py' | relative_url }})
 
 ## 이어서 읽기
 

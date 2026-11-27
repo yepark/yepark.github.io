@@ -586,6 +586,14 @@ ADR, 변경 파일, 검증한 후보와 결과 파일 위치를 전달한다.
 
 실무에서는 작은 팀도 이 흐름을 손으로 먼저 한 번 밟아 볼 수 있다. 도구가 있어도 요구사항의 결정권, 재시도 한도, 외부 전송 권한은 이전과 같다. 한 사람이 요청을 정리하고 에이전트가 변경안을 만들며 CI가 실행 결과를 판정하는 구성으로 시작할 수 있다. 여러 작업자에게 검토를 나눌 때 필요한 상태와 권한 전달은 [AI 오케스트레이션]({{ '/ai/using-ai/ai-orchestration/' | relative_url }})에서 다룬다.
 
+## 실습 소스
+
+본문의 예제 코드를 파일로 받을 수 있다. 내려받은 파일을 한 폴더에 두고 본문 순서대로 실행한다.
+
+- [demo.py]({{ '/assets/examples/ai/ai-workflow/demo.py' | relative_url }})
+- [report.py]({{ '/assets/examples/ai/ai-workflow/report.py' | relative_url }})
+- [verify.py]({{ '/assets/examples/ai/ai-workflow/verify.py' | relative_url }})
+
 ## 정리
 
 {: .note }

@@ -951,6 +951,15 @@ Anthropic은 평가를 시작할 때 실제 사용을 대표하는 질문 약 20
 - 에이전트마다 **권한이나 보안 경계**를 나눠야 하는가?
 - 늘어난 비용을 감당할 만큼 **작업의 가치가 큰가**?
 
+## 실습 소스
+
+본문의 예제 코드를 파일로 받을 수 있다. 내려받은 파일을 한 폴더에 두고 본문 순서대로 실행한다.
+
+- [durable.py]({{ '/assets/examples/ai/ai-orchestration/durable.py' | relative_url }})
+- [handoff.py]({{ '/assets/examples/ai/ai-orchestration/handoff.py' | relative_url }})
+- [orchestrator.py]({{ '/assets/examples/ai/ai-orchestration/orchestrator.py' | relative_url }})
+- [supervisor.py]({{ '/assets/examples/ai/ai-orchestration/supervisor.py' | relative_url }})
+
 ## 정리
 
 - **오케스트레이션**은 여러 모델, 에이전트, 도구를 하나의 목표로 묶는 일이다. 다음에 무엇을 실행할지, 어떤 컨텍스트를 넘길지, 결과를 어떻게 합칠지를 정한다. 가운데 지휘자 없이 이벤트로 움직이는 방식은 **코레오그래피**다.

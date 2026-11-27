@@ -810,6 +810,32 @@ Python 리스트는 여러 개의 데이터를 저장할 수 있는 배열입니
 {'input_tokens': 32, 'output_tokens': 15, 'total_tokens': 47}
 ```
 
+## 실습 소스
+
+본문의 예제 코드를 파일로 받을 수 있다. 내려받은 파일을 한 폴더에 두고 본문 순서대로 실행한다.
+
+패키지는 `pip install -r requirements.txt`로 설치한다.
+
+- [requirements.txt]({{ '/assets/examples/ai/langchain/requirements.txt' | relative_url }})
+- [agent.py]({{ '/assets/examples/ai/langchain/agent.py' | relative_url }})
+- [agent_stream.py]({{ '/assets/examples/ai/langchain/agent_stream.py' | relative_url }})
+- [compose.py]({{ '/assets/examples/ai/langchain/compose.py' | relative_url }})
+- [config.py]({{ '/assets/examples/ai/langchain/config.py' | relative_url }})
+- [errors.py]({{ '/assets/examples/ai/langchain/errors.py' | relative_url }})
+- [events.py]({{ '/assets/examples/ai/langchain/events.py' | relative_url }})
+- [lc_mlx.py]({{ '/assets/examples/ai/langchain/lc_mlx.py' | relative_url }})
+- [local_model.py]({{ '/assets/examples/ai/langchain/local_model.py' | relative_url }})
+- [manual_tool.py]({{ '/assets/examples/ai/langchain/manual_tool.py' | relative_url }})
+- [memory.py]({{ '/assets/examples/ai/langchain/memory.py' | relative_url }})
+- [model_calls.py]({{ '/assets/examples/ai/langchain/model_calls.py' | relative_url }})
+- [model_stream.py]({{ '/assets/examples/ai/langchain/model_stream.py' | relative_url }})
+- [prompt.py]({{ '/assets/examples/ai/langchain/prompt.py' | relative_url }})
+- [route.py]({{ '/assets/examples/ai/langchain/route.py' | relative_url }})
+- [ticket.py]({{ '/assets/examples/ai/langchain/ticket.py' | relative_url }})
+- [ticket_error.py]({{ '/assets/examples/ai/langchain/ticket_error.py' | relative_url }})
+
+**추가 준비가 필요한 파일** (Apple 실리콘 Mac의 MLX 로컬 모델): `lc_mlx.py`, `local_model.py`, `ticket.py`, `ticket_error.py`, `manual_tool.py`, `agent.py`, `agent_stream.py`, `memory.py`
+
 ## 정리
 
 프롬프트에서 메시지를 만들고, 모델에서 `AIMessage`를 받은 뒤, 소비자가 필요한 타입으로 바꾼다. 순서가 정해져 있으면 Runnable을 연결한다. 모델이 도구를 고르는 작업에서는 `create_agent`의 상태와 호출 기록을 확인한다.
