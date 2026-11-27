@@ -154,7 +154,7 @@ let notices = try await fetchNotices()
 
 ## 콜백 API를 continuation으로 연결하기
 
-기존 완료 클로저 API가 async 버전을 제공하지 않는다면 checked continuation을 사용할 수 있다.
+기존 완료 클로저 API가 async 버전을 제공하지 않는다면 checked continuation을 사용할 수 있다. continuation은 "멈춰 있는 async 함수를 나중에 결과와 함께 다시 이어 가게 하는 핸들"이다. checked 버전은 재개를 빠뜨리거나 두 번 하는 실수를 런타임에 검사해 경고한다.
 
 ```swift
 func requestToken() async throws -> String {

@@ -29,7 +29,7 @@ actor는 상태에 접근하는 경계를 만든다. 외부에서 접근할 때 
 
 ## 일반 클래스에서 생기는 문제
 
-아래 클래스의 `increment()`는 단순해 보이지만, 읽기와 쓰기가 하나의 원자적 동작은 아니다.
+아래 클래스의 `increment()`는 단순해 보이지만, 읽기와 쓰기가 하나의 원자적 동작(중간에 다른 작업이 끼어들 수 없는, 쪼개지지 않는 한 덩어리 동작)은 아니다.
 
 ```swift
 final class Counter {
@@ -45,7 +45,7 @@ final class Counter {
 
 ## actor로 상태 격리하기
 
-`class`를 `actor`로 바꾸면 저장 프로퍼티와 메서드가 actor에 격리된다.
+`class`를 `actor`로 바꾸면 저장 프로퍼티와 메서드가 actor에 격리된다. 격리(isolation)는 "이 상태는 이 actor 안에서 실행되는 코드만 직접 만질 수 있다"는 규칙이다. 바깥 코드는 actor에게 요청을 보내고 차례를 기다려야 한다.
 
 ```swift
 actor Counter {

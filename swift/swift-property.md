@@ -116,7 +116,7 @@ final class Progress {
 
 ## 프로퍼티 래퍼
 
-프로퍼티 래퍼는 저장과 검증 같은 공통 로직을 재사용할 수 있게 한다. 래퍼 타입은 `wrappedValue`를 제공해야 한다.
+프로퍼티 래퍼는 "값을 저장할 때마다 범위를 검사한다"처럼 여러 프로퍼티에 반복되는 저장 로직을 타입 하나로 만들어 `@이름` 표시로 재사용하게 하는 기능이다. SwiftUI의 `@State`, `@Binding`도 프로퍼티 래퍼다. 래퍼 타입은 `wrappedValue`를 제공해야 한다.
 
 ```swift
 @propertyWrapper
