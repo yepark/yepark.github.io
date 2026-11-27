@@ -295,6 +295,28 @@ pred: [7 2 1] label: [7 2 1] conf: [0.998 0.998 0.997]
 | MNIST 다운로드 실패 | 네트워크·프록시. 받다 만 파일이 `~/.keras/datasets`에 남았으면 지우고 다시 실행 |
 | shape 관련 오류 | 각 단계에서 `.shape`를 출력해 입력과 층이 기대하는 shape 비교 |
 
+## 주요 API
+
+| API | 역할 |
+| --- | --- |
+| `tf.constant(value)` | 값이 바뀌지 않는 텐서 생성 |
+| `tf.Variable(value)` | 학습 중 값이 바뀌는 텐서. 모델 파라미터에 쓴다 |
+| `tf.reduce_mean(x, axis=)` | 축을 따라 평균 |
+| `tf.random.uniform`, `tf.random.normal`, `tf.random.set_seed` | 난수 텐서 생성과 시드 고정 |
+| `tf.config.list_physical_devices()` | 사용 가능한 CPU·GPU 확인 |
+| `tf.GradientTape()` | 블록 안 연산을 기록해 `tape.gradient(loss, vars)`로 기울기를 구한다 |
+| `tf.keras.optimizers.SGD`, `apply_gradients` | 기울기로 변수 갱신 |
+| `tf.keras.datasets.mnist.load_data()` | MNIST를 내려받아 `(train, test)` 튜플로 돌려준다 |
+| `tf.keras.Sequential([...])`, `tf.keras.Input(shape=)` | 층을 순서대로 쌓은 모델과 입력 shape 선언 |
+| `layers.Flatten`, `layers.Dense`, `layers.Dropout` | 펼치기, 완전 연결 층, 드롭아웃 |
+| `model.compile(optimizer=, loss=, metrics=)` | 학습 방법 설정 |
+| `losses.SparseCategoricalCrossentropy(from_logits=True)` | 정수 레이블 분류 손실 |
+| `model.fit(x, y, epochs=, batch_size=, validation_split=, callbacks=)` | 학습 |
+| `callbacks.EarlyStopping(patience=, restore_best_weights=)` | 검증 손실이 나아지지 않으면 학습 중단 |
+| `model.evaluate(x, y)`, `model.predict(x)` | 평가와 예측 |
+| `model.save('x.keras')`, `tf.keras.models.load_model(path)` | 모델 저장과 불러오기 |
+| `tf.nn.softmax(logits)` | 점수를 확률로 변환 |
+
 ## 실습 소스
 
 본문의 예제 코드를 파일로 받을 수 있다. 내려받은 파일을 한 폴더에 두고 본문 순서대로 실행한다.

@@ -3,13 +3,13 @@ title: "Core Data의 Objective-C 구현"
 parent: "iOS"
 nav_order: 4
 permalink: /ios/core-data/
-last_modified_at: 2026-11-17
+last_modified_at: 2026-11-27
 seo:
   type: BlogPosting
 date: 2021-04-23
 description: "Objective-C의 NSPersistentContainer, context, fetch request와 저장·삭제·백그라운드 작업을 설명합니다."
 first_written: 2021-04-23
-last_modified_date: 2026-11-17
+last_modified_date: 2026-11-27
 tags: [iOS, Objective-C, Core-Data]
 ---
 
@@ -193,6 +193,21 @@ container.persistentStoreDescriptions = @[description];
         NSAssert(error == nil, @"메모리 저장소 로드 실패: %@", error);
     }];
 ```
+
+## 주요 API
+
+| API | 역할 |
+| --- | --- |
+| `NSPersistentContainer` | 모델, 코디네이터, 컨텍스트를 묶어 준비한다 |
+| `loadPersistentStoresWithCompletionHandler:` | 저장소 열기 |
+| `viewContext` | 메인 큐 컨텍스트 |
+| `newBackgroundContext` / `performBackgroundTask:` | 백그라운드 컨텍스트 |
+| `NSPersistentStoreDescription` | 저장소 종류·위치 설정. 테스트용 `NSInMemoryStoreType` |
+| `NSEntityDescription insertNewObjectForEntityForName:inManagedObjectContext:` | 새 객체 생성 |
+| `NSFetchRequest`, `predicate`, `sortDescriptors` | 조회 조건과 정렬 |
+| `executeFetchRequest:error:` | 조회 실행 |
+| `save:`, `hasChanges` | 변경 저장 |
+| `NSManagedObject` 하위 클래스 | 엔티티를 나타내는 객체 |
 
 ## 정리
 

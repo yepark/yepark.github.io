@@ -810,6 +810,27 @@ Python 리스트는 여러 개의 데이터를 저장할 수 있는 배열입니
 {'input_tokens': 32, 'output_tokens': 15, 'total_tokens': 47}
 ```
 
+## 주요 API
+
+| API | 역할 |
+| --- | --- |
+| `model.invoke` / `batch` / `stream` / `ainvoke` | Runnable 공통 실행 메서드 |
+| `SystemMessage`, `HumanMessage`, `AIMessage`, `ToolMessage` | 대화 메시지 타입 |
+| `ChatPromptTemplate.from_messages([...])` | 변수를 채워 메시지 목록을 만드는 템플릿 |
+| `StrOutputParser()` | 모델 응답에서 문자열만 꺼낸다 |
+| <code>prompt &#124; model &#124; parser</code> | Runnable을 순서대로 잇는다 |
+| `RunnableLambda`, `RunnableParallel`, `RunnablePassthrough.assign` | 함수 감싸기, 병렬 실행, 입력에 키 추가 |
+| `.with_retry()`, `.with_fallbacks([...])` | 실패 시 재시도, 대체 Runnable |
+| `.with_config(...)`, `.configurable_fields(...)` | 실행 설정과 실행 시 바꿀 수 있는 필드 |
+| `.astream_events(input, version="v2")` | 실행 중 일어난 이벤트 스트림 |
+| `model.with_structured_output(Schema)` | Pydantic 등 스키마로 결과를 받는다 |
+| `@tool` | `langchain.tools`. 함수를 모델이 호출할 수 있는 도구로 만든다 |
+| `model.bind_tools([...])` | 모델에 도구 정의를 붙인다 |
+| `create_agent(model, tools=, middleware=, checkpointer=)` | `langchain.agents`. 도구 호출 루프를 도는 에이전트 |
+| `ModelCallLimitMiddleware` | 에이전트의 모델 호출 횟수 제한 |
+| `GenericFakeChatModel`, `FakeListChatModel` | 정해 둔 답을 돌려주는 시험용 모델 |
+| `BaseChatModel` | 직접 모델 어댑터를 만들 때 상속하는 기본 클래스 |
+
 ## 실습 소스
 
 본문의 예제 코드를 파일로 받을 수 있다. 내려받은 파일을 한 폴더에 두고 본문 순서대로 실행한다.

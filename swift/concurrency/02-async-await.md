@@ -4,13 +4,13 @@ parent: Concurrency
 grand_parent: Swift
 nav_order: 2
 permalink: /swift/concurrency/async-await/
-last_modified_at: 2026-11-20
+last_modified_at: 2026-11-27
 seo:
   type: BlogPosting
 date: 2026-11-16
 description: "async throws, await, URLSession과 continuation을 호출 순서·오류 처리·취소 관점에서 설명합니다."
 first_written: 2026-11-16
-last_modified_date: 2026-11-20
+last_modified_date: 2026-11-27
 tags: [Swift, Concurrency, Async-Await, Continuation]
 ---
 
@@ -186,6 +186,19 @@ func displayName(first: String, last: String) -> String {
 ```
 
 “나중에 필요할 것 같아서” 모든 함수에 `async`를 붙이면 호출자까지 불필요하게 비동기화된다. 네트워크, 파일 I/O, actor 전환처럼 실제 중단 지점이 있거나 비동기 API를 호출할 때 사용한다.
+
+## 주요 API
+
+| API | 역할 |
+| --- | --- |
+| `async` / `await` | 중단 가능한 함수 선언과 호출 지점 표시 |
+| `async throws` / `try await` | 오류를 던질 수 있는 비동기 함수 |
+| `URLSession.shared.data(from:)` | 비동기 네트워크 요청. `(Data, URLResponse)` |
+| `async let` | 독립 작업을 함께 시작하고 나중에 `await` |
+| `Task { }` | 동기 코드에서 비동기 작업 시작 |
+| `withCheckedContinuation` / `withCheckedThrowingContinuation` | 콜백 API를 async 함수로 감싼다 |
+| `continuation.resume(returning:)` / `resume(throwing:)` | 결과를 정확히 한 번 돌려준다 |
+| `CancellationError` | 취소를 나타내는 오류 |
 
 ## 정리
 

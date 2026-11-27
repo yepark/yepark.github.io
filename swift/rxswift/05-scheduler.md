@@ -5,12 +5,12 @@ parent: RxSwift
 grand_parent: Swift
 nav_order: 5
 permalink: /swift/rxswift/scheduler/
-last_modified_at: 2026-11-26
+last_modified_at: 2026-11-27
 seo:
   type: BlogPosting
 date: 2026-11-25
 first_written: 2026-11-25
-last_modified_date: 2026-11-26
+last_modified_date: 2026-11-27
 tags: [Swift, RxSwift, Scheduler, Thread, MainScheduler]
 ---
 
@@ -287,6 +287,18 @@ loadBytes(imageURL)
     )
     .disposed(by: disposeBag)
 ```
+
+## 주요 API
+
+| API | 역할 |
+| --- | --- |
+| `subscribe(on:)` | 구독(생성 작업)을 실행할 스케줄러 |
+| `observe(on:)` | 이후 이벤트를 전달할 스케줄러 |
+| `MainScheduler.instance` / `asyncInstance` | 메인 큐 |
+| `SerialDispatchQueueScheduler(qos:)` | 직렬 큐 스케줄러 |
+| `ConcurrentDispatchQueueScheduler(qos:)` | 동시 큐 스케줄러 |
+| `TestScheduler(initialClock:)` | `RxTest`. 가상 시간 스케줄러 |
+| `createHotObservable`, `createObserver`, `start()` | 가상 시간에 이벤트를 배치하고 기록 |
 
 ## 정리
 

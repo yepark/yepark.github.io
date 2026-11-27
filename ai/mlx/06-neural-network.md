@@ -269,6 +269,22 @@ print(names)
 
 `trainable_parameters()`에서 `l1`이 빠졌다. `nn.value_and_grad`는 이 학습 가능한 파라미터에 대해서만 기울기를 구한다. `parameters()`에는 여전히 `l1`도 들어 있다. 사라진 것이 아니라 학습 대상에서만 빠진 것이다.
 
+## 주요 API
+
+| API | 역할 |
+| --- | --- |
+| `nn.Linear(in, out)` | `x @ W.T + b` 선형 변환 층 |
+| `nn.Module` | 층과 파라미터를 묶는 기본 클래스. 공개 배열 속성이 파라미터가 된다 |
+| `nn.relu(x)` | 음수를 0으로 바꾸는 비선형 함수 |
+| `nn.losses.mse_loss(pred, target)` | 평균제곱오차. 기본 `reduction='mean'` |
+| `nn.value_and_grad(model, fn)` | 모델의 학습 가능한 파라미터에 대한 손실과 기울기를 계산한다 |
+| `optim.SGD(learning_rate=)` | 확률적 경사 하강법 옵티마이저 |
+| `optimizer.update(model, grads)` | 기울기로 모델 파라미터를 갱신한다 |
+| `model.parameters()`, `model.trainable_parameters()` | 전체 파라미터, 학습할 파라미터 트리 |
+| `model.freeze()` / `unfreeze()` | 파라미터를 기울기 계산에서 빼거나 다시 넣는다 |
+| `tree_flatten(tree)`, `tree_map(fn, tree)` | `mlx.utils`. 중첩된 파라미터를 펼치거나 일괄 변환한다 |
+| `mx.random.seed(n)` | 난수 초기값 고정 |
+
 ## 실습 소스
 
 본문의 예제 코드를 파일로 받을 수 있다. 내려받은 파일을 한 폴더에 두고 본문 순서대로 실행한다.

@@ -476,6 +476,20 @@ func loadImage() async throws -> Image {
 
 → [Swift Concurrency 실행 모델]({{ '/swift/concurrency/why-concurrency/' | relative_url }})
 
+## 주요 API
+
+| API | 역할 |
+| --- | --- |
+| `DispatchQueue(label:attributes:)` | 직렬 큐 생성. `.concurrent`면 동시 큐 |
+| `DispatchQueue.main` | 메인 스레드에서 실행하는 직렬 큐 |
+| `DispatchQueue.global(qos:)` | 시스템 전역 동시 큐 |
+| `queue.async { }` | 작업을 넣고 기다리지 않는다 |
+| `queue.sync { }` | 작업이 끝날 때까지 호출자가 기다린다 |
+| `queue.async(flags: .barrier)` | 동시 큐에서 앞뒤 작업과 겹치지 않게 실행 |
+| `DispatchQueue.concurrentPerform(iterations:execute:)` | 반복을 병렬로 실행하고 모두 끝날 때까지 기다린다 |
+| `DispatchGroup` | 여러 작업이 모두 끝났는지 추적 |
+| `asyncAfter(deadline:)` | 지정 시간 뒤 실행 |
+
 ## 참고
 
 - [Apple Developer Documentation: DispatchQueue](https://developer.apple.com/documentation/dispatch/dispatchqueue/)

@@ -5,12 +5,12 @@ parent: RxSwift
 grand_parent: Swift
 nav_order: 4
 permalink: /swift/rxswift/subject/
-last_modified_at: 2026-11-26
+last_modified_at: 2026-11-27
 seo:
   type: BlogPosting
 date: 2026-11-25
 first_written: 2026-11-25
-last_modified_date: 2026-11-26
+last_modified_date: 2026-11-27
 tags: [Swift, RxSwift, Subject, BehaviorSubject, PublishSubject]
 ---
 
@@ -488,6 +488,18 @@ viewModel.isLoginEnabled
 ```
 
 Input과 Output을 명시적으로 분리하면 테스트할 때 Input에 값을 넣고 Output을 검증하는 구조를 만들기 쉽다. 이 구조를 더 다듬은 형태는 [MVVM + RxSwift]({{ "/swift/rxswift/mvvm/" | relative_url }})에서 다룬다.
+
+## 주요 API
+
+| API | 역할 |
+| --- | --- |
+| `PublishSubject` | 구독 이후 이벤트만 전달 |
+| `BehaviorSubject(value:)` | 최근 값 1개를 새 구독자에게 먼저 전달. `value()`로 현재 값 |
+| `ReplaySubject.create(bufferSize:)` | 최근 N개를 새 구독자에게 다시 전달 |
+| `AsyncSubject` | 완료될 때 마지막 값 하나만 전달 |
+| `PublishRelay` / `BehaviorRelay` / `ReplayRelay` | `RxRelay`. 오류·완료 없이 `accept(_:)`로 값만 전달 |
+| `relay.value` | `BehaviorRelay`의 현재 값 |
+| `share()`, `share(replay:scope:)` | 하나의 구독을 여러 구독자가 공유 |
 
 ## 정리
 

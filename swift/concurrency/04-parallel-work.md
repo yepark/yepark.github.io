@@ -196,6 +196,19 @@ empty input: []
 | 같은 반환형을 완료 순서대로 처리 | TaskGroup |
 | 동시 실행 개수를 직접 제한 | TaskGroup |
 
+## 주요 API
+
+| API | 역할 |
+| --- | --- |
+| `async let x = f()` | 개수가 고정된 자식 작업 시작 |
+| `withTaskGroup(of:) { group in }` | 개수가 실행 중 정해지는 자식 작업 묶음 |
+| `withThrowingTaskGroup(of:)` | 오류를 던질 수 있는 작업 묶음 |
+| `group.addTask { }` | 자식 작업 추가 |
+| `for await v in group` / `group.next()` | 끝나는 순서대로 결과 받기 |
+| `group.waitForAll()` | 모든 자식 작업 완료 대기 |
+| `group.cancelAll()` | 남은 자식 작업 취소 |
+| `Task.checkCancellation()` | 자식 작업 안에서 취소 확인 |
+
 ## 정리
 
 - 순차 `await`는 작업을 하나씩 실행한다.

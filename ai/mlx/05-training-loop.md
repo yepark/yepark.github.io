@@ -7,8 +7,8 @@ nav_order: 5
 permalink: /ai/mlx/training-loop/
 date: 2026-11-19
 first_written: 2026-11-19
-last_modified_at: 2026-11-20
-last_modified_date: 2026-11-20
+last_modified_at: 2026-11-27
+last_modified_date: 2026-11-27
 seo:
   type: BlogPosting
 tags: [MLX, Python, Autodiff, Training]
@@ -185,6 +185,16 @@ MLX는 지연 평가를 사용하므로 새 배열을 표현하는 코드와 실
 | 저장 후 값은 같지만 예측이 다름 | 모델 코드·파라미터 순서·전처리도 같은가 |
 
 가장 먼저 첫 손실과 첫 기울기를 손계산과 맞춰 보자. 마지막 숫자만 보는 것보다 오류가 생긴 단계를 좁히기 쉽다. 이 구조를 이해한 다음에는 샘플 묶음 처리, 다층 모델, 옵티마이저와 실제 평가 데이터로 확장할 수 있다.
+
+## 주요 API
+
+| API | 역할 |
+| --- | --- |
+| `mx.array(...)` | 입력과 정답, 파라미터 배열 |
+| `mx.square(x)`, `mx.mean(x)` | 평균제곱오차 계산 |
+| `mx.value_and_grad(fn)` | 손실 값과 기울기를 한 번에 돌려주는 함수를 만든다 |
+| `mx.eval(*arrays)` | 갱신한 파라미터를 평가해 그래프가 계속 커지지 않게 한다 |
+| `mx.save_safetensors(path, dict)` / `mx.load(path)` | 파라미터 저장과 불러오기 |
 
 ## 이어서 읽기
 

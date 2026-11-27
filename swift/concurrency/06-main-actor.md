@@ -4,13 +4,13 @@ parent: Concurrency
 grand_parent: Swift
 nav_order: 6
 permalink: /swift/concurrency/main-actor/
-last_modified_at: 2026-11-17
+last_modified_at: 2026-11-27
 seo:
   type: BlogPosting
 date: 2026-11-16
 description: "MainActor 격리와 UI 상태 소유권, Task의 문맥 상속과 무거운 연산 분리 원칙을 설명합니다."
 first_written: 2026-11-16
-last_modified_date: 2026-11-17
+last_modified_date: 2026-11-27
 tags: [Swift, Concurrency, MainActor, UI]
 ---
 
@@ -141,6 +141,17 @@ UI와 관계없는 네트워크 계층이나 저장소까지 MainActor에 넣으
 ### Task.detached로 UI 상태 바꾸기
 
 detached task는 MainActor 문맥을 이어받지 않는다. UI 상태를 변경하려면 MainActor 경계를 명시적으로 건너야 하고, 대개는 detached task 자체가 필요하지 않다.
+
+## 주요 API
+
+| API | 역할 |
+| --- | --- |
+| `@MainActor` | 타입·함수·프로퍼티를 메인 actor에 격리 |
+| `MainActor.run { }` | 메인 actor에서 클로저를 실행하고 결과를 받는다 |
+| `Task { @MainActor in }` | 메인 actor에서 시작하는 작업 |
+| `MainActor.assumeIsolated { }` | 이미 메인에서 실행 중임을 확인하고 동기적으로 접근 |
+| `nonisolated` | 메인 actor 타입 안에서 격리를 해제한 멤버 |
+| `DispatchQueue.main.async` | GCD 방식의 메인 큐 전달. 컴파일러 격리 검사는 받지 않는다 |
 
 ## 정리
 
