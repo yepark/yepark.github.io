@@ -1,7 +1,7 @@
 ---
 title: "DID: 탈중앙 신원 증명"
 description: "W3C DID 표준의 구조와 DID Document, Verifiable Credential의 발급·검증 흐름, PKI 인증서와의 차이를 설명합니다."
-parent: "PKI & 암호"
+parent: "보안"
 nav_order: 8
 permalink: /pki/did/
 last_modified_at: 2026-11-25

@@ -1,7 +1,7 @@
 ---
 title: "PKCS #3: Diffie-Hellman 키 합의"
 description: "PKCS #3 Diffie-Hellman 키 합의 원리, 중간자 공격, KDF와 관련 프로토콜 RFC를 설명합니다."
-parent: "PKI & 암호"
+parent: "보안"
 nav_order: 3
 permalink: /pki/pkcs3/
 redirect_from:

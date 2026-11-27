@@ -1,6 +1,6 @@
 ---
 title: "PKCS#10 인증서 서명 요청과 Subject DN"
-parent: "PKI & 암호"
+parent: "보안"
 nav_order: 4
 permalink: /pki/pkcs10-subject/
 last_modified_at: 2026-11-17

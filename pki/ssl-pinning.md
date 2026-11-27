@@ -1,6 +1,6 @@
 ---
 title: "TLS 인증서 검증과 피닝"
-parent: "PKI & 암호"
+parent: "보안"
 nav_order: 6
 permalink: /pki/ssl-pinning/
 last_modified_at: 2026-11-20

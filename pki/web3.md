@@ -1,7 +1,7 @@
 ---
 title: "Web3"
 description: "스마트 컨트랙트, DApp, DeFi, NFT의 동작 원리와 한계, Web2와의 차이를 개발자 관점에서 설명합니다."
-parent: "PKI & 암호"
+parent: "보안"
 nav_order: 10
 permalink: /pki/web3/
 last_modified_at: 2026-11-25

@@ -1,7 +1,7 @@
 ---
 title: "블록체인"
 description: "해시 체인, 머클 트리, 합의 알고리즘, 공개 키 암호의 조합으로 블록체인이 불변 원장을 만드는 원리를 설명합니다."
-parent: "PKI & 암호"
+parent: "보안"
 nav_order: 9
 permalink: /pki/blockchain/
 last_modified_at: 2026-11-25

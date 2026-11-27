@@ -1,7 +1,7 @@
 ---
 title: "PKCS #8: 알고리즘 독립적인 개인 키 컨테이너"
 description: "PKCS #8 개인 키 컨테이너, RFC 5208과 RFC 5958, 암호화된 PRIVATE KEY PEM 형식을 설명합니다."
-parent: "PKI & 암호"
+parent: "보안"
 nav_order: 8
 permalink: /pki/pkcs8/
 redirect_from:

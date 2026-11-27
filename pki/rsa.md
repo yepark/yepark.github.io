@@ -1,6 +1,6 @@
 ---
 title: "RSA 암호화와 전자서명"
-parent: "PKI & 암호"
+parent: "보안"
 nav_order: 3
 permalink: /pki/rsa/
 last_modified_at: 2026-11-17

@@ -1,7 +1,7 @@
 ---
 title: "PKCS #7: 서명·암호 메시지와 CMS"
 description: "PKCS #7과 CMS RFC 5652의 SignedData, EnvelopedData, attached·detached 서명 구조를 설명합니다."
-parent: "PKI & 암호"
+parent: "보안"
 nav_order: 7
 permalink: /pki/pkcs7/
 redirect_from:

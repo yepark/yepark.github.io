@@ -1,6 +1,6 @@
 ---
 title: "VID와 EVID의 역할"
-parent: "PKI & 암호"
+parent: "보안"
 nav_order: 5
 permalink: /pki/vid-evid/
 last_modified_at: 2026-11-17

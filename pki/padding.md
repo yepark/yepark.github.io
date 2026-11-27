@@ -1,6 +1,6 @@
 ---
 title: "블록 암호의 패딩과 무결성"
-parent: "PKI & 암호"
+parent: "보안"
 nav_order: 1
 permalink: /pki/padding/
 last_modified_at: 2026-11-17

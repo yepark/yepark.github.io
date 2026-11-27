@@ -1,7 +1,7 @@
 ---
 title: "대칭 암호와 AES-GCM"
 description: "대칭 키 암호와 AES, 블록 암호 운용 모드를 설명하고, 암호화와 변조 검사를 함께 하는 인증 암호 AES-GCM의 키·nonce·부가 데이터·인증 태그를 Python으로 확인합니다. nonce를 재사용하면 평문이 드러나는 것도 직접 재현합니다."
-parent: "PKI & 암호"
+parent: "보안"
 nav_order: 15
 permalink: /pki/aes-gcm/
 date: 2026-11-27

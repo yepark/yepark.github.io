@@ -1,6 +1,6 @@
 ---
 title: "ARIA 알고리즘과 운용 모드"
-parent: "PKI & 암호"
+parent: "보안"
 nav_order: 2
 permalink: /pki/aria/
 last_modified_at: 2026-11-17

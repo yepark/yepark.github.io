@@ -1,7 +1,7 @@
 ---
 title: "해시 함수와 HMAC"
 description: "암호학적 해시 함수의 성질(고정 길이, 일방향, 충돌 저항)과 SHA-2·SHA-3, 해시만으로 변조를 막을 수 없는 이유, 비밀 키로 무결성과 출처를 확인하는 HMAC, 시간이 일정한 비교를 Python 실행 결과로 설명합니다."
-parent: "PKI & 암호"
+parent: "보안"
 nav_order: 14
 permalink: /pki/hash-hmac/
 date: 2026-11-27

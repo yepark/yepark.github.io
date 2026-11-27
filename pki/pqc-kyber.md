@@ -1,7 +1,7 @@
 ---
 title: "PQC와 ML-KEM(Kyber)"
 description: "양자 컴퓨터 위협에 대응하는 격자 기반 키 교환 알고리즘 ML-KEM(CRYSTALS-Kyber)의 동작 원리, NIST 표준화 배경, RSA·ECDH와의 차이를 설명합니다."
-parent: "PKI & 암호"
+parent: "보안"
 nav_order: 7
 permalink: /pki/pqc-kyber/
 last_modified_at: 2026-11-25

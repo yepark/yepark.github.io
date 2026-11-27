@@ -1,7 +1,7 @@
 ---
 title: "TLS 1.3 핸드셰이크"
 description: "HTTPS의 바탕인 TLS 1.3이 키를 합의하고 서버를 인증하는 핸드셰이크를 메시지 단위로 설명합니다. 로컬 OpenSSL 서버·클라이언트로 실제 메시지 순서를 관찰하고, TLS 1.2와의 차이, 순방향 비밀성, 0-RTT를 다룹니다."
-parent: "PKI & 암호"
+parent: "보안"
 nav_order: 17
 permalink: /pki/tls13/
 date: 2026-11-27
