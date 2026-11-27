@@ -18,13 +18,13 @@ tags: [PKI, PQC, Kyber, ML-KEM, NIST, 격자암호]
 
 {% include article-toc.md %}
 
-현재 인터넷 보안의 핵심인 RSA와 ECDH는 같은 약점을 공유한다. 큰 수의 소인수분해나 타원 곡선 이산 로그 문제가 어렵다는 가정 위에 성립한다. 고전 컴퓨터로는 이 문제를 현실적인 시간 안에 풀 수 없지만, 충분히 큰 양자 컴퓨터는 쇼어 알고리즘으로 다항 시간에 풀 수 있다.
+현재 인터넷 보안의 핵심인 RSA와 ECDH는 같은 약점을 공유한다. 큰 수의 소인수분해나 타원 곡선 이산 로그 문제가 어렵다는 가정 위에 성립한다. 지금의 컴퓨터(양자 컴퓨터와 구분해 고전 컴퓨터라고 부른다)로는 이 문제를 현실적인 시간 안에 풀 수 없다. 하지만 충분히 큰 양자 컴퓨터가 생기면 쇼어 알고리즘으로 키 크기가 커져도 감당할 수 있는 시간(다항 시간) 안에 풀 수 있다.
 
 **PQC(Post-Quantum Cryptography, 양자 내성 암호)**는 양자 컴퓨터가 존재하더라도 안전한 알고리즘을 설계하는 분야다. NIST는 2016년부터 PQC 표준화를 진행해 2024년 세 가지 알고리즘을 최종 표준으로 발표했고, 그 중 키 교환과 암호화를 담당하는 알고리즘이 **ML-KEM**이다. 원래 이름은 **CRYSTALS-Kyber**다.
 
 ## 양자 컴퓨터가 위협이 되는 이유
 
-쇼어 알고리즘은 1994년에 발표됐다. 양자 컴퓨터가 충분한 큐비트를 갖추면 RSA-2048을 몇 시간 안에 풀 수 있다는 이론적 근거다. 2024년 현재 이 규모의 양자 컴퓨터는 존재하지 않지만, 준비하지 않는 것은 위험하다.
+쇼어 알고리즘은 1994년에 발표됐다. 양자 컴퓨터가 충분한 큐비트를 갖추면 RSA-2048을 몇 시간 안에 풀 수 있다는 이론적 근거다. 이 글을 쓰는 시점에도 이 규모의 양자 컴퓨터는 존재하지 않지만, 준비하지 않는 것은 위험하다.
 
 **"지금 수집해서 나중에 복호화"(Harvest Now, Decrypt Later)** 전략이 현실적인 위협이다. 공격자가 오늘 암호화된 트래픽을 대량으로 저장해 두고, 양자 컴퓨터가 실용화되는 시점에 과거 데이터를 복호화할 수 있다. 비밀이 10년 이상 유지되어야 하는 데이터는 지금 당장 PQC로 보호해야 한다.
 
@@ -62,7 +62,7 @@ ML-KEM의 안전성은 **LWE(Learning With Errors)** 문제에 기반한다. 직
 
 오차가 있는 상태에서 원래 비밀(x, y)을 복구하는 것이 LWE 문제다. 이 문제는 고전 컴퓨터와 양자 컴퓨터 모두 효율적으로 풀기 어렵다는 것이 현재까지의 분석 결과다.
 
-**Module-LWE**는 LWE를 다항식 환(ring) 위에서 행렬로 확장한 변형이다. 보안성을 유지하면서 키 크기와 연산 속도를 현실적인 수준으로 줄였다.
+**Module-LWE**는 LWE의 숫자 하나하나를 다항식으로 바꾸고, 그 다항식들로 작은 행렬을 만든 변형이다. 보안성을 유지하면서 키 크기와 연산 속도를 현실적인 수준으로 줄였다.
 
 ## KEM 구조: 키 캡슐화란
 
@@ -126,13 +126,13 @@ m이 v 안에 숨어 들어간다. 개인 키 s 없이는 꺼내기 어렵다.
 오차가 계산 중에 상쇄되는 구조다. 오차의 범위가 충분히 작으면 반올림이 항상 올바른 m을 복구한다.
 
 {: .note }
-실제 ML-KEM은 이 과정을 다항식 환 위에서 수행하고, NTT(Number Theoretic Transform)로 행렬 곱셈을 가속한다. 위의 설명은 직관을 위해 행렬 형태로 단순화한 것이다.
+실제 ML-KEM은 이 과정을 다항식 환 위에서 수행하고, NTT(Number Theoretic Transform, 다항식 곱셈을 빠르게 하는 변환으로 FFT의 정수 버전)로 곱셈을 가속한다. 위의 설명은 직관을 위해 행렬 형태로 단순화한 것이다.
 
 ## RSA·ECDH와의 비교
 
 | 항목 | RSA-2048 | ECDH-P256 | ML-KEM-768 |
 | --- | --- | --- | --- |
-| 보안 수준 | 112비트 | 128비트 | 128비트 |
+| 보안 수준 | 112비트 | 128비트 | 192비트급 (NIST 보안 범주 3) |
 | 공개 키 크기 | 256바이트 | 64바이트 | **1,184바이트** |
 | 암호문 크기 | 256바이트 | 64바이트 | **1,088바이트** |
 | 개인 키 크기 | 1,218바이트 | 32바이트 | **2,400바이트** |
@@ -141,7 +141,7 @@ m이 v 안에 숨어 들어간다. 개인 키 s 없이는 꺼내기 어렵다.
 
 키와 암호문이 RSA·ECDH에 비해 훨씬 크다. TLS 핸드셰이크 같은 곳에서 패킷 크기 증가로 이어진다. 이 오버헤드를 감수하더라도 양자 위협을 차단하는 것이 PQC 도입의 판단 기준이다.
 
-ML-KEM-768은 보안 파라미터다. NIST는 128비트(ML-KEM-512), 192비트(ML-KEM-768), 256비트(ML-KEM-1024) 세 가지를 정의했다.
+ML-KEM 뒤의 숫자는 보안 수준을 고르는 파라미터 세트 이름이다. NIST는 대략 AES-128급(ML-KEM-512), AES-192급(ML-KEM-768), AES-256급(ML-KEM-1024) 세 가지를 정의했고, 실제 서비스에서는 ML-KEM-768을 가장 많이 쓴다.
 
 ## 하이브리드 방식
 
@@ -153,26 +153,28 @@ ML-KEM-768은 보안 파라미터다. NIST는 128비트(ML-KEM-512), 192비트(M
 
 두 공유 비밀을 KDF(Key Derivation Function)로 혼합한다. ECDH가 뚫리더라도 ML-KEM이 안전하면 보호되고, 반대도 마찬가지다.
 
-TLS 1.3에서 이미 하이브리드 키 교환이 실험적으로 도입되고 있다. X25519MLKEM768은 X25519(ECDH)와 ML-KEM-768을 결합한 방식으로, Chrome 등 주요 브라우저가 지원을 추가하고 있다.
+TLS 1.3에서는 이미 하이브리드 키 교환이 쓰이고 있다. X25519MLKEM768은 X25519(ECDH)와 ML-KEM-768을 결합한 방식으로, Chrome·Firefox 같은 주요 브라우저와 Cloudflare 같은 CDN이 기본으로 사용한다.
 
 ## Apple 플랫폼에서의 PQC
 
-Apple은 2024년 iOS 17.4와 macOS 14.4부터 iMessage에 **PQ3 프로토콜**을 도입했다. ML-KEM 기반의 키 교환을 사용해 Harvest Now, Decrypt Later 공격에 대응한다.
+Apple은 2024년 iOS 17.4와 macOS 14.4부터 iMessage에 **PQ3 프로토콜**을 도입했다. ML-KEM의 전신인 Kyber를 키 교환에 사용해 Harvest Now, Decrypt Later 공격에 대응한다.
 
-또한 Apple CryptoKit에서 ML-KEM 지원이 추가됐다.
+또한 iOS 26·macOS 26부터 Apple CryptoKit에서 ML-KEM을 직접 쓸 수 있다.
 
 ```swift
 import CryptoKit
 
-// 키 생성
-let privateKey = try MLKEMPrivateKey(parameters: .MLKEM768)
+// 키 생성 (iOS 26·macOS 26 이상)
+let privateKey = try MLKEM768.PrivateKey()
 let publicKey = privateKey.publicKey
 
-// 캡슐화 (송신자)
-let (sharedSecret, ciphertext) = try publicKey.encapsulate()
+// 캡슐화 (송신자): 공유 비밀과 캡슐(암호문)을 함께 만든다
+let result = try publicKey.encapsulate()
+let sharedSecret = result.sharedSecret
+let ciphertext = result.encapsulated
 
-// 역캡슐화 (수신자)
-let recoveredSecret = try privateKey.decapsulate(ciphertext: ciphertext)
+// 역캡슐화 (수신자): 캡슐에서 같은 공유 비밀을 꺼낸다
+let recoveredSecret = try privateKey.decapsulate(ciphertext)
 ```
 
 {: .note }
