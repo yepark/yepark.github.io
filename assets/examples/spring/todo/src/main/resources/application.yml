@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: todo
+  datasource:
+    url: jdbc:h2:mem:todo
+  jpa:
+    open-in-view: false
+    show-sql: false
+  mvc:
+    problemdetails:
+      enabled: true
+logging:
+  level:
+    org.hibernate.SQL: debug
