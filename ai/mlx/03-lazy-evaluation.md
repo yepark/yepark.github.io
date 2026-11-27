@@ -5,12 +5,12 @@ parent: MLX
 grand_parent: iOS
 nav_order: 3
 permalink: /ai/mlx/lazy-evaluation/
-last_modified_at: 2026-11-20
+last_modified_at: 2026-11-27
 seo:
   type: BlogPosting
 date: 2026-11-16
 first_written: 2026-11-16
-last_modified_date: 2026-11-20
+last_modified_date: 2026-11-27
 tags: [MLX, Python, Lazy-Evaluation, Benchmark]
 ---
 
@@ -20,6 +20,8 @@ tags: [MLX, Python, Lazy-Evaluation, Benchmark]
 {% include article-toc.md %}
 
 MLX의 연산 시간은 Python에서 연산식을 작성한 줄의 실행 시간과 일치하지 않는다. 지연 평가에서는 계산 관계를 구성한 뒤 실제 값이 필요한 시점에 실행하기 때문이다. GPU에서는 작업을 제출하는 시점과 완료하는 시점도 구분된다.
+
+**지연 평가(lazy evaluation)**는 연산식을 만나는 즉시 계산하지 않고, 어떤 값을 어떻게 계산할지만 기록해 두었다가 결과가 실제로 필요할 때 계산하는 실행 방식이다. MLX에서는 `mx.eval`을 호출하거나, 값을 출력하거나, NumPy 배열로 바꾸는 시점에 계산이 일어난다.
 
 이 글에서는 계산 그래프, 평가와 동기화, 캐시된 결과를 구분한다. 이어서 직접 실행한 작은 벤치마크를 해석하고, 어떤 결론까지 정당화할 수 있는지 살펴본다.
 

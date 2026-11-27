@@ -27,6 +27,8 @@ flowchart TD
     empty --> finish
 ```
 
+**LangGraph**는 LLM 애플리케이션의 실행 흐름을 상태를 가진 그래프로 정의하고 실행하는 Python 라이브러리다. LangChain 팀이 만들었으며, 흐름을 노드·엣지·상태 세 가지로 표현한다. 분기와 반복, 중간 저장과 재개처럼 순서대로만 실행하는 체인으로는 다루기 어려운 흐름을 코드로 적을 수 있다.
+
 **노드**는 입력 정리나 답변 작성 한 가지를 맡은 함수다. **엣지**는 그 함수가 끝난 뒤 실행할 위치를 연결하는 화살표다. **상태**는 노드가 읽고 갱신하는 작업 노트다. `StateGraph`로 이 셋을 정의하고, `compile()`로 실행할 수 있게 준비한다. [LangGraph Graph API](https://docs.langchain.com/oss/python/langgraph/graph-api)
 
 ## 첫 그래프에서 두 경로 실행하기

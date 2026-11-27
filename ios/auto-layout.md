@@ -3,13 +3,13 @@ title: "Auto Layout의 제약과 우선순위"
 parent: "iOS"
 nav_order: 1
 permalink: /ios/auto-layout/
-last_modified_at: 2026-11-20
+last_modified_at: 2026-11-27
 seo:
   type: BlogPosting
 date: 2021-04-18
 description: "Auto Layout의 고유 콘텐츠 크기, Hugging·Compression Resistance, baseline과 제약 충돌 진단을 설명합니다."
 first_written: 2021-04-18
-last_modified_date: 2026-11-20
+last_modified_date: 2026-11-27
 tags: [iOS, UIKit, Auto-Layout, Xcode]
 ---
 
@@ -17,6 +17,8 @@ tags: [iOS, UIKit, Auto-Layout, Xcode]
 {: .no_toc }
 
 {% include article-toc.md %}
+
+**Auto Layout**은 뷰의 위치와 크기를 좌표로 직접 정하는 대신 뷰 사이의 관계(제약 조건)로 선언하면, 화면 크기와 콘텐츠에 맞춰 배치를 계산해 주는 UIKit·AppKit의 레이아웃 시스템이다.
 
 Auto Layout을 사용할 때 제약 조건만큼 중요한 것이 우선순위다. 특히 텍스트를 표시하는 뷰는 고유 콘텐츠 크기(intrinsic content size), Content Hugging, Compression Resistance를 함께 이해해야 예상하지 못한 늘어남과 잘림을 막을 수 있다.
 

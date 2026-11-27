@@ -7,8 +7,8 @@ nav_order: 7
 permalink: /ai/mlx/mlx-lm/
 date: 2026-11-21
 first_written: 2026-11-21
-last_modified_at: 2026-11-21
-last_modified_date: 2026-11-21
+last_modified_at: 2026-11-27
+last_modified_date: 2026-11-27
 seo:
   type: BlogPosting
 tags: [MLX, Python, LLM, mlx-lm]
@@ -30,6 +30,8 @@ tags: [MLX, Python, LLM, mlx-lm]
 이 번호를 **토큰**이라고 부른다. 토큰은 모델이 다루는 글자 조각에 붙인 번호다. 사전의 쪽 번호처럼, 모델은 글자 대신 번호를 주고받는다. 글자를 번호로 바꾸고 되돌리는 일은 **토크나이저**가 맡는다.
 
 [앞 글]({{ '/ai/mlx/neural-network/' | relative_url }})에서는 파라미터 33개짜리 신경망을 `nn.Module`로 만들었다. 이번 글에서는 `mlx-lm` 패키지가 제공하는 Llama 모델 코드로 작은 언어 모델을 직접 만들고, 위의 반복이 코드에서 어떻게 일어나는지 따라간다.
+
+**mlx-lm**은 MLX로 언어 모델을 실행하고 미세 조정하기 위한 Python 패키지다. Hugging Face에 공개된 모델을 불러와 텍스트를 생성하고, 양자화와 LoRA 미세 조정 같은 기능을 명령어와 Python API로 제공한다. 이 글은 그중 모델 코드 부분을 직접 사용한다.
 
 {: .tip }
 쉽게 말하면, 언어 모델은 "다음 한 칸 맞히기"를 아주 많이 반복하는 기계다.
