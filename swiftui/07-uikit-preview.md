@@ -124,4 +124,5 @@ Apple 문서에 따르면 한 파일에 미리보기를 여러 개 둘 수 있�
 ## 이어서 읽기
 
 - 이전 글: [Combine 실습: 검색 화면]({{ '/swiftui/combine-search/' | relative_url }})
+- 다음 글: [SwiftData로 데이터 저장하기]({{ '/swiftui/swiftdata/' | relative_url }})
 - [SwiftUI 연재 목차]({{ '/swiftui/' | relative_url }})
