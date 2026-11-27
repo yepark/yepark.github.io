@@ -92,9 +92,9 @@ titleLabel.lineBreakMode = .byTruncatingTail
 
 1. 필수 제약끼리 같은 축에서 서로 모순되는지 확인한다.
 2. `translatesAutoresizingMaskIntoConstraints`가 의도치 않게 `true`인지 확인한다.
-3. 고유 콘텐츠 크기가 있는 뷰의 CHCR 우선순위를 비교한다.
+3. 고유 콘텐츠 크기가 있는 뷰의 Content Hugging·Compression Resistance 우선순위를 비교한다.
 4. 다국어의 긴 문자열과 Dynamic Type의 가장 큰 글자 크기로 시험한다.
-5. `UIViewAlertForUnsatisfiableConstraints`에 symbolic breakpoint를 걸어 충돌 시점의 호출 스택을 확인한다.
+5. `UIViewAlertForUnsatisfiableConstraints`에 symbolic breakpoint(파일·줄이 아니라 함수 이름으로 거는 중단점)를 걸어 충돌 시점의 호출 스택을 확인한다.
 
 제약이 모호한지 확인할 때는 `hasAmbiguousLayout`과 디버거의 `exerciseAmbiguityInLayout()`도 활용할 수 있다. 후자는 가능한 레이아웃 사이를 바꿔 보여 주므로 빠진 제약을 시각적으로 찾는 데 도움이 된다.
 

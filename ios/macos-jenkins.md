@@ -20,7 +20,7 @@ tags: [iOS, Xcode, Jenkins, Fortify, CI]
 
 > 이 글의 화면 캡처는 2020년 Jenkins UI를 기준으로 한다. 메뉴 이름과 플러그인 화면은 현재 버전에서 달라질 수 있으므로, 설치 전 공식 문서의 지원 버전을 함께 확인한다.
 
-Jenkins는 빌드, 테스트, 분석, 배포 작업을 자동화하는 오픈 소스 자동화 서버다. 이 글에서는 macOS에 Jenkins LTS를 설치하고, Xcode 프로젝트와 Fortify 정적 분석을 연결할 때 필요한 흐름을 정리한다.
+Jenkins는 빌드, 테스트, 분석, 배포 작업을 자동화하는 오픈 소스 자동화 서버다. 이 글에서는 macOS에 Jenkins LTS(장기 지원 버전)를 설치하고, Xcode 프로젝트와 Fortify 정적 분석을 연결할 때 필요한 흐름을 정리한다. 정적 분석은 코드를 실행하지 않고 소스만 읽어 보안 취약점이나 버그 패턴을 찾는 검사이고, Fortify는 이 분야에서 널리 쓰이는 상용 도구다.
 
 ## 자동 빌드의 흐름부터 보기
 
@@ -36,7 +36,7 @@ Jenkins를 실행하려면 지원되는 Java 런타임이 필요하다. 지원 �
 java -version
 ```
 
-Jenkins용 Java와 앱을 빌드할 때 사용하는 JDK는 서로 다를 수 있다. 다만 컨트롤러와 에이전트는 Jenkins가 요구하는 최소 Java 버전을 충족해야 한다.
+Jenkins용 Java와 앱을 빌드할 때 사용하는 JDK는 서로 다를 수 있다. 다만 컨트롤러(작업을 관리하고 웹 화면을 제공하는 Jenkins 본체)와 에이전트(실제 빌드를 실행하는 기기)는 Jenkins가 요구하는 최소 Java 버전을 충족해야 한다.
 
 ## Homebrew로 Jenkins LTS 설치
 

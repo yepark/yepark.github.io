@@ -18,9 +18,9 @@ tags: [iOS, Objective-C, Core-Data]
 
 {% include article-toc.md %}
 
-Core Data는 앱의 모델 객체와 객체 그래프를 관리하는 프레임워크다. 변경 추적, 관계 관리, 검증, Undo/Redo, faulting, 영속성 같은 기능을 제공한다.
+Core Data는 앱의 모델 객체와 객체 그래프를 관리하는 프레임워크다. 변경 추적, 관계 관리, 검증, 실행 취소(Undo/Redo), faulting(실제 값이 필요해질 때까지 데이터를 메모리에 올리지 않고 미뤄 두는 기능), 영속성(앱을 껐다 켜도 데이터가 남도록 저장하는 것) 같은 기능을 제공한다.
 
-Core Data를 단순히 SQLite용 ORM으로 이해하면 중요한 특성을 놓치기 쉽다. SQLite는 사용할 수 있는 저장소 중 하나일 뿐이며, 메모리 저장소처럼 데이터베이스가 아닌 구성도 지원한다.
+Core Data를 단순히 SQLite용 ORM(데이터베이스 테이블의 행을 프로그램의 객체로 바꿔 주는 도구)으로 이해하면 중요한 특성을 놓치기 쉽다. SQLite는 사용할 수 있는 저장소 중 하나일 뿐이며, 메모리 저장소처럼 데이터베이스가 아닌 구성도 지원한다.
 
 {: .note }
 Swift 예제와 핵심 클래스, 관계·백그라운드 작업·마이그레이션까지 처음부터 보려면 [Core Data 아키텍처와 Swift 구현]({{ '/ios/core-data-swift/' | relative_url }})를 먼저 읽어도 좋다.

@@ -16,7 +16,7 @@ last_modified_date: 2026-11-27
 
 {% include article-toc.md %}
 
-메모 앱에 ‘세 문장으로 요약하기’ 버튼을 만든다고 생각해 보자. 사용자가 쓴 글을 읽고 짧은 설명을 만드는 부분에 언어 모델을 사용할 수 있다. Apple의 Foundation Models 프레임워크는 Swift에서 모델과 대화하고, 정해진 타입으로 결과를 받으며, 앱의 도구를 연결하는 API다. iOS 26의 기본 출발점은 온디바이스 모델인 `SystemLanguageModel`이다.
+메모 앱에 ‘세 문장으로 요약하기’ 버튼을 만든다고 생각해 보자. 사용자가 쓴 글을 읽고 짧은 설명을 만드는 부분에 언어 모델을 사용할 수 있다. Apple의 Foundation Models 프레임워크는 Swift에서 모델과 대화하고, 정해진 타입으로 결과를 받으며, 앱의 도구를 연결하는 API다. iOS 26의 기본 출발점은 온디바이스 모델(서버로 보내지 않고 iPhone 안에서 직접 실행되는 모델)인 `SystemLanguageModel`이다.
 
 아래 Swift 예제는 iOS 26에서 도입된 기본 텍스트 생성 API를 기준으로 한다. 2026년 11월 19일 확인한 최신 문서에는 iOS 27 이상의 확장도 포함돼 있다. 두 버전의 기능을 섞어서 해석하지 않도록 먼저 범위를 나눈다.
 
@@ -25,10 +25,10 @@ last_modified_date: 2026-11-27
 | 범위 | 이해할 내용 | 구현 전에 확인할 것 |
 | --- | --- | --- |
 | iOS 26 기본 경로 | `SystemLanguageModel`로 기기 안에서 생성 | 지원 기기, 모델 준비, 언어, Apple Intelligence 상태 |
-| iOS 27 이상의 PCC 경로 | `PrivateCloudComputeLanguageModel`로 서버 모델 사용 | OS·SDK 가용성, 네트워크, 사용량 한도, 접근 자격 |
+| iOS 27 이상의 PCC(Private Cloud Compute) 경로 | `PrivateCloudComputeLanguageModel`로 서버 모델 사용 | OS·SDK 가용성, 네트워크, 사용량 한도, 접근 자격 |
 | iOS 27 이상의 동적 프로필 | 앱 상태에 따라 모델·지침·도구 구성을 선택 | `DynamicProfile`의 가용성과 활성 구성 |
 
-Apple의 [PCC 연동 문서](https://developer.apple.com/documentation/foundationmodels/adding-server-side-intelligence-with-private-cloud-compute)는 서버 모델을 iOS 27 이상 기능으로 설명하고 관리형 entitlement 접근 조건도 안내한다. 프레임워크 전체가 항상 오프라인이라고 설명하면 이 경로를 놓친다. 반대로 새 문서에 타입이 보인다는 이유만으로 iOS 26 앱에서 그대로 사용할 수도 없다.
+Apple의 [PCC 연동 문서](https://developer.apple.com/documentation/foundationmodels/adding-server-side-intelligence-with-private-cloud-compute)는 서버 모델을 iOS 27 이상 기능으로 설명하고, 사용하려면 Apple이 승인하는 별도 권한(관리형 entitlement)이 필요하다고 안내한다. PCC는 Apple이 운영하는 서버에서 모델을 실행하되, 요청 데이터를 저장하지 않고 Apple도 볼 수 없도록 설계한 클라우드다. 프레임워크 전체가 항상 오프라인이라고 설명하면 이 경로를 놓친다. 반대로 새 문서에 타입이 보인다는 이유만으로 iOS 26 앱에서 그대로 사용할 수도 없다.
 
 [동적 프로필의 공식 선언](https://developer.apple.com/documentation/foundationmodels/languagemodelsession/dynamicprofile)은 iOS 27 이상으로 표시된다. 프로필은 앱 상태에 따라 활성 지침·도구·모델 구성을 정하는 기능이며, 아래의 고정 `instructions` 초기화와 구분한다. 문서의 최신 초기화 코드를 기존 타깃에 복사하는 것으로 기능이 추가되지는 않는다.
 
@@ -180,7 +180,7 @@ func summarizeAsData(_ text: String) async throws -> NoteSummary {
 }
 ```
 
-`@Generable`은 모델이 생성할 데이터 구조를 프레임워크에 알린다. Apple의 [guided generation 문서](https://developer.apple.com/documentation/foundationmodels/generating-swift-data-structures-with-guided-generation)는 constrained sampling으로 스키마에 맞는 출력을 생성한다고 설명한다. 문자열을 받은 뒤 JSON으로 파싱해 보는 것과 달리 생성 단계에서 허용할 구조를 제한한다.
+`@Generable`은 모델이 생성할 데이터 구조를 프레임워크에 알린다. Apple의 [guided generation 문서](https://developer.apple.com/documentation/foundationmodels/generating-swift-data-structures-with-guided-generation)는 constrained sampling으로 스키마에 맞는 출력을 생성한다고 설명한다. 모델이 다음 토큰을 고를 때 타입 구조에 맞지 않는 후보를 아예 제외하는 방식이다. 문자열을 받은 뒤 JSON으로 파싱해 보는 것과 달리 생성 단계에서 허용할 구조를 제한한다.
 
 `@Guide`의 설명은 각 필드의 의미를 모델에 알려 준다. 여기서 “두 문장”은 자연어 지침이지 Swift 타입이 검증하는 문장 수 제한이 아니다. 반환값은 `NoteSummary`이므로 `result.title`처럼 바로 접근할 수 있다. 구조를 지킨다는 보장과 내용이 사실이라는 보장은 다르다. 원문에 없는 날짜나 이름을 만들었는지도 검토해야 한다.
 
@@ -201,7 +201,7 @@ for try await snapshot in stream {
 }
 ```
 
-스트리밍은 응답 전체가 끝나기 전에 중간 결과를 받는 방식이다. Foundation Models는 누적된 상태를 나타내는 snapshot을 전달한다. 화면에서는 새 snapshot의 내용으로 교체한다. 매번 뒤에 붙이면 앞서 생성한 문장이 중복될 수 있다.
+스트리밍은 응답 전체가 끝나기 전에 중간 결과를 받는 방식이다. Foundation Models는 지금까지 생성된 전체 내용을 담은 snapshot을 전달한다. 화면에서는 새 snapshot의 내용으로 교체한다. 매번 뒤에 붙이면 앞서 생성한 문장이 중복될 수 있다.
 
 ## Tool은 어떤 일을 할까
 
