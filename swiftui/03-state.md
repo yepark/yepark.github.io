@@ -18,12 +18,9 @@ tags: [SwiftUI, iOS]
 
 {% include article-toc.md %}
 
-## 상태와 데이터 흐름
-{: id="상태와-데이터-흐름" }
+SwiftUI에서 화면은 상태의 결과다. 이 글은 상태를 어디에 두고, 누가 바꾸고, 누가 읽을지 정하는 도구들을 다룬다. 뷰가 직접 가진 값(`@State`), 빌려 쓰는 값(`@Binding`), 클래스 모델을 관찰하는 방법(`@Observable`, 예전 방식인 `ObservableObject`), 멀리 있는 뷰에 값을 전달하는 방법(`@Environment`) 순서로 본다. `body`가 언제 다시 계산되는지 직접 출력해 확인한다.
 
-이제 핵심이다. SwiftUI에서 화면은 상태의 결과다. 상태를 어디에 두고, 누가 바꾸고, 누가 읽는지 정하는 도구가 여럿 있다.
-
-### @State: 뷰가 직접 가진 값
+## @State: 뷰가 직접 가진 값
 {: id="state-뷰가-직접-가진-값" }
 
 `@State`는 iOS 13부터 쓸 수 있다. Apple 문서는 `@State`를 "뷰 계층에 저장하는 값 타입의 단일 진실 공급원(single source of truth)"으로 쓰라고 하고, **`private`으로 선언하라**고 권한다.
@@ -94,7 +91,7 @@ PlusTen.body count=11
 
 이 실행에서 변경된 상태에 의존하는 두 뷰의 `body`가 다시 평가됐다. 같은 뷰라도 부모의 입력, 환경, 정체성이 달라지면 다른 이유로 다시 평가될 수 있다. 출력은 의존성을 설명하는 실험 결과다.
 
-### @Binding: 남의 값을 빌려 쓰고 고치기
+## @Binding: 남의 값을 빌려 쓰고 고치기
 {: id="binding-남의-값을-빌려-쓰고-고치기" }
 
 `PlusTen`은 `count`를 직접 갖지 않는다. `@Binding`으로 **`CounterView`의 `count`를 빌려** 왔다. 부모가 `$count`처럼 `$`를 붙여 넘기면 바인딩이 된다.
@@ -106,7 +103,7 @@ Apple 문서 기준 정리다. 자식이 값을 **읽기만** 하면 그냥 값�
 
 UIKit에서 delegate나 클로저로 "값 바뀌었어요"를 부모에게 알리던 일을 바인딩 한 줄이 대신한다. 클로저로 직접 바인딩을 만드는 방식은 [클로저 기반 데이터 바인딩과 Box]({{ '/swift/data-binding/' | relative_url }})에서 다뤘다.
 
-### 원본과 바인딩을 어디에 둘까 {#state-ownership}
+## 원본과 바인딩을 어디에 둘까 {#state-ownership}
 
 화면마다 값을 고칠 책임이 있는 곳을 먼저 정한다. 예를 들어 결제 화면의 주소 원본이 뷰모델에 있다면 팝업의 입력 필드에는 원본에 쓰는 바인딩을 주거나, 확인을 누를 때만 원본에 반영하는 **임시 초안**을 만든다. 임시 초안의 저장 시점까지 정해 두면 화면이 두 개여도 담당이 분명하다.
 
@@ -121,7 +118,7 @@ UIKit에서 delegate나 클로저로 "값 바뀌었어요"를 부모에게 알�
 
 `@Binding`은 저장 공간을 그대로 유지하면서 읽기와 쓰기를 전달하는 통로다. `@State`의 `$name`과 `@Bindable`의 `$profile.name`을 `TextField`에 전달하는 이유다. `$`의 결과 타입은 프로퍼티 래퍼가 정한다. 뒤에서 `@Published`의 `$query`가 Publisher인 경우를 확인한다.
 
-### 무엇 때문에 다시 계산됐는지 묻기
+## 무엇 때문에 다시 계산됐는지 묻기
 {: id="무엇-때문에-다시-계산됐는지-묻기" }
 
 `Self._printChanges()`를 `body`에 넣으면 SwiftUI가 다시 계산한 이유를 출력한다. 이름이 밑줄로 시작하는 디버깅용 메서드라서, 확인할 때만 넣고 지운다. iOS 15부터 쓸 수 있다.
@@ -145,10 +142,10 @@ ChangesView: _count changed.
 
 첫 줄은 처음 나타났을 때다. 두 번째 줄은 `count`(내부 이름 `_count`)가 바뀌어서 다시 계산했다는 뜻이다.
 
-### @Observable: 모델 객체를 관찰하기 (iOS 17)
+## @Observable: 모델 객체를 관찰하기 (iOS 17)
 {: id="observable-모델-객체를-관찰하기-ios-17" }
 
-화면 하나에 담기 어려운 데이터는 클래스 모델로 뺀다. iOS 17, macOS 14부터는 `@Observable` 매크로를 붙이면 된다. 프로퍼티에 따로 표시할 것이 없다.
+화면 하나에 담기 어려운 데이터는 클래스 모델로 뺀다. iOS 17, macOS 14부터는 `@Observable` 매크로(컴파일할 때 필요한 코드를 대신 만들어 주는 표시)를 붙이면 된다. 프로퍼티에 따로 표시할 것이 없다.
 
 ```swift
 import Observation
@@ -206,7 +203,7 @@ Observation은 `body`를 평가하는 동안 모델에서 실제 읽은 프로�
 {: .tip }
 `@Observable`은 뷰마다 "네가 읽은 칸"을 메모해 두는 사서다. `score` 칸이 바뀌면 `score`를 읽어 간 사람에게만 연락한다.
 
-### 예전 방식: ObservableObject와 비교
+## 예전 방식: ObservableObject와 비교
 {: id="예전-방식-observableobject와-비교" }
 
 SwiftUI의 Observation 통합이 들어온 iOS 17보다 낮은 버전을 지원하거나 기존 Combine 모델을 유지할 때는 `ObservableObject`와 `@Published`를 사용할 수 있다. 같은 실험을 해 보자.
@@ -251,7 +248,7 @@ OldScoreView.body
 {: .note }
 Apple 문서는 한 번에 다 바꿀 필요가 없다고 설명한다. 모델 타입 하나씩 `@Observable`로 옮겨도 되고, 두 방식이 한 앱에 섞여 있어도 된다.
 
-### @StateObject와 @ObservedObject의 차이
+## @StateObject와 @ObservedObject의 차이
 {: id="stateobject와-observedobject의-차이" }
 
 예전 방식에서 자주 헷갈리는 부분이 있다. 둘 다 객체를 관찰하지만, **누가 객체를 소유하느냐**가 다르다. SwiftUI는 같은 정체성이 유지되는 동안 `@StateObject`의 객체를 보존한다. 뷰 초기화 인자가 바뀌어도 기존 객체가 자동으로 교체되지는 않는다. [Apple · StateObject](https://developer.apple.com/documentation/swiftui/stateobject)
@@ -294,7 +291,7 @@ BorrowView ticket=3
 {: .warning }
 `@ObservedObject`는 "남이 만든 객체를 빌려 본다"는 표시다. 그 자리에서 `= Ticket()`처럼 직접 만들면 부모가 다시 계산될 때마다 새 객체가 생긴다. 뷰가 직접 만드는 객체는 `@StateObject`(iOS 17 이상에서 `@Observable`이면 `@State`)에 둔다.
 
-### @Bindable과 @Environment (iOS 17)
+## @Bindable과 @Environment (iOS 17)
 {: id="bindable과-environment-ios-17" }
 
 `@Observable` 모델의 프로퍼티를 `TextField`처럼 바인딩이 필요한 곳에 넘기려면 `@Bindable`을 붙인다. 그러면 `$profile.name` 같은 바인딩을 만들 수 있다.

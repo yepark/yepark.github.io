@@ -18,6 +18,8 @@ tags: [SwiftUI, iOS, Combine]
 
 {% include article-toc.md %}
 
+**Combine**은 Apple이 iOS 13과 함께 내놓은 프레임워크로, 검색어 입력이나 네트워크 응답처럼 시간에 따라 들어오는 값을 Publisher(값을 내보내는 쪽)와 연산자로 처리한다. RxSwift와 개념이 거의 같다. 이 글에서는 Combine의 기본 구성과 SwiftUI의 `ObservableObject`가 Combine과 어떻게 이어지는지 확인한다. 다음 글에서 이것으로 검색 화면을 만든다.
+
 ## Combine과 SwiftUI를 연결하기 {#combine}
 
 SwiftUI는 `body`로 화면을 설명하고, **Combine**은 시간에 따라 들어오는 값을 처리한다. 검색어, 위치 업데이트, 네트워크 응답을 하나씩 받아 걸러내거나 합칠 때 Combine을 쓸 수 있다. `ObservableObject`에서 SwiftUI가 사용하는 변경 알림도 Combine Publisher다. Combine으로 검색 입력과 응답을 처리하고 SwiftUI로 결과를 화면에 표시하는 식으로 두 역할을 나눌 수 있다.
