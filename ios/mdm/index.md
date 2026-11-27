@@ -5,7 +5,7 @@ nav_order: 30
 has_children: true
 has_toc: false
 permalink: /ios/mdm/
-last_modified_date: 2026-11-27
+last_modified_date: 2026-11-28
 ---
 
 # Apple MDM
@@ -29,6 +29,7 @@ last_modified_date: 2026-11-27
 | 앱 | 5편 | 앱 라이선스와 설치, 앱 설정은 어떻게 하나 |
 | DDM | 6편 | 명령 대신 "원하는 상태"를 선언하면 무엇이 달라지나 |
 | 운영 | 7편 | 인증서·토큰 갱신, 보안, 장애 대응 |
+| 정책 | 8편 | MDM 프로파일의 키와 권한, 암호·제한 정책은 어떻게 짜나 |
 | UEM | 10편 | Apple, Android, Windows를 한 콘솔에서 관리하면 무엇이 같고 무엇이 다른가 (MDM·MAM·EMM·UEM) |
 
 ## 먼저 알아 둘 용어
