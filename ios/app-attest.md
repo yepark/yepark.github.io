@@ -19,7 +19,7 @@ tags: [iOS, Security, DeviceCheck, App-Attest]
 
 출석 체크를 하면 포인트를 주는 앱이 있다고 생각해 보자. 서버 API는 `POST /rewards/check-in` 하나다. 앱의 네트워크 요청을 복사하면 스크립트로 이 API를 수천 번 호출할 수 있다. 로그인 토큰만으로는 요청을 보낸 쪽이 우리가 배포한 앱인지, 앱을 흉내 내는 프로그램인지 구분하기 어렵다.
 
-**App Attest**는 이 질문에 답하기 위한 기능이다. 앱은 기기의 Secure Enclave에 키를 만들고, Apple에 이 키가 정상 기기의 정상 앱에서 만들어졌다는 증명(attestation)을 받는다. 서버는 이 증명을 검증해 공개 키를 저장하고, 이후 중요한 요청마다 그 키로 서명한 assertion을 확인한다.
+**App Attest**는 이 질문에 답하기 위한 기능이다. 앱은 기기의 Secure Enclave(개인 키를 꺼낼 수 없게 보관하는 칩 안의 별도 보안 영역)에 키를 만들고, Apple에 이 키가 정상 기기의 정상 앱에서 만들어졌다는 증명(attestation)을 받는다. 서버는 이 증명을 검증해 공개 키를 저장하고, 이후 중요한 요청마다 그 키로 서명한 assertion을 확인한다.
 
 이 글은 DeviceCheck 프레임워크의 `DCAppAttestService`를 기준으로 한다. iOS 14부터 사용할 수 있다.
 
@@ -82,7 +82,7 @@ let attestation = try await service.attestKey(keyID, clientDataHash: clientDataH
 try await api.registerAttestation(keyID: keyID, attestation: attestation)
 ```
 
-`attestKey`를 호출하면 시스템이 Apple 서버에 이 키의 증명을 요청한다. 결과인 `attestation`은 CBOR로 인코딩된 객체다.
+`attestKey`를 호출하면 시스템이 Apple 서버에 이 키의 증명을 요청한다. 결과인 `attestation`은 CBOR(JSON과 비슷한 구조를 더 작은 바이너리로 표현하는 형식)로 인코딩된 객체다.
 
 ```
 {
