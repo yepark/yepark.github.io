@@ -1,0 +1,30 @@
+---
+layout: null
+permalink: /feed.xml
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>{{ site.title | xml_escape }}</title>
+  <link>{{ '/' | absolute_url }}</link>
+  <description>{{ site.description | xml_escape }}</description>
+  <language>ko</language>
+  <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
+  <atom:link href="{{ '/feed.xml' | absolute_url }}" rel="self" type="application/rss+xml"/>
+  {%- assign posts = site.pages | where_exp: "p", "p.seo.type == 'BlogPosting'" | sort: "date", "last" | reverse -%}
+  {%- for p in posts limit: 50 %}
+  <item>
+    <title>{{ p.title | xml_escape }}</title>
+    <link>{{ p.url | absolute_url }}</link>
+    <guid isPermaLink="true">{{ p.url | absolute_url }}</guid>
+    {%- assign d = p.date | default: p.first_written %}
+    {%- if d %}
+    <pubDate>{{ d | date_to_rfc822 }}</pubDate>
+    {%- endif %}
+    {%- if p.description %}
+    <description>{{ p.description | xml_escape }}</description>
+    {%- endif %}
+  </item>
+  {%- endfor %}
+</channel>
+</rss>
