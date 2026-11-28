@@ -18,12 +18,9 @@ adsense:
   # 승인 후 AdSense에서 생성한 반응형 디스플레이 광고 단위 ID를 넣는다.
   post_end_slot: ""
 
-# 후원 버튼. 값이 비어 있으면 그 버튼을 출력하지 않는다.
-# github: GitHub Sponsors 프로필이 공개된 뒤 사용자 이름
-# toss: toss.me/ 뒤에 붙는 토스 아이디
+# 후원 버튼. GitHub Sponsors 프로필이 공개된 뒤 사용자 이름을 넣는다. 비어 있으면 출력하지 않는다.
 sponsor:
   github: ""
-  toss: ""
 
 defaults:
   - scope:
