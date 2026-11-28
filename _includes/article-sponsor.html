@@ -1,0 +1,17 @@
+{%- assign sponsor_github = site.sponsor.github | default: '' | strip -%}
+{%- assign sponsor_toss = site.sponsor.toss | default: '' | strip -%}
+{%- if page.seo.type == 'BlogPosting' -%}
+{%- if sponsor_github != '' or sponsor_toss != '' -%}
+<aside class="article-sponsor" aria-label="후원">
+  <p>이 글이 도움이 됐다면 커피 한 잔으로 응원해 주세요.</p>
+  <div class="article-sponsor__links">
+    {%- if sponsor_toss != '' %}
+    <a class="article-sponsor__btn article-sponsor__btn--toss" href="https://toss.me/{{ sponsor_toss | uri_escape }}" target="_blank" rel="noopener">토스로 후원</a>
+    {%- endif %}
+    {%- if sponsor_github != '' %}
+    <a class="article-sponsor__btn" href="https://github.com/sponsors/{{ sponsor_github | uri_escape }}" target="_blank" rel="noopener">♥ Sponsor</a>
+    {%- endif %}
+  </div>
+</aside>
+{%- endif -%}
+{%- endif -%}
